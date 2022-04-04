@@ -14,7 +14,7 @@ import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 
 
-function LogOutListItems(props){
+function LogOutListItems(props: any){
   const [cookies, setCookie, removeCookie] = useCookies(['c_user']);
   const navigate = useNavigate();
   function handleClick() {
@@ -36,14 +36,6 @@ function LogOutListItems(props){
                 </ListItemIcon>
               <ListItemText primary="Account Settings"/>
             </ListItem>
-            {props.model.role === "Scholar" ? 
-            <ListItem button onClick={() => navigate('/personal')}>
-              <ListItemIcon>
-                  <AccountCircleIcon/>
-              </ListItemIcon>
-              <ListItemText primary="Personal Information"/>
-            </ListItem> : ""
-            }
             <ListItem button onClick={handleClick}>
               <ListItemIcon>
                   <ExitToAppIcon/>

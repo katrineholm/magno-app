@@ -2,7 +2,7 @@
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
-import React from 'react';
+import React,  { CSSProperties } from 'react';
 import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -20,6 +20,10 @@ import LogInListItems from './LogInListItems'
 import LogOutListItems from './LogOutListItems'
 
 const drawerWidth = 240;
+
+export interface StylesDictionary{
+  [Key: string]: CSSProperties;
+}
 
 // eslint-disable-next-line no-shadow
 const styles = (theme: any) => ({
@@ -61,8 +65,8 @@ const styles = (theme: any) => ({
     flexGrow: 1,
   },
   drawerPaper: {
-    position: 'relative',
-    whiteSpace: 'nowrap',
+    position: 'relative' as "relative",
+    whiteSpace: 'nowrap' as "nowrap",
     height: '100vh',
     width: drawerWidth,
     transition: theme.transitions.create('width', {
@@ -71,7 +75,7 @@ const styles = (theme: any) => ({
     }),
   },
   drawerPaperClose: {
-    overflowX: 'hidden',
+    overflowX: 'hidden' as "hidden",
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -95,7 +99,7 @@ const styles = (theme: any) => ({
     padding: theme.spacing(2),
     display: 'flex',
     overflow: 'auto',
-    flexDirection: 'column',
+    flexDirection: 'column' as "column",
   },
   fixedHeight: {
     height: 240,
@@ -113,7 +117,7 @@ const ToolBars = observer( (props: any) => {
       let sign_option;
       let menu_items1;
       let menu_items2 = '';
-      if (props.model.loginStatus){
+      if (props.store.userStore.loginStatus){
           menu_items1 = <MainListItems model={props.model}/>
           //menu_items2 = <SecondaryListItems store={this.store}/>
           sign_option = <LogOutListItems model={props.model}/>

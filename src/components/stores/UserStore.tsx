@@ -1,21 +1,30 @@
 import {action, makeObservable, observable} from 'mobx';
 
 export class UserStore{
-    loginStatus = false;
-    user_email = "";
-    user_name = "";
+    loginStatus = true;
+    userEmail = "";
+    userName = "";
     
     constructor(){
-
+      makeObservable(this, {
+        loginStatus: observable,
+        setLoginStatus: action,
+        userEmail: observable,
+        userName: observable,
+        setUserEmail: action,
+        setUserName: action,
+      })
     }
-    initUserStore = () =>{
-        const loginStatus = false;
-        this.view = "";
-        this.role = "";
-        this.ronin = "";
-        this.metamask = "";
-        this.viewState = "";
-        this.pageState = "";
-        this.email = "";
-      }
+
+    setLoginStatus(loginStatus: boolean) {
+      this.loginStatus = loginStatus;
+    }
+
+    setUserEmail(userEmail: string) {
+        this.userEmail = userEmail;
+    }
+
+    setUserName(userName: string) {
+        this.userName = userName;
+    }
 }

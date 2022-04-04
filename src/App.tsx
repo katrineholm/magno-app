@@ -5,6 +5,12 @@ import { useCookies } from 'react-cookie';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import './App.css';
+import ToolBars from './components/toolbar/ToolBars';
+import {
+  Navigate,
+  Route,
+} from "react-router-dom";
+import Login from './components/Login'
 
 
 const styles = (theme: any) => ({
@@ -24,24 +30,20 @@ export const App = observer( (props: any) =>  {
 
   return (
     <div className={classes.root}>
-      <ToolBars model={props.model}></ToolBars>
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    </div>
+            <ToolBars model={props.model}></ToolBars>
+            {checked ? 
+            <>
+              <Route path="/">
+                {props.store.userStore.loginStatus ? <Navigate to="/dashboard" /> : <Navigate to="/login" />}
+              </Route>
+                <Route path="/dashboard" element={<Dashboard model={props.store}/>}/>
+                <main className={classes.content}>
+                  <Route path="/login" element ={<Login model={props.store}/> }/>
+                  <Route path="/register" element ={<Register model={props.store}/>}/>
+              </main>
+            </>
+            : "loading"}
+        </div>
   );
 });
 

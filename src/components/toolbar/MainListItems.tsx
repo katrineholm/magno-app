@@ -25,10 +25,10 @@ const MainListItems = observer( (props: any) => {
 
   function RenderList(){
 
-    if (props.model.role === undefined){
+    if (props.store.userStore.loginStatus === false){
       return (<></>);
     }
-    else (props.model.role==="Scholar"){
+    else {
       return(
         <>
           <ListItem button onClick={() => navigate('/scholar/dashboard')}>
@@ -58,7 +58,7 @@ const MainListItems = observer( (props: any) => {
       <div>
           <Divider />
           <List>
-            <RenderList model={props.model}/>
+            <RenderList />
             <ListItem button onClick={() => navigate('/leaderboard')}>
             <ListItemIcon>
               <EmojiEventsIcon/>

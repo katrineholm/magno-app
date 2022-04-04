@@ -1,6 +1,6 @@
 import {action, makeObservable, observable} from 'mobx';
 
-export class UserStore{
+export class ViewStore{
     pageState = "";
     view = "";
     viewState = "";

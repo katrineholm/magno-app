@@ -4,13 +4,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Store } from './components/stores/Store';
+
+const store = new Store();
 
 ReactDOM.render(
   
   <React.StrictMode>
     <BrowserRouter>
     <Routes>
-      <Route path="/" element={<App />}>
+      <Route path="/" element={<App store={store}/>}>
         <Route
           path="*"
           element={
