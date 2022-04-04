@@ -85,7 +85,7 @@ interface SnackbarProps {
   variant: keyof typeof variantIcon;
   message?: string;
   open: boolean;
-  setOpen: Function;
+  setOpen: any;
 }
 
 

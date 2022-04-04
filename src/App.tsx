@@ -11,6 +11,8 @@ import {
   Route,
 } from "react-router-dom";
 import Login from './components/Login'
+import Register from './components/Register'
+import Dashboard from './components/Dashboard'
 
 
 const styles = (theme: any) => ({
@@ -27,7 +29,7 @@ const styles = (theme: any) => ({
 export const App = observer( (props: any) =>  {
   const [cookies, removeCookie] = useCookies(['c_user']);
   const {classes} = props;
-
+  const checked = true;
   return (
     <div className={classes.root}>
             <ToolBars model={props.model}></ToolBars>
