@@ -14,6 +14,7 @@ import Container from '@material-ui/core/Container';
 import { v4 as uuidv4 } from 'uuid';
 import CryptoJS from 'crypto-js'
 import Snackbar from "./SnackBar";
+import MagnoLogo from '../files/magno-logo.png';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
@@ -21,19 +22,6 @@ import {
     Link,
     useNavigate
   } from "react-router-dom";
-
-function Copyright() {
-    return (
-      <Typography variant="body2" color="textSecondary" align="center">
-        {'Copyright © '}
-        <Link color="inherit" to={'/'} >
-          Axie College
-        </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
-    );
-  }
 
 const styles = (theme: any) => ({
   paper: {
@@ -116,12 +104,10 @@ const Register = observer( (props: any) => {
         <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
-            <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-            Sign up
-            </Typography>
+          <img src={MagnoLogo} alt="Magno logo"></img>
+          <Typography component="h1" variant="h5">
+            Logg på for å fortsette til Magno
+          </Typography>
             
             <form onSubmit={handleSubmit} className={classes.form} noValidate>
             <Grid container spacing={2}>
@@ -132,7 +118,7 @@ const Register = observer( (props: any) => {
                     fullWidth
                     autoFocus
                     id="email"
-                    label="Email Address"
+                    label="Epost adresse"
                     name="email"
                     autoComplete="email"
                     onChange={handleEmailChange}
@@ -146,7 +132,7 @@ const Register = observer( (props: any) => {
                     required
                     fullWidth
                     name="password"
-                    label="Password"
+                    label="Passord"
                     type="password"
                     id="password"
                     autoComplete="current-password"
@@ -162,13 +148,13 @@ const Register = observer( (props: any) => {
                 color="primary"
                 className={classes.submit}
             >
-                Sign Up
+                Registrer
             </Button>
             <Grid container justify="flex-end">
                 <Grid item>
 
                 <Link to={'/login'}>
-                  {"Already have an account? Sign in"}
+                  {"Har du allerede en konto? Logg inn"}
                 </Link>
                 </Grid>
             </Grid>
@@ -181,9 +167,6 @@ const Register = observer( (props: any) => {
             />
             
         </div>
-        <Box mt={5}>
-            <Copyright />
-        </Box>
         </Container>
         </div>
         );

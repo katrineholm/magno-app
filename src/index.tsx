@@ -5,26 +5,14 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Store } from './components/stores/Store';
+import Root from './Root';
 
 const store = new Store();
 
 ReactDOM.render(
   
   <React.StrictMode>
-    <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<App store={store}/>}>
-        <Route
-          path="*"
-          element={
-            <main style={{ padding: "1rem" }}>
-              <p>This is an empty page!</p>
-            </main>
-          }
-        />
-      </Route>
-    </Routes>
-    </BrowserRouter>
+    <Root store={store}/>,
   </React.StrictMode>,
   
   document.getElementById('root')

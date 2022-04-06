@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { observer } from 'mobx-react';
-import ListItem from '@material-ui/core/ListItem';
+import MuiListItem from "@material-ui/core/ListItem";
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import DashboardIcon from '@material-ui/icons/Dashboard';
@@ -13,6 +13,35 @@ import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
 import { Divider } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import { useNavigate } from 'react-router-dom';
+import withStyles from '@material-ui/styles/withStyles';
+
+
+const ListItem = withStyles({
+  root: {
+    "&$selected": {
+      backgroundColor: "#C0CFD5",
+      color: "#33373A",
+      "& .MuiListItemIcon-root": {
+        color: "#33373A"
+      }
+    },
+    "&$selected:hover": {
+      backgroundColor: "#acbabf",
+      color: "#33373A",
+      "& .MuiListItemIcon-root": {
+        color: "#33373A"
+      }
+    },
+    "&:hover": {
+      backgroundColor: "#DCE1E7",
+      color: "#33373A",
+      "& .MuiListItemIcon-root": {
+        color: "#33373A"
+      }
+    }
+  },
+  selected: {}
+})(MuiListItem);
 
 /**
  *  MainListItems renders the icons and names of the left hand side menu
@@ -22,6 +51,12 @@ import { useNavigate } from 'react-router-dom';
  */
 const MainListItems = observer( (props: any) => {
   const navigate = useNavigate();
+  const [selected, setSelected] = useState(0 as number);
+
+  function handleNavigation(selected: number, destination: string){
+    setSelected(selected);
+    navigate(destination);
+  }
 
   function RenderList(){
 
@@ -31,23 +66,23 @@ const MainListItems = observer( (props: any) => {
     else {
       return(
         <>
-          <ListItem button onClick={() => navigate('/scholar/dashboard')}>
+          <ListItem selected={selected === 0} button onClick={() => handleNavigation(0, '/home')}>
             <ListItemIcon >
               <DashboardIcon />
             </ListItemIcon>
-              <ListItemText primary="Dashboard" />
+              <ListItemText primary="Hjem" />
           </ListItem> 
-          <ListItem button onClick={() => navigate('/scholarship')}>
+          <ListItem selected={selected === 1} button onClick={() => handleNavigation(1, '/tests')}>
             <ListItemIcon>
               <AssignmentIcon />
             </ListItemIcon>
-              <ListItemText primary="My Scholarship"/>
+              <ListItemText primary="Tester"/>
             </ListItem> 
-          <ListItem button onClick={() => navigate('/handbook')}>
+          <ListItem selected={selected === 2} button onClick={() => handleNavigation(2, '/students')}>
             <ListItemIcon>
               <MenuBookIcon/>
             </ListItemIcon>
-            <ListItemText primary="Tips and tricks"/>
+            <ListItemText primary="Elever"/>
           </ListItem>
         </>
       )
@@ -59,12 +94,6 @@ const MainListItems = observer( (props: any) => {
           <Divider />
           <List>
             <RenderList />
-            <ListItem button onClick={() => navigate('/leaderboard')}>
-            <ListItemIcon>
-              <EmojiEventsIcon/>
-            </ListItemIcon>
-            <ListItemText primary="Leaderboard"/>
-          </ListItem>
           </List>
       </div>
     );

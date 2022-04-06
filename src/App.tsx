@@ -2,17 +2,19 @@ import React from 'react';
 import logo from './logo.svg';
 import {observer} from 'mobx-react';
 import { useCookies } from 'react-cookie';
-import { withStyles } from '@material-ui/core/styles';
+import { ThemeProvider, withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import './App.css';
 import ToolBars from './components/toolbar/ToolBars';
 import {
   Navigate,
   Route,
+  Routes,
 } from "react-router-dom";
 import Login from './components/Login'
 import Register from './components/Register'
-import Dashboard from './components/Dashboard'
+import Home from './components/Home'
+import Theme from './components/Theme'
 
 
 const styles = (theme: any) => ({
@@ -32,19 +34,23 @@ export const App = observer( (props: any) =>  {
   const checked = true;
   return (
     <div className={classes.root}>
-            <ToolBars model={props.model}></ToolBars>
-            {checked ? 
-            <>
-              <Route path="/">
-                {props.store.userStore.loginStatus ? <Navigate to="/dashboard" /> : <Navigate to="/login" />}
-              </Route>
-                <Route path="/dashboard" element={<Dashboard model={props.store}/>}/>
-                <main className={classes.content}>
-                  <Route path="/login" element ={<Login model={props.store}/> }/>
-                  <Route path="/register" element ={<Register model={props.store}/>}/>
-              </main>
-            </>
-            : "loading"}
+      <ThemeProvider theme={Theme}>
+          <ToolBars store={props.store}></ToolBars>
+          {checked ? 
+          <>
+          <main className={classes.content}>
+          <Routes>
+            <Route path="/" element={!props.store.userStore.loginStatus ? 
+              <Navigate to="/login" /> : <Navigate to="/home"/>}>
+            </Route>
+            <Route path ="/home" element={<Home store={props.store}/>} />
+            <Route path="/login" element={<Login store={props.store}/>} />
+            <Route path="/register" element={<Register store={props.store}/>} />
+          </Routes>
+          </main>
+          </>
+          : "loading"}
+          </ThemeProvider>
         </div>
   );
 });

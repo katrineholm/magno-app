@@ -8,6 +8,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
+import MagnoLogo from '../files/magno-logo.png';
 import {
   useNavigate,
 } from "react-router-dom";
@@ -39,7 +40,8 @@ const styles = (theme: any) => ({
     flexDirection: 'column' as "column",
   },
   fixedHeight: {
-    height: 240,
+    height: 180,
+    width: 400,
   },
 });
 
@@ -49,7 +51,7 @@ const styles = (theme: any) => ({
  * @export
  * @returns
  */
-const Dashboard = observer( (props: any) => {
+const Home = observer( (props: any) => {
   const {classes} = props;
   const navigate = useNavigate();
   if (!props.store.userStore.loginStatus){
@@ -62,27 +64,26 @@ const Dashboard = observer( (props: any) => {
       <div>
         <div className={classes.appBarSpacer} />
           <Container maxWidth="xl" className={classes.container}>
-            <Grid container spacing={3}>
-              {/* Chart */}
-              <Grid item xs={12} md={8} lg={9}>
+            <Grid direction="column"
+                  alignItems="center"
+                  justifyContent="center" 
+                  container 
+                  spacing={3}
+                  >
+              <img src={MagnoLogo} width={"400px"}alt="Magno logo"></img>
+              <Grid item xs={4} md={4} lg={4} xl={4}>
                 <Paper className={fixedHeightPaper}>
+                  <h4>Start en test</h4>
+                  {""}
                 </Paper>
               </Grid>
-              {/* Scheduled Update */}
-              <Grid item xs={12} md={4} lg={3}>
+              <Grid item xs={4} md={4} lg={4} xl={4}>
                 <Paper className={fixedHeightPaper}>
                   {""}
                 </Paper>
               </Grid>
-              {/* Recent Program Runs */}
-              <Grid item xs={12}>
-                <Paper className={classes.paper}>
-                  {""}
-                </Paper>
-              </Grid>
-              {/* Recent Patches */}
-              <Grid item xs={12}>
-                <Paper className={classes.paper}>
+              <Grid item xs={4} md={4} lg={4} xl={4}>
+                <Paper className={fixedHeightPaper}>
                   {""}
                 </Paper>
               </Grid>
@@ -92,4 +93,4 @@ const Dashboard = observer( (props: any) => {
     );
   });
 
-export default withStyles(styles)(Dashboard);
+export default withStyles(styles)(Home);

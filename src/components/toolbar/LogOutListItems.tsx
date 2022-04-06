@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
-import ListItem from '@material-ui/core/ListItem';
+import MuiListItem from "@material-ui/core/ListItem";
+import withStyles from '@material-ui/styles/withStyles';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
@@ -13,14 +14,39 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 
+const ListItem = withStyles({
+  root: {
+    "&$selected": {
+      backgroundColor: "#C0CFD5",
+      color: "#33373A",
+      "& .MuiListItemIcon-root": {
+        color: "#33373A"
+      }
+    },
+    "&$selected:hover": {
+      backgroundColor: "#acbabf",
+      color: "#33373A",
+      "& .MuiListItemIcon-root": {
+        color: "#33373A"
+      }
+    },
+    "&:hover": {
+      backgroundColor: "#DCE1E7",
+      color: "#33373A",
+      "& .MuiListItemIcon-root": {
+        color: "#33373A"
+      }
+    }
+  },
+  selected: {}
+})(MuiListItem);
 
 function LogOutListItems(props: any){
   const [cookies, setCookie, removeCookie] = useCookies(['c_user']);
   const navigate = useNavigate();
   function handleClick() {
     removeCookie('c_user')
-    props.model.setLoginStatus(false);
-    props.model.initModel();
+    props.store.userStore.setLoginStatus(false);
     navigate("/login")
   }
 
@@ -29,18 +55,18 @@ function LogOutListItems(props: any){
     <div>
         <Divider />
         <List>
-          <ListSubheader inset>My Account</ListSubheader>
+          <ListSubheader inset>Min konto</ListSubheader>
             <ListItem button onClick={() => navigate('/account')}>
                 <ListItemIcon>
                     <SettingsIcon/>
                 </ListItemIcon>
-              <ListItemText primary="Account Settings"/>
+              <ListItemText primary="Innstillinger"/>
             </ListItem>
             <ListItem button onClick={handleClick}>
               <ListItemIcon>
                   <ExitToAppIcon/>
               </ListItemIcon>
-            <ListItemText primary="Sign Out"/>
+            <ListItemText primary="Logg ut"/>
           </ListItem>
             
         </List>

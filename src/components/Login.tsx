@@ -16,31 +16,19 @@ import Container from '@material-ui/core/Container';
 import { useCookies } from 'react-cookie';
 import CryptoJS from 'crypto-js'
 import Snackbar from "./SnackBar";
+import MagnoLogo from '../files/magno-logo.png';
 //import {loginAccount} from "../database/db-account-handler";
 import {
   Link,
   useNavigate
 } from "react-router-dom";
 
-function Copyright() {
-    return (
-      <Typography variant="body2" color="textSecondary" align="center">
-        {'Copyright © '}
-        <Link color="inherit" to={'/'} >
-          Axie College
-        </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
-    );
-  }
-
   const styles = (theme: any) => ({
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column' as "column",
-    alignItems: 'center',
+    alignItems: 'center' as "center",
   },
   appBarSpacer: theme.mixins.toolbar,
   avatar: {
@@ -116,11 +104,9 @@ const Login = observer( (props: any) => {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
+      <img src={MagnoLogo} alt="Magno logo"></img>
         <Typography component="h1" variant="h5">
-          Sign in
+          Logg på for å fortsette til Magno
         </Typography>
         <form name="SignInForm" onSubmit={handleSubmit} className={classes.form}>
           <TextField
@@ -129,7 +115,7 @@ const Login = observer( (props: any) => {
             required
             fullWidth
             id="email"
-            label="Email Address"
+            label="Epost"
             name="email"
             autoComplete="email"
             autoFocus
@@ -142,25 +128,13 @@ const Login = observer( (props: any) => {
             required
             fullWidth
             name="password"
-            label="Password"
+            label="Passord"
             type="password"
             id="password"
             autoComplete="current-password"
             onChange={handlePasswordChange}
             value={password}
           />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={rememberMe}
-                onChange={() => setRememberMe(!rememberMe)}
-                value={rememberMe}
-                color="primary"
-              />
-            }
-            label="Stay logged in for 14 days."
-          />
-          
           <Button
             type="submit"
             fullWidth
@@ -169,13 +143,13 @@ const Login = observer( (props: any) => {
             
             className={classes.submit}
           >
-            Sign In
+            Logg inn
           </Button>
           <Grid container>
             
             <Grid item>
             <Link to={'/register'}>
-                {"Don't have an account? Sign Up"}
+                {"Opprett konto"}
               </Link>
             </Grid>
           </Grid>
@@ -193,9 +167,6 @@ const Login = observer( (props: any) => {
               setOpen={() => props.store.viewStore.setOpenSnackBar(false)}
           />
       </div>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
     </Container>
     </div>
   );

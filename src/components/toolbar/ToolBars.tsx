@@ -118,42 +118,42 @@ const ToolBars = observer( (props: any) => {
       let menu_items1;
       let menu_items2 = '';
       if (props.store.userStore.loginStatus){
-          menu_items1 = <MainListItems model={props.model}/>
+          menu_items1 = <MainListItems store={props.store}/>
           //menu_items2 = <SecondaryListItems store={this.store}/>
-          sign_option = <LogOutListItems model={props.model}/>
+          sign_option = <LogOutListItems store={props.store}/>
       } else{
           menu_items1 = ''
           menu_items2 = ''
-          sign_option = <LogInListItems model={props.model}/>
+          sign_option = <LogInListItems store={props.store}/>
       }
       return (
         <div>
           <CssBaseline />
-          <AppBar position="absolute" className={clsx(classes.appBar, props.model.isDrawerOpen && classes.appBarShift)}>
+          <AppBar position="absolute" className={clsx(classes.appBar, props.store.viewStore.drawerState && classes.appBarShift)}>
             <Toolbar className={classes.toolbar}>
               <IconButton
                 edge="start"
                 color="inherit"
                 aria-label="open drawer"
-                onClick={() => props.model.handleDrawerOpen(props.model.isDrawerOpen)}
-                className={clsx(classes.menuButton, props.model.isDrawerOpen && classes.menuButtonHidden)}
+                onClick={() => props.store.viewStore.handleDrawerOpen(props.store.viewStore.drawerState)}
+                className={clsx(classes.menuButton, props.store.viewStore.drawerState && classes.menuButtonHidden)}
               >
                 <MenuIcon />
               </IconButton>
                 <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                        Axie College
+                        Magno
                 </Typography>
             </Toolbar>
           </AppBar>
           <Drawer
             variant="permanent"
             classes={{
-              paper: clsx(classes.drawerPaper, !props.model.isDrawerOpen && classes.drawerPaperClose),
+              paper: clsx(classes.drawerPaper, !props.store.viewStore.drawerState && classes.drawerPaperClose),
             }}
-            open={props.model.isDrawerOpen}
+            open={props.store.drawerState}
           >
             <div className={classes.toolbarIcon}>
-              <IconButton onClick={() => props.model.handleDrawerOpen(props.model.isDrawerOpen)}>
+              <IconButton onClick={() => props.store.viewStore.handleDrawerOpen(props.store.viewStore.drawerState)}>
                 <ChevronLeftIcon />
               </IconButton>
             </div>
