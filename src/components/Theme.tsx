@@ -15,6 +15,9 @@ const theme = {
         background: {
             default: '#fff',
         },
+        text:{
+            primary: "#33373A"
+          }
     },
     sidebarWidth: 240
 } as const;

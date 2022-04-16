@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {observer} from 'mobx-react';
 import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
@@ -14,10 +14,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { useCookies } from 'react-cookie';
-import CryptoJS from 'crypto-js'
 import Snackbar from "./SnackBar";
 import MagnoLogo from '../files/magno-logo.png';
-//import {loginAccount} from "../database/db-account-handler";
+import { loginAccount } from './Communicator'
 import {
   Link,
   useNavigate
@@ -50,7 +49,6 @@ const Login = observer( (props: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-  const [rememberMe, setRememberMe]= useState(false);
   const [snackBarVariant, setSnackBarVariant] = useState('error');
   const [openSnackBar, setOpenSnackBar] = useState(false);
   const [cookies, setCookie] = useCookies(['c_user']);
@@ -71,32 +69,20 @@ const Login = observer( (props: any) => {
 
   async function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
-    const item = ("random") // await loginAccount(email, rememberMe)
+    const data = await loginAccount(email, password)
     setSnackBarVariant('error');
-    /*if (item.password.includes("Wrong user")){
-      setMessage(item.password);
+    if (data.result.includes("Wrong user")){
+      setMessage(data.result);
       handleSnackBar(true);
     }
     else{
-      const salt = item.password.substring(item.password.indexOf(":") + 1, item.password.length)
-      const clientkey256Bits = CryptoJS.PBKDF2(password, salt, {
-        keySize: 256 / 32
-    }).toString();
-      if (item.password === clientkey256Bits + ":" + salt){
-        props.model.setLoginStatus(true);
-        props.model.setEmail(item.email)
-        if (rememberMe){
-          const expiryDate = new Date(Date.now() + 12096e5);
-          setCookie('c_user', item.rememberme_token, { expires: expiryDate });
-        }
-        navigate('/dashboard')
+        const expiryDate = new Date(Date.now() + 1000*60*60*3600);
+        setCookie('c_user', data.token, { expires: expiryDate });
+        props.store.userStore.setUserEmail(email)
+        props.store.userStore.setLoginStatus(true);
+        navigate('/home')
       }
-      else{
-        setMessage("Wrong user information entered");
-        handleSnackBar(true);
-      }
-    }*/
-  }
+    }
 
   return (
     <div>

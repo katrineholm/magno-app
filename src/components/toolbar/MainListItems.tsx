@@ -10,6 +10,7 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
+import SettingsIcon from '@material-ui/icons/Settings';
 import { Divider } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import { useNavigate } from 'react-router-dom';
@@ -84,6 +85,12 @@ const MainListItems = observer( (props: any) => {
             </ListItemIcon>
             <ListItemText primary="Elever"/>
           </ListItem>
+            <ListItem button selected={selected === 3}onClick={() => handleNavigation(3, '/settings')}>
+                <ListItemIcon>
+                    <SettingsIcon/>
+                </ListItemIcon>
+              <ListItemText primary="Innstillinger"/>
+            </ListItem>
         </>
       )
     }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import {observer} from 'mobx-react';
 import { useCookies } from 'react-cookie';
@@ -10,11 +10,13 @@ import {
   Navigate,
   Route,
   Routes,
+  useNavigate,
 } from "react-router-dom";
 import Login from './components/Login'
 import Register from './components/Register'
 import Home from './components/Home'
 import Theme from './components/Theme'
+import { authenticate } from './components/Communicator';
 
 
 const styles = (theme: any) => ({
@@ -29,18 +31,36 @@ const styles = (theme: any) => ({
 });
 
 export const App = observer( (props: any) =>  {
-  const [cookies, removeCookie] = useCookies(['c_user']);
+  const [cookies, setCookie] = useCookies(['c_user']);
+  const [authenticated, setAuthenticated] = useState(false);
   const {classes} = props;
-  const checked = true;
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    if (!authenticated){
+      console.log(cookies.c_user)
+      console.log(cookies.c_user === undefined)
+      if (cookies.c_user === undefined){
+        navigate("/login");
+      }
+      else{
+        authenticate(cookies, setCookie, setAuthenticated);
+      }
+    }
+    else{
+      console.log("Authenticated");
+      navigate('/home');
+    }
+  }, [authenticated]);
+  
   return (
     <div className={classes.root}>
       <ThemeProvider theme={Theme}>
           <ToolBars store={props.store}></ToolBars>
-          {checked ? 
           <>
           <main className={classes.content}>
           <Routes>
-            <Route path="/" element={!props.store.userStore.loginStatus ? 
+            <Route path="/" element={!authenticated ? 
               <Navigate to="/login" /> : <Navigate to="/home"/>}>
             </Route>
             <Route path ="/home" element={<Home store={props.store}/>} />
@@ -49,7 +69,6 @@ export const App = observer( (props: any) =>  {
           </Routes>
           </main>
           </>
-          : "loading"}
           </ThemeProvider>
         </div>
   );

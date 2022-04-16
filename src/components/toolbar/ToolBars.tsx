@@ -21,10 +21,6 @@ import LogOutListItems from './LogOutListItems'
 
 const drawerWidth = 240;
 
-export interface StylesDictionary{
-  [Key: string]: CSSProperties;
-}
-
 // eslint-disable-next-line no-shadow
 const styles = (theme: any) => ({
   root: {
@@ -119,7 +115,6 @@ const ToolBars = observer( (props: any) => {
       let menu_items2 = '';
       if (props.store.userStore.loginStatus){
           menu_items1 = <MainListItems store={props.store}/>
-          //menu_items2 = <SecondaryListItems store={this.store}/>
           sign_option = <LogOutListItems store={props.store}/>
       } else{
           menu_items1 = ''

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
-import React from 'react';
+import React, { useState } from 'react';
 import {observer} from 'mobx-react';
 import MuiListItem from "@material-ui/core/ListItem";
 import withStyles from '@material-ui/styles/withStyles';
@@ -41,6 +41,7 @@ const ListItem = withStyles({
 
 const LogInListItems = observer( (props: any) => {
   const navigate = useNavigate();
+  const [selected, setSelected] = useState(0 as number);
 
   function handleClick() {
     navigate('/login')

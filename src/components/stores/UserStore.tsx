@@ -1,7 +1,7 @@
 import {action, makeObservable, observable} from 'mobx';
 
 export class UserStore{
-    loginStatus = true;
+    loginStatus = false;
     userEmail = "";
     userName = "";
     

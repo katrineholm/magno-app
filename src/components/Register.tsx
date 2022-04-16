@@ -18,6 +18,7 @@ import MagnoLogo from '../files/magno-logo.png';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { createAccount } from './Communicator';
 import {
     Link,
     useNavigate
@@ -77,20 +78,16 @@ const Register = observer( (props: any) => {
             handleSnackBar(true);
         }
         else{
-            const salt = CryptoJS.lib.WordArray.random(128 / 8).toString();
-            const key256Bits = CryptoJS.PBKDF2(password, salt, {
-                keySize: 256 / 32
-            }).toString();
-            const result = "Success"; //await createAccount(uuidv4(), email.toLowerCase(), key256Bits + ":" + salt)
+            const result = await createAccount(uuidv4(), email.toLowerCase(), password)
             if (result.includes("exists")){
                 setMessage(result);
                 handleSnackBar(true);
             }
             else if (result.includes("Success")){
-                props.model.setSnackBar(result, "success");
+                props.store.viewStore.setSnackBar(result, "success");
                 setMessage(result);
                 setSnackBarVariant("success");
-                props.model.setOpenSnackBar(true);
+                props.store.viewStore.setOpenSnackBar(true);
                 navigate('/login')
             }
         }
