@@ -1,24 +1,16 @@
 import React, { useState } from 'react';
 import {observer} from 'mobx-react';
-import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { v4 as uuidv4 } from 'uuid';
-import CryptoJS from 'crypto-js'
-import Snackbar from "./SnackBar";
-import MagnoLogo from '../files/magno-logo.png';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import { createAccount } from './Communicator';
+import Snackbar from "../SnackBar";
+import MagnoLogo from '../../files/magno-logo.png';
+import { createAccount } from '../Communicator';
 import {
     Link,
     useNavigate

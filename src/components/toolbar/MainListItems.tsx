@@ -1,15 +1,13 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import { observer } from 'mobx-react';
 import MuiListItem from "@material-ui/core/ListItem";
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import AssignmentIcon from '@material-ui/icons/Assignment';
-import MenuBookIcon from '@material-ui/icons/MenuBook';
-import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
+import HomeIcon from '@material-ui/icons/Home';
+import PeopleIcon from '@material-ui/icons/People';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { Divider } from '@material-ui/core';
 import List from '@material-ui/core/List';
@@ -69,7 +67,7 @@ const MainListItems = observer( (props: any) => {
         <>
           <ListItem selected={selected === 0} button onClick={() => handleNavigation(0, '/home')}>
             <ListItemIcon >
-              <DashboardIcon />
+              <HomeIcon />
             </ListItemIcon>
               <ListItemText primary="Hjem" />
           </ListItem> 
@@ -81,7 +79,7 @@ const MainListItems = observer( (props: any) => {
             </ListItem> 
           <ListItem selected={selected === 2} button onClick={() => handleNavigation(2, '/students')}>
             <ListItemIcon>
-              <MenuBookIcon/>
+              <PeopleIcon/>
             </ListItemIcon>
             <ListItemText primary="Elever"/>
           </ListItem>

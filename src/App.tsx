@@ -1,22 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
+import React from 'react';
 import {observer} from 'mobx-react';
-import { useCookies } from 'react-cookie';
 import { ThemeProvider, withStyles } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
 import './App.css';
 import ToolBars from './components/toolbar/ToolBars';
 import {
   Navigate,
   Route,
   Routes,
-  useNavigate,
 } from "react-router-dom";
-import Login from './components/Login'
-import Register from './components/Register'
-import Home from './components/Home'
+import Login from './components/views/Login'
+import Register from './components/views/Register'
+import Home from './components/views/Home'
 import Theme from './components/Theme'
-import { authenticate } from './components/Communicator';
+import Tests from './components/views/Tests';
 
 
 const styles = (theme: any) => ({
@@ -31,27 +27,7 @@ const styles = (theme: any) => ({
 });
 
 export const App = observer( (props: any) =>  {
-  const [cookies, setCookie] = useCookies(['c_user']);
-  const [authenticated, setAuthenticated] = useState(false);
   const {classes} = props;
-  const navigate = useNavigate();
-  
-  useEffect(() => {
-    if (!authenticated){
-      console.log(cookies.c_user)
-      console.log(cookies.c_user === undefined)
-      if (cookies.c_user === undefined){
-        navigate("/login");
-      }
-      else{
-        authenticate(cookies, setCookie, setAuthenticated);
-      }
-    }
-    else{
-      console.log("Authenticated");
-      navigate('/home');
-    }
-  }, [authenticated]);
   
   return (
     <div className={classes.root}>
@@ -60,12 +36,11 @@ export const App = observer( (props: any) =>  {
           <>
           <main className={classes.content}>
           <Routes>
-            <Route path="/" element={!authenticated ? 
-              <Navigate to="/login" /> : <Navigate to="/home"/>}>
-            </Route>
+            <Route path ="/" element={<Navigate to="/login" />} />
             <Route path ="/home" element={<Home store={props.store}/>} />
             <Route path="/login" element={<Login store={props.store}/>} />
             <Route path="/register" element={<Register store={props.store}/>} />
+            <Route path="/tests" element={<Tests store={props.store}/>} />
           </Routes>
           </main>
           </>

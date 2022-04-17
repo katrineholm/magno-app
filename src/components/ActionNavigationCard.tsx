@@ -13,33 +13,29 @@ import { Divider } from '@material-ui/core';
 const styles = (theme: any) => ({
     header: {
       paddingLeft: theme.spacing(2),
-      height: '130px',
+      height: '14vh',
     },
     icon: {
-      paddingLeft: theme.spacing(3),
+      paddingLeft: '3vh',
       marginTop: theme.spacing(2),
-      height: '90px'
+      height: '11vh'
     },
     buttonDetail: {
       paddingLeft: theme.spacing(2),
       marginTop: theme.spacing(1),
       padding: theme.spacing(0),
     },
-    card:{
-      height: 180,
-      width: 400,
-      border: "2px",
-    },
     fixedHeight: {
-      height: 180,
-      width: 400,
+      height: "19vh",
+      width: "25vw",
+      maxWidth: "450px"
     },
     cardContent:{
       padding: theme.spacing(0),
     }
   });
 
-const ActionAreaCard = observer( (props: any) => {
+const ActionNavigationCard = observer( (props: any) => {
     const {classes} = props;
     const navigate = useNavigate();
     return (
@@ -79,4 +75,4 @@ const ActionAreaCard = observer( (props: any) => {
     );
 });
 
-export default withStyles(styles)(ActionAreaCard);
+export default withStyles(styles)(ActionNavigationCard);

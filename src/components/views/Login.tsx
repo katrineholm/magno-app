@@ -1,22 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import {observer} from 'mobx-react';
-import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { useCookies } from 'react-cookie';
-import Snackbar from "./SnackBar";
-import MagnoLogo from '../files/magno-logo.png';
-import { loginAccount } from './Communicator'
+import Snackbar from "../SnackBar";
+import MagnoLogo from '../../files/magno-logo.png';
+import { authenticate, loginAccount } from '../Communicator'
 import {
   Link,
   useNavigate
@@ -54,6 +48,19 @@ const Login = observer( (props: any) => {
   const [cookies, setCookie] = useCookies(['c_user']);
   const navigate = useNavigate();
   const {classes} = props;
+
+  useEffect(() => {
+    const authFunction = async () => {
+      const validUser = await authenticate(cookies, setCookie);
+      if (validUser){
+        navigate("/home")
+      }
+      else{
+        props.store.userStore.setLoginStatus(false)
+      }
+    }
+    authFunction();
+  }, []);
 
   function handleSnackBar(bool: boolean){
       setOpenSnackBar(bool);

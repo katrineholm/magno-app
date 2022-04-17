@@ -1,22 +1,18 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {observer} from 'mobx-react';
-import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
-import clsx from 'clsx';
-import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Link from '@material-ui/core/Link';
 import { useCookies } from 'react-cookie';
-import MagnoLogo from '../files/magno-logo.png';
+import MagnoLogo from '../../files/magno-logo.png';
 import {
   useNavigate,
 } from "react-router-dom";
-import { authenticate, authenticateUser } from './Communicator';
-import  ActionAreaCard from './Card'
-import AssessmentIcon from '@material-ui/icons/Assessment';
+import { authenticate } from '../Communicator';
+import  ActionNavigationCard from '../ActionNavigationCard'
 import PeopleIcon from '@material-ui/icons/People';
+import PieChartIcon from '@material-ui/icons/PieChart';
+import AssignmentIcon from '@material-ui/icons/Assignment';
 
 const styles = (theme: any) => ({
   root: {
@@ -41,10 +37,13 @@ const styles = (theme: any) => ({
     overflow: 'auto',
     flexDirection: 'column' as "column",
   },
-  fixedHeight: {
-    height: 180,
-    width: 400,
-  },
+  img: {
+    width: "100%",
+    maxWidth: "450px",
+    display: "block",
+    marginLeft: "auto",
+    marginRight: "auto",
+  }
 });
 
 /**
@@ -56,26 +55,23 @@ const styles = (theme: any) => ({
 const Home = observer( (props: any) => {
   const {classes} = props;
   const [cookies, setCookie] = useCookies(['c_user']);
-  const [authenticated, setAuthenticated] = useState(false);
   const navigate = useNavigate();
   const iconStyles = {
     fontSize: '82px',
   };
 
   useEffect(() => {
-    if (!authenticated){
-      if (cookies.c_user === undefined){
-        navigate("/login");
+    const authFunction = async () => {
+      const validUser = await authenticate(cookies, setCookie);
+      if (!validUser){
+        navigate("/login")
       }
       else{
-        authenticate(cookies, setCookie, setAuthenticated);
+        props.store.userStore.setLoginStatus(true)
       }
     }
-  }, [authenticated]);
-  
-  if (!props.store.userStore.loginStatus){
-    navigate("/login");
-  }
+    authFunction();
+  }, []);
   
     return (
       
@@ -89,33 +85,36 @@ const Home = observer( (props: any) => {
                   spacing={3}
                   >
               <Grid item xs={4} md={4} lg={4} xl={4}>
-              <img src={MagnoLogo} width={"400px"}alt="Magno logo"></img>
-                  <ActionAreaCard 
+              <img src={MagnoLogo} className={classes.img}alt="Magno logo"></img>
+              </Grid>
+              <Grid item xs={4} md={4} lg={4} xl={4}>
+                
+                <ActionNavigationCard 
                     header={"Start en test"} 
                     text={"Lar deg velge og starte forskjellige tester."} 
                     buttonText={"Se og start tester"}
-                    icon={<AssessmentIcon color="primary" style={iconStyles} />}
+                    icon={<AssignmentIcon color="primary" style={iconStyles} />}
                     route={"/tests"}>
-                  </ActionAreaCard>
+                  </ActionNavigationCard>
               </Grid>
               <Grid item xs={4} md={4} lg={4} xl={4}>
-              <ActionAreaCard 
-                    header={"Elevoversikt"} 
-                    text={"Se en oversikt over elevene ved skolen din og " +
-                    "resultatene deres, eller legg til eller fjern elever fra oversikten. "} 
-                    buttonText={"Se oversikt over elever"}
-                    icon={<PeopleIcon color="primary" style={iconStyles} />}
-                    route={"/students"}>
-                  </ActionAreaCard>
+                <ActionNavigationCard 
+                  header={"Elevoversikt"} 
+                  text={"Se en oversikt over elevene ved skolen din og " +
+                  "resultatene deres, eller legg til eller fjern elever fra oversikten. "} 
+                  buttonText={"Se oversikt over elever"}
+                  icon={<PeopleIcon color="primary" style={iconStyles} />}
+                  route={"/students"}>
+                </ActionNavigationCard>
               </Grid>
               <Grid item xs={4} md={4} lg={4} xl={4}>
-              <ActionAreaCard 
+                <ActionNavigationCard 
                     header={"Siste resultater"} 
                     text={"Se resultatene fra de siste testene som har blitt gjennomført."} 
                     buttonText={"Se nye resultater"}
-                    icon={<AssessmentIcon color="primary" style={iconStyles} />}
+                    icon={<PieChartIcon color="primary" style={iconStyles} />}
                     route={"/students/sort-by-date"}>
-                  </ActionAreaCard>
+                  </ActionNavigationCard>
               </Grid>
             </Grid>
           </Container>
