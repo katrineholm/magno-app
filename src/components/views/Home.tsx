@@ -15,21 +15,8 @@ import PieChartIcon from '@material-ui/icons/PieChart';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 
 const styles = (theme: any) => ({
-  root: {
-    display: 'flex',
-  },
-  title: {
-    flexGrow: 1,
-  },
-  appBarSpacer: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    height: '100vh',
-    overflow: 'auto',
-  },
   container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
+    marginTop: theme.spacing(10),
   },
   paper: {
     padding: theme.spacing(2),
@@ -76,7 +63,6 @@ const Home = observer( (props: any) => {
     return (
       
       <div>
-        <div className={classes.appBarSpacer} />
           <Container maxWidth="xl" className={classes.container}>
             <Grid direction="column"
                   alignItems="center"
