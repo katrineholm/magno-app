@@ -15,6 +15,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import MainListItems from './MainListItems';
 import LogInListItems from './LogInListItems'
 import LogOutListItems from './LogOutListItems'
@@ -35,21 +36,6 @@ const styles = (theme: any) => ({
     justifyContent: 'flex-end',
     padding: '0 8px',
     ...theme.mixins.toolbar,
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
   },
   menuButton: {
     marginRight: 36,
@@ -81,7 +67,6 @@ const styles = (theme: any) => ({
       width: theme.spacing(9),
     },
   },
-  appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
     height: '100vh',
@@ -124,32 +109,16 @@ const ToolBars = observer( (props: any) => {
       return (
         <div>
           <CssBaseline />
-          <AppBar position="absolute" className={clsx(classes.appBar, props.store.viewStore.drawerState && classes.appBarShift)}>
-            <Toolbar className={classes.toolbar}>
-              <IconButton
-                edge="start"
-                color="inherit"
-                aria-label="open drawer"
-                onClick={() => props.store.viewStore.handleDrawerOpen(props.store.viewStore.drawerState)}
-                className={clsx(classes.menuButton, props.store.viewStore.drawerState && classes.menuButtonHidden)}
-              >
-                <MenuIcon />
-              </IconButton>
-                <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                        Magno
-                </Typography>
-            </Toolbar>
-          </AppBar>
           <Drawer
             variant="permanent"
             classes={{
               paper: clsx(classes.drawerPaper, !props.store.viewStore.drawerState && classes.drawerPaperClose),
             }}
-            open={props.store.drawerState}
+            open={props.store.viewStore.drawerState}
           >
             <div className={classes.toolbarIcon}>
               <IconButton onClick={() => props.store.viewStore.handleDrawerOpen(props.store.viewStore.drawerState)}>
-                <ChevronLeftIcon />
+                {props.store.viewStore.drawerState ? <ChevronLeftIcon/> : <ChevronRightIcon/> }
               </IconButton>
             </div>
             {menu_items1}

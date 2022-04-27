@@ -26,10 +26,8 @@ const styles = (theme: any) => ({
   formControl: {
     minWidth: '100%',
   },
-  appBarSpacer: theme.mixins.toolbar,
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.info.dark,
+  container: {
+    marginTop: theme.spacing(10),
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -89,8 +87,7 @@ const Register = observer( (props: any) => {
             
     return (
         <div>
-        <div className={classes.appBarSpacer} />
-        <Container component="main" maxWidth="xs">
+        <Container component="main" maxWidth="xs" className={classes.container}>
         <CssBaseline />
         <div className={classes.paper}>
           <img src={MagnoLogo} alt="Magno logo"></img>
