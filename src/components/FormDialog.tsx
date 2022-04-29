@@ -38,34 +38,33 @@ function FormDialog(props: any) {
 
   return (
     <div >
-      <Dialog 
-      fullWidth={true}
-      maxWidth={"sm"}
-      open={props.open} 
-      scroll={'body'}
-      onClose={() => props.setOpen(false)} 
-      >
-        <DialogTitle style={{ textAlign: 'center'}}>
-        Velg elev
-        </DialogTitle>
-        <DialogContent className={classes.dialogBox}>
-          <DialogContentText >
-            Velg en elev som skal utføre {props.test}
-          </DialogContentText>
-          <SearchBox 
-          />
-        </DialogContent>
-        <DialogActions >
-          <Button 
-          fullWidth={true} 
-          variant={"contained"} 
-          color={'primary'} 
-          className={classes.button}
-          onClick={() => props.setOpen(false)}>
-            Start test
-          </Button>
-        </DialogActions>
-      </Dialog>
+        <Dialog 
+            fullWidth={true}
+            maxWidth={"sm"}
+            open={props.open} 
+            scroll={'body'}
+            onClose={() => props.setOpen(false)} 
+        >
+            <DialogTitle style={{ textAlign: 'center'}}>
+                Velg elev
+            </DialogTitle>
+            <DialogContent className={classes.dialogBox}>
+                <DialogContentText >
+                    Velg en elev som skal utføre {props.test}
+                </DialogContentText>
+                <SearchBox textfieldLabel={"Velg en elev"}/>
+            </DialogContent>
+            <DialogActions >
+                <Button 
+                    fullWidth={true} 
+                    variant={"contained"} 
+                    color={'primary'} 
+                    className={classes.button}
+                    onClick={() => props.setOpen(false)}>
+                    Start test
+                </Button>
+            </DialogActions>
+        </Dialog>
     </div>
   );
 }

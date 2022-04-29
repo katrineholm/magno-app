@@ -13,6 +13,7 @@ import Register from './components/views/Register'
 import Home from './components/views/Home'
 import Theme from './components/Theme'
 import Tests from './components/views/Tests';
+import Students from './components/views/Students';
 
 
 const styles = (theme: any) => ({
@@ -41,6 +42,7 @@ export const App = observer( (props: any) =>  {
             <Route path="/login" element={<Login store={props.store}/>} />
             <Route path="/register" element={<Register store={props.store}/>} />
             <Route path="/tests" element={<Tests store={props.store}/>} />
+            <Route path="/students" element={<Students store={props.store}/>} />
           </Routes>
           </main>
           </>

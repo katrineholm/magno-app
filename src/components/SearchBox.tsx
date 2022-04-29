@@ -10,21 +10,21 @@ export default function SearchBox(props: any) {
   const [inputValue, setInputValue] = React.useState('');
 
     return (
-      <Autocomplete
+    <Autocomplete
         ListboxProps={{ style: { maxHeight: 150, overflow: 'auto' } }}
         disablePortal
         id="search-box"
         options={students}
         value={value}
         onChange={(event: any, newValue: string | null) => {
-          setValue(newValue);
+            setValue(newValue);
         }}
         inputValue={inputValue}
         onInputChange={(event, newInputValue) => {
-          setInputValue(newInputValue);
+            setInputValue(newInputValue);
         }}
-        renderInput={(params) => <TextField {...params} label="Skriv inn navn" />}
-      />
+        renderInput={(params) => <TextField variant={"outlined"} {...params} label={props.textfieldLabel} />}
+        />
     );
-  }
+}
 

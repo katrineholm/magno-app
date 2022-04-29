@@ -55,42 +55,42 @@ const Tests = observer( (props: any) => {
     
     <div>
         <Container maxWidth="xl" className={classes.container}>
-          <Grid direction="row"
-              alignItems="center"
-              justifyContent="center" 
-              container 
-              spacing={8}
+            <Grid direction="row"
+                alignItems="center"
+                justifyContent="center" 
+                container 
+                spacing={8}
             >
-            <Grid item xs={5} md={5} lg={5} xl={5}>
-              <ActionTestCard 
-                  header={"Motion Test"} 
-                  text={"Magno bevegelsestest tester den magnocellulære kapasiteten til eleven"} 
-                  img={MotionDots}
-                  handleTestClick={openDialog}
-                  buttonText={"Start test"}>
-              </ActionTestCard>
+                <Grid item xs={5} md={5} lg={5} xl={5}>
+                    <ActionTestCard 
+                        header={"Motion Test"} 
+                        text={"Magno bevegelsestest tester den magnocellulære kapasiteten til eleven"} 
+                        img={MotionDots}
+                        handleTestClick={openDialog}
+                        buttonText={"Start test"}>
+                    </ActionTestCard>
+                </Grid>
+                <Grid item xs={5} md={5} lg={5} xl={5}>
+                    <ActionTestCard 
+                        header={"Fixed Form Test"} 
+                        text={"Magno fiksertformtest tester den magnocellulære kapasiteten til eleven"} 
+                        img={FormFixed}
+                        handleTestClick={openDialog}
+                        buttonText={"Start test"}>
+                    </ActionTestCard>
+                </Grid>
+                <Grid item xs={5} md={5} lg={5} xl={5}>
+                    <ActionTestCard 
+                        header={"Random Form Test"} 
+                        text={"Magno tilfeldigformtest tester den magnocellulære kapasiteten til eleven"} 
+                        img={FormRandom}
+                        handleTestClick={openDialog}
+                        buttonText={"Start test"}>
+                    </ActionTestCard>
+                </Grid>
+                <Grid item xs={5} md={5} lg={5} xl={5}></Grid>
             </Grid>
-            <Grid item xs={5} md={5} lg={5} xl={5}>
-              <ActionTestCard 
-                  header={"Fixed Form Test"} 
-                  text={"Magno fiksertformtest tester den magnocellulære kapasiteten til eleven"} 
-                  img={FormFixed}
-                  handleTestClick={openDialog}
-                  buttonText={"Start test"}>
-              </ActionTestCard>
-            </Grid>
-            <Grid item xs={5} md={5} lg={5} xl={5}>
-              <ActionTestCard 
-                  header={"Random Form Test"} 
-                  text={"Magno tilfeldigformtest tester den magnocellulære kapasiteten til eleven"} 
-                  img={FormRandom}
-                  handleTestClick={openDialog}
-                  buttonText={"Start test"}>
-              </ActionTestCard>
-            </Grid>
-            <Grid item xs={5} md={5} lg={5} xl={5}></Grid>
-          </Grid>
-          <FormDialog store={props.store} test={test} open={open} setOpen={setOpen}/>
+            <FormDialog store={props.store} test={test} open={open} setOpen={setOpen}/>
         </Container>
     </div>
   );

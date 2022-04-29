@@ -42,47 +42,46 @@ const ActionTestCard = observer( (props: ActionTestCardProps) => {
 
   return (
     <Card variant="outlined" className={classes.fixedHeight}>
-    <CardActionArea onClick={() => props.handleTestClick(props.header)} className={classes.fixedHeight}>
-    <CardHeader
-      title={props.header}
-      subheader={props.text}
-      style={{ textAlign: 'center', padding: 8}}
-      />
-      <CardContent className={classes.cardContent}>
-      <Grid 
-        direction="row"
-        alignItems="center"
-        justifyContent="center"
-        container 
-        spacing={0}
-      >
-        <Grid item xs={12} md={12} lg={12} xl={12} className={classes.cardMedia}>
-        <CardMedia
-          component="img"
-          height="100%"
-          image={props.img}
-          alt="image"
-        />
-        </Grid>
-      </Grid>
-      <Divider/>
-      <Grid 
-        direction="row"
-        container 
-        alignItems="center"
-        justifyContent="center"
-        className={classes.cardButton}
-        spacing={0}
-      >
-      <Grid item xs={12} md={12} lg={12} xl={12}>
-      
-            <Typography style={{ textAlign: 'center', margin: 'auto'}} variant="button" color="primary" component="div">
-                {props.buttonText}
-            </Typography>
-        </Grid>
-      </Grid>
-      </CardContent>
-    </CardActionArea>
+        <CardActionArea onClick={() => props.handleTestClick(props.header)} className={classes.fixedHeight}>
+            <CardHeader
+                title={props.header}
+                subheader={props.text}
+                style={{ textAlign: 'center', padding: 8}}
+            />
+            <CardContent className={classes.cardContent}>
+                <Grid 
+                    direction="row"
+                    alignItems="center"
+                    justifyContent="center"
+                    container 
+                    spacing={0}
+                >
+                    <Grid item xs={12} md={12} lg={12} xl={12} className={classes.cardMedia}>
+                        <CardMedia
+                        component="img"
+                        height="100%"
+                        image={props.img}
+                        alt="image"
+                        />
+                    </Grid>
+                </Grid>
+                <Divider/>
+                <Grid 
+                    direction="row"
+                    container 
+                    alignItems="center"
+                    justifyContent="center"
+                    className={classes.cardButton}
+                    spacing={0}
+                >
+                <Grid item xs={12} md={12} lg={12} xl={12}>
+                        <Typography style={{ textAlign: 'center', margin: 'auto'}} variant="button" color="primary" component="div">
+                            {props.buttonText}
+                        </Typography>
+                    </Grid>
+                </Grid>
+            </CardContent>
+        </CardActionArea>
     </Card>
   );
 });

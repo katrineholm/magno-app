@@ -91,74 +91,70 @@ const Login = observer( (props: any) => {
 
   return (
     <div>
-      <div className={classes.appBarSpacer} />
-    <Container component="main" maxWidth="xs" className={classes.container}>
-      <CssBaseline />
-      <div className={classes.paper}>
-      <img src={MagnoLogo} alt="Magno logo"></img>
-        <Typography component="h1" variant="h5">
-          Logg på for å fortsette til Magno
-        </Typography>
-        <form name="SignInForm" onSubmit={handleSubmit} className={classes.form}>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Epost"
-            name="email"
-            autoComplete="email"
-            autoFocus
-            onChange={handleEmailChange}
-            value={email}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Passord"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            onChange={handlePasswordChange}
-            value={password}
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            
-            className={classes.submit}
-          >
-            Logg inn
-          </Button>
-          <Grid container>
-            
-            <Grid item>
-            <Link to={'/register'}>
-                {"Opprett konto"}
-              </Link>
-            </Grid>
-          </Grid>
-          </form>
-          <Snackbar
-              variant={snackBarVariant as SnackBarVariants}
-              message={message}
-              open={openSnackBar}
-              setOpen={() => handleSnackBar(false)}
-          />
-          <Snackbar
-              variant={props.store.viewStore.snackBarVariant}
-              message={props.store.viewStore.snackBarMessage}
-              open={props.store.viewStore.openSnackBar}
-              setOpen={() => props.store.viewStore.setOpenSnackBar(false)}
-          />
-      </div>
-    </Container>
+        <div className={classes.appBarSpacer} />
+        <Container component="main" maxWidth="xs" className={classes.container}>
+        <CssBaseline />
+        <div className={classes.paper}>
+            <img src={MagnoLogo} alt="Magno logo"></img>
+            <Typography component="h1" variant="h5">
+                Logg på for å fortsette til Magno
+            </Typography>
+            <form name="SignInForm" onSubmit={handleSubmit} className={classes.form}>
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="email"
+                    label="Epost"
+                    name="email"
+                    autoComplete="email"
+                    autoFocus
+                    onChange={handleEmailChange}
+                    value={email}/>
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="password"
+                    label="Passord"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                    onChange={handlePasswordChange}
+                    value={password}/>
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}>
+                    Logg inn
+                </Button>
+                <Grid container>
+                    
+                    <Grid item>
+                        <Link to={'/register'}>
+                            {"Opprett konto"}
+                        </Link>
+                    </Grid>
+                </Grid>
+            </form>
+            <Snackbar
+                variant={snackBarVariant as SnackBarVariants}
+                message={message}
+                open={openSnackBar}
+                setOpen={() => handleSnackBar(false)}
+            />
+            <Snackbar
+                variant={props.store.viewStore.snackBarVariant}
+                message={props.store.viewStore.snackBarMessage}
+                open={props.store.viewStore.openSnackBar}
+                setOpen={() => props.store.viewStore.setOpenSnackBar(false)}
+            />
+        </div>
+        </Container>
     </div>
   );
 })
