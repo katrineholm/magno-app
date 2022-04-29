@@ -87,73 +87,71 @@ const Register = observer( (props: any) => {
             
     return (
         <div>
-        <Container component="main" maxWidth="xs" className={classes.container}>
-        <CssBaseline />
-        <div className={classes.paper}>
-          <img src={MagnoLogo} alt="Magno logo"></img>
-          <Typography component="h1" variant="h5">
-            Logg på for å fortsette til Magno
-          </Typography>
-            
-            <form onSubmit={handleSubmit} className={classes.form} noValidate>
-            <Grid container spacing={2}>
-                <Grid item xs={12}>
-                <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    autoFocus
-                    id="email"
-                    label="Epost adresse"
-                    name="email"
-                    autoComplete="email"
-                    onChange={handleEmailChange}
-                    value={email}
-                />
-                </Grid>
-                <Grid item xs={12}>
-                
-                <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    name="password"
-                    label="Passord"
-                    type="password"
-                    id="password"
-                    autoComplete="current-password"
-                    onChange={handlePasswordChange}
-                    value={password}
-                />
-                </Grid>
-            </Grid>
-            <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-            >
-                Registrer
-            </Button>
-            <Grid container justify="flex-end">
-                <Grid item>
+            <Container component="main" maxWidth="xs" className={classes.container}>
+            <CssBaseline />
+                <div className={classes.paper}>
+                    <img src={MagnoLogo} alt="Magno logo"></img>
+                    <Typography component="h1" variant="h5">
+                        Opprett en konto for Magno
+                    </Typography>
+                    
+                    <form onSubmit={handleSubmit} className={classes.form} noValidate>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <TextField
+                                variant="outlined"
+                                required
+                                fullWidth
+                                autoFocus
+                                id="email"
+                                label="Epost adresse"
+                                name="email"
+                                autoComplete="email"
+                                onChange={handleEmailChange}
+                                value={email}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                variant="outlined"
+                                required
+                                fullWidth
+                                name="password"
+                                label="Passord"
+                                type="password"
+                                id="password"
+                                autoComplete="current-password"
+                                onChange={handlePasswordChange}
+                                value={password}
+                            />
+                        </Grid>
+                    </Grid>
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}
+                    >
+                        Registrer
+                    </Button>
+                    <Grid container justify="flex-end">
+                        <Grid item>
 
-                <Link to={'/login'}>
-                  {"Har du allerede en konto? Logg inn"}
-                </Link>
-                </Grid>
-            </Grid>
-            </form>
-            <Snackbar
-                variant={snackBarVariant as SnackBarVariants}
-                message={message}
-                open={openSnackBar}
-                setOpen={() => handleSnackBar(false)}
-            />
-            
-        </div>
-        </Container>
+                            <Link to={'/login'}>
+                                {"Har du allerede en konto? Logg inn"}
+                            </Link>
+                        </Grid>
+                    </Grid>
+                    </form>
+                    <Snackbar
+                        variant={snackBarVariant as SnackBarVariants}
+                        message={message}
+                        open={openSnackBar}
+                        setOpen={() => handleSnackBar(false)}
+                    />
+                </div>
+            </Container>
         </div>
         );
     }
