@@ -12,6 +12,7 @@ import { Button, Paper } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import SearchField from '../SearchField';
 import SearchIcon from '@material-ui/icons/Search';
+import StudentTable from '../StudentTable';
 
 const styles = (theme: any) => ({
     container: {
@@ -35,6 +36,89 @@ const styles = (theme: any) => ({
         height: "100%"
     }
 });
+
+const students = [
+    {
+        key: "1",
+        name: "Amanda Andersen",
+        class: "3A",
+        testdate: "19. Januar",
+        motion_test: 19,
+        fixed_form_test: 17,
+        random_form_test: 12,
+        risk: "Lav"
+    },
+    {
+        key: "2",
+        name: "Bernt Barsen",
+        class: "2B",
+        testdate: "17. Februar",
+        motion_test: 63,
+        fixed_form_test: 36,
+        random_form_test: 79,
+        risk: "Høy"
+    },
+    {
+        key: "3",
+        name: "Carl Christiansen",
+        class: "4B",
+        testdate: "16. Januar",
+        motion_test: 27,
+        fixed_form_test: 23,
+        random_form_test: 28,
+        risk: "Middels"
+    },
+    {
+        key: "4",
+        name: "David Damas",
+        class: "4A",
+        testdate: "17. Februar",
+        motion_test: "-",
+        fixed_form_test: "-",
+        random_form_test: "-",
+        risk: "Lav"
+    },
+    {
+        key: "5",
+        name: "Erik Erntsson",
+        class: "4A",
+        testdate: "17. Februar",
+        motion_test: 63,
+        fixed_form_test: "-",
+        random_form_test: "-",
+        risk: "Høy"
+    },
+    {
+        key: "6",
+        name: "Ida Inge",
+        class: "3A",
+        testdate: "13. Februar",
+        motion_test: 18,
+        fixed_form_test: "-",
+        random_form_test: "-",
+        risk: "Lav"
+    },
+    {
+        key: "7",
+        name: "Joar Mande",
+        class: "5B",
+        testdate: "19. Februar",
+        motion_test: 33,
+        fixed_form_test: "-",
+        random_form_test: "-",
+        risk: "Middels"
+    },
+    {
+        key: "8",
+        name: "Olav Prang",
+        class: "2A",
+        testdate: "19. Februar",
+        motion_test: "-",
+        fixed_form_test: "-",
+        random_form_test: "-",
+        risk: "Lav"
+    },
+];
 
 /**
  *
@@ -91,7 +175,7 @@ const Students = observer( (props: any) => {
                             />
                         </Grid>
                     </Grid>
-                    
+                    <StudentTable students={students}/>
                 </Paper>
                 
             </Container>
