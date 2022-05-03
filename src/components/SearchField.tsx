@@ -3,19 +3,41 @@ import React from 'react';
 import { InputAdornment, OutlinedInputProps } from '@material-ui/core';
 
 
-
+interface Student {
+    name: string;
+    grade: string;
+    testdate: Date;
+    motion_test: string | number;
+    fixed_form_test: string | number;
+    random_form_test: string | number;
+    risk: string;
+}
 
 interface SearchFieldProps {
     label: string;
     setValue: React.Dispatch<React.SetStateAction<string>>;
+    setFilteredStudents: React.Dispatch<React.SetStateAction<Array<Student>>>;
+    students: Array<Student>
     value: string;
     icon: any;
   }
 
 export default function SearchField(props: SearchFieldProps) {
+    const students: Array<Student> = []
 
     function handleSearchChange(e: React.ChangeEvent<HTMLInputElement>) {
         props.setValue(e.target.value)
+        if (e.target.value !== ""){
+            props.students.forEach(student => {
+                if (student.name.toLowerCase().includes(e.target.value.toLowerCase())){
+                    students.push(student)
+                }
+            });
+            props.setFilteredStudents(students)
+        }
+        else{
+            props.setFilteredStudents(props.students)
+        }
     }
 
     return (
@@ -28,7 +50,6 @@ export default function SearchField(props: SearchFieldProps) {
             value={props.value}
             style={{width: "25vw"}}
             InputProps={{ 
-                disableUnderline: true,
                 startAdornment: (
                     <InputAdornment position="start" style={{paddingLeft: "10px"}}>
                       {props.icon}
