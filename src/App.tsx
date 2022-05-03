@@ -17,14 +17,14 @@ import Students from './components/views/Students';
 
 
 const styles = (theme: any) => ({
-  root: {
-    display: 'flex',
-  },
-  content: {
-    flexGrow: 1,
-    height: '100vh',
-    overflow: 'auto',
-  },
+    root: {
+        display: 'flex',
+    },
+    content: {
+        flexGrow: 1,
+        height: '100vh',
+        overflow: 'auto',
+    },
 });
 
 export const App = observer( (props: any) =>  {
@@ -32,22 +32,22 @@ export const App = observer( (props: any) =>  {
   
   return (
     <div className={classes.root}>
-      <ThemeProvider theme={Theme}>
-          <ToolBars store={props.store}></ToolBars>
-          <>
-          <main className={classes.content}>
-          <Routes>
-            <Route path ="/" element={<Navigate to="/login" />} />
-            <Route path ="/home" element={<Home store={props.store}/>} />
-            <Route path="/login" element={<Login store={props.store}/>} />
-            <Route path="/register" element={<Register store={props.store}/>} />
-            <Route path="/tests" element={<Tests store={props.store}/>} />
-            <Route path="/students" element={<Students store={props.store}/>} />
-          </Routes>
-          </main>
-          </>
-          </ThemeProvider>
-        </div>
+        <ThemeProvider theme={Theme}>
+            <ToolBars store={props.store}></ToolBars>
+            <>
+                <main className={classes.content}>
+                    <Routes>
+                        <Route path ="/" element={<Navigate to="/login" />} />
+                        <Route path ="/home" element={<Home store={props.store}/>} />
+                        <Route path="/login" element={<Login store={props.store}/>} />
+                        <Route path="/register" element={<Register store={props.store}/>} />
+                        <Route path="/tests" element={<Tests store={props.store}/>} />
+                        <Route path="/students" element={<Students store={props.store}/>} />
+                    </Routes>
+                </main>
+            </>
+        </ThemeProvider>
+    </div>
   );
 });
 
