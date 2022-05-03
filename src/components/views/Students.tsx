@@ -37,12 +37,12 @@ const styles = (theme: any) => ({
     }
 });
 
-const students = [
+const studentList = [
     {
         key: "1",
         name: "Amanda Andersen",
-        class: "3A",
-        testdate: "19. Januar",
+        grade: "3A",
+        testdate: new Date("2022-01-19"),
         motion_test: 19,
         fixed_form_test: 17,
         random_form_test: 12,
@@ -51,8 +51,8 @@ const students = [
     {
         key: "2",
         name: "Bernt Barsen",
-        class: "2B",
-        testdate: "17. Februar",
+        grade: "2B",
+        testdate: new Date("2022-02-17"),
         motion_test: 63,
         fixed_form_test: 36,
         random_form_test: 79,
@@ -61,8 +61,8 @@ const students = [
     {
         key: "3",
         name: "Carl Christiansen",
-        class: "4B",
-        testdate: "16. Januar",
+        grade: "4B",
+        testdate: new Date("2022-01-16"),
         motion_test: 27,
         fixed_form_test: 23,
         random_form_test: 28,
@@ -71,8 +71,8 @@ const students = [
     {
         key: "4",
         name: "David Damas",
-        class: "4A",
-        testdate: "17. Februar",
+        grade: "4A",
+        testdate: new Date("2022-02-17"),
         motion_test: "-",
         fixed_form_test: "-",
         random_form_test: "-",
@@ -81,8 +81,8 @@ const students = [
     {
         key: "5",
         name: "Erik Erntsson",
-        class: "4A",
-        testdate: "17. Februar",
+        grade: "4A",
+        testdate: new Date("2022-02-17"),
         motion_test: 63,
         fixed_form_test: "-",
         random_form_test: "-",
@@ -91,8 +91,8 @@ const students = [
     {
         key: "6",
         name: "Ida Inge",
-        class: "3A",
-        testdate: "13. Februar",
+        grade: "3A",
+        testdate: new Date("2022-02-13"),
         motion_test: 18,
         fixed_form_test: "-",
         random_form_test: "-",
@@ -101,8 +101,8 @@ const students = [
     {
         key: "7",
         name: "Joar Mande",
-        class: "5B",
-        testdate: "19. Februar",
+        grade: "5B",
+        testdate: new Date("2022-02-19"),
         motion_test: 33,
         fixed_form_test: "-",
         random_form_test: "-",
@@ -111,8 +111,88 @@ const students = [
     {
         key: "8",
         name: "Olav Prang",
-        class: "2A",
-        testdate: "19. Februar",
+        grade: "2A",
+        testdate: new Date("2022-02-19"),
+        motion_test: "-",
+        fixed_form_test: "-",
+        random_form_test: "-",
+        risk: "Lav"
+    },
+    {
+        key: "9",
+        name: "Amanda Andersen",
+        grade: "3A",
+        testdate: new Date("2022-01-19"),
+        motion_test: 19,
+        fixed_form_test: 17,
+        random_form_test: 12,
+        risk: "Lav"
+    },
+    {
+        key: "10",
+        name: "Bernt Barsen",
+        grade: "2B",
+        testdate: new Date("2022-02-17"),
+        motion_test: 63,
+        fixed_form_test: 36,
+        random_form_test: 79,
+        risk: "Høy"
+    },
+    {
+        key: "11",
+        name: "Carl Christiansen",
+        grade: "4B",
+        testdate: new Date("2022-01-16"),
+        motion_test: 27,
+        fixed_form_test: 23,
+        random_form_test: 28,
+        risk: "Middels"
+    },
+    {
+        key: "12",
+        name: "David Damas",
+        grade: "4A",
+        testdate: new Date("2022-02-17"),
+        motion_test: "-",
+        fixed_form_test: "-",
+        random_form_test: "-",
+        risk: "Lav"
+    },
+    {
+        key: "13",
+        name: "Erik Erntsson",
+        grade: "4A",
+        testdate: new Date("2022-02-17"),
+        motion_test: 63,
+        fixed_form_test: "-",
+        random_form_test: "-",
+        risk: "Høy"
+    },
+    {
+        key: "14",
+        name: "Ida Inge",
+        grade: "3A",
+        testdate: new Date("2022-02-13"),
+        motion_test: 18,
+        fixed_form_test: "-",
+        random_form_test: "-",
+        risk: "Lav"
+    },
+    {
+        key: "15",
+        name: "Joar Mande",
+        grade: "5B",
+        testdate: new Date("2022-02-19"),
+        motion_test: 33,
+        fixed_form_test: "-",
+        random_form_test: "-",
+        risk: "Middels"
+    },
+    {
+        key: "16",
+        name: "Olav Prang",
+        grade: "2A",
+        testdate: new Date("2022-02-19"),
         motion_test: "-",
         fixed_form_test: "-",
         random_form_test: "-",
@@ -120,6 +200,15 @@ const students = [
     },
 ];
 
+interface Student {
+    name: string;
+    grade: string;
+    testdate: Date;
+    motion_test: string | number;
+    fixed_form_test: string | number;
+    random_form_test: string | number;
+    risk: string;
+}
 /**
  *
  *
@@ -130,19 +219,26 @@ const Students = observer( (props: any) => {
     const {classes} = props;
     const [cookies, setCookie] = useCookies(['c_user']);
     const [value, setValue] = useState("");
+    const [filteredStudents, setFilteredStudents] = React.useState<Array<Student>>([])
+    const [students, setStudents] = React.useState<Array<Student>>([])
     const navigate = useNavigate();
 
+    
+
     useEffect(() => {
-    const authFunction = async () => {
-        const validUser = await authenticate(cookies, setCookie);
-        if (!validUser){
-        navigate("/login")
+        const authFunction = async () => {
+            const validUser = await authenticate(cookies, setCookie);
+            if (!validUser){
+            navigate("/login")
+            }
+            else{
+            props.store.userStore.setLoginStatus(true)
+            }
         }
-        else{
-        props.store.userStore.setLoginStatus(true)
-        }
-    }
-    authFunction();
+        authFunction();
+
+        setStudents(studentList)
+        setFilteredStudents(studentList)
     }, []);
 
     return (
@@ -166,16 +262,20 @@ const Students = observer( (props: any) => {
                                 Legg til elev
                             </Button>
                         </Grid>
+                        
                         <Grid item xs={10} md={10} lg={10} xl={10}>
                             <SearchField
                                 label={"Søk"}
                                 setValue={setValue}
+                                setFilteredStudents={setFilteredStudents}
+                                students={students}
                                 value={value}
                                 icon={<SearchIcon/>}
                             />
                         </Grid>
                     </Grid>
-                    <StudentTable students={students}/>
+                    <div style={{paddingTop: 16}}/>
+                    <StudentTable students={filteredStudents}/>
                 </Paper>
                 
             </Container>
