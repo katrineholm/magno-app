@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {observer} from 'mobx-react';
 import { ThemeProvider, withStyles } from '@material-ui/core/styles';
 import './App.css';
@@ -14,6 +14,12 @@ import Home from './components/views/Home'
 import Theme from './components/Theme'
 import Tests from './components/views/Tests';
 import Students from './components/views/Students';
+import Snackbar from "./components/SnackBar";
+import { useCookies } from 'react-cookie';
+import {
+    useNavigate,
+  } from "react-router-dom";
+  import { authenticate } from './components/Communicator';
 
 
 const styles = (theme: any) => ({
@@ -29,6 +35,22 @@ const styles = (theme: any) => ({
 
 export const App = observer( (props: any) =>  {
   const {classes} = props;
+  const [cookies, setCookie] = useCookies(['c_user']);
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    const authFunction = async () => {
+      const validUser = await authenticate(cookies, setCookie);
+      if (!validUser){
+        navigate("/login")
+      }
+      else{
+        props.store.userStore.setLoginStatus(true)
+        navigate("/home")
+      }
+    }
+    authFunction();
+  }, []);
   
   return (
     <div className={classes.root}>
@@ -37,7 +59,6 @@ export const App = observer( (props: any) =>  {
             <>
                 <main className={classes.content}>
                     <Routes>
-                        <Route path ="/" element={<Navigate to="/login" />} />
                         <Route path ="/home" element={<Home store={props.store}/>} />
                         <Route path="/login" element={<Login store={props.store}/>} />
                         <Route path="/register" element={<Register store={props.store}/>} />
@@ -46,6 +67,12 @@ export const App = observer( (props: any) =>  {
                     </Routes>
                 </main>
             </>
+            <Snackbar
+                variant={props.store.viewStore.snackBarVariant}
+                message={props.store.viewStore.snackBarMessage}
+                open={props.store.viewStore.openSnackBar}
+                setOpen={() => props.store.viewStore.setOpenSnackBar(false)}
+            />
         </ThemeProvider>
     </div>
   );
