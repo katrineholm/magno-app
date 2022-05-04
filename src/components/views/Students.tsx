@@ -13,6 +13,7 @@ import AddIcon from '@material-ui/icons/Add';
 import SearchField from '../SearchField';
 import SearchIcon from '@material-ui/icons/Search';
 import StudentTable from '../StudentTable';
+import StudentFormDialog from '../StudentFormDialog';
 
 const styles = (theme: any) => ({
     container: {
@@ -219,23 +220,16 @@ const Students = observer( (props: any) => {
     const {classes} = props;
     const [cookies, setCookie] = useCookies(['c_user']);
     const [value, setValue] = useState("");
+    const [open, setOpen] = useState(false);
     const [filteredStudents, setFilteredStudents] = React.useState<Array<Student>>([])
     const [students, setStudents] = React.useState<Array<Student>>([])
     const navigate = useNavigate();
 
-    
+    function openDialog(test: string){
+        setOpen(true);
+    }
 
     useEffect(() => {
-        const authFunction = async () => {
-            const validUser = await authenticate(cookies, setCookie);
-            if (!validUser){
-            navigate("/login")
-            }
-            else{
-            props.store.userStore.setLoginStatus(true)
-            }
-        }
-        authFunction();
 
         setStudents(studentList)
         setFilteredStudents(studentList)
@@ -258,7 +252,7 @@ const Students = observer( (props: any) => {
                                 color={'primary'} 
                                 className={classes.button}
                                 startIcon={<AddIcon/>}
-                                onClick={() => props.setOpen(false)}>
+                                onClick={() => setOpen(true)}>
                                 Legg til elev
                             </Button>
                         </Grid>
@@ -279,6 +273,11 @@ const Students = observer( (props: any) => {
                 </Paper>
                 
             </Container>
+            <StudentFormDialog
+                store={props.store}
+                open={open}
+                setOpen={setOpen}
+            />
       </div>
     );
   });

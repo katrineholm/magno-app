@@ -24,16 +24,16 @@ const styles = (theme: any) => ({
   }
 });
 
-interface ActionTestCardProps {
+interface TestFormDialogProps {
   test: string;
-  text: string;
-  img: string;
+  store: any;
   open: boolean;
   setOpen: (open: boolean) => void;
   classes: any;
 }
 
-function FormDialog(props: any) {
+function TestFormDialog(props: TestFormDialogProps) {
+  const [value, setValue] = React.useState<string | null>();
   const {classes} = props;
 
   return (
@@ -52,7 +52,11 @@ function FormDialog(props: any) {
                 <DialogContentText >
                     Velg en elev som skal utføre {props.test}
                 </DialogContentText>
-                <SearchBox textfieldLabel={"Velg en elev"}/>
+                <SearchBox
+                    textfieldLabel={"Velg en elev"} 
+                    value={value}
+                    setValue={setValue}
+                />
             </DialogContent>
             <DialogActions >
                 <Button 
@@ -69,4 +73,4 @@ function FormDialog(props: any) {
   );
 }
 
-export default withStyles(styles)(FormDialog);
+export default withStyles(styles)(TestFormDialog);
