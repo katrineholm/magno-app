@@ -8,7 +8,6 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { v4 as uuidv4 } from 'uuid';
-import Snackbar from "../SnackBar";
 import MagnoLogo from '../../files/magno-logo.png';
 import { createAccount } from '../Communicator';
 import {
@@ -43,14 +42,8 @@ export type SnackBarVariants = 'error' | 'success'
 const Register = observer( (props: any) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [message, setMessage] = useState('');
-    const [snackBarVariant, setSnackBarVariant] = useState("error");
-    const [openSnackBar, setOpenSnackBar] = useState(false);
     const navigate = useNavigate();
 
-    function handleSnackBar(bool: boolean){
-        setOpenSnackBar(bool);
-    }
 
     function handleEmailChange(e: React.ChangeEvent<HTMLInputElement>) {
         setEmail(e.target.value)
@@ -62,21 +55,18 @@ const Register = observer( (props: any) => {
 
     async function handleSubmit(e: React.SyntheticEvent) {
         e.preventDefault();
-        setSnackBarVariant('error');
         if (password.length < 8){
-            setMessage('Password is too short, needs to be at least 8 letters long');
-            handleSnackBar(true);
+            props.store.viewStore.setSnackBar('Password is too short, needs to be at least 8 letters long', 'error');
+            props.store.viewStore.setOpenSnackBar(true);
         }
         else{
             const result = await createAccount(uuidv4(), email.toLowerCase(), password)
             if (result.includes("exists")){
-                setMessage(result);
-                handleSnackBar(true);
+                props.store.viewStore.setSnackBar(result, 'error');
+                props.store.viewStore.setOpenSnackBar(true);
             }
             else if (result.includes("Success")){
-                props.store.viewStore.setSnackBar(result, "success");
-                setMessage(result);
-                setSnackBarVariant("success");
+                props.store.viewStore.setSnackBar(result, 'success');
                 props.store.viewStore.setOpenSnackBar(true);
                 navigate('/login')
             }
@@ -144,12 +134,6 @@ const Register = observer( (props: any) => {
                         </Grid>
                     </Grid>
                     </form>
-                    <Snackbar
-                        variant={snackBarVariant as SnackBarVariants}
-                        message={message}
-                        open={openSnackBar}
-                        setOpen={() => handleSnackBar(false)}
-                    />
                 </div>
             </Container>
         </div>

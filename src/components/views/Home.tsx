@@ -47,19 +47,6 @@ const Home = observer( (props: any) => {
     fontSize: '82px',
   };
 
-  useEffect(() => {
-    const authFunction = async () => {
-      const validUser = await authenticate(cookies, setCookie);
-      if (!validUser){
-        navigate("/login")
-      }
-      else{
-        props.store.userStore.setLoginStatus(true)
-      }
-    }
-    authFunction();
-  }, []);
-  
     return (
       
       <div>

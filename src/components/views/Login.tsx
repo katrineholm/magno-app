@@ -8,7 +8,6 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { useCookies } from 'react-cookie';
-import Snackbar from "../SnackBar";
 import MagnoLogo from '../../files/magno-logo.png';
 import { authenticate, loginAccount } from '../Communicator'
 import {
@@ -40,29 +39,9 @@ export type SnackBarVariants = 'error' | 'success'
 const Login = observer( (props: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
-  const [snackBarVariant, setSnackBarVariant] = useState('error');
-  const [openSnackBar, setOpenSnackBar] = useState(false);
   const [cookies, setCookie] = useCookies(['c_user']);
   const navigate = useNavigate();
   const {classes} = props;
-
-  useEffect(() => {
-    const authFunction = async () => {
-      const validUser = await authenticate(cookies, setCookie);
-      if (validUser){
-        navigate("/home")
-      }
-      else{
-        props.store.userStore.setLoginStatus(false)
-      }
-    }
-    authFunction();
-  }, []);
-
-  function handleSnackBar(bool: boolean){
-      setOpenSnackBar(bool);
-  }
 
   function handleEmailChange(e: React.ChangeEvent<HTMLInputElement>) {
       setEmail(e.target.value)
@@ -75,10 +54,9 @@ const Login = observer( (props: any) => {
   async function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
     const data = await loginAccount(email, password)
-    setSnackBarVariant('error');
     if (data.result.includes("Wrong user")){
-      setMessage(data.result);
-      handleSnackBar(true);
+      props.store.viewStore.setSnackBar(data.result, 'error');
+      props.store.viewStore.setOpenSnackBar(true);
     }
     else{
         const expiryDate = new Date(Date.now() + 1000*60*60*3600);
@@ -133,7 +111,6 @@ const Login = observer( (props: any) => {
                     Logg inn
                 </Button>
                 <Grid container>
-                    
                     <Grid item>
                         <Link to={'/register'}>
                             {"Opprett konto"}
@@ -141,18 +118,6 @@ const Login = observer( (props: any) => {
                     </Grid>
                 </Grid>
             </form>
-            <Snackbar
-                variant={snackBarVariant as SnackBarVariants}
-                message={message}
-                open={openSnackBar}
-                setOpen={() => handleSnackBar(false)}
-            />
-            <Snackbar
-                variant={props.store.viewStore.snackBarVariant}
-                message={props.store.viewStore.snackBarMessage}
-                open={props.store.viewStore.openSnackBar}
-                setOpen={() => props.store.viewStore.setOpenSnackBar(false)}
-            />
         </div>
         </Container>
     </div>
