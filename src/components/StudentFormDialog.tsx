@@ -2,17 +2,14 @@ import * as React from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import {withStyles} from '@material-ui/core/styles';
-import SearchBox from './SearchBox';
 import { useState } from 'react';
+import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 
 const styles = (theme: any) => ({
   dialogBox: {
-    textAlign: 'center' as "center",
     justifyContent: 'center',
     alignItems: 'center',
     height: '35vh',
@@ -43,6 +40,8 @@ function StudentFormDialog(props: StudentFormDialogProps) {
   const [value, setValue] = useState<string | null>();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [grade, setGrade] = useState<string | unknown>();
+  const [classLetter, setClassLetter] = useState<string | unknown>();
   const {classes} = props;
 
     function handleFirstNameChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -53,6 +52,14 @@ function StudentFormDialog(props: StudentFormDialogProps) {
         setLastName(e.target.value)
     }
 
+    function handleGradeChange(event: React.ChangeEvent<{ value: string | unknown }>) {
+        setGrade(event.target.value)
+    }
+
+    function handleClassLetterChange(event: React.ChangeEvent<{ value: string | unknown }>) {
+        setClassLetter(event.target.value)
+    }
+
     async function handleSubmit(e: React.SyntheticEvent) {
         e.preventDefault();
         //const data = await loginAccount(email, password)
@@ -60,7 +67,9 @@ function StudentFormDialog(props: StudentFormDialogProps) {
         props.store.viewStore.setOpenSnackBar(true);
         props.setOpen(false)
         setFirstName("");
-        setLastName("")
+        setLastName("");
+        setGrade("");
+        setClassLetter("");
         /*if (data.result.includes("Wrong user")){
             props.store.viewStore.setMessage(data.result);
             handleSnackBar(true);
@@ -87,39 +96,76 @@ function StudentFormDialog(props: StudentFormDialogProps) {
             </DialogTitle>
             <DialogContent className={classes.dialogBox}>
                 <form name="SignInForm" onSubmit={handleSubmit} className={classes.form}>
-                <TextField
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="fornavn"
-                    label="fornavn"
-                    name="fornavn"
-                    autoComplete="fornavn"
-                    autoFocus
-                    onChange={handleFirstNameChange}
-                    value={firstName}/>
-                <TextField
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="etternavn"
-                    label="etternavn"
-                    type="etternavn"
-                    id="etternavn"
-                    autoComplete="etternavn"
-                    onChange={handleLastNameChange}
-                    value={lastName}/>
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    className={classes.submit}>
-                    Legg til elev
-                </Button>
-            </form>
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="fornavn"
+                        label="fornavn"
+                        name="fornavn"
+                        autoComplete="fornavn"
+                        autoFocus
+                        onChange={handleFirstNameChange}
+                        value={firstName}/>
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="etternavn"
+                        label="etternavn"
+                        type="etternavn"
+                        id="etternavn"
+                        autoComplete="etternavn"
+                        onChange={handleLastNameChange}
+                        value={lastName}/>
+                    <FormControl required style={{ minWidth: 80 }}>
+                        <InputLabel id="demo-simple-select-required-label">Trinn</InputLabel>
+                        <Select
+                            labelId="Trinn"
+                            id="Trinn"
+                            required
+                            value={grade}
+                            label="Trinn"
+                            onChange={handleGradeChange}
+                        >
+                            {props.store.studentStore.grades
+                            .map((grade: string, index: number) => {
+                                return (
+                                    <MenuItem key={index} value={grade}>{grade}</MenuItem>
+                                )
+                                }
+                            )}
+                        </Select>
+                    </FormControl>
+                    <FormControl required style={{ minWidth: 90, paddingLeft: 6 }}>
+                        <InputLabel style={{ paddingLeft: 7 }} id="demo-simple-select-required-label">Klasse</InputLabel>
+                        <Select
+                            labelId="Klasse"
+                            id="Klasse"
+                            value={classLetter}
+                            label="Klasse"
+                            onChange={handleClassLetterChange}
+                        >
+                            {props.store.studentStore.classLetters
+                            .map((classLetter: string, index: number) => {
+                                return (
+                                    <MenuItem key={index} value={classLetter}>{classLetter}</MenuItem>
+                                )
+                                }
+                            )}
+                        </Select>
+                    </FormControl>
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}>
+                        Legg til elev
+                    </Button>
+                </form>
             </DialogContent>
             
         </Dialog>

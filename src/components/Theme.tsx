@@ -17,7 +17,7 @@ const theme = {
         },
         text:{
             primary: "#33373A"
-          }
+        }
     },
     sidebarWidth: 240
 } as const;

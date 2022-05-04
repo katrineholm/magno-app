@@ -19,17 +19,18 @@ import { useCookies } from 'react-cookie';
 import {
     useNavigate,
   } from "react-router-dom";
-  import { authenticate } from './components/Communicator';
+import { authenticate } from './components/Communicator';
+import Student from './components/views/Student';
 
 
 const styles = (theme: any) => ({
     root: {
         display: 'flex',
+        height: '95vh',
     },
     content: {
         flexGrow: 1,
-        height: '100vh',
-        overflow: 'auto',
+
     },
 });
 
@@ -64,6 +65,9 @@ export const App = observer( (props: any) =>  {
                         <Route path="/register" element={<Register store={props.store}/>} />
                         <Route path="/tests" element={<Tests store={props.store}/>} />
                         <Route path="/students" element={<Students store={props.store}/>} />
+                        <Route path="/student" element={<Student store={props.store}/>}>
+                          <Route path=":studentID" element={<Student store={props.store}/>} />
+                        </Route>
                     </Routes>
                 </main>
             </>

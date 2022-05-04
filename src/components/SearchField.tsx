@@ -7,9 +7,9 @@ interface Student {
     name: string;
     grade: string;
     testdate: Date;
-    motion_test: string | number;
-    fixed_form_test: string | number;
-    random_form_test: string | number;
+    motion_test: string[] | undefined;
+    fixed_form_test: string[] | undefined;
+    random_form_test: string[] | undefined;
     risk: string;
 }
 

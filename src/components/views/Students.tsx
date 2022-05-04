@@ -14,6 +14,7 @@ import SearchField from '../SearchField';
 import SearchIcon from '@material-ui/icons/Search';
 import StudentTable from '../StudentTable';
 import StudentFormDialog from '../StudentFormDialog';
+import Chart from '../Chart';
 
 const styles = (theme: any) => ({
     container: {
@@ -38,176 +39,13 @@ const styles = (theme: any) => ({
     }
 });
 
-const studentList = [
-    {
-        key: "1",
-        name: "Amanda Andersen",
-        grade: "3A",
-        testdate: new Date("2022-01-19"),
-        motion_test: 19,
-        fixed_form_test: 17,
-        random_form_test: 12,
-        risk: "Lav"
-    },
-    {
-        key: "2",
-        name: "Bernt Barsen",
-        grade: "2B",
-        testdate: new Date("2022-02-17"),
-        motion_test: 63,
-        fixed_form_test: 36,
-        random_form_test: 79,
-        risk: "Høy"
-    },
-    {
-        key: "3",
-        name: "Carl Christiansen",
-        grade: "4B",
-        testdate: new Date("2022-01-16"),
-        motion_test: 27,
-        fixed_form_test: 23,
-        random_form_test: 28,
-        risk: "Middels"
-    },
-    {
-        key: "4",
-        name: "David Damas",
-        grade: "4A",
-        testdate: new Date("2022-02-17"),
-        motion_test: "-",
-        fixed_form_test: "-",
-        random_form_test: "-",
-        risk: "Lav"
-    },
-    {
-        key: "5",
-        name: "Erik Erntsson",
-        grade: "4A",
-        testdate: new Date("2022-02-17"),
-        motion_test: 63,
-        fixed_form_test: "-",
-        random_form_test: "-",
-        risk: "Høy"
-    },
-    {
-        key: "6",
-        name: "Ida Inge",
-        grade: "3A",
-        testdate: new Date("2022-02-13"),
-        motion_test: 18,
-        fixed_form_test: "-",
-        random_form_test: "-",
-        risk: "Lav"
-    },
-    {
-        key: "7",
-        name: "Joar Mande",
-        grade: "5B",
-        testdate: new Date("2022-02-19"),
-        motion_test: 33,
-        fixed_form_test: "-",
-        random_form_test: "-",
-        risk: "Middels"
-    },
-    {
-        key: "8",
-        name: "Olav Prang",
-        grade: "2A",
-        testdate: new Date("2022-02-19"),
-        motion_test: "-",
-        fixed_form_test: "-",
-        random_form_test: "-",
-        risk: "Lav"
-    },
-    {
-        key: "9",
-        name: "Amanda Andersen",
-        grade: "3A",
-        testdate: new Date("2022-01-19"),
-        motion_test: 19,
-        fixed_form_test: 17,
-        random_form_test: 12,
-        risk: "Lav"
-    },
-    {
-        key: "10",
-        name: "Bernt Barsen",
-        grade: "2B",
-        testdate: new Date("2022-02-17"),
-        motion_test: 63,
-        fixed_form_test: 36,
-        random_form_test: 79,
-        risk: "Høy"
-    },
-    {
-        key: "11",
-        name: "Carl Christiansen",
-        grade: "4B",
-        testdate: new Date("2022-01-16"),
-        motion_test: 27,
-        fixed_form_test: 23,
-        random_form_test: 28,
-        risk: "Middels"
-    },
-    {
-        key: "12",
-        name: "David Damas",
-        grade: "4A",
-        testdate: new Date("2022-02-17"),
-        motion_test: "-",
-        fixed_form_test: "-",
-        random_form_test: "-",
-        risk: "Lav"
-    },
-    {
-        key: "13",
-        name: "Erik Erntsson",
-        grade: "4A",
-        testdate: new Date("2022-02-17"),
-        motion_test: 63,
-        fixed_form_test: "-",
-        random_form_test: "-",
-        risk: "Høy"
-    },
-    {
-        key: "14",
-        name: "Ida Inge",
-        grade: "3A",
-        testdate: new Date("2022-02-13"),
-        motion_test: 18,
-        fixed_form_test: "-",
-        random_form_test: "-",
-        risk: "Lav"
-    },
-    {
-        key: "15",
-        name: "Joar Mande",
-        grade: "5B",
-        testdate: new Date("2022-02-19"),
-        motion_test: 33,
-        fixed_form_test: "-",
-        random_form_test: "-",
-        risk: "Middels"
-    },
-    {
-        key: "16",
-        name: "Olav Prang",
-        grade: "2A",
-        testdate: new Date("2022-02-19"),
-        motion_test: "-",
-        fixed_form_test: "-",
-        random_form_test: "-",
-        risk: "Lav"
-    },
-];
-
 interface Student {
     name: string;
     grade: string;
     testdate: Date;
-    motion_test: string | number;
-    fixed_form_test: string | number;
-    random_form_test: string | number;
+    motion_test: string[] | undefined;
+    fixed_form_test: string[] | undefined;
+    random_form_test: string[] | undefined;
     risk: string;
 }
 /**
@@ -231,8 +69,8 @@ const Students = observer( (props: any) => {
 
     useEffect(() => {
 
-        setStudents(studentList)
-        setFilteredStudents(studentList)
+        setStudents(props.store.studentStore.studentList)
+        setFilteredStudents(props.store.studentStore.studentList)
     }, []);
 
     return (
@@ -269,7 +107,7 @@ const Students = observer( (props: any) => {
                         </Grid>
                     </Grid>
                     <div style={{paddingTop: 16}}/>
-                    <StudentTable students={filteredStudents}/>
+                    <StudentTable store={props.store} students={filteredStudents}/>
                 </Paper>
                 
             </Container>

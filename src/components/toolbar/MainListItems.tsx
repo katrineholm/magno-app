@@ -83,12 +83,6 @@ const MainListItems = observer( (props: any) => {
             </ListItemIcon>
             <ListItemText primary="Elever"/>
           </ListItem>
-            <ListItem button selected={selected === 3}onClick={() => handleNavigation(3, '/settings')}>
-                <ListItemIcon>
-                    <SettingsIcon/>
-                </ListItemIcon>
-              <ListItemText primary="Innstillinger"/>
-            </ListItem>
         </>
       )
     }

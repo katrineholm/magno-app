@@ -39,47 +39,51 @@ const Tests = observer( (props: any) => {
   }
 
   return (
-    
-    <div>
-        <Container maxWidth="xl" className={classes.container}>
-            <Grid direction="row"
-                alignItems="center"
-                justifyContent="center" 
-                container 
-                spacing={8}
-            >
-                <Grid item xs={5} md={5} lg={5} xl={5}>
-                    <ActionTestCard 
-                        header={"Motion Test"} 
-                        text={"Magno bevegelsestest tester den magnocellulære kapasiteten til eleven"} 
-                        img={MotionDots}
-                        handleTestClick={openDialog}
-                        buttonText={"Start test"}>
-                    </ActionTestCard>
-                </Grid>
-                <Grid item xs={5} md={5} lg={5} xl={5}>
-                    <ActionTestCard 
-                        header={"Fixed Form Test"} 
-                        text={"Magno fiksertformtest tester den magnocellulære kapasiteten til eleven"} 
-                        img={FormFixed}
-                        handleTestClick={openDialog}
-                        buttonText={"Start test"}>
-                    </ActionTestCard>
-                </Grid>
-                <Grid item xs={5} md={5} lg={5} xl={5}>
-                    <ActionTestCard 
-                        header={"Random Form Test"} 
-                        text={"Magno tilfeldigformtest tester den magnocellulære kapasiteten til eleven"} 
-                        img={FormRandom}
-                        handleTestClick={openDialog}
-                        buttonText={"Start test"}>
-                    </ActionTestCard>
-                </Grid>
-                <Grid item xs={5} md={5} lg={5} xl={5}></Grid>
+    <Container maxWidth="xl" className={classes.container}>
+        <Grid direction="row"
+            alignItems="center"
+            justifyContent="center" 
+            container 
+            spacing={6}
+        >
+            <Grid item xs={4} md={4} lg={4} xl={4}>
+                <ActionTestCard 
+                    header={"Motion Test"} 
+                    text={"Magno bevegelsestest tester den magnocellulære kapasiteten til eleven"} 
+                    img={MotionDots}
+                    handleTestClick={openDialog}
+                    buttonText={"Start test"}>
+                </ActionTestCard>
             </Grid>
-            <TestFormDialog store={props.store} test={test} open={open} setOpen={setOpen}/>
-        </Container>
-    </div>
+            <Grid item xs={4} md={4} lg={4} xl={4}>
+                <ActionTestCard 
+                    header={"Fixed Form Test"} 
+                    text={"Magno fiksertformtest tester den magnocellulære kapasiteten til eleven"} 
+                    img={FormFixed}
+                    handleTestClick={openDialog}
+                    buttonText={"Start test"}>
+                </ActionTestCard>
+            </Grid>
+        </Grid>
+        <Grid direction="row"
+            alignItems="center"
+            justifyContent="center" 
+            container 
+            spacing={6}
+        >
+            <Grid item xs={4} md={4} lg={4} xl={4}>
+                <ActionTestCard 
+                    header={"Random Form Test"} 
+                    text={"Magno tilfeldigformtest tester den magnocellulære kapasiteten til eleven"} 
+                    img={FormRandom}
+                    handleTestClick={openDialog}
+                    buttonText={"Start test"}>
+                </ActionTestCard>
+            </Grid>
+            <Grid item xs={4} md={4} lg={4} xl={4}/>
+        </Grid>
+        <TestFormDialog store={props.store} test={test} open={open} setOpen={setOpen}/>
+    </Container>
   );
 });
 

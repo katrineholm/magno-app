@@ -9,6 +9,9 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import React, { useEffect } from 'react';
+import {
+  useNavigate,
+} from "react-router-dom";
 
 const StyledTableRow = styled(TableRow)(({ theme: Theme }) => ({
   '&:nth-of-type(odd)': {
@@ -40,7 +43,7 @@ interface RiskType {
 }
 
 interface Data {
-  key: string;
+  id: string;
   name: string;
   grade: string;
   testdate: Date;
@@ -51,7 +54,7 @@ interface Data {
 }
 
 function createData(
-    key: string,
+  id: string,
     name: string,
     grade: string,
     testdate: Date,
@@ -61,7 +64,7 @@ function createData(
     risk: RiskType,
 ): Data {
   return {
-    key,
+    id,
     name,
     grade,
     testdate,
@@ -239,13 +242,14 @@ interface Student {
   name: string;
   grade: string;
   testdate: Date;
-  motion_test: string | number;
-  fixed_form_test: string | number;
-  random_form_test: string | number;
+  motion_test: string[] | undefined;
+  fixed_form_test: string[] | undefined;
+  random_form_test: string[] | undefined;
   risk: string;
 }
 
 interface StudentTableProps{
+  store: any;
   students: Array<Student>;
 }
 
@@ -253,8 +257,10 @@ export default function StudentTable(props: StudentTableProps) {
   const [order, setOrder] = React.useState<Order>('asc');
   const [orderBy, setOrderBy] = React.useState<keyof Data>('name');
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(20);
+  const [rowsPerPage, setRowsPerPage] = React.useState(15);
   const [rows, setRows] = React.useState<Array<Data>>([]);
+  const dateConfig = {day: 'numeric', month: "short"} as const
+  const navigate = useNavigate();
   
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -265,8 +271,9 @@ export default function StudentTable(props: StudentTableProps) {
     setOrderBy(property);
   };
 
-  const handleClick = (event: React.MouseEvent<unknown>, name: string) => {
-    const selectedIndex = console.log(name);
+  const handleClick = (event: React.MouseEvent<unknown>, id: string) => {
+    props.store.studentStore.setStudent(id);
+    navigate(`/student/${id}`)
   };
 
   const handleChangePage = (event: unknown, newPage: number) => {
@@ -290,9 +297,18 @@ export default function StudentTable(props: StudentTableProps) {
     }
   }
 
+  function getLastTestResult(testScore: string[] | undefined){
+    if (testScore === undefined){
+      return "-"
+    }
+    else{
+      return(testScore[testScore.length - 1])
+    }
+  }
+
   useEffect(() => {
     const rows: {
-      key: string;
+      id: string;
       name: string; 
       grade: string; 
       testdate: Date; 
@@ -304,13 +320,13 @@ export default function StudentTable(props: StudentTableProps) {
     props.students.forEach((element: any) => {
         rows.push(
           createData(
-            element.key,
+            element.id,
             element.name,
             element.grade, 
             element.testdate, 
-            element.motion_test, 
-            element.fixed_form_test, 
-            element.random_form_test, 
+            getLastTestResult(element.motion_test), 
+            getLastTestResult(element.fixed_form_test), 
+            getLastTestResult(element.random_form_test), 
             element.risk))
     });
     setRows(rows)
@@ -344,10 +360,10 @@ export default function StudentTable(props: StudentTableProps) {
                   return (
                     <StyledTableRow
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
+                      onClick={(event) => handleClick(event, row.id)}
                       role="student"
                       tabIndex={-1}
-                      key={row.key}
+                      key={row.id}
                       style={{
                         border: "none",
                       }}
@@ -362,7 +378,7 @@ export default function StudentTable(props: StudentTableProps) {
                         {row.name}
                       </StyledTableCell>
                       <StyledTableCell align="right">{row.grade}</StyledTableCell>
-                      <StyledTableCell align="right">{row.testdate.toDateString()}</StyledTableCell>
+                      <StyledTableCell align="right">{row.testdate.toLocaleDateString('nb-NO', dateConfig)}</StyledTableCell>
                       <StyledTableCell align="right">{row.motion_test}</StyledTableCell>
                       <StyledTableCell align="right">{row.fixed_form_test}</StyledTableCell>
                       <StyledTableCell align="right">{row.random_form_test}</StyledTableCell>
@@ -375,16 +391,17 @@ export default function StudentTable(props: StudentTableProps) {
                   style={{
                     height: (53) * emptyRows,
                     border: "none",
+                    backgroundColor: "white",
                   }}
                 >
-                  <StyledTableCell colSpan={6} />
+                  <StyledTableCell colSpan={7} />
                 </StyledTableRow>
               )}
             </TableBody>
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[10, 20, 50]}
+          rowsPerPageOptions={[10, 15, 30]}
           component="div"
           count={rows.length}
           rowsPerPage={rowsPerPage}
