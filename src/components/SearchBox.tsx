@@ -5,8 +5,13 @@ import React, { useState } from 'react';
 const students = ["Jack", "Mari", "Anders", "Erik", "Thomas", "Ingrid", "Laila", "Bryan","Ola"
 ];
 
-export default function SearchBox(props: any) {
-  const [value, setValue] = React.useState<string | null>();
+interface SearchBoxProps {
+    setValue: React.Dispatch<React.SetStateAction<string | null | undefined>>;
+    value: string | null | undefined;
+    textfieldLabel: string;
+}
+
+export default function SearchBox(props: SearchBoxProps) {
   const [inputValue, setInputValue] = React.useState('');
 
     return (
@@ -15,9 +20,9 @@ export default function SearchBox(props: any) {
         disablePortal
         id="search-box"
         options={students}
-        value={value}
+        value={props.value}
         onChange={(event: any, newValue: string | null) => {
-            setValue(newValue);
+            props.setValue(newValue);
         }}
         inputValue={inputValue}
         onInputChange={(event, newInputValue) => {
