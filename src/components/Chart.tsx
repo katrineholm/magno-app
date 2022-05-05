@@ -9,46 +9,37 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  ResponsiveContainer,
 } from 'recharts';
 
-const data = [
-  {
-    name: 'Page A',
-    uv: 590,
-  },
-  {
-    name: 'Page B',
-    uv: 868,
-  },
-  {
-    name: 'Page C',
-    uv: 1397,
-  },
-  {
-    name: 'Page D',
-    uv: 1480,
-  },
-  {
-    name: 'Page E',
-    uv: 1520,
-  },
-  {
-    name: 'Page F',
-    uv: 1400,
-  },
-];
-
 interface ChartProps {
-    riskScores: number[];
+    riskScores: {score: string, date: Date}[] | undefined;
 }
 
 const Chart = observer( (props: ChartProps) => {
+  const dateConfig = {day: 'numeric', month: "short"} as const
+
+  function formatData(){
+    if (props.riskScores === undefined){
+      return undefined
+    }
+    const data : {score: string, date: string}[] | undefined = [];
+    props.riskScores.forEach(element => {
+      console.log(element.date)
+      data.push({
+        score: element.score,
+        date: new Date(element.date).toLocaleDateString('nb-NO', dateConfig)
+      })
+    });
+    return data;
+  }
 
     return (
+      <ResponsiveContainer width="95%" height={400}>
         <ComposedChart
           width={500}
           height={350}
-          data={data}
+          data={formatData()}
           margin={{
             top: 5,
             right: 5,
@@ -57,13 +48,14 @@ const Chart = observer( (props: ChartProps) => {
           }}
         >
           <CartesianGrid stroke="#f5f5f5" />
-          <XAxis dataKey="name" scale="band" />
-          <YAxis />
+          <XAxis dataKey="date" scale="band" />
+          <YAxis type="number" domain={[0, 100]}/>
           <Tooltip />
           <Legend />
-          <Bar dataKey="uv" barSize={20} fill="#448894" />
-          <ReferenceLine y={500} label="Gjennomsnitt" stroke="#ff7300" strokeDasharray="3 3" />
+          <Bar dataKey="score" barSize={20} fill="#448894" label={{position: "top"}}/>
+          <ReferenceLine y={33} label={{value: "Gjennomsnitt", position: "insideRight"}} stroke="#ff7300" strokeDasharray="3 3" />
         </ComposedChart>
+        </ResponsiveContainer>
     );
   });
 

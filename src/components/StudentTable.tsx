@@ -12,6 +12,7 @@ import React, { useEffect } from 'react';
 import {
   useNavigate,
 } from "react-router-dom";
+import { Student, RiskType, Data } from './Interfaces';
 
 const StyledTableRow = styled(TableRow)(({ theme: Theme }) => ({
   '&:nth-of-type(odd)': {
@@ -36,28 +37,13 @@ const StyledTableCell = styled(TableCell)(({ theme: Theme }) => ({
 }));
 
 
-interface RiskType {
-  high: "Høy",
-  medium: "Middels",
-  low: "Lav"
-}
 
-interface Data {
-  id: string;
-  name: string;
-  grade: string;
-  testdate: Date;
-  motion_test: string;
-  fixed_form_test: string;
-  random_form_test: string;
-  risk: RiskType;
-}
 
 function createData(
   id: string,
     name: string,
     grade: string,
-    testdate: Date,
+    testdate: Date | string,
     motion_test: string,
     fixed_form_test: string,
     random_form_test: string,
@@ -238,16 +224,6 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   );
 }
 
-interface Student {
-  name: string;
-  grade: string;
-  testdate: Date;
-  motion_test: string[] | undefined;
-  fixed_form_test: string[] | undefined;
-  random_form_test: string[] | undefined;
-  risk: string;
-}
-
 interface StudentTableProps{
   store: any;
   students: Array<Student>;
@@ -259,7 +235,7 @@ export default function StudentTable(props: StudentTableProps) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(15);
   const [rows, setRows] = React.useState<Array<Data>>([]);
-  const dateConfig = {day: 'numeric', month: "short"} as const
+  const dateConfig = {day: 'numeric', month: "short", year: "2-digit"} as const
   const navigate = useNavigate();
   
   const handleRequestSort = (
@@ -297,39 +273,51 @@ export default function StudentTable(props: StudentTableProps) {
     }
   }
 
-  function getLastTestResult(testScore: string[] | undefined){
+  function getLastTestResult(testScore: {score: string, date: Date}[] | undefined){
     if (testScore === undefined){
       return "-"
     }
     else{
-      return(testScore[testScore.length - 1])
+      return(testScore[testScore.length - 1].score)
+    }
+  }
+
+  function getLastTestDate(date: Date | undefined | string){
+    if (date === undefined || date === ""){
+      return ("-")
+    }
+    else{
+      return (new Date(date).toLocaleDateString('nb-NO', dateConfig))
     }
   }
 
   useEffect(() => {
-    const rows: {
-      id: string;
-      name: string; 
-      grade: string; 
-      testdate: Date; 
-      motion_test: string; 
-      fixed_form_test: string; 
-      random_form_test: string; 
-      risk: RiskType; 
-    }[] = [];
-    props.students.forEach((element: any) => {
-        rows.push(
-          createData(
-            element.id,
-            element.name,
-            element.grade, 
-            element.testdate, 
-            getLastTestResult(element.motion_test), 
-            getLastTestResult(element.fixed_form_test), 
-            getLastTestResult(element.random_form_test), 
-            element.risk))
-    });
-    setRows(rows)
+    if (props.students.length > 0 && Array.isArray(props.students)){
+      const rows: {
+        id: string;
+        name: string; 
+        grade: string; 
+        testdate: Date | string; 
+        motion_test: string; 
+        fixed_form_test: string; 
+        random_form_test: string; 
+        risk: RiskType; 
+      }[] = [];
+      props.students.forEach((element: any) => {
+          rows.push(
+            createData(
+              element.id,
+              element.name,
+              element.grade, 
+              getLastTestDate(element.testdate), 
+              getLastTestResult(element.motion_test), 
+              getLastTestResult(element.fixed_form_test), 
+              getLastTestResult(element.random_form_test), 
+              element.risk))
+      });
+      setRows(rows)
+    }
+    
   }, [props.students]);
 
   // Avoid a layout jump when reaching the last page with empty rows.
@@ -378,7 +366,7 @@ export default function StudentTable(props: StudentTableProps) {
                         {row.name}
                       </StyledTableCell>
                       <StyledTableCell align="right">{row.grade}</StyledTableCell>
-                      <StyledTableCell align="right">{row.testdate.toLocaleDateString('nb-NO', dateConfig)}</StyledTableCell>
+                      <StyledTableCell align="right">{row.testdate}</StyledTableCell>
                       <StyledTableCell align="right">{row.motion_test}</StyledTableCell>
                       <StyledTableCell align="right">{row.fixed_form_test}</StyledTableCell>
                       <StyledTableCell align="right">{row.random_form_test}</StyledTableCell>

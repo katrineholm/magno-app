@@ -7,14 +7,14 @@ import { useCookies } from 'react-cookie';
 import {
   useNavigate,
 } from "react-router-dom";
-import { authenticate } from '../Communicator';
+import { getStudents } from '../Communicator';
 import { Button, Paper } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import SearchField from '../SearchField';
 import SearchIcon from '@material-ui/icons/Search';
 import StudentTable from '../StudentTable';
 import StudentFormDialog from '../StudentFormDialog';
-import Chart from '../Chart';
+import { Student } from '../Interfaces';
 
 const styles = (theme: any) => ({
     container: {
@@ -39,15 +39,7 @@ const styles = (theme: any) => ({
     }
 });
 
-interface Student {
-    name: string;
-    grade: string;
-    testdate: Date;
-    motion_test: string[] | undefined;
-    fixed_form_test: string[] | undefined;
-    random_form_test: string[] | undefined;
-    risk: string;
-}
+
 /**
  *
  *
@@ -60,17 +52,26 @@ const Students = observer( (props: any) => {
     const [value, setValue] = useState("");
     const [open, setOpen] = useState(false);
     const [filteredStudents, setFilteredStudents] = React.useState<Array<Student>>([])
-    const [students, setStudents] = React.useState<Array<Student>>([])
     const navigate = useNavigate();
+    
 
     function openDialog(test: string){
         setOpen(true);
     }
 
+    async function fetchStudents(){
+        const students = await getStudents();
+        props.store.studentStore.setStudentList(students)
+        setFilteredStudents(students)
+    }
+    
     useEffect(() => {
-
-        setStudents(props.store.studentStore.studentList)
-        setFilteredStudents(props.store.studentStore.studentList)
+        const fetchCall = async () => {
+            const students = await getStudents();
+            props.store.studentStore.setStudentList(students)
+            setFilteredStudents(students)
+          }
+        fetchCall()
     }, []);
 
     return (
@@ -100,7 +101,7 @@ const Students = observer( (props: any) => {
                                 label={"Søk"}
                                 setValue={setValue}
                                 setFilteredStudents={setFilteredStudents}
-                                students={students}
+                                students={props.store.studentStore.studentList}
                                 value={value}
                                 icon={<SearchIcon/>}
                             />
@@ -115,6 +116,7 @@ const Students = observer( (props: any) => {
                 store={props.store}
                 open={open}
                 setOpen={setOpen}
+                fetchStudents={fetchStudents}
             />
       </div>
     );

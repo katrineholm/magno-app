@@ -24,7 +24,7 @@ const styles = (theme: any) => ({
 interface ChartCardProps {
   header: string;
   text: string;
-  riskScores: number[];
+  riskScores: {score: string, date: Date}[] | undefined;
   buttonText: string;
   classes: any;
 }

@@ -91,3 +91,45 @@ export async function authenticate(cookies: any, setCookie: any){
         
     }
 }
+
+export async function addStudent(uuid: string, name: string, grade: string){
+    const form_data = {
+        uuid: uuid,
+        name: name,
+        grade: grade,
+        testdate: "",
+        motion_test: [{}],
+        fixed_form_test: [{}],
+        random_form_test: [{}],
+        risk: ""
+    }
+    try {
+        const { data } = await axios.post(url.addStudent, form_data)
+        return data;
+    }
+    catch (error){
+        if (axios.isAxiosError(error)) {
+            console.log('error message: ', error.message);
+            return error.message;
+        } else {
+            console.log('unexpected error: ', error);
+            return 'An unexpected error occurred';
+        }
+    }
+}
+
+export async function getStudents(){
+    try {
+        const { data } = await axios.get(url.getStudents)
+        return data;
+    }
+    catch (error){
+        if (axios.isAxiosError(error)) {
+            console.log('error message: ', error.message);
+            return error.message;
+        } else {
+            console.log('unexpected error: ', error);
+            return 'An unexpected error occurred';
+        }
+    }
+}

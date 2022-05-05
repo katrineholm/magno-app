@@ -7,6 +7,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import {withStyles} from '@material-ui/core/styles';
 import { useState } from 'react';
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import {addStudent} from './Communicator'
+import { v4 as uuidv4 } from 'uuid';
 
 const styles = (theme: any) => ({
   dialogBox: {
@@ -34,15 +36,16 @@ interface StudentFormDialogProps {
   open: boolean;
   setOpen: (open: boolean) => void;
   classes: any;
+  fetchStudents: () => void;
 }
 
 function StudentFormDialog(props: StudentFormDialogProps) {
-  const [value, setValue] = useState<string | null>();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [grade, setGrade] = useState<string | unknown>();
-  const [classLetter, setClassLetter] = useState<string | unknown>();
+  const [grade, setGrade] = useState<string | unknown>('');
+  const [classLetter, setClassLetter] = useState<string | unknown>('');
   const {classes} = props;
+  
 
     function handleFirstNameChange(e: React.ChangeEvent<HTMLInputElement>) {
         setFirstName(e.target.value)
@@ -62,28 +65,29 @@ function StudentFormDialog(props: StudentFormDialogProps) {
 
     async function handleSubmit(e: React.SyntheticEvent) {
         e.preventDefault();
-        //const data = await loginAccount(email, password)
-        props.store.viewStore.setSnackBar(firstName + " " + lastName + " ble lagt til", 'success');
-        props.store.viewStore.setOpenSnackBar(true);
-        props.setOpen(false)
+        const data = await addStudent(uuidv4(), firstName + " " + lastName, String(grade) + String(classLetter))
+        if (data !== undefined){
+            if (data.result.includes("Success")){
+                props.fetchStudents();
+                props.store.viewStore.setSnackBar(firstName + " " + lastName + " ble lagt til", 'success');
+                props.store.viewStore.setOpenSnackBar(true);
+                props.setOpen(false)
+            }
+            else {
+                props.store.viewStore.setSnackBar("En ukjent feil oppsto", 'error');
+                props.store.viewStore.setOpenSnackBar(true);
+                props.setOpen(false)
+            }
+        }
+        
         setFirstName("");
         setLastName("");
         setGrade("");
         setClassLetter("");
-        /*if (data.result.includes("Wrong user")){
-            props.store.viewStore.setMessage(data.result);
-            handleSnackBar(true);
-        }
-        else{
-            const expiryDate = new Date(Date.now() + 1000*60*60*3600);
-            setCookie('c_user', data.token, { expires: expiryDate });
-            props.store.userStore.setUserEmail(email)
-            props.store.userStore.setLoginStatus(true);
-            navigate('/home')
-        }*/
     }
+
   return (
-    <div >
+
         <Dialog 
             fullWidth={true}
             maxWidth={"sm"}
@@ -121,7 +125,7 @@ function StudentFormDialog(props: StudentFormDialogProps) {
                         onChange={handleLastNameChange}
                         value={lastName}/>
                     <FormControl required style={{ minWidth: 80 }}>
-                        <InputLabel id="demo-simple-select-required-label">Trinn</InputLabel>
+                        <InputLabel id="select-grade">Trinn</InputLabel>
                         <Select
                             labelId="Trinn"
                             id="Trinn"
@@ -140,7 +144,7 @@ function StudentFormDialog(props: StudentFormDialogProps) {
                         </Select>
                     </FormControl>
                     <FormControl required style={{ minWidth: 90, paddingLeft: 6 }}>
-                        <InputLabel style={{ paddingLeft: 7 }} id="demo-simple-select-required-label">Klasse</InputLabel>
+                        <InputLabel style={{ paddingLeft: 7 }} id="select-class">Klasse</InputLabel>
                         <Select
                             labelId="Klasse"
                             id="Klasse"
@@ -169,7 +173,7 @@ function StudentFormDialog(props: StudentFormDialogProps) {
             </DialogContent>
             
         </Dialog>
-    </div>
+
   );
 }
 

@@ -2,7 +2,7 @@
 /* eslint-disable no-undef */
 const CryptoJS = require('crypto-js')
 const CosmosClient = require("@azure/cosmos").CosmosClient
-const db_account_config = require("../database/db-config");
+const db_account_config = require("../database/db-account-config");
 const oneDay = 1000*60*60*24;
 
 function handleSuccessOrErrorMessage(response, err, res) {

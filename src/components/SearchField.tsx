@@ -1,17 +1,7 @@
 import TextField from '@material-ui/core/TextField';
 import React from 'react';
 import { InputAdornment, OutlinedInputProps } from '@material-ui/core';
-
-
-interface Student {
-    name: string;
-    grade: string;
-    testdate: Date;
-    motion_test: string[] | undefined;
-    fixed_form_test: string[] | undefined;
-    random_form_test: string[] | undefined;
-    risk: string;
-}
+import { Student } from './Interfaces'
 
 interface SearchFieldProps {
     label: string;

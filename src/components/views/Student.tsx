@@ -37,6 +37,7 @@ const Student = observer( (props: any) => {
   const iconStyles = {
     fontSize: '102px',
   };
+  console.log(props.store.studentStore.student)
 
   function riskIcon(risk: string){
     if (risk === "Lav"){
@@ -45,8 +46,11 @@ const Student = observer( (props: any) => {
     else if (risk === "Middels"){
         return(<ReportIcon htmlColor="#FCA762" style={iconStyles} />)
     }
-    else{
+    else if (risk === "Høy"){
         return(<ReportIcon htmlColor="#E43A4A" style={iconStyles} />)
+    }
+    else{
+        return("")
     }
   }
 
@@ -58,18 +62,13 @@ const Student = observer( (props: any) => {
         return("Testene indikerer at det er en middels risiko for at eleven kan ha dysleksi. " +
                "Det anbefales å sende eleven videre til utredning.")
     }
-    else{
+    else if (risk === "Høy"){
         return("Testene indikerer at det er en høy risiko for at eleven kan ha dysleksi. " + 
                "Det anbefales å sende eleven videre til utredning.")
     }
-  }
-
-  function riskScoreToNumber(riskScore: string[]){
-    const risk: number[] = [];
-    riskScore.forEach(element => {
-          risk.push(parseInt(element))
-      });
-    return risk;
+    else{
+        return("Det er ikke gjennomført noen tester med denne eleven enda.")
+    }
   }
 
   return (
@@ -107,7 +106,7 @@ const Student = observer( (props: any) => {
                         header={"Fixed Form Test"} 
                         text={"Magno fiksertformtest tester den magnocellulære kapasiteten til eleven"} 
                         buttonText={"Start test"}
-                        riskScores={[10]}
+                        riskScores={props.store.studentStore.student.motion_test}
                         >
                     </ChartCard>
                 </Grid>
@@ -116,7 +115,7 @@ const Student = observer( (props: any) => {
                         header={"Random Form Test"} 
                         text={"Magno tilfeldigformtest tester den magnocellulære kapasiteten til eleven"} 
                         buttonText={"Start test"}
-                        riskScores={[10]}>
+                        riskScores={props.store.studentStore.student.random_form_test}>
                     </ChartCard>
                 </Grid>
                 <Grid item xs={4} md={4} lg={4} xl={4}>
@@ -124,7 +123,7 @@ const Student = observer( (props: any) => {
                         header={"Random Form Test"} 
                         text={"Magno tilfeldigformtest tester den magnocellulære kapasiteten til eleven"} 
                         buttonText={"Start test"}
-                        riskScores={[10]}>
+                        riskScores={props.store.studentStore.student.fixed_form_test}>
                     </ChartCard>
                 </Grid>
             </Grid>
