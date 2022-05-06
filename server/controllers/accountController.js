@@ -209,6 +209,7 @@ module.exports = {
                 id: item.id,
                 email: item.email,
                 password: item.password,
+                school: item.school,
                 token: "",
               };
             
