@@ -76,7 +76,8 @@ export const App = observer( (props: any) =>  {
                         <Route path="/login" element={<Login store={props.store}/>} />
                         <Route path="/register" element={<Register store={props.store}/>} />
                         <Route path="/tests" element={<Tests store={props.store}/>} />
-                        <Route path="/students" element={<Students store={props.store}/>} />
+                        <Route path="/students" element={<Students store={props.store} order={'asc'} orderBy={'name'}/>} />
+                        <Route path="/students/sort-by-date" element={<Students store={props.store} order={"desc"} orderBy={'testdate'}/>} />
                         <Route path="/student" element={<Student store={props.store}/>}>
                           <Route path=":studentID" element={<Student store={props.store}/>} />
                         </Route>

@@ -239,11 +239,13 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 interface StudentTableProps{
   store: any;
   students: Array<Student>;
+  order: Order;
+  orderBy: keyof Data;
 }
 
 export default function StudentTable(props: StudentTableProps) {
-  const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState<keyof Data>('name');
+  const [order, setOrder] = React.useState<Order>(props.order);
+  const [orderBy, setOrderBy] = React.useState<keyof Data>(props.orderBy);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(15);
   const [rows, setRows] = React.useState<Array<Data>>([]);

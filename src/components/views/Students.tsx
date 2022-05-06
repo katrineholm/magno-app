@@ -108,7 +108,7 @@ const Students = observer( (props: any) => {
                         </Grid>
                     </Grid>
                     <div style={{paddingTop: 16}}/>
-                    <StudentTable store={props.store} students={filteredStudents}/>
+                    <StudentTable store={props.store} order={props.order} orderBy={props.orderBy} students={filteredStudents}/>
                 </Paper>
                 
             </Container>
