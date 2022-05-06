@@ -1,6 +1,7 @@
 export interface Student {
     id: string;
     name: string;
+    school: string;
     grade: string;
     testdate: Date;
     motion_test: {score: string, date: Date}[];

@@ -46,6 +46,9 @@ export const App = observer( (props: any) =>  {
         navigate("/login")
       }
       else{
+        props.store.userStore.setUserEmail(validUser.email);
+        console.log(validUser)
+        props.store.userStore.setSchool(validUser.school);
         props.store.userStore.setLoginStatus(true)
         navigate("/home")
       }

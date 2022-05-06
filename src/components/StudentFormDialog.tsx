@@ -65,7 +65,12 @@ function StudentFormDialog(props: StudentFormDialogProps) {
 
     async function handleSubmit(e: React.SyntheticEvent) {
         e.preventDefault();
-        const data = await addStudent(uuidv4(), firstName + " " + lastName, String(grade) + String(classLetter))
+        const data = await addStudent(
+            uuidv4(), 
+            firstName + " " + lastName, 
+            String(grade) + String(classLetter), 
+            props.store.userStore.school
+            )
         if (data !== undefined){
             if (data.result.includes("Success")){
                 props.fetchStudents();

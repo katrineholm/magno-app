@@ -61,7 +61,8 @@ const Login = observer( (props: any) => {
     else{
         const expiryDate = new Date(Date.now() + 1000*60*60*3600);
         setCookie('c_user', data.token, { expires: expiryDate });
-        props.store.userStore.setUserEmail(email)
+        props.store.userStore.setUserEmail(email);
+        props.store.userStore.setSchool(data.school);
         props.store.userStore.setLoginStatus(true);
         navigate('/home')
       }

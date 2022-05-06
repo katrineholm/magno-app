@@ -4,6 +4,7 @@ export class UserStore{
     loginStatus = false;
     userEmail = "";
     userName = "";
+    school = "";
     
     constructor(){
       makeObservable(this, {
@@ -11,8 +12,10 @@ export class UserStore{
         setLoginStatus: action,
         userEmail: observable,
         userName: observable,
+        school: observable,
         setUserEmail: action,
         setUserName: action,
+        setSchool: action,
       })
     }
 
@@ -26,5 +29,9 @@ export class UserStore{
 
     setUserName(userName: string) {
         this.userName = userName;
+    }
+
+    setSchool(school: string){
+      this.school = school;
     }
 }

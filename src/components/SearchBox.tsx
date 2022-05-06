@@ -12,7 +12,7 @@ interface SearchBoxProps {
 }
 
 export default function SearchBox(props: SearchBoxProps) {
-  const [inputValue, setInputValue] = React.useState('');
+  const [inputValue, setInputValue] = useState('');
 
     return (
     <Autocomplete

@@ -9,8 +9,9 @@ export class StudentStore {
     student : { 
         id: string; 
         name: string; 
+        school: string;
         grade: string; 
-        testdate: Date | undefined; 
+        testdate: Date | undefined;
         motion_test: {score: string, date: Date}[] | undefined; 
         fixed_form_test: {score: string, date: Date}[] | undefined; 
         random_form_test: {score: string, date: Date}[] | undefined; 
@@ -38,6 +39,5 @@ export class StudentStore {
           setStudent: action,
           setStudentList: action
         })
-      }
-
+    }
 }

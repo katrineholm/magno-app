@@ -37,11 +37,13 @@ module.exports = {
   addStudent: async function(req, res){
     const id = req.body.uuid;
     const name = req.body.name;
+    const school = req.body.school;
     const grade = req.body.grade;
     const testdate = req.body.testdate;
     var motion_test = req.body.motion_test;
     var fixed_form_test = req.body.fixed_form_test;
     var random_form_test = req.body.random_form_test;
+
     const risk = req.body.risk;
     if (motion_test === undefined){
         motion_test = [{}]
@@ -56,6 +58,7 @@ module.exports = {
     const newItem = {
         id: id,
         name: name,
+        school: school,
         grade: grade,
         testdate: testdate,
         motion_test: motion_test,
@@ -69,15 +72,19 @@ module.exports = {
   },
 
   getStudents: async function (req, res){
+    const school = req.body.school
+
     const container = await CosmosConnector();
     const querySpec = {
-        query: "SELECT * from c"
-      };
-    
+      query: "SELECT * from c where c.school = @school",
+      "parameters": [
+          {"name": "@school", "value": school}
+      ]
+    };
     const { resources: items } = await container.items
       .query(querySpec)
       .fetchAll();
-        handleSuccessOrErrorMessage(items, false, res);
+      handleSuccessOrErrorMessage(items, false, res);
   },
 
   updateStudent: async function(old_email, email, confirm_password, password, change_password){

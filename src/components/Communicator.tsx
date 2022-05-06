@@ -1,11 +1,13 @@
+import { School } from '@material-ui/icons';
 import axios, { AxiosError } from 'axios';
 import url from './urls';
 
-export async function createAccount(uuid: string, email: string, password: string){
+export async function createAccount(uuid: string, email: string, password: string, school: string){
     const form_data = {
         uuid: uuid,
         email: email,
-        password: password
+        password: password,
+        school: school,
     }
     try {
         const { data } = await axios.post(url.account, form_data)
@@ -74,7 +76,7 @@ export async function authenticate(cookies: any, setCookie: any){
             if (data.result.includes("Authenticated")){
                 const expiryDate = new Date(Date.now() + 1000*60*60*3600);
                 setCookie('c_user', data.token, { expires: expiryDate });
-                return true;
+                return data;
             }
             return false;
         }
@@ -92,10 +94,11 @@ export async function authenticate(cookies: any, setCookie: any){
     }
 }
 
-export async function addStudent(uuid: string, name: string, grade: string){
+export async function addStudent(uuid: string, name: string, grade: string, school: string){
     const form_data = {
         uuid: uuid,
         name: name,
+        school: school,
         grade: grade,
         testdate: "",
         motion_test: [{}],
@@ -118,9 +121,12 @@ export async function addStudent(uuid: string, name: string, grade: string){
     }
 }
 
-export async function getStudents(){
+export async function getStudents(school: string){
+    const form_data = {
+        school: school
+    }
     try {
-        const { data } = await axios.get(url.getStudents)
+        const { data } = await axios.post(url.getStudents, form_data)
         return data;
     }
     catch (error){

@@ -60,14 +60,14 @@ const Students = observer( (props: any) => {
     }
 
     async function fetchStudents(){
-        const students = await getStudents();
+        const students = await getStudents(props.store.userStore.school);
         props.store.studentStore.setStudentList(students)
         setFilteredStudents(students)
     }
     
     useEffect(() => {
         const fetchCall = async () => {
-            const students = await getStudents();
+            const students = await getStudents(props.store.userStore.school);
             props.store.studentStore.setStudentList(students)
             setFilteredStudents(students)
           }

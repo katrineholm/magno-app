@@ -8,8 +8,10 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { v4 as uuidv4 } from 'uuid';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import MagnoLogo from '../../files/magno-logo.png';
 import { createAccount } from '../Communicator';
+
 import {
     Link,
     useNavigate
@@ -42,12 +44,16 @@ export type SnackBarVariants = 'error' | 'success'
 const Register = observer( (props: any) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [school, setSchool] = useState<string | null>("");
+    const [value, setValue] = useState('');
+    const schools = ["Huseby Barneskole", "Åsheim Barneskole", "Charlottenlund Barneskole"];
     const navigate = useNavigate();
 
 
     function handleEmailChange(e: React.ChangeEvent<HTMLInputElement>) {
         setEmail(e.target.value)
     }
+
 
     function handlePasswordChange(e: React.ChangeEvent<HTMLInputElement>) {
         setPassword(e.target.value)
@@ -60,7 +66,8 @@ const Register = observer( (props: any) => {
             props.store.viewStore.setOpenSnackBar(true);
         }
         else{
-            const result = await createAccount(uuidv4(), email.toLowerCase(), password)
+
+            const result = await createAccount(uuidv4(), email.toLowerCase(), password, String(school))
             if (result.includes("exists")){
                 props.store.viewStore.setSnackBar(result, 'error');
                 props.store.viewStore.setOpenSnackBar(true);
@@ -113,6 +120,23 @@ const Register = observer( (props: any) => {
                                 autoComplete="current-password"
                                 onChange={handlePasswordChange}
                                 value={password}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                        <Autocomplete
+                            ListboxProps={{ style: { maxHeight: 150, overflow: 'auto' } }}
+                            disablePortal
+                            id="search-box"
+                            options={schools}
+                            value={school}
+                            onChange={(event: any, newValue: string | null) => {
+                                setSchool(newValue);
+                            }}
+                            inputValue={value}
+                            onInputChange={(event, newInputValue) => {
+                                setValue(newInputValue);
+                            }}
+                            renderInput={(params) => <TextField required variant={"outlined"} {...params} label={"Velg skole"} />}
                             />
                         </Grid>
                     </Grid>

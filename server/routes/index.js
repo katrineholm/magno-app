@@ -10,5 +10,5 @@ router.post('/login', accountController.loginAccount)
 router.post('/logout', accountController.logoutAccount)
 router.post('/authenticate', accountController.authenticate)
 router.post('/addStudent', studentController.addStudent)
-router.get('/students', studentController.getStudents)
+router.post('/students', studentController.getStudents)
 module.exports = router;

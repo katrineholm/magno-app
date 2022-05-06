@@ -64,7 +64,8 @@ function createData(
 const Risk = {
   high: "Høy",
   medium: "Middels",
-  low: "Lav"
+  low: "Lav",
+  none: ""
 }
 
 function riskComparator(a: string, b: string){
@@ -84,6 +85,15 @@ function riskComparator(a: string, b: string){
     return 1
   }
   else if (b === Risk.medium && a === Risk.medium){
+    return 0
+  }
+  else if (b === Risk.low && a !== Risk.low){
+    return -1
+  }
+  else if (b !== Risk.low && a === Risk.low){
+    return 1
+  }
+  else if (b === Risk.low && a === Risk.low){
     return 0
   }
   else{
@@ -273,8 +283,8 @@ export default function StudentTable(props: StudentTableProps) {
     }
   }
 
-  function getLastTestResult(testScore: {score: string, date: Date}[] | undefined){
-    if (testScore === undefined){
+  function getLastTestResult(testScore: {score: string, date: Date}[]){
+    if (testScore[0].score === undefined){
       return "-"
     }
     else{
