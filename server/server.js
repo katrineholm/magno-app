@@ -7,16 +7,18 @@ const index = require('./routes/index');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const CryptoJS = require('crypto-js')
+const dir = `${__dirname}/public/`;
+app.use(express.static('public'))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.use(cookieParser());
 app.use('/', index);
 
-const port = 5000;
+const port = process.env.PORT || 5000
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.sendFile(dir + "index.html");
 })
 
 app.listen(port, () => {
