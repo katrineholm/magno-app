@@ -19,7 +19,7 @@ import { useCookies } from 'react-cookie';
 import {
     useNavigate,
   } from "react-router-dom";
-import { authenticate } from './components/Communicator';
+import { authenticate, getStudents } from './components/Communicator';
 import Student from './components/views/Student';
 
 
@@ -38,6 +38,11 @@ export const App = observer( (props: any) =>  {
   const {classes} = props;
   const [cookies, setCookie] = useCookies(['c_user']);
   const navigate = useNavigate();
+
+  async function fetchStudents(){
+    const students = await getStudents(props.store.userStore.school);
+    props.store.studentStore.setStudentList(students)
+  }
   
   useEffect(() => {
     const authFunction = async () => {
@@ -47,10 +52,14 @@ export const App = observer( (props: any) =>  {
       }
       else{
         props.store.userStore.setUserEmail(validUser.email);
-        console.log(validUser)
         props.store.userStore.setSchool(validUser.school);
         props.store.userStore.setLoginStatus(true)
         navigate("/home")
+        const fetchCall = async () => {
+          const students = await getStudents(props.store.userStore.school);
+          props.store.studentStore.setStudentList(students)
+        }
+        fetchCall()
       }
     }
     authFunction();

@@ -25,7 +25,6 @@ const Chart = observer( (props: ChartProps) => {
     }
     const data : {score: string, date: string}[] | undefined = [];
     props.riskScores.forEach(element => {
-      console.log(element.date)
       data.push({
         score: element.score,
         date: new Date(element.date).toLocaleDateString('nb-NO', dateConfig)

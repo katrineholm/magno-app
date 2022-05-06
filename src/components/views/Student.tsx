@@ -37,7 +37,6 @@ const Student = observer( (props: any) => {
   const iconStyles = {
     fontSize: '102px',
   };
-  console.log(props.store.studentStore.student)
 
   function riskIcon(risk: string){
     if (risk === "Lav"){

@@ -20,12 +20,14 @@ const StyledTableRow = styled(TableRow)(({ theme: Theme }) => ({
     color: "#33373A",
     '&:hover': {
       backgroundColor: "#C0CFD5",
+      cursor: "pointer",
     },
   },
   '&:nth-of-type(even)': {
     color: "#33373A",
     '&:hover': {
       backgroundColor: "#C0CFD5",
+      cursor: "pointer",
     },
   },
 }));
@@ -399,6 +401,7 @@ export default function StudentTable(props: StudentTableProps) {
           </Table>
         </TableContainer>
         <TablePagination
+          id="page-changer"
           rowsPerPageOptions={[10, 15, 30]}
           component="div"
           count={rows.length}

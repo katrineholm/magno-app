@@ -8,6 +8,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import {withStyles} from '@material-ui/core/styles';
 import SearchBox from './SearchBox';
+import { Student } from './Interfaces';
 
 const styles = (theme: any) => ({
   dialogBox: {
@@ -56,6 +57,8 @@ function TestFormDialog(props: TestFormDialogProps) {
                     textfieldLabel={"Velg en elev"} 
                     value={value}
                     setValue={setValue}
+                    students={props.store.studentStore.studentList
+                      .map((student: Student) => student.name + " " + student.grade)}
                 />
             </DialogContent>
             <DialogActions >
