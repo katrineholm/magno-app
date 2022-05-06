@@ -102,11 +102,19 @@ const Student = observer( (props: any) => {
             >
                 <Grid item xs={4} md={4} lg={4} xl={4}>
                     <ChartCard 
-                        header={"Fixed Form Test"} 
-                        text={"Magno fiksertformtest tester den magnocellulære kapasiteten til eleven"} 
+                        header={"Motion Test"} 
+                        text={"Magno bevegelsestest tester den magnocellulære kapasiteten til eleven"} 
                         buttonText={"Start test"}
                         riskScores={props.store.studentStore.student.motion_test}
                         >
+                    </ChartCard>
+                </Grid>
+                <Grid item xs={4} md={4} lg={4} xl={4}>
+                    <ChartCard 
+                        header={"Fixed Form Test"} 
+                        text={"Magno fiksertformtest tester den magnocellulære kapasiteten til eleven"} 
+                        buttonText={"Start test"}
+                        riskScores={props.store.studentStore.student.fixed_form_test}>
                     </ChartCard>
                 </Grid>
                 <Grid item xs={4} md={4} lg={4} xl={4}>
@@ -115,14 +123,6 @@ const Student = observer( (props: any) => {
                         text={"Magno tilfeldigformtest tester den magnocellulære kapasiteten til eleven"} 
                         buttonText={"Start test"}
                         riskScores={props.store.studentStore.student.random_form_test}>
-                    </ChartCard>
-                </Grid>
-                <Grid item xs={4} md={4} lg={4} xl={4}>
-                    <ChartCard 
-                        header={"Random Form Test"} 
-                        text={"Magno tilfeldigformtest tester den magnocellulære kapasiteten til eleven"} 
-                        buttonText={"Start test"}
-                        riskScores={props.store.studentStore.student.fixed_form_test}>
                     </ChartCard>
                 </Grid>
             </Grid>
