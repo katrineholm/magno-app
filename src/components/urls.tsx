@@ -1,5 +1,7 @@
+
+
 /* base url */
-const baseURL = `${process.env.API_URL}` + ":" + process.env.PORT || 5000;
+const baseURL = process.env.REACT_APP_API_URL;
 
 /* Login post, get, update */
 export const loginURL = `${baseURL}/login`;
