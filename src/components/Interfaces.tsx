@@ -4,9 +4,7 @@ export interface Student {
     school: string;
     grade: string;
     testdate: Date;
-    motion_test: {score: string, date: Date}[];
-    fixed_form_test: {score: string, date: Date}[];
-    random_form_test: {score: string, date: Date}[];
+    tests: {[key: string]: Array<{score: string, date: Date}[] | undefined>};
     risk: string;
 }
 

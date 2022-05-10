@@ -324,9 +324,9 @@ export default function StudentTable(props: StudentTableProps) {
               element.name,
               element.grade, 
               getLastTestDate(element.testdate), 
-              getLastTestResult(element.motion_test), 
-              getLastTestResult(element.fixed_form_test), 
-              getLastTestResult(element.random_form_test), 
+              getLastTestResult(element.tests.motion_test), 
+              getLastTestResult(element.tests.fixed_form_test), 
+              getLastTestResult(element.tests.random_form_test), 
               element.risk))
       });
       setRows(rows)

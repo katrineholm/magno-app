@@ -105,7 +105,7 @@ const Student = observer( (props: any) => {
                         header={"Motion Test"} 
                         text={"Magno bevegelsestest tester den magnocellulære kapasiteten til eleven"} 
                         buttonText={"Start test"}
-                        riskScores={props.store.studentStore.student.motion_test}
+                        riskScores={props.store.studentStore.student.tests.motion_test}
                         >
                     </ChartCard>
                 </Grid>
@@ -114,7 +114,7 @@ const Student = observer( (props: any) => {
                         header={"Fixed Form Test"} 
                         text={"Magno fiksertformtest tester den magnocellulære kapasiteten til eleven"} 
                         buttonText={"Start test"}
-                        riskScores={props.store.studentStore.student.fixed_form_test}>
+                        riskScores={props.store.studentStore.student.tests.fixed_form_test}>
                     </ChartCard>
                 </Grid>
                 <Grid item xs={10} md={8} lg={4} xl={4}>
@@ -122,7 +122,7 @@ const Student = observer( (props: any) => {
                         header={"Random Form Test"} 
                         text={"Magno tilfeldigformtest tester den magnocellulære kapasiteten til eleven"} 
                         buttonText={"Start test"}
-                        riskScores={props.store.studentStore.student.random_form_test}>
+                        riskScores={props.store.studentStore.student.tests.random_form_test}>
                     </ChartCard>
                 </Grid>
             </Grid>

@@ -12,9 +12,7 @@ export class StudentStore {
         school: string;
         grade: string; 
         testdate: Date | undefined;
-        motion_test: {score: string, date: Date}[] | undefined; 
-        fixed_form_test: {score: string, date: Date}[] | undefined; 
-        random_form_test: {score: string, date: Date}[] | undefined; 
+        tests: {[key: string]: Array<{score: string, date: Date}[] | undefined>};
         risk: string; 
     } | undefined;
 

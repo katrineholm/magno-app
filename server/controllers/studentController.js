@@ -25,13 +25,7 @@ async function CosmosConnector(){
   );
   return container;
 }
-/*
-const testdate = "";
-const motion_test = [{}];
-const fixed_form_test = [{}];
-const random_form_test = [{}];
-const risk = "";
-*/
+
 module.exports = {
 
   addStudent: async function(req, res){
@@ -61,9 +55,7 @@ module.exports = {
         school: school,
         grade: grade,
         testdate: testdate,
-        motion_test: motion_test,
-        fixed_form_test: fixed_form_test,
-        random_form_test: random_form_test,
+        tests: [motion_test, fixed_form_test, random_form_test],
         risk: risk
       };
     await container.items.create(newItem);
