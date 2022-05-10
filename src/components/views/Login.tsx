@@ -32,6 +32,13 @@ import {
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  img: {
+    width: "100%",
+    maxWidth: "450px",
+    display: "block",
+    marginLeft: "auto",
+    marginRight: "auto",
+  }
 });
 
 export type SnackBarVariants = 'error' | 'success'
@@ -74,7 +81,7 @@ const Login = observer( (props: any) => {
         <Container component="main" maxWidth="xs" className={classes.container}>
         <CssBaseline />
         <div className={classes.paper}>
-            <img src={MagnoLogo} alt="Magno logo"></img>
+            <img src={MagnoLogo} className={classes.img}alt="Magno logo"></img>
             <Typography component="h1" variant="h5">
                 Logg på for å fortsette til Magno
             </Typography>
