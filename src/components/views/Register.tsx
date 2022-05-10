@@ -39,7 +39,8 @@ const styles = (theme: any) => ({
   },
   img: {
     width: "100%",
-    maxWidth: "450px",
+    maxWidth: "550px",
+    marginBottom: theme.spacing(2),
     display: "block",
     marginLeft: "auto",
     marginRight: "auto",
