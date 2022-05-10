@@ -34,20 +34,11 @@ module.exports = {
     const school = req.body.school;
     const grade = req.body.grade;
     const testdate = req.body.testdate;
-    var motion_test = req.body.motion_test;
-    var fixed_form_test = req.body.fixed_form_test;
-    var random_form_test = req.body.random_form_test;
+    const motion_test = [{}];
+    const fixed_form_test = [{}];
+    const random_form_test = [{}];
 
     const risk = req.body.risk;
-    if (motion_test === undefined){
-        motion_test = [{}]
-    }
-    if (fixed_form_test === undefined){
-        fixed_form_test = [{}]
-    }
-    if (random_form_test === undefined){
-        random_form_test = [{}]
-    }
     const container = await CosmosConnector();
     const newItem = {
         id: id,
@@ -55,7 +46,7 @@ module.exports = {
         school: school,
         grade: grade,
         testdate: testdate,
-        tests: [motion_test, fixed_form_test, random_form_test],
+        tests: {motion_test, fixed_form_test, random_form_test},
         risk: risk
       };
     await container.items.create(newItem);

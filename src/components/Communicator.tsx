@@ -101,9 +101,6 @@ export async function addStudent(uuid: string, name: string, grade: string, scho
         school: school,
         grade: grade,
         testdate: "",
-        motion_test: [{}],
-        fixed_form_test: [{}],
-        random_form_test: [{}],
         risk: ""
     }
     try {
