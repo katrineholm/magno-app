@@ -46,7 +46,7 @@ const Tests = observer( (props: any) => {
             container 
             spacing={6}
         >
-            <Grid item xs={4} md={4} lg={4} xl={4}>
+            <Grid item xs={6} md={5} lg={4} xl={4}>
                 <ActionTestCard 
                     header={"Motion Test"} 
                     text={"Magno bevegelsestest tester den magnocellulære kapasiteten til eleven"} 
@@ -55,7 +55,7 @@ const Tests = observer( (props: any) => {
                     buttonText={"Start test"}>
                 </ActionTestCard>
             </Grid>
-            <Grid item xs={4} md={4} lg={4} xl={4}>
+            <Grid item xs={6} md={5} lg={4} xl={4}>
                 <ActionTestCard 
                     header={"Fixed Form Test"} 
                     text={"Magno fiksertformtest tester den magnocellulære kapasiteten til eleven"} 
@@ -71,7 +71,7 @@ const Tests = observer( (props: any) => {
             container 
             spacing={6}
         >
-            <Grid item xs={4} md={4} lg={4} xl={4}>
+            <Grid item xs={6} md={5} lg={4} xl={4}>
                 <ActionTestCard 
                     header={"Random Form Test"} 
                     text={"Magno tilfeldigformtest tester den magnocellulære kapasiteten til eleven"} 
@@ -80,7 +80,7 @@ const Tests = observer( (props: any) => {
                     buttonText={"Start test"}>
                 </ActionTestCard>
             </Grid>
-            <Grid item xs={4} md={4} lg={4} xl={4}/>
+            <Grid item xs={6} md={5} lg={4} xl={4}/>
         </Grid>
         <TestFormDialog store={props.store} test={test} open={open} setOpen={setOpen}/>
     </Container>

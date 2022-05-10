@@ -18,7 +18,7 @@ import { Student } from '../Interfaces';
 
 const styles = (theme: any) => ({
     container: {
-        marginTop: theme.spacing(6.5),
+        marginTop: theme.spacing(10),
     },
     paper: {
         padding: theme.spacing(2),
@@ -83,7 +83,7 @@ const Students = observer( (props: any) => {
                         container 
                         spacing={2}
                     >
-                        <Grid item xs={2} md={2} lg={2} xl={2}>
+                        <Grid item xs={4} md={3} lg={2} xl={2}>
                             <Button 
                                 fullWidth
                                 disableElevation
@@ -96,7 +96,7 @@ const Students = observer( (props: any) => {
                             </Button>
                         </Grid>
                         
-                        <Grid item xs={10} md={10} lg={10} xl={10}>
+                        <Grid item xs={8} md={9} lg={10} xl={10}>
                             <SearchField
                                 label={"Søk"}
                                 setValue={setValue}

@@ -29,7 +29,9 @@ const styles = (theme: any) => ({
     },
     fixedHeight: {
       maxWidth: "450px",
+      minWidth: "370px",
       maxHeight: "210px",
+      minHeight: "180px",
       height: "19vh",
       width: "25vw",
       
@@ -69,7 +71,7 @@ const ActionNavigationCard = observer( (props: ActionNavigationCardProps) => {
                         {props.icon}
                     </Grid>
                 </Grid>
-                <Divider/>
+                <Divider style={{marginTop: 8}}/>
                 <Grid direction="row" container spacing={0}>
                     <Grid item xs={12} md={12} lg={12} xl={12} className={classes.buttonDetail}>
                         <Typography variant="button" color="primary" component="div">

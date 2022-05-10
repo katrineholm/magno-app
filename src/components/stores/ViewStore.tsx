@@ -8,6 +8,7 @@ export class ViewStore{
     snackBarVariant = "error";
     snackBarMessage = "";
     drawerState = true;
+    drawerWidth = 200;
     
     constructor(){
         makeObservable(this, {
@@ -22,7 +23,13 @@ export class ViewStore{
         snackBarVariant: observable,
         snackBarMessage: observable,
         drawerState: observable,
+        drawerWidth: observable,
+        setDrawerWidth: action,
         })
+    }
+
+    setDrawerWidth(width: number){
+        this.drawerWidth = width;
     }
 
 
@@ -38,8 +45,9 @@ export class ViewStore{
         this.view = view;
     }
 
-    handleDrawerOpen = (boolean: boolean) => {
+    handleDrawerOpen = (boolean: boolean, width: number) => {
         this.drawerState = !boolean;
+        this.setDrawerWidth(width);
     };
 
     setSnackBar(message: string, variant: string){

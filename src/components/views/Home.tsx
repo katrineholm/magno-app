@@ -16,13 +16,7 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 
 const styles = (theme: any) => ({
   container: {
-    marginTop: theme.spacing(10),
-  },
-  paper: {
-    padding: theme.spacing(2),
-    display: 'flex',
-    overflow: 'auto',
-    flexDirection: 'column' as "column",
+    paddingTop: theme.spacing(10),
   },
   img: {
     width: "100%",
@@ -57,10 +51,10 @@ const Home = observer( (props: any) => {
                 container 
                 spacing={3}
                 >
-                <Grid item xs={4} md={4} lg={4} xl={4}>
+                <Grid item xs={10} md={10} lg={6} xl={6}>
                     <img src={MagnoLogo} className={classes.img}alt="Magno logo"></img>
                 </Grid>
-                <Grid item xs={4} md={4} lg={4} xl={4}>
+                <Grid item xs={10} md={10} lg={6} xl={6}>
                     <ActionNavigationCard 
                         header={"Start en test"} 
                         text={"Lar deg velge og starte forskjellige tester."} 
@@ -69,7 +63,7 @@ const Home = observer( (props: any) => {
                         route={"/tests"}>
                     </ActionNavigationCard>
                 </Grid>
-                <Grid item xs={4} md={4} lg={4} xl={4}>
+                <Grid item xs={10} md={10} lg={6} xl={6}>
                     <ActionNavigationCard 
                         header={"Elevoversikt"} 
                         text={"Se en oversikt over elevene ved skolen din og " +
@@ -79,7 +73,7 @@ const Home = observer( (props: any) => {
                         route={"/students"}>
                     </ActionNavigationCard>
                 </Grid>
-                <Grid item xs={4} md={4} lg={4} xl={4}>
+                <Grid item xs={10} md={10} lg={6} xl={6}>
                     <ActionNavigationCard 
                         header={"Siste resultater"} 
                         text={"Se resultatene fra de siste testene som har blitt gjennomført."} 

@@ -26,7 +26,8 @@ import Student from './components/views/Student';
 const styles = (theme: any) => ({
     root: {
         display: 'flex',
-        height: '95vh',
+        height: '100vh',
+        maxHeight: '100vh'
     },
     content: {
         flexGrow: 1,

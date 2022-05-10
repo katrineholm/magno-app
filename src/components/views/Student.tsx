@@ -86,7 +86,7 @@ const Student = observer( (props: any) => {
                 container 
                 spacing={6}
             >
-                <Grid item style={{justifySelf: 'center', justifyContent: 'center'}} xs={4} md={4} lg={4} xl={4}>
+                <Grid item style={{justifySelf: 'center', justifyContent: 'center'}} xs={10} md={8} lg={4} xl={4}>
                     <RiskCard 
                         icon={riskIcon(props.store.studentStore.student.risk)}
                         risk={props.store.studentStore.student.risk}
@@ -100,7 +100,7 @@ const Student = observer( (props: any) => {
                 container 
                 spacing={6}
             >
-                <Grid item xs={4} md={4} lg={4} xl={4}>
+                <Grid item xs={10} md={8} lg={4} xl={4}>
                     <ChartCard 
                         header={"Motion Test"} 
                         text={"Magno bevegelsestest tester den magnocellulære kapasiteten til eleven"} 
@@ -109,7 +109,7 @@ const Student = observer( (props: any) => {
                         >
                     </ChartCard>
                 </Grid>
-                <Grid item xs={4} md={4} lg={4} xl={4}>
+                <Grid item xs={10} md={8} lg={4} xl={4}>
                     <ChartCard 
                         header={"Fixed Form Test"} 
                         text={"Magno fiksertformtest tester den magnocellulære kapasiteten til eleven"} 
@@ -117,7 +117,7 @@ const Student = observer( (props: any) => {
                         riskScores={props.store.studentStore.student.fixed_form_test}>
                     </ChartCard>
                 </Grid>
-                <Grid item xs={4} md={4} lg={4} xl={4}>
+                <Grid item xs={10} md={8} lg={4} xl={4}>
                     <ChartCard 
                         header={"Random Form Test"} 
                         text={"Magno tilfeldigformtest tester den magnocellulære kapasiteten til eleven"} 

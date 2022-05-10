@@ -14,7 +14,7 @@ const  Root = observer( (props: any) => {
                 <App store={props.store}/>
             </CookiesProvider>
         </Router>
-    );})
+    )})
 
 export default (Root);
       

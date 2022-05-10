@@ -112,7 +112,7 @@ const ToolBars = observer( (props: any) => {
           <Drawer
             variant="permanent"
             classes={{
-              paper: clsx(classes.drawerPaper, !props.store.viewStore.drawerState && classes.drawerPaperClose),
+              paper: clsx(classes.drawerPaper, !props.store.viewStore.drawerState && classes.drawerPaperClose)
             }}
             open={props.store.viewStore.drawerState}
           >
