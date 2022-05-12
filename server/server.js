@@ -8,6 +8,9 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const CryptoJS = require('crypto-js')
 const dir = `${__dirname}/public/`;
+const motion_dir = `${__dirname}/public/tests/motion/`;
+const form_fixed_dir = `${__dirname}/public/tests/form_fixed/`;
+const form_random_dir = `${__dirname}/public/tests/form_random/`;
 app.use(express.static('public'))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -17,7 +20,21 @@ app.use('/', index);
 
 const port = process.env.PORT || 5000
 
-app.get('/', (req, res) => {
+
+
+app.get('/motion', (req, res) => {
+  res.sendFile(motion_dir + "index.html", {dotfiles: "allow"});
+})
+
+app.get('/form-fixed', (req, res) => {
+  res.sendFile(form_fixed_dir + "index.html", {dotfiles: "allow"});
+})
+
+app.get('/form-random', (req, res) => {
+  res.sendFile(form_random_dir + "index.html", {dotfiles: "allow"});
+})
+
+app.get('*', (req, res) => {
   res.sendFile(dir + "index.html");
 })
 
