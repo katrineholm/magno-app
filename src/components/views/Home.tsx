@@ -13,6 +13,7 @@ import  ActionNavigationCard from '../ActionNavigationCard'
 import PeopleIcon from '@material-ui/icons/People';
 import PieChartIcon from '@material-ui/icons/PieChart';
 import AssignmentIcon from '@material-ui/icons/Assignment';
+import { Typography } from '@material-ui/core';
 
 const styles = (theme: any) => ({
   container: {
@@ -54,6 +55,9 @@ const Home = observer( (props: any) => {
                 <Grid item xs={10} md={10} lg={6} xl={6}>
                     <img src={MagnoLogo} className={classes.img}alt="Magno logo"></img>
                 </Grid>
+                <Typography variant="h5" style={{textAlign: 'center'}}>
+                Velkommen, {props.store.userStore.userEmail.split('@')[0]}
+                </Typography>
                 <Grid item xs={10} md={10} lg={6} xl={6}>
                     <ActionNavigationCard 
                         header={"Start en test"} 
