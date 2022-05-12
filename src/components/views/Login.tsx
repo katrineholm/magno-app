@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { useCookies } from 'react-cookie';
 import MagnoLogo from '../../files/magno-logo.png';
-import { authenticate, loginAccount } from '../Communicator'
+import { authenticate, getStudents, loginAccount } from '../Communicator'
 import {
   Link,
   useNavigate
@@ -73,6 +73,11 @@ const Login = observer( (props: any) => {
         props.store.userStore.setSchool(data.school);
         props.store.userStore.setLoginStatus(true);
         navigate('/home')
+        const fetchCall = async () => {
+          const students = await getStudents(props.store.userStore.school);
+          props.store.studentStore.setStudentList(students)
+        }
+        fetchCall()
       }
     }
 
