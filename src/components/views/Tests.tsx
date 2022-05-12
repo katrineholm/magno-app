@@ -45,7 +45,7 @@ const Tests = observer( (props: any) => {
                 <ActionTestCard 
                     header={"Motion Test"} 
                     link={"motion"}
-                    text={"Magno bevegelsestest tester den magnocellulære kapasiteten til eleven"} 
+                    text={"Magno bevegelsestest er en test som måler risikoen for dysleksi"} 
                     img={MotionDots}
                     handleTestClick={openDialog}
                     buttonText={"Start test"}>
@@ -55,7 +55,7 @@ const Tests = observer( (props: any) => {
                 <ActionTestCard 
                     header={"Form Fixed Test"} 
                     link={"form-fixed"}
-                    text={"Magno fiksertformtest tester den magnocellulære kapasiteten til eleven"} 
+                    text={"Magno fiksertformtest er en test som måler risikoen for dysleksi"} 
                     img={FormFixed}
                     handleTestClick={openDialog}
                     buttonText={"Start test"}>
@@ -72,7 +72,7 @@ const Tests = observer( (props: any) => {
                 <ActionTestCard 
                     header={"Form Random Test"} 
                     link={"form-random"}
-                    text={"Magno tilfeldigformtest tester den magnocellulære kapasiteten til eleven"} 
+                    text={"Magno tilfeldigformtest er en test som måler risikoen for dysleksi"} 
                     img={FormRandom}
                     handleTestClick={openDialog}
                     buttonText={"Start test"}>
