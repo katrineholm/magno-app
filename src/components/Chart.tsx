@@ -17,10 +17,10 @@ interface ChartProps {
 }
 
 const Chart = observer( (props: ChartProps) => {
-  const dateConfig = {day: 'numeric', month: "short"} as const
+  const dateConfig = {day: 'numeric', month: "short", year: "2-digit"} as const
 
   function formatData(){
-    if (props.riskScores === undefined){
+    if (props.riskScores === undefined || props.riskScores.length < 1){
       return undefined
     }
     const data : {score: string, date: string}[] | undefined = [];
