@@ -254,7 +254,6 @@ module.exports = {
           db_item = item;
           if (item.token === token && compareDate(token, item.token)){
             authenticated = true;
-            
           }
         })
         if (exists){
