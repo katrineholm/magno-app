@@ -39,11 +39,6 @@ export const App = observer( (props: any) =>  {
   const {classes} = props;
   const [cookies, setCookie] = useCookies(['c_user']);
   const navigate = useNavigate();
-
-  async function fetchStudents(){
-    const students = await getStudents(props.store.userStore.school);
-    props.store.studentStore.setStudentList(students)
-  }
   
   useEffect(() => {
     const authFunction = async () => {
