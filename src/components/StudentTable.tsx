@@ -288,7 +288,10 @@ export default function StudentTable(props: StudentTableProps) {
   }
 
   function getLastTestResult(testScore: {score: string, date: Date}[]){
-    if (testScore[0].score === undefined){
+    if (testScore.length < 1){
+      return "-"
+    }
+    else if (testScore[0].score === undefined){
       return "-"
     }
     else{
