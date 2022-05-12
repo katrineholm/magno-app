@@ -3,7 +3,7 @@
 const CryptoJS = require('crypto-js')
 const CosmosClient = require("@azure/cosmos").CosmosClient
 const db_student_config = require("../database/db-student-config");
-
+const settings = require("../settings");
 
 function handleSuccessOrErrorMessage(response, err, res) {
   if (!err){
@@ -70,55 +70,68 @@ module.exports = {
       handleSuccessOrErrorMessage(items, false, res);
   },
 
-  updateStudent: async function(old_email, email, confirm_password, password, change_password){
-    const { endpoint, key, databaseId, containerId, partitionKey } = db_account_config;
-    const client = new CosmosClient({ endpoint, key });
-
-    const { container } = await client
-    .database(databaseId)
-    .containers.createIfNotExists(
-      { id: containerId, partitionKey },
-      { offerThroughput: 400 }
-    );
+  postScore: async function(req, res){
+    const id = req.body.id;
+    const test_type = req.body.test_type;
+    const test_score = req.body.test_score;
+    const container = await CosmosConnector();
     const querySpec = {
-      query: "SELECT * from c where c.email = @email",
+      query: "SELECT * from c where c.id = @id",
       "parameters": [
-          {"name": "@email", "value": old_email}
+          {"name": "@id", "value": String(id)}
       ]
     };
-    var newItem;
-    var correct = false;
+    var exists = false;
+    // Query the student object
     const { resources: items } = await container.items
       .query(querySpec)
       .fetchAll();
+      var db_item;
       items.forEach(item => {
-        if (item.email === old_email){
-          const salt = item.password.substring(item.password.indexOf(":") + 1, item.password.length)
-          confirm_password = CryptoJS.PBKDF2(confirm_password, salt, { keySize: 256 / 32 }).toString()  + ":" + salt;
-          if (item.password === confirm_password){
-            var new_password = item.password
-            if (change_password){
-              new_password = CryptoJS.PBKDF2(password, salt, { keySize: 256 / 32 }).toString()  + ":" + salt;
-            }
-            correct = true;
-            newItem = {
-              id: item.id,
-              email: email,
-              password: new_password,
-              rememberme: item.rememberme,
-            };
-          }           
+        // If student exists, set db_item and exists
+        if (item.id === id){
+          db_item = item;
+          exists = true;  
         }
       }
     )
-    if (correct){
+    if (exists){
+      // Get thresholds for different tests
+      const setting = settings();
+      // Set risk based on testscore
+      if (!db_item.risk.includes("Høy")){
+        if (test_score > setting[test_type].threshold_high){
+          db_item.risk = "Høy";
+        }
+        else if (test_score > setting[test_type].threshold_medium){
+          db_item.risk = "Middels";
+        }
+        else{
+          if (!db_item.risk.includes("Middels") ){
+            db_item.risk = "Lav"
+          }
+        }
+      }
+      // Get current date in iso format
+      const date = new Date().toISOString()
+      db_item.tests[test_type].push({score: test_score, date: date});
+      db_item.testdate = date;
+
       const { resource: updatedItem } = await container
-      .item(newItem.id, newItem.email)
-      .replace(newItem);
-      password = "*******************";
-      email = updatedItem.email;
-      return {password: password, email: email};
+      .item(db_item.id)
+      .replace(db_item);
+      response = {
+        'result': 'Authenticated',
+        'student' : db_item.name,
+        'tests': db_item.tests,
+      }
+      handleSuccessOrErrorMessage(response, false, res);
     }
-    return false;
+    else{
+      response = {
+        'result' : 'Student does not exist',
+      }
+      handleSuccessOrErrorMessage(response, false, res);
+    }
   },
 }
