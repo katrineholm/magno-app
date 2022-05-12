@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -9,6 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import {withStyles} from '@material-ui/core/styles';
 import SearchBox from './SearchBox';
 import { Student } from './Interfaces';
+import { useCookies } from 'react-cookie';
 
 const styles = (theme: any) => ({
   dialogBox: {
@@ -27,6 +27,7 @@ const styles = (theme: any) => ({
 
 interface TestFormDialogProps {
   test: string;
+  link: string;
   store: any;
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -35,7 +36,19 @@ interface TestFormDialogProps {
 
 function TestFormDialog(props: TestFormDialogProps) {
   const [value, setValue] = React.useState<string | null>();
+  const [cookies, setCookie] = useCookies(['c_testid']);
   const {classes} = props;
+
+  function startTest(){
+    //2 hr expiry date for cookie
+    const expiryDate = new Date(Date.now() + 1000*60*60*2);
+    const name = String(value).split(" ").slice(0, 2).join(' ');
+    //Used by tests to identify the student being tested
+    setCookie('c_testid', 
+              props.store.studentStore.studentList.find((student: Student) => student.name.includes(name)).id, { expires: expiryDate });
+    window.open(process.env.REACT_APP_API_URL + "/" + props.link);
+    props.setOpen(false)
+  }
 
   return (
     <div >
@@ -67,7 +80,7 @@ function TestFormDialog(props: TestFormDialogProps) {
                     variant={"contained"} 
                     color={'primary'} 
                     className={classes.button}
-                    onClick={() => props.setOpen(false)}>
+                    onClick={() => startTest()}>
                     Start test
                 </Button>
             </DialogActions>
