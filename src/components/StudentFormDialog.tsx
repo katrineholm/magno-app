@@ -15,6 +15,7 @@ const styles = (theme: any) => ({
     justifyContent: 'center',
     alignItems: 'center',
     height: '35vh',
+    minHeight: '315px',
     width: "90%",
     margin: "auto",
   },
