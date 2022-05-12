@@ -46,6 +46,8 @@ interface ActionNavigationCardProps {
   text: string;
   icon: any;
   buttonText: string;
+  toolbarSelection: number;
+  store: any;
   route: string;
   classes: any;
 }
@@ -54,9 +56,16 @@ interface ActionNavigationCardProps {
 const ActionNavigationCard = observer( (props: ActionNavigationCardProps) => {
   const {classes} = props;
   const navigate = useNavigate();
+
+  function handleNavigation(){
+    props.store.viewStore.setToolbarSelected(props.toolbarSelection)
+    navigate(props.route)
+  }
+
+
   return (
     <Card variant="outlined" className={classes.fixedHeight}>
-        <CardActionArea onClick={() => navigate(props.route)} className={classes.fixedHeight}>
+        <CardActionArea onClick={() => handleNavigation()} className={classes.fixedHeight}>
             <CardContent className={classes.cardContent}>
                 <Grid direction="row" container spacing={0}>
                     <Grid item xs={8} md={8} lg={8} xl={8} className={classes.header}>

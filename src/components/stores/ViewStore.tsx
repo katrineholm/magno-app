@@ -8,6 +8,7 @@ export class ViewStore{
     snackBarVariant = "error";
     snackBarMessage = "";
     drawerState = true;
+    toolbarSelected = 0;
     
     constructor(){
         makeObservable(this, {
@@ -22,7 +23,13 @@ export class ViewStore{
         snackBarVariant: observable,
         snackBarMessage: observable,
         drawerState: observable,
+        toolbarSelected: observable,
+        setToolbarSelected: action,
         })
+    }
+
+    setToolbarSelected(selected: number){
+        this.toolbarSelected = selected;
     }
 
     setPageState(state: string) {

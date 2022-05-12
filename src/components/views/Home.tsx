@@ -59,6 +59,8 @@ const Home = observer( (props: any) => {
                         header={"Start en test"} 
                         text={"Lar deg velge og starte forskjellige tester."} 
                         buttonText={"Se og start tester"}
+                        toolbarSelection={1}
+                        store={props.store}
                         icon={<AssignmentIcon color="primary" style={iconStyles} />}
                         route={"/tests"}>
                     </ActionNavigationCard>
@@ -69,6 +71,8 @@ const Home = observer( (props: any) => {
                         text={"Se en oversikt over elevene ved skolen din og " +
                         "resultatene deres, eller legg til eller fjern elever fra oversikten. "} 
                         buttonText={"Se oversikt over elever"}
+                        toolbarSelection={2}
+                        store={props.store}
                         icon={<PeopleIcon color="primary" style={iconStyles} />}
                         route={"/students"}>
                     </ActionNavigationCard>
@@ -78,6 +82,8 @@ const Home = observer( (props: any) => {
                         header={"Siste resultater"} 
                         text={"Se resultatene fra de siste testene som har blitt gjennomført."} 
                         buttonText={"Se nye resultater"}
+                        toolbarSelection={2}
+                        store={props.store}
                         icon={<PieChartIcon color="primary" style={iconStyles} />}
                         route={"/students/sort-by-date"}>
                     </ActionNavigationCard>

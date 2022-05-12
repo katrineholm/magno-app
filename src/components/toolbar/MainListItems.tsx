@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
-import React, { useState } from 'react';
+import React from 'react';
 import { observer } from 'mobx-react';
 import MuiListItem from "@material-ui/core/ListItem";
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -50,10 +50,9 @@ const ListItem = withStyles({
  */
 const MainListItems = observer( (props: any) => {
   const navigate = useNavigate();
-  const [selected, setSelected] = useState(0 as number);
 
   function handleNavigation(selected: number, destination: string){
-    setSelected(selected);
+    props.store.viewStore.setToolbarSelected(selected);
     navigate(destination);
   }
 
@@ -65,19 +64,19 @@ const MainListItems = observer( (props: any) => {
     else {
       return(
         <>
-          <ListItem selected={selected === 0} button onClick={() => handleNavigation(0, '/home')}>
+          <ListItem selected={props.store.viewStore.toolbarSelected === 0} button onClick={() => handleNavigation(0, '/home')}>
             <ListItemIcon >
               <HomeIcon />
             </ListItemIcon>
               <ListItemText primary="Hjem" />
           </ListItem> 
-          <ListItem selected={selected === 1} button onClick={() => handleNavigation(1, '/tests')}>
+          <ListItem selected={props.store.viewStore.toolbarSelected === 1} button onClick={() => handleNavigation(1, '/tests')}>
             <ListItemIcon>
               <AssignmentIcon />
             </ListItemIcon>
               <ListItemText primary="Tester"/>
             </ListItem> 
-          <ListItem selected={selected === 2} button onClick={() => handleNavigation(2, '/students')}>
+          <ListItem selected={props.store.viewStore.toolbarSelected === 2} button onClick={() => handleNavigation(2, '/students')}>
             <ListItemIcon>
               <PeopleIcon/>
             </ListItemIcon>
