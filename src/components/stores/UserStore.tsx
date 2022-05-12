@@ -3,7 +3,6 @@ import {action, makeObservable, observable} from 'mobx';
 export class UserStore{
     loginStatus = false;
     userEmail = "";
-    userName = "";
     school = "";
     
     constructor(){
@@ -11,10 +10,8 @@ export class UserStore{
         loginStatus: observable,
         setLoginStatus: action,
         userEmail: observable,
-        userName: observable,
         school: observable,
         setUserEmail: action,
-        setUserName: action,
         setSchool: action,
       })
     }
@@ -25,10 +22,6 @@ export class UserStore{
 
     setUserEmail(userEmail: string) {
         this.userEmail = userEmail;
-    }
-
-    setUserName(userName: string) {
-        this.userName = userName;
     }
 
     setSchool(school: string){
