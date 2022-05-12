@@ -56,13 +56,13 @@ function LogOutListItems(props: any){
   return (
     <div>
       <Divider />
-          <ListSubheader inset>Min konto</ListSubheader>
-            <ListItem button onClick={handleClick}>
-              <ListItemIcon>
-                  <ExitToAppIcon/>
-              </ListItemIcon>
-            <ListItemText primary="Logg ut"/>
-          </ListItem>
+        <ListItem style={{paddingTop: 14}}button onClick={handleClick}>
+          <ListItemIcon>
+              <ExitToAppIcon/>
+          </ListItemIcon>
+        <ListItemText primary="Logg ut"/>
+      </ListItem>
+          
     </div>
     );
   }
