@@ -24,11 +24,25 @@ const Chart = observer( (props: ChartProps) => {
       return undefined
     }
     const data : {score: string, date: string}[] | undefined = [];
+    const dates : Array<string> = [];
+    let counter = 1;
     props.riskScores.forEach(element => {
-      data.push({
-        score: element.score,
-        date: new Date(element.date).toLocaleDateString('nb-NO', dateConfig)
-      })
+      if (dates.includes(new Date(element.date).toLocaleDateString('nb-NO', dateConfig))){
+        dates.push(new Date(element.date).toLocaleDateString('nb-NO', dateConfig) + " " + counter)
+        data.push({
+          score: element.score,
+          date: new Date(element.date).toLocaleDateString('nb-NO', dateConfig) + " +" + counter
+        })
+        counter += 1;
+      }
+      else{
+        dates.push(new Date(element.date).toLocaleDateString('nb-NO', dateConfig))
+        data.push({
+          score: element.score,
+          date: new Date(element.date).toLocaleDateString('nb-NO', dateConfig)
+        })
+      }
+      
     });
     return data;
   }
