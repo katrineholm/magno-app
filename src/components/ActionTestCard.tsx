@@ -5,9 +5,6 @@ import Typography from '@material-ui/core/Typography';
 import { CardActionArea, CardHeader, Grid, CardMedia } from '@material-ui/core/'; 
 import {observer} from 'mobx-react';
 import {withStyles} from '@material-ui/core/styles';
-import {
-  useNavigate,
-} from "react-router-dom";
 import { Divider } from '@material-ui/core';
 
 const styles = (theme: any) => ({
@@ -30,10 +27,11 @@ const styles = (theme: any) => ({
 
 interface ActionTestCardProps {
   header: string;
+  link: string;
   text: string;
   img: string;
   buttonText: string;
-  handleTestClick: (test: string) => void;
+  handleTestClick: (test: string, link: string) => void;
   classes: any;
 }
 
@@ -42,7 +40,7 @@ const ActionTestCard = observer( (props: ActionTestCardProps) => {
 
   return (
     <Card variant="outlined" className={classes.fixedHeight}>
-        <CardActionArea onClick={() => props.handleTestClick(props.header)} className={classes.fixedHeight}>
+        <CardActionArea onClick={() => props.handleTestClick(props.header, props.link)} className={classes.fixedHeight}>
             <CardHeader
                 title={props.header}
                 subheader={props.text}
