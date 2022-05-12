@@ -74,7 +74,7 @@ export async function authenticate(cookies: any, setCookie: any){
             }
             const { data } = await axios.post(url.authenticate, form_data)
             if (data.result.includes("Authenticated")){
-                const expiryDate = new Date(Date.now() + 1000*60*60*3600);
+                const expiryDate = new Date(Date.now() + 1000*60*60*24);
                 setCookie('c_user', data.token, { expires: expiryDate });
                 return data;
             }
