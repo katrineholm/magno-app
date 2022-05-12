@@ -70,18 +70,25 @@ const Register = observer( (props: any) => {
     async function handleSubmit(e: React.SyntheticEvent) {
         e.preventDefault();
         if (password.length < 8){
-            props.store.viewStore.setSnackBar('Password is too short, needs to be at least 8 letters long', 'error');
+            props.store.viewStore.setSnackBar('Passorder er for kort, det må inneholde minst 8 tegn', 'error');
+            props.store.viewStore.setOpenSnackBar(true);
+        }
+        else if (!schools.includes(String(school))){
+            props.store.viewStore.setSnackBar('Du må velge en skole', 'error');
+            props.store.viewStore.setOpenSnackBar(true);
+        }
+        else if (!email.includes('@') || !email.includes('.')){
+            props.store.viewStore.setSnackBar('Epostadressen inneholder feil', 'error');
             props.store.viewStore.setOpenSnackBar(true);
         }
         else{
-
             const result = await createAccount(uuidv4(), email.toLowerCase(), password, String(school))
             if (result.includes("exists")){
-                props.store.viewStore.setSnackBar(result, 'error');
+                props.store.viewStore.setSnackBar("Kontoen eksisterer allerede", 'error');
                 props.store.viewStore.setOpenSnackBar(true);
             }
             else if (result.includes("Success")){
-                props.store.viewStore.setSnackBar(result, 'success');
+                props.store.viewStore.setSnackBar("Kontoen har blitt opprettet", 'success');
                 props.store.viewStore.setOpenSnackBar(true);
                 navigate('/login')
             }
