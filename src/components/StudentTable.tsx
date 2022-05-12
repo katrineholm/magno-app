@@ -70,6 +70,27 @@ const Risk = {
   none: ""
 }
 
+function enGBDate(a: string){
+  const MonthsEN ={
+    jan: "jan",
+    feb: "feb",
+    mar: "mar",
+    apr: "apr",
+    mai: "may",
+    jun: "jun",
+    jul: "jul",
+    sep: "sep",
+    okt: "oct",
+    nov: "nov",
+    des: "dec"
+  }
+  const month = a.split(" ")[1]
+  if (month !== undefined && month in MonthsEN){
+    a = a.replace(month, MonthsEN[month as keyof typeof MonthsEN])
+  }
+  return a
+}
+
 function riskComparator(a: string, b: string){
   if (b === Risk.high && a !== Risk.high){
     return -1
@@ -103,10 +124,32 @@ function riskComparator(a: string, b: string){
   }
 }
 
+function dateComparator(a: string, b: string){
+  a = enGBDate(a)
+  b = enGBDate(b)
+  if (b === "-"){
+    b = String(Date.parse('01 Jan 1970 00:00:00 GMT'))
+  }
+  if (a === "-"){
+    a = String(Date.parse('01 Jan 1970 00:00:00 GMT'))
+  }
+
+  if (new Date(b) < new Date(a)){
+    return -1
+  }
+  if (new Date(b) > new Date(a)){
+    return 1;
+  }
+  return 0
+}
+
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (orderBy === "risk"){
     return riskComparator(String(a[orderBy]), String(b[orderBy]))
+  }
+  if (orderBy === "testdate"){
+    return dateComparator(String(a[orderBy]), String(b[orderBy]))
   }
   if (b[orderBy] < a[orderBy]) {
     return -1;
