@@ -63,13 +63,6 @@ function createData(
   };
 }
 
-const Risk = {
-  high: "Høy",
-  medium: "Middels",
-  low: "Lav",
-  none: ""
-}
-
 function enGBDate(a: string){
   const MonthsEN ={
     jan: "jan",
@@ -91,32 +84,32 @@ function enGBDate(a: string){
   return a
 }
 
-function riskComparator(a: string, b: string){
-  if (b === Risk.high && a !== Risk.high){
+function riskComparator(a: string, b: string, risk: {[key: string]: string}){
+  if (b === risk.high && a !== risk.high){
     return -1
   }
-  else if (b !== Risk.high && a === Risk.high){
+  else if (b !== risk.high && a === risk.high){
     return 1
   }
-  else if (b === Risk.high && a === Risk.high){
+  else if (b === risk.high && a === risk.high){
     return 0
   }
-  else if (b === Risk.medium && a !== Risk.medium){
+  else if (b === risk.medium && a !== risk.medium){
     return -1
   }
-  else if (b !== Risk.medium && a === Risk.medium){
+  else if (b !== risk.medium && a === risk.medium){
     return 1
   }
-  else if (b === Risk.medium && a === Risk.medium){
+  else if (b === risk.medium && a === risk.medium){
     return 0
   }
-  else if (b === Risk.low && a !== Risk.low){
+  else if (b === risk.low && a !== risk.low){
     return -1
   }
-  else if (b !== Risk.low && a === Risk.low){
+  else if (b !== risk.low && a === risk.low){
     return 1
   }
-  else if (b === Risk.low && a === Risk.low){
+  else if (b === risk.low && a === risk.low){
     return 0
   }
   else{
@@ -144,9 +137,9 @@ function dateComparator(a: string, b: string){
 }
 
 
-function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
+function descendingComparator<T>(a: T, b: T, orderBy: keyof T, risk: {[key: string]: string} ) {
   if (orderBy === "risk"){
-    return riskComparator(String(a[orderBy]), String(b[orderBy]))
+    return riskComparator(String(a[orderBy]), String(b[orderBy]), risk)
   }
   if (orderBy === "testdate"){
     return dateComparator(String(a[orderBy]), String(b[orderBy]))
@@ -165,13 +158,14 @@ type Order = 'asc' | 'desc';
 function getComparator<Key extends keyof any>(
   order: Order,
   orderBy: Key,
+  risk: {[key: string]: string},
 ): (
   a: { [key in Key]: number | string | Date | RiskType},
   b: { [key in Key]: number | string | Date | RiskType},
 ) => number {
   return order === 'desc'
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
+    ? (a, b) => descendingComparator(a, b, orderBy, risk)
+    : (a, b) => -descendingComparator(a, b, orderBy, risk);
 }
 
 // This method is created for cross-browser compatibility, if you don't
@@ -191,7 +185,6 @@ function stableSort<T>(array: readonly T[], comparator: (a: T, b: T) => number) 
 interface HeadCell {
   disablePadding: boolean;
   id: keyof Data;
-  label: string;
   numeric: boolean;
 }
 
@@ -200,43 +193,36 @@ const headCells: readonly HeadCell[] = [
     id: 'name',
     numeric: false,
     disablePadding: false,
-    label: 'Navn',
   },
   {
     id: 'grade',
     numeric: true,
     disablePadding: false,
-    label: 'Klasse',
   },
   {
     id: 'testdate',
     numeric: true,
     disablePadding: false,
-    label: 'Test Dato',
   },
   {
     id: 'motion_test',
     numeric: true,
     disablePadding: true,
-    label: 'Motion Test',
   },
   {
     id: 'fixed_form_test',
     numeric: true,
     disablePadding: true,
-    label: 'Fixed Form Test',
   },
   {
     id: 'random_form_test',
     numeric: true,
     disablePadding: true,
-    label: 'Random Form Test',
   },
   {
     id: 'risk',
     numeric: true,
     disablePadding: false,
-    label: 'Risiko',
   },
 ];
 
@@ -245,6 +231,7 @@ interface EnhancedTableProps {
   order: Order;
   orderBy: string;
   rowCount: number;
+  labels: {[key: string]: string}
 }
 
 function EnhancedTableHead(props: EnhancedTableProps) {
@@ -270,7 +257,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
               direction={orderBy === headCell.id ? order : 'asc'}
               onClick={createSortHandler(headCell.id)}
             >
-              {headCell.label}
+              {props.labels[headCell.id]}
             </TableSortLabel>
           </StyledTableCell>
         ))}
@@ -283,6 +270,7 @@ interface StudentTableProps{
   store: any;
   students: Array<Student>;
   order: Order;
+  translation: any;
   orderBy: keyof Data;
 }
 
@@ -319,10 +307,10 @@ export default function StudentTable(props: StudentTableProps) {
   };
 
   function dangerColorTextCell(risk: string){
-    if (risk === Risk.high){
+    if (risk === props.translation.risk.high){
       return <StyledTableCell style={{color: '#E43A4A'}} align="right">{risk}</StyledTableCell>
     }
-    else if (risk === Risk.medium){
+    else if (risk === props.translation.risk.medium){
       return <StyledTableCell style={{color: '#FCA762'}} align="right">{risk}</StyledTableCell>
     }
     else{
@@ -347,7 +335,7 @@ export default function StudentTable(props: StudentTableProps) {
       return ("-")
     }
     else{
-      return (new Date(date).toLocaleDateString('nb-NO', dateConfig))
+      return (new Date(date).toLocaleDateString(props.translation.localeDateString, dateConfig))
     }
   }
 
@@ -397,11 +385,12 @@ export default function StudentTable(props: StudentTableProps) {
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
+              labels={props.translation.studentTable.labels}
             />
             <TableBody>
               {/* if you don't need to support IE11, you can replace the `stableSort` call with:
               rows.slice().sort(getComparator(order, orderBy)) */}
-              {stableSort(rows, getComparator(order, orderBy))
+              {stableSort(rows, getComparator(order, orderBy, props.translation.risk))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   const labelId = `enhanced-table-${index}`;

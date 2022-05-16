@@ -21,7 +21,7 @@ import {
   } from "react-router-dom";
 import { authenticate, getStudents } from './components/Communicator';
 import Student from './components/views/Student';
-
+import { translationNO } from './components/locales/no/translationNO';
 
 const styles = (theme: any) => ({
     root: {
@@ -39,6 +39,7 @@ export const App = observer( (props: any) =>  {
   const {classes} = props;
   const [cookies, setCookie] = useCookies(['c_user']);
   const navigate = useNavigate();
+  const translation = translationNO;
   
   useEffect(() => {
     const authFunction = async () => {
@@ -68,14 +69,14 @@ export const App = observer( (props: any) =>  {
             <>
                 <main className={classes.content}>
                     <Routes>
-                        <Route path ="/home" element={<Home store={props.store}/>} />
-                        <Route path="/login" element={<Login store={props.store}/>} />
-                        <Route path="/register" element={<Register store={props.store}/>} />
-                        <Route path="/tests" element={<Tests store={props.store}/>} />
-                        <Route path="/students" element={<Students store={props.store} order={'asc'} orderBy={'name'}/>} />
-                        <Route path="/students/sort-by-date" element={<Students store={props.store} order={"desc"} orderBy={'testdate'}/>} />
-                        <Route path="/student" element={<Student store={props.store}/>}>
-                          <Route path=":studentID" element={<Student store={props.store}/>} />
+                        <Route path ="/home" element={<Home store={props.store} translation={translation}/>} />
+                        <Route path="/login" element={<Login store={props.store} translation={translation}/>} />
+                        <Route path="/register" element={<Register store={props.store} translation={translation}/>} />
+                        <Route path="/tests" element={<Tests store={props.store} translation={translation}/>} />
+                        <Route path="/students" element={<Students store={props.store} order={'asc'} orderBy={'name'} translation={translation}/>} />
+                        <Route path="/students/sort-by-date" element={<Students store={props.store} order={"desc"} orderBy={'testdate'} translation={translation}/>} />
+                        <Route path="/student" element={<Student store={props.store} translation={translation}/>}>
+                          <Route path=":studentID" element={<Student store={props.store} translation={translation}/>} />
                         </Route>
                     </Routes>
                 </main>

@@ -70,25 +70,25 @@ const Register = observer( (props: any) => {
     async function handleSubmit(e: React.SyntheticEvent) {
         e.preventDefault();
         if (password.length < 8){
-            props.store.viewStore.setSnackBar('Passorder er for kort, det må inneholde minst 8 tegn', 'error');
+            props.store.viewStore.setSnackBar(props.translation.register.passwordErrorMessage, 'error');
             props.store.viewStore.setOpenSnackBar(true);
         }
         else if (!schools.includes(String(school))){
-            props.store.viewStore.setSnackBar('Du må velge en skole', 'error');
+            props.store.viewStore.setSnackBar(props.translation.register.schoolErrorMessage, 'error');
             props.store.viewStore.setOpenSnackBar(true);
         }
         else if (!email.includes('@') || !email.includes('.')){
-            props.store.viewStore.setSnackBar('Epostadressen inneholder feil', 'error');
+            props.store.viewStore.setSnackBar(props.translation.register.emailErrorMessage, 'error');
             props.store.viewStore.setOpenSnackBar(true);
         }
         else{
             const result = await createAccount(uuidv4(), email.toLowerCase(), password, String(school))
             if (result.includes("exists")){
-                props.store.viewStore.setSnackBar("Kontoen eksisterer allerede", 'error');
+                props.store.viewStore.setSnackBar(props.translation.register.errorMessage, 'error');
                 props.store.viewStore.setOpenSnackBar(true);
             }
             else if (result.includes("Success")){
-                props.store.viewStore.setSnackBar("Kontoen har blitt opprettet", 'success');
+                props.store.viewStore.setSnackBar(props.translation.register.successMessage, 'success');
                 props.store.viewStore.setOpenSnackBar(true);
                 navigate('/login')
             }
@@ -104,7 +104,7 @@ const Register = observer( (props: any) => {
                 <div className={classes.paper}>
                     <img src={MagnoLogo} className={classes.img}alt="Magno logo"></img>
                     <Typography component="h1" variant="h5">
-                        Opprett en konto for Magno
+                        {props.translation.register.title}
                     </Typography>
                     
                     <form onSubmit={handleSubmit} className={classes.form} noValidate>
@@ -116,7 +116,7 @@ const Register = observer( (props: any) => {
                                 fullWidth
                                 autoFocus
                                 id="email"
-                                label="Epost adresse"
+                                label={props.translation.register.labelEmail}
                                 name="email"
                                 autoComplete="email"
                                 onChange={handleEmailChange}
@@ -129,7 +129,7 @@ const Register = observer( (props: any) => {
                                 required
                                 fullWidth
                                 name="password"
-                                label="Passord"
+                                label={props.translation.register.labelPassword}
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
@@ -151,7 +151,7 @@ const Register = observer( (props: any) => {
                             onInputChange={(event, newInputValue) => {
                                 setValue(newInputValue);
                             }}
-                            renderInput={(params) => <TextField required variant={"outlined"} {...params} label={"Velg skole"} />}
+                            renderInput={(params) => <TextField required variant={"outlined"} {...params} label={props.translation.register.labelSchool} />}
                             />
                         </Grid>
                     </Grid>
@@ -162,13 +162,13 @@ const Register = observer( (props: any) => {
                         color="primary"
                         className={classes.submit}
                     >
-                        Registrer
+                        {props.translation.register.labelSubmit}
                     </Button>
                     <Grid container justify="flex-end">
                         <Grid item>
 
                             <Link to={'/login'}>
-                                {"Har du allerede en konto? Logg inn"}
+                                {props.translation.register.link}
                             </Link>
                         </Grid>
                     </Grid>

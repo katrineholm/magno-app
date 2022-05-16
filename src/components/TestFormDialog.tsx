@@ -28,6 +28,7 @@ const styles = (theme: any) => ({
 interface TestFormDialogProps {
   test: string;
   link: string;
+  translation: any
   store: any;
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -60,14 +61,14 @@ function TestFormDialog(props: TestFormDialogProps) {
             onClose={() => props.setOpen(false)} 
         >
             <DialogTitle style={{ textAlign: 'center'}}>
-                Velg elev
+                {props.translation.testFormDialog.title}
             </DialogTitle>
             <DialogContent className={classes.dialogBox}>
                 <DialogContentText >
-                    Velg en elev som skal utføre {props.test}
+                    {props.translation.testFormDialog.subtitle} {props.test}
                 </DialogContentText>
                 <SearchBox
-                    textfieldLabel={"Velg en elev"} 
+                    textfieldLabel={props.translation.testFormDialog.searchFieldLabel} 
                     value={value}
                     setValue={setValue}
                     students={props.store.studentStore.studentList
@@ -81,7 +82,7 @@ function TestFormDialog(props: TestFormDialogProps) {
                     color={'primary'} 
                     className={classes.button}
                     onClick={() => startTest()}>
-                    Start test
+                    {props.translation.testFormDialog.buttonLabel}
                 </Button>
             </DialogActions>
         </Dialog>

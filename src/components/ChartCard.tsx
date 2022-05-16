@@ -23,9 +23,8 @@ const styles = (theme: any) => ({
 
 interface ChartCardProps {
   header: string;
-  text: string;
   riskScores: {score: string, date: Date}[] | undefined;
-  buttonText: string;
+  translation: any;
   classes: any;
 }
 
@@ -39,7 +38,7 @@ const ChartCard = observer( (props: ChartCardProps) => {
                 style={{ textAlign: 'center', padding: 8}}
             />
             <CardContent className={classes.cardContent}>
-            <Chart riskScores={props.riskScores}/>
+            <Chart riskScores={props.riskScores} translation={props.translation}/>
                 <Grid 
                     direction="row"
                     alignItems="center"

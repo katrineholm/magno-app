@@ -14,6 +14,7 @@ import {
 
 interface ChartProps {
     riskScores: {score: string, date: Date}[] | undefined;
+    translation: any;
 }
 
 const Chart = observer( (props: ChartProps) => {
@@ -27,19 +28,19 @@ const Chart = observer( (props: ChartProps) => {
     const dates : Array<string> = [];
     let counter = 1;
     props.riskScores.forEach(element => {
-      if (dates.includes(new Date(element.date).toLocaleDateString('nb-NO', dateConfig))){
-        dates.push(new Date(element.date).toLocaleDateString('nb-NO', dateConfig) + " " + counter)
+      if (dates.includes(new Date(element.date).toLocaleDateString(props.translation.localeDateString, dateConfig))){
+        dates.push(new Date(element.date).toLocaleDateString(props.translation.localeDateString, dateConfig) + " " + counter)
         data.push({
           score: element.score,
-          date: new Date(element.date).toLocaleDateString('nb-NO', dateConfig) + " +" + counter
+          date: new Date(element.date).toLocaleDateString(props.translation.localeDateString, dateConfig) + " +" + counter
         })
         counter += 1;
       }
       else{
-        dates.push(new Date(element.date).toLocaleDateString('nb-NO', dateConfig))
+        dates.push(new Date(element.date).toLocaleDateString(props.translation.localeDateString, dateConfig))
         data.push({
           score: element.score,
-          date: new Date(element.date).toLocaleDateString('nb-NO', dateConfig)
+          date: new Date(element.date).toLocaleDateString(props.translation.localeDateString, dateConfig)
         })
       }
       
@@ -66,7 +67,7 @@ const Chart = observer( (props: ChartProps) => {
           <Tooltip />
           <Legend />
           <Bar dataKey="score" barSize={20} fill="#448894" label={{position: "top"}}/>
-          <ReferenceLine y={33} label={{value: "Gjennomsnitt", position: "insideRight"}} stroke="#ff7300" strokeDasharray="3 3" />
+          <ReferenceLine y={33} label={{value: props.translation.chart.averageLabel, position: "insideRight"}} stroke="#ff7300" strokeDasharray="3 3" />
         </ComposedChart>
         </ResponsiveContainer>
     );

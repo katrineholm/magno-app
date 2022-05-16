@@ -63,7 +63,7 @@ const Login = observer( (props: any) => {
     e.preventDefault();
     const data = await loginAccount(email, password)
     if (data.result.includes("Wrong user")){
-      props.store.viewStore.setSnackBar(data.result, 'error');
+      props.store.viewStore.setSnackBar(props.translation.login.loginErrorMEssage, 'error');
       props.store.viewStore.setOpenSnackBar(true);
     }
     else{
@@ -89,7 +89,7 @@ const Login = observer( (props: any) => {
         <div className={classes.paper}>
             <img src={MagnoLogo} className={classes.img}alt="Magno logo"></img>
             <Typography component="h1" variant="h5">
-                Logg på for å fortsette til Magno
+                {props.translation.login.title}
             </Typography>
             <form name="SignInForm" onSubmit={handleSubmit} className={classes.form}>
                 <TextField
@@ -98,7 +98,7 @@ const Login = observer( (props: any) => {
                     required
                     fullWidth
                     id="email"
-                    label="Epost"
+                    label={props.translation.login.labelEmail}
                     name="email"
                     autoComplete="email"
                     autoFocus
@@ -110,7 +110,7 @@ const Login = observer( (props: any) => {
                     required
                     fullWidth
                     name="password"
-                    label="Passord"
+                    label={props.translation.login.labelPassword}
                     type="password"
                     id="password"
                     autoComplete="current-password"
@@ -122,12 +122,12 @@ const Login = observer( (props: any) => {
                     variant="contained"
                     color="primary"
                     className={classes.submit}>
-                    Logg inn
+                    {props.translation.login.labelSubmit}
                 </Button>
                 <Grid container>
                     <Grid item>
                         <Link to={'/register'}>
-                            {"Opprett konto"}
+                            {props.translation.login.link}
                         </Link>
                     </Grid>
                 </Grid>

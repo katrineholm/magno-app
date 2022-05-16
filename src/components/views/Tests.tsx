@@ -43,22 +43,22 @@ const Tests = observer( (props: any) => {
         >
             <Grid item xs={6} md={5} lg={4} xl={4}>
                 <ActionTestCard 
-                    header={"Motion Test"} 
+                    header={props.translation.tests.headerMotion} 
                     link={"motion"}
-                    text={"Magno bevegelsestest er en test som måler risikoen for dysleksi"} 
+                    text={props.translation.tests.textMotion} 
                     img={MotionDots}
                     handleTestClick={openDialog}
-                    buttonText={"Start test"}>
+                    buttonText={props.translation.tests.buttonText}>
                 </ActionTestCard>
             </Grid>
             <Grid item xs={6} md={5} lg={4} xl={4}>
                 <ActionTestCard 
-                    header={"Form Fixed Test"} 
+                    header={props.translation.tests.headerFixed} 
                     link={"form-fixed"}
-                    text={"Magno fiksertformtest er en test som måler risikoen for dysleksi"} 
+                    text={props.translation.tests.textFixed} 
                     img={FormFixed}
                     handleTestClick={openDialog}
-                    buttonText={"Start test"}>
+                    buttonText={props.translation.tests.buttonText}>
                 </ActionTestCard>
             </Grid>
         </Grid>
@@ -70,17 +70,17 @@ const Tests = observer( (props: any) => {
         >
             <Grid item xs={6} md={5} lg={4} xl={4}>
                 <ActionTestCard 
-                    header={"Form Random Test"} 
+                    header={props.translation.tests.headerRandom} 
                     link={"form-random"}
-                    text={"Magno tilfeldigformtest er en test som måler risikoen for dysleksi"} 
+                    text={props.translation.tests.textRandom} 
                     img={FormRandom}
                     handleTestClick={openDialog}
-                    buttonText={"Start test"}>
+                    buttonText={props.translation.tests.buttonText}>
                 </ActionTestCard>
             </Grid>
             <Grid item xs={6} md={5} lg={4} xl={4}/>
         </Grid>
-        <TestFormDialog store={props.store} test={test} link={link} open={open} setOpen={setOpen}/>
+        <TestFormDialog store={props.store} test={test} link={link} open={open} setOpen={setOpen} translation={props.translation}/>
     </Container>
   );
 });

@@ -55,18 +55,16 @@ const Student = observer( (props: any) => {
 
   function riskText(risk: string){
     if (risk === "Lav"){
-        return("Testene indikerer at det er en lav risiko for at eleven kan ha dysleksi.")
+        return(props.translation.student.riskLow)
     }
     else if (risk === "Middels"){
-        return("Testene indikerer at det er en middels risiko for at eleven kan ha dysleksi. " +
-               "Det anbefales å sende eleven videre til utredning.")
+        return(props.translation.student.riskMedium)
     }
     else if (risk === "Høy"){
-        return("Testene indikerer at det er en høy risiko for at eleven kan ha dysleksi. " + 
-               "Det anbefales å sende eleven videre til utredning.")
+        return(props.translation.student.riskHigh)
     }
     else{
-        return("Det er ikke gjennomført noen tester med denne eleven enda.")
+        return(props.translation.student.riskNone)
     }
   }
 
@@ -102,27 +100,26 @@ const Student = observer( (props: any) => {
             >
                 <Grid item xs={10} md={8} lg={4} xl={4}>
                     <ChartCard 
-                        header={"Motion Test"} 
-                        text={"Magno bevegelsestest tester den magnocellulære kapasiteten til eleven"} 
-                        buttonText={"Start test"}
+                        header={props.translation.tests.headerMotion} 
                         riskScores={props.store.studentStore.student.tests.motion_test}
+                        translation={props.translation}
                         >
                     </ChartCard>
                 </Grid>
                 <Grid item xs={10} md={8} lg={4} xl={4}>
                     <ChartCard 
-                        header={"Fixed Form Test"} 
-                        text={"Magno fiksertformtest tester den magnocellulære kapasiteten til eleven"} 
-                        buttonText={"Start test"}
-                        riskScores={props.store.studentStore.student.tests.fixed_form_test}>
+                        header={props.translation.tests.headerFixed} 
+                        riskScores={props.store.studentStore.student.tests.fixed_form_test}
+                        translation={props.translation}
+                        >
                     </ChartCard>
                 </Grid>
                 <Grid item xs={10} md={8} lg={4} xl={4}>
                     <ChartCard 
-                        header={"Random Form Test"} 
-                        text={"Magno tilfeldigformtest tester den magnocellulære kapasiteten til eleven"} 
-                        buttonText={"Start test"}
-                        riskScores={props.store.studentStore.student.tests.random_form_test}>
+                        header={props.translation.tests.headerRandom} 
+                        riskScores={props.store.studentStore.student.tests.random_form_test}
+                        translation={props.translation}
+                        >
                     </ChartCard>
                 </Grid>
             </Grid>

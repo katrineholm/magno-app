@@ -92,13 +92,13 @@ const Students = observer( (props: any) => {
                                 className={classes.button}
                                 startIcon={<AddIcon/>}
                                 onClick={() => setOpen(true)}>
-                                Legg til elev
+                                {props.translation.students.addStudentButtonText}
                             </Button>
                         </Grid>
                         
                         <Grid item xs={8} md={9} lg={10} xl={10}>
                             <SearchField
-                                label={"Søk"}
+                                label={props.translation.students.searchFieldLabel}
                                 setValue={setValue}
                                 setFilteredStudents={setFilteredStudents}
                                 students={props.store.studentStore.studentList}
@@ -108,13 +108,20 @@ const Students = observer( (props: any) => {
                         </Grid>
                     </Grid>
                     <div style={{paddingTop: 16}}/>
-                    <StudentTable store={props.store} order={props.order} orderBy={props.orderBy} students={filteredStudents}/>
+                    <StudentTable 
+                        store={props.store} 
+                        order={props.order} 
+                        orderBy={props.orderBy} 
+                        students={filteredStudents}
+                        translation={props.translation}
+                        />
                 </Paper>
                 
             </Container>
             <StudentFormDialog
                 store={props.store}
                 open={open}
+                translation={props.translation}
                 setOpen={setOpen}
                 fetchStudents={fetchStudents}
             />

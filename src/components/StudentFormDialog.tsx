@@ -37,6 +37,7 @@ interface StudentFormDialogProps {
   open: boolean;
   setOpen: (open: boolean) => void;
   classes: any;
+  translation: any;
   fetchStudents: () => void;
 }
 
@@ -75,12 +76,12 @@ function StudentFormDialog(props: StudentFormDialogProps) {
         if (data !== undefined){
             if (data.result.includes("Success")){
                 props.fetchStudents();
-                props.store.viewStore.setSnackBar(firstName + " " + lastName + " ble lagt til", 'success');
+                props.store.viewStore.setSnackBar(firstName + " " + lastName + props.translation.studentFormDialog.successMessage, 'success');
                 props.store.viewStore.setOpenSnackBar(true);
                 props.setOpen(false)
             }
             else {
-                props.store.viewStore.setSnackBar("En ukjent feil oppsto", 'error');
+                props.store.viewStore.setSnackBar(props.translation.studentFormDialog.errorMessage, 'error');
                 props.store.viewStore.setOpenSnackBar(true);
                 props.setOpen(false)
             }
@@ -102,7 +103,7 @@ function StudentFormDialog(props: StudentFormDialogProps) {
             onClose={() => props.setOpen(false)} 
         >
             <DialogTitle style={{ textAlign: 'center'}}>
-                Legg til en ny elev i oversikten
+                {props.translation.studentFormDialog.title}
             </DialogTitle>
             <DialogContent className={classes.dialogBox}>
                 <form name="SignInForm" onSubmit={handleSubmit} className={classes.form}>
@@ -112,7 +113,7 @@ function StudentFormDialog(props: StudentFormDialogProps) {
                         required
                         fullWidth
                         id="fornavn"
-                        label="fornavn"
+                        label={props.translation.studentFormDialog.labelFirstName}
                         name="fornavn"
                         autoComplete="fornavn"
                         autoFocus
@@ -124,20 +125,20 @@ function StudentFormDialog(props: StudentFormDialogProps) {
                         required
                         fullWidth
                         name="etternavn"
-                        label="etternavn"
+                        label={props.translation.studentFormDialog.labelLastName}
                         type="etternavn"
                         id="etternavn"
                         autoComplete="etternavn"
                         onChange={handleLastNameChange}
                         value={lastName}/>
                     <FormControl required style={{ minWidth: 80 }}>
-                        <InputLabel id="select-grade">Trinn</InputLabel>
+                        <InputLabel id="select-grade">{props.translation.studentFormDialog.labelGrade}</InputLabel>
                         <Select
                             labelId="Trinn"
                             id="Trinn"
                             required
                             value={grade}
-                            label="Trinn"
+                            label={props.translation.studentFormDialog.labelGrade}
                             onChange={handleGradeChange}
                         >
                             {props.store.studentStore.grades
@@ -150,12 +151,12 @@ function StudentFormDialog(props: StudentFormDialogProps) {
                         </Select>
                     </FormControl>
                     <FormControl required style={{ minWidth: 90, paddingLeft: 6 }}>
-                        <InputLabel style={{ paddingLeft: 7 }} id="select-class">Klasse</InputLabel>
+                        <InputLabel style={{ paddingLeft: 7 }} id="select-class">{props.translation.studentFormDialog.labelClass}</InputLabel>
                         <Select
                             labelId="Klasse"
                             id="Klasse"
                             value={classLetter}
-                            label="Klasse"
+                            label={props.translation.studentFormDialog.labelClass}
                             onChange={handleClassLetterChange}
                         >
                             {props.store.studentStore.classLetters
@@ -173,7 +174,7 @@ function StudentFormDialog(props: StudentFormDialogProps) {
                         variant="contained"
                         color="primary"
                         className={classes.submit}>
-                        Legg til elev
+                        {props.translation.studentFormDialog.buttonLabel}
                     </Button>
                 </form>
             </DialogContent>
