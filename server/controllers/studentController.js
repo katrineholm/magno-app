@@ -34,9 +34,9 @@ module.exports = {
     const school = req.body.school;
     const grade = req.body.grade;
     const testdate = req.body.testdate;
-    const motion_test = [{}];
-    const fixed_form_test = [{}];
-    const random_form_test = [{}];
+    const motion_test = [];
+    const fixed_form_test = [];
+    const random_form_test = [];
 
     const risk = req.body.risk;
     const container = await CosmosConnector();
