@@ -48,9 +48,11 @@ const Information = observer( (props: any) => {
                     <Typography style={{paddingBottom: 8, marginLeft: 20, marginRight: 20}} variant="body1">
                         {props.translation.information.motionText}
                     </Typography>
+                    <br/>
                     <Typography style={{paddingBottom: 8, marginLeft: 20, marginRight: 20}} variant="body1">
                         {props.translation.information.formText}
                     </Typography>
+                    <br/>
                     <Typography style={{paddingBottom: 8, marginLeft: 20, marginRight: 20}} variant="subtitle2">
                         {props.translation.information.firstPoint}
                     </Typography>
