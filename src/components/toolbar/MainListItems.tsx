@@ -8,7 +8,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import HomeIcon from '@material-ui/icons/Home';
 import PeopleIcon from '@material-ui/icons/People';
-import SettingsIcon from '@material-ui/icons/Settings';
+import InfoIcon from '@material-ui/icons/Info';
 import { Divider } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import { useNavigate } from 'react-router-dom';
@@ -81,6 +81,12 @@ const MainListItems = observer( (props: any) => {
               <PeopleIcon/>
             </ListItemIcon>
             <ListItemText primary="Elever"/>
+          </ListItem>
+          <ListItem selected={props.store.viewStore.toolbarSelected === 3} button onClick={() => handleNavigation(3, '/information')}>
+            <ListItemIcon>
+              <InfoIcon/>
+            </ListItemIcon>
+            <ListItemText primary="Informasjon"/>
           </ListItem>
         </>
       )

@@ -22,6 +22,7 @@ import {
 import { authenticate, getStudents } from './components/Communicator';
 import Student from './components/views/Student';
 import { translationNO } from './components/locales/no/translationNO';
+import Information from './components/views/Information';
 
 const styles = (theme: any) => ({
     root: {
@@ -78,6 +79,7 @@ export const App = observer( (props: any) =>  {
                         <Route path="/student" element={<Student store={props.store} translation={translation}/>}>
                           <Route path=":studentID" element={<Student store={props.store} translation={translation}/>} />
                         </Route>
+                        <Route path="/information" element={<Information translation={translation}/>}></Route>
                     </Routes>
                 </main>
             </>

@@ -49,12 +49,31 @@ export const translationNO: Translation = {
     },
     tests: {
         headerMotion: "Motion Test",
-        textMotion: "Magno bevegelsestest er en test som måler risikoen for dysleksi",
+        textMotion: "Magno bevegelsestest er en test som gir en indikasjon på sannsynligheten for at eleven har dysleksi",
         headerFixed: "Form Fixed Test",
         textFixed: "Magno fiksertformtest er en kontrolltest som sjekker om eleven har problemer med synet som ikke skyldes dysleksi",
         headerRandom: "Form Random Test",
         textRandom: "Magno tilfeldigformtest er en kontrolltest som sjekker om eleven har problemer med synet som ikke skyldes dysleksi",
         buttonText: "Start test",
+        tooltip: "Starter en test, du får opp et valg av elev før testen starter",
+    },
+    information: {
+        subheader: "Informasjon om hvordan testene fungerer",
+        motionText: "De tre testene som ligger i systemet er designet for å bli brukt sammen for å teste en elev. Bevegelsestesten " +  
+        "måler eleven sin sensitivitet i forhold til bevegelser, da studier har gitt indikasjoner på " +
+        "at dyslektikere sin synssensitivitet for bevegelser er svakere enn gjennomsnittet. Dette fører til at de kan ha behov for " + 
+        "større bevegelser for å oppfatte et mønster. Dette er det bevegelsestesten er designet for å måle, ved å gradvis få flere " + 
+        "prikker til å bevege seg i et mønster, eller gradvis få flere prikker til å bevege seg tilfeldig. Testen justerer " + 
+        "vanskelighetsgrad utifra svarene til eleven.",
+        formText: "De to neste testene, henholdsvis Form Fixed Test og Form Random Test måler eleven sin synssensitivitet i forhold " + 
+        "til statiske objekter. Og evnen til å gjenkjenne mønster uten bevegelse. Disse testene brukes som kontrolltester, for å sjekke "+ 
+        "om eleven sitt problem kan skyldes synsproblemer eller andre problemer som ikke er relatert til dysleksi. " +
+        "De statiske testene skaper et mønster hvor det er flere streker som former en sirkel, enten midt i testruten, " + 
+        "eller på et tilfeldig plassert sted i testruten. Testene justerer vanskelighetsgrad utifra svarene til eleven.",
+        firstPoint: "1. Det er forventet at en elev uten dysleksi og uten andre synsproblemer vil score lavt på alle testene.",
+        secondPoint: "2. Det er forventet at en elev med dysleksi og uten andre synsproblemer vil score middels/høyt på " + 
+        "Motion Test, men lavt på Form Fixed Test og Form Random Test.",
+        thirdPoint: "3. Det er forventet at en elev med andre synsproblemer vil score middels/høyt på alle testene.",
     },
     testFormDialog:{
         title: "Velg elev",

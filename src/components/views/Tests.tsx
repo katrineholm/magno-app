@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {observer} from 'mobx-react';
-import {withStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import  ActionTestCard from '../ActionTestCard'
@@ -8,13 +7,15 @@ import MotionDots from '../../files/motiondots.jpg';
 import FormFixed from '../../files/formfixed50.jpg';
 import FormRandom from '../../files/formrandom50.jpg';
 import TestFormDialog from '../TestFormDialog';
+import {
+    withStyles
+  } from "@material-ui/core/styles";
 
 const styles = (theme: any) => ({
   container: {
     marginTop: theme.spacing(10),
   },
 });
-
 /**
  *
  *
@@ -45,6 +46,7 @@ const Tests = observer( (props: any) => {
                 <ActionTestCard 
                     header={props.translation.tests.headerMotion} 
                     link={"motion"}
+                    tooltip={props.translation.tests.tooltip}
                     text={props.translation.tests.textMotion} 
                     img={MotionDots}
                     handleTestClick={openDialog}
@@ -55,6 +57,7 @@ const Tests = observer( (props: any) => {
                 <ActionTestCard 
                     header={props.translation.tests.headerFixed} 
                     link={"form-fixed"}
+                    tooltip={props.translation.tests.tooltip}
                     text={props.translation.tests.textFixed} 
                     img={FormFixed}
                     handleTestClick={openDialog}
@@ -72,6 +75,7 @@ const Tests = observer( (props: any) => {
                 <ActionTestCard 
                     header={props.translation.tests.headerRandom} 
                     link={"form-random"}
+                    tooltip={props.translation.tests.tooltip}
                     text={props.translation.tests.textRandom} 
                     img={FormRandom}
                     handleTestClick={openDialog}

@@ -50,6 +50,15 @@ export default interface Translation {
         headerRandom: string,
         textRandom: string,
         buttonText: string,
+        tooltip: string,
+    },
+    information: {
+        subheader: string,
+        motionText: string,
+        formText: string,
+        firstPoint: string,
+        secondPoint: string,
+        thirdPoint: string,
     },
     testFormDialog:{
         title: string,
