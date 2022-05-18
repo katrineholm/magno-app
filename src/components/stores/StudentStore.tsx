@@ -6,6 +6,7 @@ export class StudentStore {
     
     grades = ["1", "2", "3", "4", "5", "6", "7"]
     classLetters = ["A", "B", "C", "D", "E", "F"]
+    riskAverages = {"motion": 26, "form_fixed": 13, "form_random": 17}
     student : { 
         id: string; 
         name: string; 

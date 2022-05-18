@@ -26,6 +26,7 @@ interface ChartCardProps {
   riskScores: {score: string, date: Date}[] | undefined;
   translation: any;
   classes: any;
+  riskAverages: {[key: string] : number};
 }
 
 const ChartCard = observer( (props: ChartCardProps) => {
@@ -38,7 +39,7 @@ const ChartCard = observer( (props: ChartCardProps) => {
                 style={{ textAlign: 'center', padding: 8}}
             />
             <CardContent className={classes.cardContent}>
-            <Chart riskScores={props.riskScores} translation={props.translation}/>
+            <Chart riskScores={props.riskScores} riskAverages={props.riskAverages} testType={props.header} translation={props.translation}/>
                 <Grid 
                     direction="row"
                     alignItems="center"

@@ -102,6 +102,7 @@ const Student = observer( (props: any) => {
                     <ChartCard 
                         header={props.translation.tests.headerMotion} 
                         riskScores={props.store.studentStore.student.tests.motion_test}
+                        riskAverages={props.store.studentStore.riskAverages}
                         translation={props.translation}
                         >
                     </ChartCard>
@@ -110,6 +111,7 @@ const Student = observer( (props: any) => {
                     <ChartCard 
                         header={props.translation.tests.headerFixed} 
                         riskScores={props.store.studentStore.student.tests.fixed_form_test}
+                        riskAverages={props.store.studentStore.riskAverages}
                         translation={props.translation}
                         >
                     </ChartCard>
@@ -118,6 +120,7 @@ const Student = observer( (props: any) => {
                     <ChartCard 
                         header={props.translation.tests.headerRandom} 
                         riskScores={props.store.studentStore.student.tests.random_form_test}
+                        riskAverages={props.store.studentStore.riskAverages}
                         translation={props.translation}
                         >
                     </ChartCard>

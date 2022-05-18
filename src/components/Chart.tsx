@@ -15,6 +15,8 @@ import {
 interface ChartProps {
     riskScores: {score: string, date: Date}[] | undefined;
     translation: any;
+    testType: string;
+    riskAverages: {[key: string] : number};
 }
 
 const Chart = observer( (props: ChartProps) => {
@@ -48,6 +50,18 @@ const Chart = observer( (props: ChartProps) => {
     return data;
   }
 
+  function getAverageLine(){
+    if (props.testType.includes("Motion")){
+      return props.riskAverages["motion"]
+    }
+    else if (props.testType.includes("Form Fixed")){
+      return props.riskAverages["form_fixed"]
+    }
+    else if (props.testType.includes("Form Random")){
+      return props.riskAverages["form_random"]
+    }
+  }
+
     return (
       <ResponsiveContainer width="95%" height={400}>
         <ComposedChart
@@ -67,7 +81,7 @@ const Chart = observer( (props: ChartProps) => {
           <Tooltip />
           <Legend />
           <Bar dataKey="score" barSize={20} fill="#448894" label={{position: "top"}}/>
-          <ReferenceLine y={33} label={{value: props.translation.chart.averageLabel, position: "insideRight"}} stroke="#ff7300" strokeDasharray="3 3" />
+          <ReferenceLine y={getAverageLine()} label={{value: props.translation.chart.averageLabel, position: "insideRight"}} stroke="#ff7300" strokeDasharray="3 3" />
         </ComposedChart>
         </ResponsiveContainer>
     );
