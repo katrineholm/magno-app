@@ -42,7 +42,7 @@ const Tests = observer( (props: any) => {
             container 
             spacing={6}
         >
-            <Grid item xs={6} md={5} lg={4} xl={4}>
+            <Grid item xs={10} md={7} lg={5} xl={4}>
                 <ActionTestCard 
                     header={props.translation.tests.headerMotion} 
                     link={"motion"}
@@ -53,7 +53,7 @@ const Tests = observer( (props: any) => {
                     buttonText={props.translation.tests.buttonText}>
                 </ActionTestCard>
             </Grid>
-            <Grid item xs={6} md={5} lg={4} xl={4}>
+            <Grid item xs={10} md={7} lg={5} xl={4}>
                 <ActionTestCard 
                     header={props.translation.tests.headerFixed} 
                     link={"form-fixed"}
@@ -71,7 +71,7 @@ const Tests = observer( (props: any) => {
             container 
             spacing={6}
         >
-            <Grid item xs={6} md={5} lg={4} xl={4}>
+            <Grid item xs={10} md={7} lg={5} xl={4}>
                 <ActionTestCard 
                     header={props.translation.tests.headerRandom} 
                     link={"form-random"}
@@ -82,7 +82,7 @@ const Tests = observer( (props: any) => {
                     buttonText={props.translation.tests.buttonText}>
                 </ActionTestCard>
             </Grid>
-            <Grid item xs={6} md={5} lg={4} xl={4}/>
+            <Grid item xs={10} md={7} lg={5} xl={4}/>
         </Grid>
         <TestFormDialog store={props.store} test={test} link={link} open={open} setOpen={setOpen} translation={props.translation}/>
     </Container>

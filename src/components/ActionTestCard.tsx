@@ -22,8 +22,8 @@ const styles = (theme: any) => ({
   },
   fixedHeight: {
     maxWidth: '550px',
-    minHeight: '420px',
-    width: "25vw",
+    minHeight: '400px',
+    
   },
   cardContent:{
     padding: theme.spacing(0),
