@@ -63,7 +63,7 @@ const Login = observer( (props: any) => {
     e.preventDefault();
     const data = await loginAccount(email, password)
     if (data.result.includes("Wrong user")){
-      props.store.viewStore.setSnackBar(props.translation.login.loginErrorMEssage, 'error');
+      props.store.viewStore.setSnackBar(props.translation.login.loginErrorMessage, 'error');
       props.store.viewStore.setOpenSnackBar(true);
     }
     else{
