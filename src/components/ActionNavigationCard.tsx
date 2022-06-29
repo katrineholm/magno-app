@@ -15,7 +15,6 @@ const styles = (theme: any) => ({
       paddingLeft: theme.spacing(2),
       height: '14vh',
       maxHeight: "150px"
-
     },
     icon: {
       paddingLeft: '3vh',
@@ -25,12 +24,13 @@ const styles = (theme: any) => ({
     buttonDetail: {
       paddingLeft: theme.spacing(2),
       marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(1),
       padding: theme.spacing(0),
     },
     fixedHeight: {
       maxWidth: "450px",
       minWidth: "370px",
-      maxHeight: "210px",
+      maxHeight: "220px",
       minHeight: "180px",
       height: "19vh",
       width: "25vw",
@@ -80,7 +80,7 @@ const ActionNavigationCard = observer( (props: ActionNavigationCardProps) => {
                         {props.icon}
                     </Grid>
                 </Grid>
-                <Divider style={{marginTop: 8}}/>
+                <Divider style={{marginTop: 2}}/>
                 <Grid direction="row" container spacing={0}>
                     <Grid item xs={12} md={12} lg={12} xl={12} className={classes.buttonDetail}>
                         <Typography variant="button" color="primary" component="div">

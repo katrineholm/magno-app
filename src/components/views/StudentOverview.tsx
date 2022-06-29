@@ -46,7 +46,7 @@ const styles = (theme: any) => ({
  * @export
  * @returns
  */
-const Students = observer( (props: any) => {
+const StudentOverview = observer( (props: any) => {
     const {classes} = props;
     const [cookies, setCookie] = useCookies(['c_user']);
     const [value, setValue] = useState("");
@@ -129,4 +129,4 @@ const Students = observer( (props: any) => {
     );
   });
 
-export default withStyles(styles)(Students);
+export default withStyles(styles)(StudentOverview);

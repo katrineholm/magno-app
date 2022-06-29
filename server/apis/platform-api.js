@@ -2,8 +2,8 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const express = require('express');
 const router = express.Router();
-const accountController = require('../controllers/accountController');
-const studentController = require('../controllers/studentController');
+const accountController = require('../controllers/account-controller');
+const studentController = require('../controllers/student-controller');
 
 router.post('/account', accountController.createAccount)
 router.post('/login', accountController.loginAccount)

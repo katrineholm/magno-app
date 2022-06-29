@@ -13,7 +13,6 @@ import Register from './components/views/Register'
 import Home from './components/views/Home'
 import Theme from './components/Theme'
 import Tests from './components/views/Tests';
-import Students from './components/views/Students';
 import Snackbar from "./components/SnackBar";
 import { useCookies } from 'react-cookie';
 import {
@@ -23,6 +22,7 @@ import { authenticate, getStudents } from './components/Communicator';
 import Student from './components/views/Student';
 import { translationNO } from './components/locales/no/translationNO';
 import Information from './components/views/Information';
+import StudentOverview from './components/views/StudentOverview';
 
 const styles = (theme: any) => ({
     root: {
@@ -74,8 +74,8 @@ export const App = observer( (props: any) =>  {
                         <Route path="/login" element={<Login store={props.store} translation={translation}/>} />
                         <Route path="/register" element={<Register store={props.store} translation={translation}/>} />
                         <Route path="/tests" element={<Tests store={props.store} translation={translation}/>} />
-                        <Route path="/students" element={<Students store={props.store} order={'asc'} orderBy={'name'} translation={translation}/>} />
-                        <Route path="/students/sort-by-date" element={<Students store={props.store} order={"desc"} orderBy={'testdate'} translation={translation}/>} />
+                        <Route path="/students" element={<StudentOverview store={props.store} order={'asc'} orderBy={'name'} translation={translation}/>} />
+                        <Route path="/students/sort-by-date" element={<StudentOverview store={props.store} order={"desc"} orderBy={'testdate'} translation={translation}/>} />
                         <Route path="/student" element={<Student store={props.store} translation={translation}/>}>
                           <Route path=":studentID" element={<Student store={props.store} translation={translation}/>} />
                         </Route>

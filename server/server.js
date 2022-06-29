@@ -3,24 +3,22 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const app = express();
-const index = require('./routes/index');
+const platform_api = require('./apis/platform-api');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const CryptoJS = require('crypto-js')
 const dir = `${__dirname}/public/`;
 const motion_dir = `${__dirname}/public/tests/motion/`;
 const form_fixed_dir = `${__dirname}/public/tests/form_fixed/`;
 const form_random_dir = `${__dirname}/public/tests/form_random/`;
+
 app.use(express.static('public'))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.use(cookieParser());
-app.use('/', index);
+app.use('/', platform_api);
 
 const port = process.env.PORT || 5000
-
-
 
 app.get('/motion', (req, res) => {
   res.sendFile(motion_dir + "index.html", {dotfiles: "allow"});
@@ -39,5 +37,5 @@ app.get('*', (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`Magno server listening on port ${port}`)
 })

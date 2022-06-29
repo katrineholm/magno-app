@@ -2,7 +2,7 @@
 /* eslint-disable no-undef */
 const CryptoJS = require('crypto-js')
 const CosmosClient = require("@azure/cosmos").CosmosClient
-const db_student_config = require("../database/db-student-config");
+const db_student_config = require("../dbconfig/db-student-config");
 const settings = require("../settings");
 
 function handleSuccessOrErrorMessage(response, err, res) {

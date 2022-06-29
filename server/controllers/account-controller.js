@@ -2,7 +2,7 @@
 /* eslint-disable no-undef */
 const CryptoJS = require('crypto-js')
 const CosmosClient = require("@azure/cosmos").CosmosClient
-const db_account_config = require("../database/db-account-config");
+const db_account_config = require("../dbconfig/db-account-config");
 const oneDay = 1000*60*60*24;
 
 function compareDate(token, storedToken){
@@ -135,58 +135,6 @@ module.exports = {
         }
         handleSuccessOrErrorMessage(response, false, res);
       }
-  },
-
-  updateAccount: async function(old_email, email, confirm_password, password, change_password){
-    const { endpoint, key, databaseId, containerId, partitionKey } = db_account_config;
-    const client = new CosmosClient({ endpoint, key });
-
-    const { container } = await client
-    .database(databaseId)
-    .containers.createIfNotExists(
-      { id: containerId, partitionKey },
-      { offerThroughput: 400 }
-    );
-    const querySpec = {
-      query: "SELECT * from c where c.email = @email",
-      "parameters": [
-          {"name": "@email", "value": old_email}
-      ]
-    };
-    var newItem;
-    var correct = false;
-    const { resources: items } = await container.items
-      .query(querySpec)
-      .fetchAll();
-      items.forEach(item => {
-        if (item.email === old_email){
-          const salt = item.password.substring(item.password.indexOf(":") + 1, item.password.length)
-          confirm_password = CryptoJS.PBKDF2(confirm_password, salt, { keySize: 256 / 32 }).toString()  + ":" + salt;
-          if (item.password === confirm_password){
-            var new_password = item.password
-            if (change_password){
-              new_password = CryptoJS.PBKDF2(password, salt, { keySize: 256 / 32 }).toString()  + ":" + salt;
-            }
-            correct = true;
-            newItem = {
-              id: item.id,
-              email: email,
-              password: new_password,
-              rememberme: item.rememberme,
-            };
-          }           
-        }
-      }
-    )
-    if (correct){
-      const { resource: updatedItem } = await container
-      .item(newItem.id, newItem.email)
-      .replace(newItem);
-      password = "*******************";
-      email = updatedItem.email;
-      return {password: password, email: email};
-    }
-    return false;
   },
 
   logoutAccount: async function (req, res){

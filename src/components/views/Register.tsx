@@ -11,6 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import MagnoLogo from '../../files/magno-logo.png';
 import { createAccount } from '../Communicator';
+import { schools } from '../Settings';
 
 import {
     Link,
@@ -54,7 +55,6 @@ const Register = observer( (props: any) => {
     const [password, setPassword] = useState('');
     const [school, setSchool] = useState<string | null>("");
     const [value, setValue] = useState('');
-    const schools = ["Huseby Barneskole", "Åsheim Barneskole", "Charlottenlund Barneskole"];
     const navigate = useNavigate();
 
 

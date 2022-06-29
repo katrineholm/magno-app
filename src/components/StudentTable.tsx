@@ -63,6 +63,7 @@ function createData(
   };
 }
 
+// Convert date from nb-no to en-gb, necessary for the comparator to recreate a date-time object.
 function enGBDate(a: string){
   const MonthsEN ={
     jan: "jan",
@@ -117,6 +118,23 @@ function riskComparator(a: string, b: string, risk: {[key: string]: string}){
   }
 }
 
+function riskScoreComparator(a: number, b: number){
+  if (Number.isNaN(a)){
+    a = 0;
+  }
+  if (Number.isNaN(b)){
+    b = 0;
+  }
+  if (b < a) {
+    return -1;
+  }
+  if (b > a) {
+    return 1;
+  }
+  return 0;
+
+}
+
 function dateComparator(a: string, b: string){
   a = enGBDate(a)
   b = enGBDate(b)
@@ -136,7 +154,6 @@ function dateComparator(a: string, b: string){
   return 0
 }
 
-
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T, risk: {[key: string]: string} ) {
   if (orderBy === "risk"){
     return riskComparator(String(a[orderBy]), String(b[orderBy]), risk)
@@ -144,6 +161,10 @@ function descendingComparator<T>(a: T, b: T, orderBy: keyof T, risk: {[key: stri
   if (orderBy === "testdate"){
     return dateComparator(String(a[orderBy]), String(b[orderBy]))
   }
+  if (orderBy === ("motion_test" || "fixed_form_test" || "random_form_test")){
+    return riskScoreComparator(Number(a[orderBy]), Number(b[orderBy]))
+  }
+  
   if (b[orderBy] < a[orderBy]) {
     return -1;
   }
