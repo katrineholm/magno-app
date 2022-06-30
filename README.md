@@ -138,7 +138,7 @@ Afterwards, open Tests.tsx which is located in magno-platform/src/components/vie
 </ActionTestCard>
 ```
 
-For your test it would look like this, where you again replace text located within <> brackets. In addition, you need to import the image you moved into the files folder. You do this at the top of the same file, Tests.tsx
+For your test it would look like this, where you again replace some text, namely NAME_OF_YOUR_TEST. In addition, you need to import the image you moved into the files folder. You do this at the top of the same file, Tests.tsx
 
 ```
 import ImageOfTest from '../../files/ImageOfTest.jpg';
