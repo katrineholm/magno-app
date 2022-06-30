@@ -272,3 +272,42 @@ function getAverageLine(){
 MY_TEST_NAME_AS_SET_IN_riskAverages would be the key used within the Settings.tsx file for adding a risk average line.
 
 The test is now fully integrated, and the test will now be hosted with the server upon deployment. 
+
+## Setting up the database
+Follow the instructions available at https://docs.microsoft.com/en-us/azure/cosmos-db/sql/create-cosmosdb-resources-portal, you can use mostly the default settings when setting up the cosmos database account. This is also included in Azure's free tier. 
+
+After the account has been setup, you want to create a database and two containers for the database, and you can choose the names of the database and containers yourself. 
+
+An example would be
+magno-database for the database and magno-user-container and magno-student-container for the two containers. The containers should share throughput.
+
+Yo should now be in the Data Explorer screen of the azure portal, on the left hand your have a navigation bar. Under settings, click Keys. Here you will find
+your URI and Primary keys. Replace the following lines in db-account-config.js and db-student-config.js. You might also need to replace the databaseId and containerId based on the names you set for the two.
+
+```
+db-account-config.js
+
+function db_account_config() {
+    return ({
+        endpoint: "YOUR COSMOS DB URI",
+        key: "YOUR PRIVATE DATABASE KEY",
+        databaseId: "magno-database",
+        containerId: "magno-user-container",
+        partitionKey: { kind: "Hash", paths: ["/id"] }
+    })
+}
+
+db-student-config.js
+
+function db_student_config() {
+    return ({
+        endpoint: "YOUR COSMOS DB URI",
+        key: "YOUR PRIVATE DATABASE KEY",
+        databaseId: "magno-database",
+        containerId: "magno-student-container",
+        partitionKey: { kind: "Hash", paths: ["/id"] }
+    })
+}
+```
+
+The database setup is now complete, well done! 
