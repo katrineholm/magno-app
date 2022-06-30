@@ -7,8 +7,10 @@ This platform is part of my master's thesis. It allows administration and testin
 * [Tore Angell Petersen's An Application for Detection of Dyslexia](https://ntnuopen.ntnu.no/ntnu-xmlui/handle/11250/2557938)
 * [Fredrik Jenssen's Magno: An Application for Detection of Dyslexia](https://ntnuopen.ntnu.no/ntnu-xmlui/handle/11250/2826619)
 
-The repository for the platform is available at the following URL https://github.com/jacksyvertsen/magno-platform
+The repository for the platform and server is available at the following URL https://github.com/jacksyvertsen/magno-platform
+
 The repository for the updated tests is available at https://github.com/jacksyvertsen/magno-tests
+
 With a deployed version running at https://magno-test.herokuapp.com/ it is recommended to register a user at Huseby Barneskole as this contains the most test data.
 
 ## Usage
