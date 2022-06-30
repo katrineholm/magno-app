@@ -60,6 +60,7 @@ const Chart = observer( (props: ChartProps) => {
     else if (props.testType.includes("Form Random")){
       return props.riskAverages["form_random"]
     }
+    return 0;
   }
 
     return (
