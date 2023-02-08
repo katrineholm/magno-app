@@ -46,7 +46,7 @@ export const App = observer( (props: any) =>  {
     const authFunction = async () => {
       const validUser = await authenticate(cookies, setCookie);
       if (!validUser){
-        navigate("/login")
+        navigate("/home")
       }
       else{
         props.store.userStore.setUserEmail(validUser.email);
