@@ -18,7 +18,7 @@ app.use(cors());
 app.use(cookieParser());
 app.use('/', platform_api);
 
-const port = process.env.PORT || 5000
+const port = process.env.PORT || 8080
 
 app.get('/motion', (req, res) => {
   res.sendFile(motion_dir + "index.html", {dotfiles: "allow"});

@@ -3,7 +3,7 @@ function db_account_config() {
         endpoint: "",
         key: "",
         databaseId: "magno-database",
-        containerId: "magno-container",
+        containerId: "magno-user-container",
         partitionKey: { kind: "Hash", paths: ["/id"] }
     })
 }
