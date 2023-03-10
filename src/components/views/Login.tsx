@@ -120,17 +120,6 @@ const Login = observer( (props: any) => {
                     autoComplete="current-password"
                     onChange={handlePasswordChange}
                     value={password}/>
-                     <TextField
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="role"
-                    label={props.translation.login.labelPassword}
-                    type="role"
-                    id="role"
-                    onChange={handleRoleChange}
-                    value={role}/>
                 <Button
                     type="submit"
                     fullWidth
