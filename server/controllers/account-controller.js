@@ -44,6 +44,7 @@ module.exports = {
     const id = req.body.uuid;
     const email = req.body.email.toLowerCase();
     const password = req.body.password;
+    const role = req.body.role.toLowerCase();
     const school = req.body.school;
     const container = await CosmosConnector();
     const querySpec = {
@@ -70,6 +71,7 @@ module.exports = {
           id: id,
           email: email,
           password: key256Bits + ":" + salt,
+          role: role,
           school: school,
           token: '',
         };
@@ -157,6 +159,7 @@ module.exports = {
                 id: item.id,
                 email: item.email,
                 password: item.password,
+                role: item.role,
                 school: item.school,
                 token: "",
               };
