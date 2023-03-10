@@ -11,7 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import MagnoLogo from '../../files/magno-logo.png';
 import { createAccount } from '../Communicator';
-import { schools } from '../Settings';
+import { schools, roles } from '../Settings';
 
 import {
     Link,
@@ -53,6 +53,7 @@ export type SnackBarVariants = 'error' | 'success'
 const Register = observer( (props: any) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [role, setRole] = useState('');
     const [school, setSchool] = useState<string | null>("");
     const [value, setValue] = useState('');
     const navigate = useNavigate();
@@ -65,6 +66,10 @@ const Register = observer( (props: any) => {
 
     function handlePasswordChange(e: React.ChangeEvent<HTMLInputElement>) {
         setPassword(e.target.value)
+    }
+
+    function handleRoleChange(e: React.ChangeEvent<HTMLInputElement>) {
+        setRole(e.target.value)
     }
 
     async function handleSubmit(e: React.SyntheticEvent) {
@@ -81,8 +86,12 @@ const Register = observer( (props: any) => {
             props.store.viewStore.setSnackBar(props.translation.register.emailErrorMessage, 'error');
             props.store.viewStore.setOpenSnackBar(true);
         }
+        else if (!roles.includes(String(role))) {
+            props.store.viewStore.setSnackBar(props.translation.register.emailErrorMessage, 'error');
+            props.store.viewStore.setOpenSnackBar(true);
+        }
         else{
-            const result = await createAccount(uuidv4(), email.toLowerCase(), password, String(school))
+            const result = await createAccount(uuidv4(), email.toLowerCase(), password, role.toLowerCase(), String(school))
             if (result.includes("exists")){
                 props.store.viewStore.setSnackBar(props.translation.register.errorMessage, 'error');
                 props.store.viewStore.setOpenSnackBar(true);
@@ -138,6 +147,19 @@ const Register = observer( (props: any) => {
                             />
                         </Grid>
                         <Grid item xs={12}>
+                            <TextField
+                                variant="outlined"
+                                required
+                                fullWidth
+                                name="role"
+                                label={props.translation.register.labelRole}
+                                type="role"
+                                id="role"
+                                onChange={handleRoleChange}
+                                value={role}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>                    
                         <Autocomplete
                             ListboxProps={{ style: { maxHeight: 150, overflow: 'auto' } }}
                             disablePortal

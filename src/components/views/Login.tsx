@@ -47,6 +47,7 @@ export type SnackBarVariants = 'error' | 'success'
 const Login = observer( (props: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('');
   const [cookies, setCookie] = useCookies(['c_user']);
   const navigate = useNavigate();
   const {classes} = props;
@@ -57,6 +58,9 @@ const Login = observer( (props: any) => {
 
   function handlePasswordChange(e: React.ChangeEvent<HTMLInputElement>) {
       setPassword(e.target.value)
+  }
+  function handleRoleChange(e: React.ChangeEvent<HTMLInputElement>) {
+      setRole(e.target.value)
   }
 
   async function handleSubmit(e: React.SyntheticEvent) {
@@ -116,6 +120,17 @@ const Login = observer( (props: any) => {
                     autoComplete="current-password"
                     onChange={handlePasswordChange}
                     value={password}/>
+                     <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="role"
+                    label={props.translation.login.labelPassword}
+                    type="role"
+                    id="role"
+                    onChange={handleRoleChange}
+                    value={role}/>
                 <Button
                     type="submit"
                     fullWidth
