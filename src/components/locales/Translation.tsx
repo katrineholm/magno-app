@@ -10,6 +10,8 @@ export default interface Translation {
         headerLastResults: string,
         textLastResults: string,
         buttonTextLastResults: string,
+        headerClasses: string,
+        textClasses: string
     },
     login: {
         title: string,
@@ -41,6 +43,10 @@ export default interface Translation {
     students: {
         addStudentButtonText: string,
         searchFieldLabel: string,
+    },
+    classes: {
+        addClassButtonText: string,
+        searchFieldLabel: string
     },
     tests: {
         headerMotion: string,

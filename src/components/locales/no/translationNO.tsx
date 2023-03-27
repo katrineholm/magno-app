@@ -13,6 +13,8 @@ export const translationNO: Translation = {
         headerLastResults: "Siste resultater",
         textLastResults: "Se resultatene fra de siste testene som har blitt gjennomført.",
         buttonTextLastResults: "Se nye resultater",
+        headerClasses: "Dine klasser",
+        textClasses: "Her kan du se en oversikt over dine klasser"
     },
     login: {
         title: "Logg på for å fortsette til Magno",
@@ -46,6 +48,10 @@ export const translationNO: Translation = {
     students: {
         addStudentButtonText: "Legg til elev",
         searchFieldLabel: "Søk",
+    },
+    classes: {
+        addClassButtonText: "Legg til klasse",
+        searchFieldLabel: "Søk"
     },
     tests: {
         headerMotion: "Motion Test",

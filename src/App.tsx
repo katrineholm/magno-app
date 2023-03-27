@@ -18,11 +18,12 @@ import { useCookies } from 'react-cookie';
 import {
     useNavigate,
   } from "react-router-dom";
-import { authenticate, getStudents } from './components/Communicator';
+import { authenticate, getClasses, getStudents } from './components/Communicator';
 import Student from './components/views/Student';
 import { translationNO } from './components/locales/no/translationNO';
 import Information from './components/views/Information';
 import StudentOverview from './components/views/StudentOverview';
+import ClassOverview from './components/views/ClassOverview';
 
 const styles = (theme: any) => ({
     root: {
@@ -55,7 +56,10 @@ export const App = observer( (props: any) =>  {
         navigate("/home")
         const fetchCall = async () => {
           const students = await getStudents(props.store.userStore.school);
+          const classes = await getClasses(props.store.classStore.school);
+          console.log("in app.tsx, students, classes: ", students, classes)
           props.store.studentStore.setStudentList(students)
+          props.store.classStore.setClassList(classes)
         }
         fetchCall()
       }
@@ -79,6 +83,7 @@ export const App = observer( (props: any) =>  {
                         <Route path="/student" element={<Student store={props.store} translation={translation}/>}>
                           <Route path=":studentID" element={<Student store={props.store} translation={translation}/>} />
                         </Route>
+                        <Route path="/classes" element={<ClassOverview store={props.store} order={'asc'} orderBy={'name'} translation={translation}/>}  />
                         <Route path="/information" element={<Information translation={translation}/>}></Route>
                     </Routes>
                 </main>

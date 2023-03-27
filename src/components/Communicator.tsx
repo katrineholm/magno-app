@@ -136,3 +136,23 @@ export async function getStudents(school: string){
         }
     }
 }
+
+export async function getClasses(school: string) {
+    const form_data = {
+        school: school, 
+    }
+    try {
+        const { data } = await axios.post(url.getClasses, form_data)
+        console.log("data", data)
+        return data;
+    }
+        catch (error){
+            if (axios.isAxiosError(error)) {
+                console.log('error message: ', error.message);
+                return error.message;
+            } else {
+                console.log('unexpected error: ', error);
+                return 'An unexpected error occurred';
+            }
+        }
+}
