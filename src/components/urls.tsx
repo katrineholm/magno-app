@@ -24,6 +24,8 @@ export const getStudentsURL= `${baseURL}/students`;
 /** Get classes  */
 export const getClassesURL = `${baseURL}/classes`;
 
+export const addClassURL = `${baseURL}/addClass`;
+
 
 export default {
   account: accountURL,
@@ -33,4 +35,5 @@ export default {
   addStudent: addStudentURL,
   getStudents: getStudentsURL,
   getClasses: getClassesURL,
+  addClass: addClassURL
 };

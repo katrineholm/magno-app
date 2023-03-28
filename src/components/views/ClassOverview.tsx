@@ -12,10 +12,8 @@ import { Button, Paper } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import SearchField from '../SearchField';
 import SearchIcon from '@material-ui/icons/Search';
-//import ClassTable from '../ClassTable';
-//import ClassFormDialog from '../StudentFormDialog';
+import ClassFormDialog from '../ClassFormDialog';
 import { Class } from '../Interfaces';
-import StudentTable from '../StudentTable';
 import ClassTable from '../ClassTable';
 
 const styles = (theme: any) => ({
@@ -49,7 +47,6 @@ const styles = (theme: any) => ({
  * @returns
  */
 const ClassOverview = observer( (props: any) => {
-    console.log("props: ", props.userEmail, props.school)
     const {classes} = props;
     const [cookies, setCookie] = useCookies(['c_user']);
     const [value, setValue] = useState("");
@@ -57,23 +54,22 @@ const ClassOverview = observer( (props: any) => {
     const [filteredClasses, setFilteredClasses] = React.useState<Array<Class>>([])
     const navigate = useNavigate();
     
-/* 
+
     function openDialog(test: string){
         setOpen(true);
-    } */
+    } 
 
-   /*  async function fetchClass(){
-        const schoolClasses = await getClasses(props.store.classStore.school);
-        props.store.studentStore.setClassList(schoolClasses) //endre til classStore
+     async function fetchClasses(){
+        const schoolClasses = await getClasses(props.store.userStore.school);
+        props.store.clasStore.setClassList(schoolClasses) //endre til classStore
         setFilteredClasses(schoolClasses)
-    } */
+    } 
     
     useEffect(() => {
         const fetchCall = async () => {
             const schoolClasses = await getClasses(props.store.classStore.school);
             props.store.classStore.setClassList(schoolClasses)
             setFilteredClasses(schoolClasses)
-            console.log("KLASSE: ", props.store.classStore.name)
             console.log("schoolClasses: ", schoolClasses)
           }
         fetchCall()
@@ -100,17 +96,28 @@ const ClassOverview = observer( (props: any) => {
                                 {props.translation.classes.addClassButtonText}
                              </ Button>
                         </Grid>
+                       
                     </Grid>
                     <div style={{paddingTop: 16}}/>
+
+                    <ClassTable
+                        store={props.store} 
+                        order={props.order} 
+                        orderBy={props.orderBy} 
+                        classes={filteredClasses}
+                        translation={props.translation} />
                 </Paper>
                 
             </Container>
-            <ClassTable
-             store={props.store} 
-             order={props.order} 
-             orderBy={props.orderBy} 
-             classes={filteredClasses}
-             translation={props.translation} />
+             <ClassFormDialog
+                store={props.store}
+                open={open}
+                classes_={classes}
+                translation={props.translation}
+                setOpen={setOpen}
+                fetchClasses={fetchClasses}
+            /> 
+
       </div>
     );
   });

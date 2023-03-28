@@ -13,6 +13,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 import { Student, RiskType, Data, Class } from './Interfaces';
+import { RoomService } from '@material-ui/icons';
 
 const StyledTableRow = styled(TableRow)(({ theme: Theme }) => ({
   '&:nth-of-type(odd)': {
@@ -71,6 +72,7 @@ function stableSort<T>(array: readonly T[], comparator: (a: T, b: T) => number) 
   return stabilizedThis.map((el) => el[0]);
 }
 
+
 interface HeadCell {
   disablePadding: boolean;
   id: keyof Class;
@@ -102,26 +104,36 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     };
 
   return (
-    <TableHead>
-      <TableRow>
-        {headCells.map((headCell) => (
-          <StyledTableCell
-            key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
-            sortDirection={orderBy === headCell.id ? order : false}
-          >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={createSortHandler(headCell.id)}
+    <Box>
+      <TableContainer>
+      <Table
+            aria-labelledby="tableTitle"
+            size={'medium'}
             >
-              {props.labels[headCell.id]}
-            </TableSortLabel>
-          </StyledTableCell>
-        ))}
-      </TableRow>
-    </TableHead>
+          <TableHead>
+            <TableRow>
+              {headCells.map((headCell) => (
+                <StyledTableCell
+                  key={headCell.id}
+                  align={headCell.numeric ? 'right' : 'left'}
+                  padding={headCell.disablePadding ? 'none' : 'normal'}
+                  sortDirection={orderBy === headCell.id ? order : false}
+                >
+                  <TableSortLabel
+                    active={orderBy === headCell.id}
+                    direction={orderBy === headCell.id ? order : 'asc'}
+                    onClick={createSortHandler(headCell.id)}
+                  >
+                    {props.labels[headCell.id]}
+                  </TableSortLabel>
+
+                </StyledTableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+      </Table>
+      </TableContainer>
+    </Box>
   );
 }
 
@@ -182,7 +194,7 @@ const handleClick = (event: React.MouseEvent<unknown>, id: string) => {
               element.school,
               element.teacher))
       });
-      console.log("classtable props: ", props.classes)
+      console.log("classtable props in classTable: ", props.classes)
       setRows(rows)
     }
     
@@ -207,6 +219,38 @@ const handleClick = (event: React.MouseEvent<unknown>, id: string) => {
               rowCount={rows.length}
               labels={props.translation.studentTable.labels}
             />
+
+            <TableBody>
+                {rows.slice()
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row, index) => {
+                    const labelId = `enhanced-table-${index}`;
+                    return (
+                      <StyledTableRow
+                      hover
+                      //onClick={(event) => handleClick(event, row.id)}
+                      role="class"
+                      tabIndex={-1}
+                      key={row.id}
+                      style={{
+                        border: "none",
+                      }}
+                    >
+                     <StyledTableCell
+                        component="th"
+                        id={labelId}
+                        scope="row"
+                        padding="normal"
+                        style={{textAlign: 'start', padding: 14}}
+                      >
+                        {row.name}
+                      </StyledTableCell>
+                      <StyledTableCell align="right">{row.name}</StyledTableCell>
+                    </StyledTableRow>
+
+                    );
+                })}
+            </TableBody>
 
           </Table>
         </TableContainer>

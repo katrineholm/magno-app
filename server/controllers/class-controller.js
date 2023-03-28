@@ -29,8 +29,7 @@ async function CosmosConnector(){
 module.exports = {
 
   getClasses: async function (req, res){
-    const school = "Huseby Barneskole"
-    console.log("response in class c", req)
+    const school = req.body.school;
 
     const container = await CosmosConnector();
     const querySpec = {
@@ -44,4 +43,24 @@ module.exports = {
       .fetchAll();
       handleSuccessOrErrorMessage(items, false, res);
   },
+
+  addClass: async function (req, res) {
+    console.log("Kommer seg til add class i class-controller")
+    const id = req.body.uuid;
+    const name = req.body.name;
+    const school = req.body.school;
+    const teacher = req.body.teacher;
+
+    const container = await CosmosConnector();
+    console.log("items", container.items)
+    const newItem = {
+        id: id,
+        name: name,
+        school: school,
+        teacher: teacher,
+      };
+    await container.items.create(newItem);
+    response = {'result' : 'Success adding class'}
+    handleSuccessOrErrorMessage(response, false, res);
+  }
 }

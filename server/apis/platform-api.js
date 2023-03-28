@@ -14,4 +14,5 @@ router.post('/addStudent', studentController.addStudent)
 router.post('/students', studentController.getStudents)
 router.post('/student/score', studentController.postScore)
 router.post('/classes', classController.getClasses)
+router.post('/addClass', classController.addClass)
 module.exports = router;

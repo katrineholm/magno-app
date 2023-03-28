@@ -97,6 +97,15 @@ export const translationNO: Translation = {
         errorMessage: "En ukjent feil oppsto",
         successMessage: " ble lagt til",
     },
+    classFormDialog:{
+        title: "Legg til en ny klasse",
+        labelGrade: "Trinn",
+        labelClassLetter: "Klasse",
+        labelTeacher: "Ansvarlig lærer",
+        buttonLabel: "Legg til klasse",
+        errorMessage: "En ukjent feil oppsto",
+        successMessage: " ble lagt til",
+    },
     chart:{
         averageLabel: "Gjennomsnitt",
     },

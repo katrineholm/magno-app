@@ -38,7 +38,7 @@ const styles = (theme: any) => ({
 });
 
 export const App = observer( (props: any) =>  {
-  const {classes} = props;
+  const {classes: classes_} = props;
   const [cookies, setCookie] = useCookies(['c_user']);
   const navigate = useNavigate();
   const translation = translationNO;
@@ -56,8 +56,7 @@ export const App = observer( (props: any) =>  {
         navigate("/home")
         const fetchCall = async () => {
           const students = await getStudents(props.store.userStore.school);
-          const classes = await getClasses(props.store.classStore.school);
-          console.log("in app.tsx, students, classes: ", students, classes)
+          const classes = await getClasses(props.store.userStore.school);
           props.store.studentStore.setStudentList(students)
           props.store.classStore.setClassList(classes)
         }
@@ -68,11 +67,11 @@ export const App = observer( (props: any) =>  {
   }, []);
   
   return (
-    <div className={classes.root}>
+    <div className={classes_.root}>
         <ThemeProvider theme={Theme}>
             <ToolBars store={props.store}></ToolBars>
             <>
-                <main className={classes.content}>
+                <main className={classes_.content}>
                     <Routes>
                         <Route path ="/home" element={<Home store={props.store} translation={translation}/>} />
                         <Route path="/login" element={<Login store={props.store} translation={translation}/>} />

@@ -1,8 +1,11 @@
 import {action, makeObservable, observable} from 'mobx';
 import { Class } from '../Interfaces'
-import { grades, classLetters, riskAverages } from '../Settings';
+import { grades, classLetters } from '../Settings';
 
 export class ClassStore {
+
+    grades = grades;
+    classLetters = classLetters;
     
     class : { 
         id: string; 

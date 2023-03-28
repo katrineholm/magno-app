@@ -71,7 +71,6 @@ const StudentOverview = observer( (props: any) => {
             const students = await getStudents(props.store.userStore.school);
             props.store.studentStore.setStudentList(students)
             setFilteredStudents(students)
-            console.log("students", students)
           }
         fetchCall()
     }, []);

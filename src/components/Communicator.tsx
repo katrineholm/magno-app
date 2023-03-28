@@ -89,8 +89,6 @@ export async function authenticate(cookies: any, setCookie: any){
                 return 'An unexpected error occurred';
             }
         }
-        
-        
     }
 }
 
@@ -143,7 +141,32 @@ export async function getClasses(school: string) {
     }
     try {
         const { data } = await axios.post(url.getClasses, form_data)
-        console.log("data", data)
+        console.log("data i controller", data)
+        return data;
+    }
+        catch (error){
+            if (axios.isAxiosError(error)) {
+                console.log('error message: ', error.message);
+                return error.message;
+            } else {
+                console.log('unexpected error: ', error);
+                return 'An unexpected error occurred';
+            }
+        }
+}
+
+export async function addClass(uuid: string, name: string, school: string, teacher: string) {
+    console.log("Kommer seg til addClass i Communicator")
+    const form_data = {
+        uuid: uuid,
+        name: name,
+        school: school, 
+        teacher: teacher
+    }
+    console.log("form data", form_data)
+    try {
+        const { data } = await axios.post(url.addClass, form_data)
+        console.log("data i communicator!!", data)
         return data;
     }
         catch (error){

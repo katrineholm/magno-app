@@ -3,7 +3,6 @@ import { Student } from '../Interfaces'
 import { grades, classLetters, riskAverages } from '../Settings';
 
 export class StudentStore {
-
     
     grades = grades;
     classLetters = classLetters;

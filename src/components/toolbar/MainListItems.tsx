@@ -88,7 +88,7 @@ const MainListItems = observer( (props: any) => {
             </ListItemIcon>
             <ListItemText primary="Dine klasser"/>
           </ListItem>
-          <ListItem selected={props.store.viewStore.toolbarSelected === 4} button onClick={() => handleNavigation(3, '/information')}>
+          <ListItem selected={props.store.viewStore.toolbarSelected === 4} button onClick={() => handleNavigation(4, '/information')}>
             <ListItemIcon>
               <InfoIcon/>
             </ListItemIcon>
