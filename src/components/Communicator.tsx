@@ -2,10 +2,11 @@ import { School } from '@material-ui/icons';
 import axios, { AxiosError } from 'axios';
 import url from './urls';
 
-export async function createAccount(uuid: string, email: string, password: string, school: string){
+export async function createAccount(uuid: string, email: string, password: string, role: string, school: string){
     const form_data = {
         uuid: uuid,
         email: email,
+        role: role,
         password: password,
         school: school,
     }
