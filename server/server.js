@@ -15,7 +15,7 @@ app.use(express.static('public'))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
-app.use(cookieParser());
+app.use(cookieParser()); //Hvorfor brukes cookieParser her?
 app.use('/', platform_api);
 
 const port = process.env.PORT || 8080
