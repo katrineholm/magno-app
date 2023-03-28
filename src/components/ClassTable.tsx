@@ -139,7 +139,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 
 interface ClassTableProps{
   store: any;
-  classes: Array<Class>;
+  schoolClasses: Array<Class>;
   order: Order;
   translation: any;
   orderBy: keyof Class;
@@ -179,14 +179,14 @@ const handleClick = (event: React.MouseEvent<unknown>, id: string) => {
   };
 
   useEffect(() => {
-    if (props.classes.length > 0 && Array.isArray(props.classes)){
+    if (props.schoolClasses.length > 0 && Array.isArray(props.schoolClasses)){
       const rows: {
         id: string;
         name: string; 
         school: string;
         teacher: string;
       }[] = [];
-      props.classes.forEach((element: any) => {
+      props.schoolClasses.forEach((element: any) => {
           rows.push(
             createData(
               element.id,
@@ -194,11 +194,11 @@ const handleClick = (event: React.MouseEvent<unknown>, id: string) => {
               element.school,
               element.teacher))
       });
-      console.log("classtable props in classTable: ", props.classes)
+      console.log("classtable props in classTable: ", props.schoolClasses)
       setRows(rows)
     }
     
-  }, [props.classes]);
+  }, [props.schoolClasses]);
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =

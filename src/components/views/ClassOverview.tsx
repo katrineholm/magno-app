@@ -49,7 +49,6 @@ const styles = (theme: any) => ({
 const ClassOverview = observer( (props: any) => {
     const {classes} = props;
     const [cookies, setCookie] = useCookies(['c_user']);
-    const [value, setValue] = useState("");
     const [open, setOpen] = useState(false);
     const [filteredClasses, setFilteredClasses] = React.useState<Array<Class>>([])
     const navigate = useNavigate();
@@ -61,16 +60,15 @@ const ClassOverview = observer( (props: any) => {
 
      async function fetchClasses(){
         const schoolClasses = await getClasses(props.store.userStore.school);
-        props.store.clasStore.setClassList(schoolClasses) //endre til classStore
+        props.store.clasStore.setClassList(schoolClasses) 
         setFilteredClasses(schoolClasses)
     } 
     
     useEffect(() => {
         const fetchCall = async () => {
-            const schoolClasses = await getClasses(props.store.classStore.school);
+            const schoolClasses = await getClasses(props.store.userStore.school);
             props.store.classStore.setClassList(schoolClasses)
             setFilteredClasses(schoolClasses)
-            console.log("schoolClasses: ", schoolClasses)
           }
         fetchCall()
     }, []);
@@ -104,7 +102,7 @@ const ClassOverview = observer( (props: any) => {
                         store={props.store} 
                         order={props.order} 
                         orderBy={props.orderBy} 
-                        classes={filteredClasses}
+                        schoolClasses={filteredClasses}
                         translation={props.translation} />
                 </Paper>
                 
