@@ -11,7 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import MagnoLogo from '../../files/magno-logo.png';
 import { createAccount } from '../Communicator';
-import { schools } from '../Settings';
+import { roles, schools } from '../Settings';
 
 import {
     Link,
@@ -53,7 +53,9 @@ export type SnackBarVariants = 'error' | 'success'
 const Register = observer( (props: any) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [role, setRole] = useState<string | null>("");
     const [school, setSchool] = useState<string | null>("");
+    const [valueRole, setValueRole] = useState('');
     const [value, setValue] = useState('');
     const navigate = useNavigate();
 
@@ -73,6 +75,10 @@ const Register = observer( (props: any) => {
             props.store.viewStore.setSnackBar(props.translation.register.passwordErrorMessage, 'error');
             props.store.viewStore.setOpenSnackBar(true);
         }
+        else if (!roles.includes(String(role))){
+            props.store.viewStore.setSnackBar(props.translation.register.roleErrorMessage, 'error');
+            props.store.viewStore.setOpenSnackBar(true);
+        }
         else if (!schools.includes(String(school))){
             props.store.viewStore.setSnackBar(props.translation.register.schoolErrorMessage, 'error');
             props.store.viewStore.setOpenSnackBar(true);
@@ -82,7 +88,7 @@ const Register = observer( (props: any) => {
             props.store.viewStore.setOpenSnackBar(true);
         }
         else{
-            const result = await createAccount(uuidv4(), email.toLowerCase(), password, String(school))
+            const result = await createAccount(uuidv4(), email.toLowerCase(), password, String(role), String(school))
             if (result.includes("exists")){
                 props.store.viewStore.setSnackBar(props.translation.register.errorMessage, 'error');
                 props.store.viewStore.setOpenSnackBar(true);
@@ -135,6 +141,23 @@ const Register = observer( (props: any) => {
                                 autoComplete="current-password"
                                 onChange={handlePasswordChange}
                                 value={password}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                        <Autocomplete
+                            ListboxProps={{ style: { maxHeight: 150, overflow: 'auto' } }}
+                            disablePortal
+                            id="role-search-box"
+                            options={roles}
+                            value={role}
+                            onChange={(event: any, newRole: string | null) => {
+                                setRole(newRole);
+                            }}
+                            inputValue={valueRole}
+                            onInputChange={(event, newInputValueRole) => {
+                                setValueRole(newInputValueRole);
+                            }}
+                            renderInput={(params) => <TextField required variant={"outlined"} {...params} label={props.translation.register.labelRole} />}
                             />
                         </Grid>
                         <Grid item xs={12}>

@@ -44,6 +44,7 @@ module.exports = {
     const id = req.body.uuid;
     const email = req.body.email.toLowerCase();
     const password = req.body.password;
+    const role = req.body.role;
     const school = req.body.school;
     const container = await CosmosConnector();
     const querySpec = {
@@ -70,6 +71,7 @@ module.exports = {
           id: id,
           email: email,
           password: key256Bits + ":" + salt,
+          role: role,
           school: school,
           token: '',
         };
@@ -124,7 +126,8 @@ module.exports = {
             .replace(db_item);
             response = {
               'result' : 'Login success',
-              'school' : db_item.school,
+              'role': db_item.role,
+              'school' : db_item.school, //fjernes hvis den feiler på login
               'token' : client_token
             }
             handleSuccessOrErrorMessage(response, false, res);
