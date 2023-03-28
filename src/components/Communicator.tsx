@@ -2,7 +2,7 @@ import { School } from '@material-ui/icons';
 import axios, { AxiosError } from 'axios';
 import url from './urls';
 
-export async function createAccount(uuid: string, email: string, password: string, role: string, school: string){
+export async function createAccount(uuid: string, email: string, password: string, role: string, school: string) {
     const form_data = {
         uuid: uuid,
         email: email,
@@ -14,7 +14,7 @@ export async function createAccount(uuid: string, email: string, password: strin
         const { data } = await axios.post(url.account, form_data)
         return data.result;
     }
-    catch (error){
+    catch (error) {
         if (axios.isAxiosError(error)) {
             console.log('error message: ', error.message);
             return error.message;
@@ -25,7 +25,7 @@ export async function createAccount(uuid: string, email: string, password: strin
     }
 }
 
-export async function loginAccount(email: string, password: string){
+export async function loginAccount(email: string, password: string) {
     const form_data = {
         email: email,
         password: password
@@ -34,7 +34,7 @@ export async function loginAccount(email: string, password: string){
         const { data } = await axios.post(url.login, form_data)
         return data;
     }
-    catch (error){
+    catch (error) {
         if (axios.isAxiosError(error)) {
             console.log('error message: ', error.message);
             return error.message;
@@ -45,14 +45,14 @@ export async function loginAccount(email: string, password: string){
     }
 }
 
-export async function logoutAccount(email: string){
+export async function logoutAccount(email: string) {
     const form_data = {
         email: email,
     }
     try {
         const { data } = await axios.post(url.logout, form_data)
     }
-    catch (error){
+    catch (error) {
         if (axios.isAxiosError(error)) {
             console.log('error message: ', error.message);
             return error.message;
@@ -63,25 +63,29 @@ export async function logoutAccount(email: string){
     }
 }
 
-export async function authenticate(cookies: any, setCookie: any){
-    if (cookies.c_user === undefined){
+export async function authenticate(cookies: any, setCookie: any) {
+    console.log("cookies:", cookies)
+    console.log("setCookie:", setCookie)
+    if (cookies.c_user === undefined) {
         return false
     }
-    else{
-        
+    else {
+
         try {
             const form_data = {
                 token: cookies.c_user,
             }
-            const { data } = await axios.post(url.authenticate, form_data)
-            if (data.result.includes("Authenticated")){
-                const expiryDate = new Date(Date.now() + 1000*60*60*24);
-                setCookie('c_user', data.token, { expires: expiryDate });
+            const { data } = await axios.post(url.authenticate, form_data) //Henter data fra serveren og databasen
+            console.log("url: ", url.authenticate)
+            if (data.result.includes("Authenticated")) { //Serveren vil gi tilbake response med results(authenticated eller ikke), email, school og token
+                const expiryDate = new Date(Date.now() + 1000 * 60 * 60 * 24);
+                setCookie('c_user', data.token, { expires: expiryDate }); //Hvorfor lager man en cookie?
+                console.log("data :", data)
                 return data;
             }
             return false;
         }
-        catch (error){
+        catch (error) {
             if (axios.isAxiosError(error)) {
                 console.log('error message: ', error.message);
                 return error.message;
@@ -93,7 +97,7 @@ export async function authenticate(cookies: any, setCookie: any){
     }
 }
 
-export async function addStudent(uuid: string, name: string, grade: string, school: string){
+export async function addStudent(uuid: string, name: string, grade: string, school: string) {
     const form_data = {
         uuid: uuid,
         name: name,
@@ -106,7 +110,7 @@ export async function addStudent(uuid: string, name: string, grade: string, scho
         const { data } = await axios.post(url.addStudent, form_data)
         return data;
     }
-    catch (error){
+    catch (error) {
         if (axios.isAxiosError(error)) {
             console.log('error message: ', error.message);
             return error.message;
@@ -117,7 +121,7 @@ export async function addStudent(uuid: string, name: string, grade: string, scho
     }
 }
 
-export async function getStudents(school: string){
+export async function getStudents(school: string) { //Bør kanskje gjøres noe auth her?
     const form_data = {
         school: school
     }
@@ -125,7 +129,7 @@ export async function getStudents(school: string){
         const { data } = await axios.post(url.getStudents, form_data)
         return data;
     }
-    catch (error){
+    catch (error) {
         if (axios.isAxiosError(error)) {
             console.log('error message: ', error.message);
             return error.message;
