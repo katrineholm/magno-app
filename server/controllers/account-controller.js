@@ -254,5 +254,22 @@ module.exports = {
     catch (error) {
       console.log(error);
     }
+  },
+
+  getTeachers: async function (req, res) {
+    const school = req.body.school;
+    console.log("KJØRER GET TEACHRES I CONTROLLER", school)
+
+    const container = await CosmosConnector();
+    const querySpec = {
+      query: "SELECT c.id, c.name from c where c.school = @school",
+      "parameters": [
+          {"name": "@school", "value": school},
+      ]
+    };
+    const { resources: items } = await container.items
+      .query(querySpec)
+      .fetchAll();
+      handleSuccessOrErrorMessage(items, false, res);
   }
 }

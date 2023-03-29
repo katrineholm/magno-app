@@ -7,13 +7,13 @@ import { useCookies } from 'react-cookie';
 import {
   useNavigate,
 } from "react-router-dom";
-import { getClasses } from '../Communicator';
+import { getClasses, getTeachers } from '../Communicator';
 import { Button, Paper } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import SearchField from '../SearchField';
 import SearchIcon from '@material-ui/icons/Search';
 import ClassFormDialog from '../ClassFormDialog';
-import { Class } from '../Interfaces';
+import { Class, Teacher } from '../Interfaces';
 import ClassTable from '../ClassTable';
 
 const styles = (theme: any) => ({
@@ -50,7 +50,9 @@ const ClassOverview = observer( (props: any) => {
     const {classes} = props;
     const [cookies, setCookie] = useCookies(['c_user']);
     const [open, setOpen] = useState(false);
-    const [filteredClasses, setFilteredClasses] = React.useState<Array<Class>>([])
+    const [filteredClasses, setFilteredClasses] = React.useState<Array<Class>>([]);
+    const [teachers, setTeachers] = React.useState<Array<Teacher>>([]);
+    const [teacherNames, setTeacherNames] = React.useState<Array<string>>([]);
     const navigate = useNavigate();
     
 
@@ -62,13 +64,21 @@ const ClassOverview = observer( (props: any) => {
         const schoolClasses = await getClasses(props.store.userStore.school);
         props.store.clasStore.setClassList(schoolClasses) 
         setFilteredClasses(schoolClasses)
+        
     } 
-    
+
     useEffect(() => {
         const fetchCall = async () => {
+            //Setter klasser på skolen
             const schoolClasses = await getClasses(props.store.userStore.school);
             props.store.classStore.setClassList(schoolClasses)
             setFilteredClasses(schoolClasses)
+
+            //Setter lærere på skolen
+            const tempTeachers = await getTeachers(props.store.userStore.school);
+            props.store.teacherStore.setTeacherList(tempTeachers)
+            setTeachers(tempTeachers);
+            console.log(tempTeachers)
           }
         fetchCall()
     }, []);
@@ -114,6 +124,7 @@ const ClassOverview = observer( (props: any) => {
                 translation={props.translation}
                 setOpen={setOpen}
                 fetchClasses={fetchClasses}
+                teachers={teachers}
             /> 
 
       </div>

@@ -45,19 +45,17 @@ module.exports = {
   },
 
   addClass: async function (req, res) {
-    console.log("Kommer seg til add class i class-controller")
     const id = req.body.uuid;
     const name = req.body.name;
     const school = req.body.school;
-    const teacher = req.body.teacher;
+    const teacherId = req.body.teacherId;
 
     const container = await CosmosConnector();
-    console.log("items", container.items)
     const newItem = {
         id: id,
         name: name,
         school: school,
-        teacher: teacher,
+        teacher: [teacherId],
       };
     await container.items.create(newItem);
     response = {'result' : 'Success adding class'}

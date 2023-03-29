@@ -11,8 +11,9 @@ router.post('/login', accountController.loginAccount)
 router.post('/logout', accountController.logoutAccount)
 router.post('/authenticate', accountController.authenticate)
 router.post('/addStudent', studentController.addStudent)
-router.post('/students', studentController.getStudents) //Hvorfor er det post på alle disse? Når det er getStudents f.eks
+router.post('/students', studentController.getStudents)
 router.post('/student/score', studentController.postScore)
 router.post('/classes', classController.getClasses)
 router.post('/addClass', classController.addClass)
+router.post('/getTeachers', accountController.getTeachers)
 module.exports = router;
