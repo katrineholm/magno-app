@@ -60,5 +60,9 @@ module.exports = {
     await container.items.create(newItem);
     response = {'result' : 'Success adding class'}
     handleSuccessOrErrorMessage(response, false, res);
+  },
+
+  addTeacherToClass: async function (req, res) {
+    
   }
 }

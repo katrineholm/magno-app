@@ -7,7 +7,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import {withStyles} from '@material-ui/core/styles';
 import { useState } from 'react';
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
-import {addClass} from './Communicator'
+import {addClass} from './Communicator';
 import { v4 as uuidv4 } from 'uuid';
 
 const styles = (theme: any) => ({
@@ -139,19 +139,7 @@ function ClassFormDialog(props: ClassFormDialogProps) {
                             )}
                         </Select>
                     </FormControl>
-{/*                     <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="teacher"
-                        label={props.translation.classFormDialog.labelTeacher}
-                        type="teacher"
-                        id="teacher"
-                        autoComplete="etternavn"
-                        onChange={handleTeacherChange}
-                        value={teacherName}/> */}
-                     <FormControl required style={{ minWidth: 90, paddingLeft: 6 }}>
+                     <FormControl required style={{ minWidth: 90, padding:6, paddingTop:10, paddingBottom: 20}} fullWidth>
                         <InputLabel style={{ paddingLeft: 7 }} id="select-teacher">{props.translation.classFormDialog.labelTeacher}</InputLabel>
                         <Select
                             labelId="Ansvarlig lærer"
