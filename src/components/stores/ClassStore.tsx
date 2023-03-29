@@ -11,7 +11,7 @@ export class ClassStore {
         id: string; 
         name: string; 
         school: string;
-        teacher: string; 
+        teacherId: string;
     } | undefined;
 
     classList : Array<Class> | undefined = [];

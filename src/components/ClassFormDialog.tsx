@@ -7,7 +7,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import {withStyles} from '@material-ui/core/styles';
 import { useState } from 'react';
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
-import {addClass} from './Communicator'
+import {addClass} from './Communicator';
 import { v4 as uuidv4 } from 'uuid';
 
 const styles = (theme: any) => ({
@@ -39,12 +39,13 @@ interface ClassFormDialogProps {
   classes_: any;
   translation: any;
   fetchClasses: () => void;
+  teachers: any;
 }
 
 function ClassFormDialog(props: ClassFormDialogProps) {
   const [grade, setGrade] = useState<string | unknown>('');
   const [classLetter, setClassLetter] = useState<string | unknown>('');
-  const [teacher, setTeacher] = useState<string | unknown>('');
+  const [teacherId, setTeacherId] = useState<string | unknown>('');
   const {classes_} = props;
   
 
@@ -57,22 +58,18 @@ function ClassFormDialog(props: ClassFormDialogProps) {
     }
 
     function handleTeacherChange(event: React.ChangeEvent<{ value: string | unknown }>) {
-        setTeacher(event.target.value)
+        setTeacherId(event.target.value)
     }
 
     async function handleSubmit(e: React.SyntheticEvent) {
         e.preventDefault();
-        console.log(String(grade) + String(classLetter));
-        console.log(props.store.userStore.school);
-        console.log(teacher)
         const data = await addClass(
             uuidv4(), 
             String(grade) + String(classLetter), 
             props.store.userStore.school,
-            String(teacher)
+            String(teacherId)
             )
         if (data !== undefined){
-            console.log("Data is not undefined", data)
             if (data.result.includes("Success")){
                 props.fetchClasses();
                 props.store.viewStore.setSnackBar(props.translation.classFormDialog.successMessage, 'success');
@@ -88,7 +85,7 @@ function ClassFormDialog(props: ClassFormDialogProps) {
     
         setGrade("");
         setClassLetter("");
-        setTeacher("");
+        setTeacherId("");
     }
 
   return (
@@ -142,36 +139,24 @@ function ClassFormDialog(props: ClassFormDialogProps) {
                             )}
                         </Select>
                     </FormControl>
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="teacher"
-                        label={props.translation.classFormDialog.labelTeacher}
-                        type="teacher"
-                        id="teacher"
-                        autoComplete="etternavn"
-                        onChange={handleTeacherChange}
-                        value={teacher}/>
-{/*                     <FormControl required style={{ minWidth: 90, paddingLeft: 6 }}>
+                     <FormControl required style={{ minWidth: 90, padding:6, paddingTop:10, paddingBottom: 20}} fullWidth>
                         <InputLabel style={{ paddingLeft: 7 }} id="select-teacher">{props.translation.classFormDialog.labelTeacher}</InputLabel>
                         <Select
                             labelId="Ansvarlig lærer"
                             id="teacher"
-                            value={teacher}
+                            value={teacherId}
                             label={props.translation.classFormDialog.labelTeacher}
                             onChange={handleTeacherChange}
                         >
-                            {props.store.userStore.userEmail
-                            .map((teacher: string, index: number) => {
+                             {props.store.teacherStore.teacherList
+                            .map((teacher: any, index: number) => {
                                 return (
-                                    <MenuItem key={index} value={teacher}>{teacher}</MenuItem>
+                                    <MenuItem key={index} value={teacher.id}>{teacher.name}</MenuItem>
                                 )
                                 }
                             )}
                         </Select>
-                    </FormControl> */}
+                    </FormControl> 
                     <Button
                         type="submit"
                         fullWidth

@@ -40,19 +40,17 @@ const StyledTableCell = styled(TableCell)(({ theme: Theme }) => ({
 }));
 
 
-
-
 function createData(
     id: string,
     name: string,
     school: string,
-    teacher: string,
+    teacherId: string,
 ): Class {
   return {
     id,
     name,
     school, 
-    teacher 
+    teacherId,
   };
 }
 
@@ -184,7 +182,7 @@ const handleClick = (event: React.MouseEvent<unknown>, id: string) => {
         id: string;
         name: string; 
         school: string;
-        teacher: string;
+        teacherId: string;
       }[] = [];
       props.schoolClasses.forEach((element: any) => {
           rows.push(
@@ -192,9 +190,8 @@ const handleClick = (event: React.MouseEvent<unknown>, id: string) => {
               element.id,
               element.name,
               element.school,
-              element.teacher))
+              element.teacherId))
       });
-      console.log("classtable props in classTable: ", props.schoolClasses)
       setRows(rows)
     }
     

@@ -15,4 +15,5 @@ router.post('/students', studentController.getStudents) //Hvorfor er det post p√
 router.post('/student/score', studentController.postScore)
 router.post('/classes', classController.getClasses)
 router.post('/addClass', classController.addClass)
+router.post('/getTeachers', accountController.getTeachers)
 module.exports = router;

@@ -146,7 +146,6 @@ export async function getClasses(school: string) {
     }
     try {
         const { data } = await axios.post(url.getClasses, form_data)
-        console.log("data i controller", data)
         return data;
     }
         catch (error){
@@ -160,18 +159,34 @@ export async function getClasses(school: string) {
         }
 }
 
-export async function addClass(uuid: string, name: string, school: string, teacher: string) {
-    console.log("Kommer seg til addClass i Communicator")
+export async function addClass(uuid: string, name: string, school: string, teacherId: string) {
     const form_data = {
         uuid: uuid,
         name: name,
         school: school, 
-        teacher: teacher
+        teacherId: teacherId
     }
-    console.log("form data", form_data)
     try {
         const { data } = await axios.post(url.addClass, form_data)
-        console.log("data i communicator!!", data)
+        return data;
+    }
+        catch (error){
+            if (axios.isAxiosError(error)) {
+                console.log('error message: ', error.message);
+                return error.message;
+            } else {
+                console.log('unexpected error: ', error);
+                return 'An unexpected error occurred';
+            }
+        }
+}
+
+export async function getTeachers(school: string) {
+    const form_data = {
+        school: school, 
+    }
+    try {
+        const { data } = await axios.post(url.getTeachers, form_data)
         return data;
     }
         catch (error){

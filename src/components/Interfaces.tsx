@@ -12,7 +12,12 @@ export interface Class {
     id: string,
     name: string,
     school: string, 
-    teacher: string
+    teacherId: string,
+}
+//mulig denne fjernes:
+export interface Teacher {
+    name: string, 
+    id: string
 }
 
 export interface RiskType {
