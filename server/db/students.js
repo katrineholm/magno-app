@@ -59,11 +59,19 @@ const getStudentsByClasses = async (school, classes) => {
     return items
 }
 
+const createStudent = async (newStudent) => {
+
+    const container = await CosmosConnector();
+    return container.items.create(newStudent)
+}
+
+
 
 
 
 
 module.exports = {
     getStudentsBySchool,
-    getStudentsByClasses
+    getStudentsByClasses,
+    createStudent
 }

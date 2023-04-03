@@ -1,3 +1,4 @@
+//TODO: lag logout controller, og getTeachers(?)
 
 const { hashPassword } = require("./../utils/password")
 const { generateToken } = require('./../utils/token')
@@ -36,6 +37,11 @@ const loginController = async (req, res) => {
         }
     }
 }
+
+// const logoutController = async (req, res) => {
+//     //Trengs det å gjøre noe her egt?
+// }
+
 
 /**
  * 

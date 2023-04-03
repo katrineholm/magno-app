@@ -25,6 +25,9 @@ export const getCurrentUserURL = `${baseURL}/new-get-current-user` // denne burd
 /* Add student post */
 export const addStudentURL = `${baseURL}/addStudent`;
 
+/* Add newstudent post */
+export const newAddStudentURL = `${baseURL}/new-add-student`;
+
 /* Get students */
 export const getStudentsURL = `${baseURL}/students`;
 
@@ -43,6 +46,7 @@ export default {
   login: loginURL,
   newLogin: newloginURL,
   newGetStudents: newGetStudentsURL,
+  newAddStudent: newAddStudentURL,
   logout: logoutURL,
   authenticate: authenticateURL,
   getCurrentUser: getCurrentUserURL,

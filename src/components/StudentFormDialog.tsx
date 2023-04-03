@@ -4,50 +4,50 @@ import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import {withStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import { useState } from 'react';
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
-import {addStudent} from './Communicator'
+import { addStudent, newAddStudent } from './Communicator'
 import { v4 as uuidv4 } from 'uuid';
 
 const styles = (theme: any) => ({
-  dialogBox: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '35vh',
-    minHeight: '315px',
-    width: "90%",
-    margin: "auto",
-  },
-  button: {
-    width: "85%",
-    margin: "auto"
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
+    dialogBox: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '35vh',
+        minHeight: '315px',
+        width: "90%",
+        margin: "auto",
+    },
+    button: {
+        width: "85%",
+        margin: "auto"
+    },
+    form: {
+        width: '100%', // Fix IE 11 issue.
+        marginTop: theme.spacing(1),
+    },
+    submit: {
+        margin: theme.spacing(3, 0, 2),
+    },
 });
 
 interface StudentFormDialogProps {
-  store: any;
-  open: boolean;
-  setOpen: (open: boolean) => void;
-  classes: any;
-  translation: any;
-  fetchStudents: () => void;
+    store: any;
+    open: boolean;
+    setOpen: (open: boolean) => void;
+    classes: any;
+    translation: any;
+    fetchStudents: () => void;
 }
 
 function StudentFormDialog(props: StudentFormDialogProps) {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [grade, setGrade] = useState<string | unknown>('');
-  const [classLetter, setClassLetter] = useState<string | unknown>('');
-  const {classes} = props;
-  
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [grade, setGrade] = useState<string | unknown>('');
+    const [classLetter, setClassLetter] = useState<string | unknown>('');
+    const { classes } = props;
+
 
     function handleFirstNameChange(e: React.ChangeEvent<HTMLInputElement>) {
         setFirstName(e.target.value)
@@ -67,14 +67,15 @@ function StudentFormDialog(props: StudentFormDialogProps) {
 
     async function handleSubmit(e: React.SyntheticEvent) {
         e.preventDefault();
-        const data = await addStudent(
-            uuidv4(), 
-            firstName + " " + lastName, 
-            String(grade) + String(classLetter), 
+        //const data = await addStudent(
+        const data = await newAddStudent(
+            uuidv4(),
+            firstName + " " + lastName,
+            String(grade) + String(classLetter),
             props.store.userStore.school
-            )
-        if (data !== undefined){
-            if (data.result.includes("Success")){
+        )
+        if (data !== undefined) {
+            if (data.result.includes("Success")) {
                 props.fetchStudents();
                 props.store.viewStore.setSnackBar(firstName + " " + lastName + props.translation.studentFormDialog.successMessage, 'success');
                 props.store.viewStore.setOpenSnackBar(true);
@@ -86,23 +87,23 @@ function StudentFormDialog(props: StudentFormDialogProps) {
                 props.setOpen(false)
             }
         }
-        
+
         setFirstName("");
         setLastName("");
         setGrade("");
         setClassLetter("");
     }
 
-  return (
+    return (
 
-        <Dialog 
+        <Dialog
             fullWidth={true}
             maxWidth={"sm"}
-            open={props.open} 
+            open={props.open}
             scroll={'body'}
-            onClose={() => props.setOpen(false)} 
+            onClose={() => props.setOpen(false)}
         >
-            <DialogTitle style={{ textAlign: 'center'}}>
+            <DialogTitle style={{ textAlign: 'center' }}>
                 {props.translation.studentFormDialog.title}
             </DialogTitle>
             <DialogContent className={classes.dialogBox}>
@@ -118,7 +119,7 @@ function StudentFormDialog(props: StudentFormDialogProps) {
                         autoComplete="fornavn"
                         autoFocus
                         onChange={handleFirstNameChange}
-                        value={firstName}/>
+                        value={firstName} />
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -130,7 +131,7 @@ function StudentFormDialog(props: StudentFormDialogProps) {
                         id="etternavn"
                         autoComplete="etternavn"
                         onChange={handleLastNameChange}
-                        value={lastName}/>
+                        value={lastName} />
                     <FormControl required style={{ minWidth: 80 }}>
                         <InputLabel id="select-grade">{props.translation.studentFormDialog.labelGrade}</InputLabel>
                         <Select
@@ -142,12 +143,12 @@ function StudentFormDialog(props: StudentFormDialogProps) {
                             onChange={handleGradeChange}
                         >
                             {props.store.studentStore.grades
-                            .map((grade: string, index: number) => {
-                                return (
-                                    <MenuItem key={index} value={grade}>{grade}</MenuItem>
-                                )
+                                .map((grade: string, index: number) => {
+                                    return (
+                                        <MenuItem key={index} value={grade}>{grade}</MenuItem>
+                                    )
                                 }
-                            )}
+                                )}
                         </Select>
                     </FormControl>
                     <FormControl required style={{ minWidth: 90, paddingLeft: 6 }}>
@@ -160,12 +161,12 @@ function StudentFormDialog(props: StudentFormDialogProps) {
                             onChange={handleClassLetterChange}
                         >
                             {props.store.studentStore.classLetters
-                            .map((classLetter: string, index: number) => {
-                                return (
-                                    <MenuItem key={index} value={classLetter}>{classLetter}</MenuItem>
-                                )
+                                .map((classLetter: string, index: number) => {
+                                    return (
+                                        <MenuItem key={index} value={classLetter}>{classLetter}</MenuItem>
+                                    )
                                 }
-                            )}
+                                )}
                         </Select>
                     </FormControl>
                     <Button
@@ -178,10 +179,10 @@ function StudentFormDialog(props: StudentFormDialogProps) {
                     </Button>
                 </form>
             </DialogContent>
-            
+
         </Dialog>
 
-  );
+    );
 }
 
 export default withStyles(styles)(StudentFormDialog);

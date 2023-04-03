@@ -14,7 +14,7 @@ router.post("/new-login", newAccountController.loginController)
 router.post("/new-create-user", newAccountController.postCreateUser)
 router.get("/new-get-current-user", authenticated, newAccountController.getCurrentUser) //Har med authenticated som et middleware her
 router.get("/new-get-students", authenticated, newStudentController.getStudents) //Har med authenticated som et middleware her
-
+router.post("/new-add-student", authenticated, newStudentController.addStudent)
 
 router.post('/account', accountController.createAccount)
 router.post('/login', accountController.loginAccount)

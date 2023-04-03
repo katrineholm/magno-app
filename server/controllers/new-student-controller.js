@@ -1,4 +1,15 @@
-const { getStudentsBySchool, getStudentsByClasses } = require("../db/students")
+//TODO: legg til add student, postscore
+const { getStudentsBySchool, getStudentsByClasses, createStudent } = require("../db/students")
+
+function handleSuccessOrErrorMessage(response, err, res) {
+    if (!err) {
+        res.setHeader('Content-Type', 'application/json');
+        res.status(200).send(JSON.stringify(response));
+    } else {
+        res.status(400).send(result);
+    }
+}
+
 
 const getStudents = async (req, res) => {
     const user = req.user
@@ -20,6 +31,37 @@ const getStudents = async (req, res) => {
     }
 }
 
+
+const addStudent = async (req, res) => {
+    const id = req.body.uuid;
+    const name = req.body.name;
+    const school = req.body.school;
+    const grade = req.body.grade;
+    const testdate = ""; //Fjerne?
+    const risk = "";
+
+    const motion_test = [];
+    const fixed_form_test = [];
+    const random_form_test = [];
+
+
+    const newStudent = {
+        id: id,
+        name: name,
+        school: school,
+        grade: grade,
+        testdate: testdate,
+        tests: { motion_test, fixed_form_test, random_form_test },
+        risk: risk
+    };
+
+    createStudent(newStudent)
+    response = { 'result': 'Success adding student' }
+    handleSuccessOrErrorMessage(response, false, res);
+}
+
+
 module.exports = {
-    getStudents
+    getStudents,
+    addStudent
 }

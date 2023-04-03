@@ -3,6 +3,12 @@ import axios, { AxiosError } from 'axios';
 import url from './urls';
 import { saveToken, getToken } from '../utils/tokens.js'
 
+export function getHeader() {
+    const token = getToken()
+    const header = { "authorization": `Bearer ${token}` }
+    return header
+}
+
 export async function createAccount(uuid: string, email: string, password: string, role: string, school: string) {
     const form_data = {
         uuid: uuid,
@@ -70,8 +76,7 @@ export async function newLoginAccount(email: string, password: string) {
 }
 
 export async function newGetStudents() {
-    const token = getToken()
-    const header = { "authorization": `Bearer ${token}` }
+    const header = getHeader()
     try {
         const data = await fetch(url.newGetStudents, { headers: header }).then(res => res.json())
         return data.students;
@@ -86,12 +91,35 @@ export async function newGetStudents() {
         }
     }
 }
+export async function newAddStudent(uuid: string, name: string, grade: string, school: string) {
+    const header = getHeader()
+    const form_data = {
+        uuid: uuid,
+        name: name,
+        school: school,
+        grade: grade
+    }
+    try {
+        const { data } = await axios.post(url.newAddStudent, form_data, { headers: header })
+        return data;
+    }
+    catch (error) {
+        if (axios.isAxiosError(error)) {
+            console.log('error message: ', error.message);
+            return error.message;
+        } else {
+            console.log('unexpected error: ', error);
+            return 'An unexpected error occurred';
+        }
+    }
+}
 
 
 export async function getCurrentUser() {
-    const token = getToken()
-    console.log(token)
-    const header = { "authorization": `Bearer ${token}` }
+    //const token = getToken()
+    //console.log(token)
+    //const header = { "authorization": `Bearer ${token}` }
+    const header = getHeader()
     const result = await fetch(url.getCurrentUser, { headers: header }).then(res => res.json())
     return result.user
 }
