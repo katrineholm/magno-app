@@ -7,7 +7,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles } from '@material-ui/core/styles';
 import { useState } from 'react';
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
-import { addStudent, newAddStudent } from './Communicator'
+import { newAddStudent } from './Communicator'
 import { v4 as uuidv4 } from 'uuid';
 
 const styles = (theme: any) => ({

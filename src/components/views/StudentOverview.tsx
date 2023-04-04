@@ -7,7 +7,7 @@ import { useCookies } from 'react-cookie';
 import {
     useNavigate,
 } from "react-router-dom";
-import { getStudents, newGetStudents } from '../Communicator';
+import {newGetStudents } from '../Communicator';
 import { Button, Paper } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import SearchField from '../SearchField';

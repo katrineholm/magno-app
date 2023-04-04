@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { useCookies } from 'react-cookie';
 import MagnoLogo from '../../files/magno-logo.png';
-import { getStudents, loginAccount, newLoginAccount, getCurrentUser } from '../Communicator'
+import { newLoginAccount, getCurrentUser } from '../Communicator'
 import {
   Link,
   useNavigate
