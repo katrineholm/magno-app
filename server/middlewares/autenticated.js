@@ -21,10 +21,23 @@ const authenticated = async (req, res, next) => {
     } catch (e) {
         return res.status(401).json({ error: "Du er ikke logget inn" })
     }
-
-
 }
 
+const userIsAdmin = async (req, res, next) => {
+    
+    const user = req.user
+    if (user.role === "ADMIN"){
+        next()
+    }
+    else{
+        return res.status(401).send({error: "User does not have access"})
+    }
+}
+
+
+
+
 module.exports = {
-    authenticated
+    authenticated, 
+    userIsAdmin
 }
