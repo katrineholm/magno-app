@@ -21,7 +21,7 @@ const getStudents = async (req, res) => {
         console.log(students)
         res.send({ students: students })
     }
-    else if (user.role === "TEACHER") { //TODO: Endre til Basic
+    else if (user.role === "Teacher") { //TODO: Endre til Basic
         console.log("User is teacher")
         const students = await getStudentsByClasses(user.school, classes)
         return res.json({ students: students })

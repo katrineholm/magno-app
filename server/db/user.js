@@ -39,7 +39,43 @@ const createUser = async (newUser) => {
     return container.items.create(newUser);
 }
 
+const addClassToUser = async (user, class_id) => {
+    const container = await CosmosConnector();
+    console.log("er inne på add class to user")
+    console.log(user)
+    user.classes.push(class_id)
+    console.log("oppdatert bruker:")
+    console.log(user)
+
+    const { resource: updatedItem } = await container
+        .item(user.id)
+        .replace(user);
+
+    return user
+
+    // return container.items.create(newUser);
+}
+
+const removeClassFromUser = async (user, class_id) => {
+    const container = await CosmosConnector();
+    console.log("er inne på add class to user")
+    console.log(user)
+    // const index = user.classes.idexOf(class_id)
+    // user.classes.splice(index,1)
+    const newClassList = user.classes.filter(item => item !== class_id)
+    user.classes = newClassList
+    console.log("oppdatert bruker:")
+    console.log(user)
+
+    const { resource: updatedItem } = await container
+        .item(user.id)
+        .replace(user);
+    return 
+}
+
 module.exports = {
     getUserByEmail,
-    createUser
+    createUser,
+    addClassToUser,
+    removeClassFromUser
 }

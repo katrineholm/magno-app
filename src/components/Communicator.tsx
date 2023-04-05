@@ -18,7 +18,8 @@ export async function createAccount(uuid: string, email: string, password: strin
         school: school,
     }
     try {
-        const { data } = await axios.post(url.account, form_data)
+        //const { data } = await axios.post(url.account, form_data)
+        const { data } = await axios.post(url.newAccount, form_data)
         return data.result;
     }
     catch (error) {

@@ -70,6 +70,7 @@ const createStudent = async (newStudent) => {
 
 
 
+
 module.exports = {
     getStudentsBySchool,
     getStudentsByClasses,

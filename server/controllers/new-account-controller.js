@@ -3,7 +3,17 @@
 const { hashPassword } = require("./../utils/password")
 const { generateToken } = require('./../utils/token')
 
-const { createUser, getUserByEmail } = require("../db/user")
+const { createUser, getUserByEmail, addClassToUser, removeClassFromUser } = require("../db/user");
+const { getClassById, addTeacherToClass, deleteTeacherFromClass } = require("../db/class");
+
+function handleSuccessOrErrorMessage(response, err, res) {
+    if (!err) {
+        res.setHeader('Content-Type', 'application/json');
+        res.status(200).send(JSON.stringify(response));
+    } else {
+        res.status(400).send(result);
+    }
+}
 
 /**
  * 
@@ -26,9 +36,6 @@ const loginController = async (req, res) => {
         const hasedPassword = hashPassword(password)
 
         if (user.password === hasedPassword) {
-            // generere token
-            // gi positiv tilbakemelding til bruker:):)
-
             const token = generateToken(user.email)
 
             return res.json({ token: token })
@@ -37,10 +44,6 @@ const loginController = async (req, res) => {
         }
     }
 }
-
-// const logoutController = async (req, res) => {
-//     //Trengs det å gjøre noe her egt?
-// }
 
 
 /**
@@ -56,6 +59,8 @@ const postCreateUser = async (req, res) => {
     const password = req.body.password
     const role = req.body.role
     const school = req.body.school
+    const classes = []
+
 
     const existingUser = await getUserByEmail(email) //Sjekker om mailen ligger i databasen fra før. Kan kun lage en mail. 
 
@@ -70,12 +75,13 @@ const postCreateUser = async (req, res) => {
         password: hashedPassword,
         role: role,
         school: school,
-        token: "" // Denne skal kanskje fjernes??
+        classes: classes,
     };
 
     createUser(newUser);
-
-    res.send({ message: "created user" })
+    response = { 'result': 'Success creating account' }
+    handleSuccessOrErrorMessage(response, false, res);
+    //res.send({ message: "created user" })
 }
 
 /**
@@ -89,10 +95,66 @@ const getCurrentUser = (req, res) => {
     res.send({ user: req.user })
 }
 
+//Vil kanskje heller ha den i class-controller
+const assignTeacherToClass = async (req, res) => { //put
+    //Dersom bruker er verifisert og bruker er admin så skal denne kjøre
+    console.log("starter nå")
+
+    const teacher_mail = req.body.email //mailen til læreren??
+    //const teacher = getUserByEmail(teacher_mail)
+    const class_id = req.body.classid
+    const teacher = await getUserByEmail(teacher_mail)
+    const grade = await getClassById(class_id)
+
+    if (teacher.classes.includes(class_id)) {
+        //Hvis læreren allerede er ansvarlig for klassen
+        return res.status(400).json({ message: "Læreren er allerede ansvarlig for klassen" })
+    }
+    if (grade.teacher.includes(teacher.id)) {
+        //Hvis læreren allerede er ansvarlig for klassen
+        return res.status(400).json({ message: "Læreren er allerede ansvarlig for klassen" })
+    }
+    console.log("legger til class to user")
+    addClassToUser(teacher, class_id)
+    console.log("legger til usert to class")
+    addTeacherToClass(grade, teacher.id)
+    response = { 'result': 'Success assigning teacher to class' }
+    res.send(response)
+}
+
+const removeTeacherFromClass = async (req, res) => { //put
+    //Dersom bruker er verifisert og bruker er admin så skal denne kjøre
+    console.log("starter nå")
+
+    const teacher_mail = req.body.email //mailen til læreren??
+    //const teacher = getUserByEmail(teacher_mail)
+    const class_id = req.body.classid
+    const teacher = await getUserByEmail(teacher_mail)
+    const grade = await getClassById(class_id)
+
+    if (!teacher.classes.includes(class_id)){
+        //Hvis læreren allerede er ansvarlig for klassen
+        return res.status(400).json({ message: "Læreren er ikke ansvarlig for klassen" })
+    }
+    if (!grade.teacher.includes(teacher.id)) {
+        //Hvis læreren allerede er ansvarlig for klassen
+        return res.status(400).json({ message: "Læreren er ikke ansvarlig for klassen" })
+    }
+    console.log("legger til class to user")
+    removeClassFromUser(teacher, class_id)
+    deleteTeacherFromClass(grade, teacher.id)
+    // addTeacherToClass(grade, teacher.id)
+    response = { 'result': 'Success removing teacher from class' }
+    res.send(response)
+    
+}
+
 
 
 module.exports = {
     loginController,
     postCreateUser,
     getCurrentUser,
+    assignTeacherToClass,
+    removeTeacherFromClass
 }

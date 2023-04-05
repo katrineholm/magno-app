@@ -16,6 +16,8 @@ export const logoutURL = `${baseURL}/logout`;
 /* Account post, get, update */
 export const accountURL = `${baseURL}/account`;
 
+export const newAccountURL = `${baseURL}/new-create-user`;
+
 /* Authenticate post */
 export const authenticateURL = `${baseURL}/authenticate`;
 
@@ -43,6 +45,7 @@ export const getTeachersURL = `${baseURL}/getTeachers`;
 
 export default {
   account: accountURL,
+  newAccount: newAccountURL,
   login: loginURL,
   newLogin: newloginURL,
   newGetStudents: newGetStudentsURL,
