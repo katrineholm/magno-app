@@ -14,12 +14,13 @@ async function CosmosConnector() {
     return container;
 }
 
-const getClassById = async (id) => {
+const getClassByName = async (name, school) => {
     const container = await CosmosConnector()
     const querySpec = {
-        query: "SELECT * from c where c.id = @id",
+        query: "SELECT * from c where c.name = @name AND c.school=@school",
         "parameters": [
-            { "name": "@id", "value": id }
+            { "name": "@name", "value": name }, 
+            { "name": "@school", "value": school },
         ]
     };
     const { resources: items } = await container.items
@@ -31,6 +32,12 @@ const getClassById = async (id) => {
 
     }
     return null
+}
+
+const createClass = async (newClass) => {
+
+    const container = await CosmosConnector()
+    return container.items.create(newClass);
 }
 
 const getClassesBySchool = async (school) => {
@@ -47,13 +54,14 @@ const getClassesBySchool = async (school) => {
 
     return items
 }
-const getClassesByList = async (user) => {
+
+const getClassesByList = async (user) => { //Endre til klassenavn og ikke id
     const container = await CosmosConnector()
     const school = user.school;
     const classes = user.classes;
 
     const querySpec = {
-        query: "SELECT * from c where (c.school = @school) AND ARRAY_CONTAINS(@classes, c.id)",
+        query: "SELECT * from c where (c.school = @school) AND ARRAY_CONTAINS(@classes, c.name)",
         "parameters": [
             { "name": "@school", "value": school },
             { "name": "@classes", "value": classes }
@@ -100,9 +108,10 @@ const deleteTeacherFromClass = async (grade, teacher_id) => {
 
 
 module.exports = {
-    getClassById,
+    getClassByName,
     addTeacherToClass,
     deleteTeacherFromClass,
     getClassesBySchool,
-    getClassesByList
+    getClassesByList, 
+    createClass
 }

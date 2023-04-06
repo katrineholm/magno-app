@@ -16,9 +16,11 @@ router.post("/new-create-user", newAccountController.postCreateUser)
 router.get("/new-get-current-user", authenticated, newAccountController.getCurrentUser) //Har med authenticated som et middleware her
 router.get("/new-get-students", authenticated, newStudentController.getStudents) //Har med authenticated som et middleware her
 router.post("/new-add-student", authenticated, newStudentController.addStudent)
-router.put("/assign-teacher-to-class", authenticated, userIsAdmin, newAccountController.assignTeacherToClass)
-router.put("/remove-teacher-from-class", authenticated, userIsAdmin, newAccountController.removeTeacherFromClass)
+router.put("/assign-teacher-to-class", authenticated, userIsAdmin, newClassController.assignTeacherToClass)
+router.put("/remove-teacher-from-class", authenticated, userIsAdmin, newClassController.removeTeacherFromClass)
+router.post("/new-create-class", authenticated, userIsAdmin, newClassController.postCreateClass)
 router.get("/new-get-classes", authenticated, newClassController.getClasses)
+
 
 //router.post('/account', accountController.createAccount)
 //router.post('/login', accountController.loginAccount)

@@ -33,29 +33,23 @@ const getStudentsBySchool = async (school) => {
     return items
 }
 
-const getStudentsByClasses = async (school, classes) => {
+const getStudentsByClasses = async (user) => { //TODO: Endre sånn at det er klassenavn og ikke klasseID
     const container = await CosmosConnector()
+    const school = user.school;
+    const classes = user.classes;
     console.log("Skal nå hente elever fra klasser")
     console.log("klassene: ")
-    console.log(classes)
+
     const querySpec = {
-        //query: "SELECT * from c where (c.school = @school) AND (c.grade IN ('+@classes+'))",
-        query: "SELECT * from c where (c.school = @school) AND (c.grade IN ('2A','3B'))",
+        query: "SELECT * from c where (c.school = @school) AND ARRAY_CONTAINS(@classes, c.id)",
         "parameters": [
             { "name": "@school", "value": school },
             { "name": "@classes", "value": classes }
         ]
     };
-
-    //where (c.school = "Huseby Barneskole") AND (c.grade IN ("3B","2A"))
-
-    console.log("har ikke crashet enda??")
     const { resources: items } = await container.items
         .query(querySpec)
         .fetchAll();
-    console.log(items)
-    console.log("Er undefined her?")
-    console.log(items[0])
     return items
 }
 

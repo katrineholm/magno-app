@@ -95,66 +95,9 @@ const getCurrentUser = (req, res) => {
     res.send({ user: req.user })
 }
 
-//Vil kanskje heller ha den i class-controller
-const assignTeacherToClass = async (req, res) => { //put
-    //Dersom bruker er verifisert og bruker er admin så skal denne kjøre
-    console.log("starter nå")
-
-    const teacher_mail = req.body.email //mailen til læreren??
-    //const teacher = getUserByEmail(teacher_mail)
-    const class_id = req.body.classid
-    const teacher = await getUserByEmail(teacher_mail)
-    const grade = await getClassById(class_id)
-
-    if (teacher.classes.includes(class_id)) {
-        //Hvis læreren allerede er ansvarlig for klassen
-        return res.status(400).json({ message: "Læreren er allerede ansvarlig for klassen" })
-    }
-    if (grade.teacher.includes(teacher.id)) {
-        //Hvis læreren allerede er ansvarlig for klassen
-        return res.status(400).json({ message: "Læreren er allerede ansvarlig for klassen" })
-    }
-    console.log("legger til class to user")
-    addClassToUser(teacher, class_id)
-    console.log("legger til usert to class")
-    addTeacherToClass(grade, teacher.id)
-    response = { 'result': 'Success assigning teacher to class' }
-    res.send(response)
-}
-
-const removeTeacherFromClass = async (req, res) => { //put
-    //Dersom bruker er verifisert og bruker er admin så skal denne kjøre
-    console.log("starter nå")
-
-    const teacher_mail = req.body.email //mailen til læreren??
-    //const teacher = getUserByEmail(teacher_mail)
-    const class_id = req.body.classid
-    const teacher = await getUserByEmail(teacher_mail)
-    const grade = await getClassById(class_id)
-
-    if (!teacher.classes.includes(class_id)){
-        //Hvis læreren allerede er ansvarlig for klassen
-        return res.status(400).json({ message: "Læreren er ikke ansvarlig for klassen" })
-    }
-    if (!grade.teacher.includes(teacher.id)) {
-        //Hvis læreren allerede er ansvarlig for klassen
-        return res.status(400).json({ message: "Læreren er ikke ansvarlig for klassen" })
-    }
-    console.log("legger til class to user")
-    removeClassFromUser(teacher, class_id)
-    deleteTeacherFromClass(grade, teacher.id)
-    // addTeacherToClass(grade, teacher.id)
-    response = { 'result': 'Success removing teacher from class' }
-    res.send(response)
-    
-}
-
-
 
 module.exports = {
     loginController,
     postCreateUser,
-    getCurrentUser,
-    assignTeacherToClass,
-    removeTeacherFromClass
+    getCurrentUser
 }

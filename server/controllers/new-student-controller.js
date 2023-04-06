@@ -1,5 +1,6 @@
 //TODO: legg til add student, postscore
 const { getStudentsBySchool, getStudentsByClasses, createStudent } = require("../db/students")
+const { userIsAdmin, userIsBasic } = require("./../utils/role")
 
 function handleSuccessOrErrorMessage(response, err, res) {
     if (!err) {
@@ -13,17 +14,18 @@ function handleSuccessOrErrorMessage(response, err, res) {
 
 const getStudents = async (req, res) => {
     const user = req.user
-    const classes = { classes: ["2A", "3B"] } //TODO: endre sånn at man får inn de tilhørende klassene til lærer
-    console.log("klasser fått inn: ")
-    console.log(classes)
-    if (user.role === "SPESPED") { //TODO: Endre til Admin
-        const students = await getStudentsBySchool(user.school)
+    const school = user.school
+    //const classes = { classes: ["2A", "3B"] } //TODO: endre sånn at man får inn de tilhørende klassene til lærer
+    //console.log("klasser fått inn: ")
+    //console.log(classes)
+    if (userIsAdmin(user)) { 
+        const students = await getStudentsBySchool(school)
         console.log(students)
         res.send({ students: students })
     }
-    else if (user.role === "Teacher") { //TODO: Endre til Basic
+    else if (userIsBasic(user)) { 
         console.log("User is teacher")
-        const students = await getStudentsByClasses(user.school, classes)
+        const students = await getStudentsByClasses(user)
         return res.json({ students: students })
     }
     else {
