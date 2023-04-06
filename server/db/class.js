@@ -33,9 +33,43 @@ const getClassById = async (id) => {
     return null
 }
 
+const getClassesBySchool = async (school) => {
+    const container = await CosmosConnector()
+    const querySpec = {
+        query: "SELECT * from c where c.school = @school",
+        "parameters": [
+            { "name": "@school", "value": school },
+        ]
+    };
+    const { resources: items } = await container.items
+        .query(querySpec)
+        .fetchAll();
+
+    return items
+}
+const getClassesByList = async (user) => {
+    const container = await CosmosConnector()
+    const school = user.school;
+    const classes = user.classes;
+
+    const querySpec = {
+        query: "SELECT * from c where (c.school = @school) AND ARRAY_CONTAINS(@classes, c.id)",
+        "parameters": [
+            { "name": "@school", "value": school },
+            { "name": "@classes", "value": classes }
+        ]
+    };
+    const { resources: items } = await container.items
+        .query(querySpec)
+        .fetchAll();
+    return items
+}
+
+
+
 const addTeacherToClass = async (grade, teacher_id) => {
     const container = await CosmosConnector()
-    
+
     console.log("er inne på add class to user")
     console.log(grade)
     grade.teacher.push(teacher_id)
@@ -44,13 +78,13 @@ const addTeacherToClass = async (grade, teacher_id) => {
 
     const { resource: updatedItem } = await container
         .item(grade.id)
-        .replace(grade); 
+        .replace(grade);
     return grade
 }
 
 const deleteTeacherFromClass = async (grade, teacher_id) => {
     const container = await CosmosConnector()
-    
+
     console.log("er inne på add class to user")
     console.log(grade)
     const newTeacherList = grade.teacher.filter(item => item !== teacher_id)
@@ -60,13 +94,15 @@ const deleteTeacherFromClass = async (grade, teacher_id) => {
 
     const { resource: updatedItem } = await container
         .item(grade.id)
-        .replace(grade); 
-    return 
+        .replace(grade);
+    return
 }
 
 
 module.exports = {
-    getClassById, 
-    addTeacherToClass, 
-    deleteTeacherFromClass
+    getClassById,
+    addTeacherToClass,
+    deleteTeacherFromClass,
+    getClassesBySchool,
+    getClassesByList
 }

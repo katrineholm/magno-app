@@ -7,6 +7,7 @@ const studentController = require('../controllers/student-controller');
 const classController = require('../controllers/class-controller')
 const newAccountController = require("../controllers/new-account-controller")
 const newStudentController = require("../controllers/new-student-controller")
+const newClassController = require("../controllers/new-class-controller")
 const { authenticated, userIsAdmin } = require("./../middlewares/autenticated")
 
 
@@ -17,7 +18,7 @@ router.get("/new-get-students", authenticated, newStudentController.getStudents)
 router.post("/new-add-student", authenticated, newStudentController.addStudent)
 router.put("/assign-teacher-to-class", authenticated, userIsAdmin, newAccountController.assignTeacherToClass)
 router.put("/remove-teacher-from-class", authenticated, userIsAdmin, newAccountController.removeTeacherFromClass)
-
+router.get("/new-get-classes", authenticated, newClassController.getClasses)
 
 //router.post('/account', accountController.createAccount)
 //router.post('/login', accountController.loginAccount)
