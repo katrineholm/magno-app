@@ -41,7 +41,7 @@ const getStudentsByClasses = async (user) => { //TODO: Endre sånn at det er kla
     console.log("klassene: ")
 
     const querySpec = {
-        query: "SELECT * from c where (c.school = @school) AND ARRAY_CONTAINS(@classes, c.id)",
+        query: "SELECT * from c where (c.school = @school) AND ARRAY_CONTAINS(@classes, c.grade)",
         "parameters": [
             { "name": "@school", "value": school },
             { "name": "@classes", "value": classes }

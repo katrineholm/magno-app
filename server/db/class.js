@@ -19,7 +19,7 @@ const getClassByName = async (name, school) => {
     const querySpec = {
         query: "SELECT * from c where c.name = @name AND c.school=@school",
         "parameters": [
-            { "name": "@name", "value": name }, 
+            { "name": "@name", "value": name },
             { "name": "@school", "value": school },
         ]
     };
@@ -55,7 +55,7 @@ const getClassesBySchool = async (school) => {
     return items
 }
 
-const getClassesByList = async (user) => { //Endre til klassenavn og ikke id
+const getClassesByList = async (user) => {
     const container = await CosmosConnector()
     const school = user.school;
     const classes = user.classes;
@@ -112,6 +112,6 @@ module.exports = {
     addTeacherToClass,
     deleteTeacherFromClass,
     getClassesBySchool,
-    getClassesByList, 
+    getClassesByList,
     createClass
 }
