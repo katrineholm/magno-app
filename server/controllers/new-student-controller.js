@@ -1,6 +1,7 @@
 //TODO: legg til add student, postscore
 const { getStudentsBySchool, getStudentsByClasses, createStudent } = require("../db/students")
 const { userIsAdmin, userIsBasic } = require("./../utils/role")
+const { getClassByName } = require("../db/class");
 
 function handleSuccessOrErrorMessage(response, err, res) {
     if (!err) {
@@ -18,12 +19,12 @@ const getStudents = async (req, res) => {
     //const classes = { classes: ["2A", "3B"] } //TODO: endre sånn at man får inn de tilhørende klassene til lærer
     //console.log("klasser fått inn: ")
     //console.log(classes)
-    if (userIsAdmin(user)) { 
+    if (userIsAdmin(user)) {
         const students = await getStudentsBySchool(school)
         console.log(students)
         res.send({ students: students })
     }
-    else if (userIsBasic(user)) { 
+    else if (userIsBasic(user)) {
         console.log("User is teacher")
         const students = await getStudentsByClasses(user)
         return res.json({ students: students })
@@ -35,7 +36,8 @@ const getStudents = async (req, res) => {
 
 
 const addStudent = async (req, res) => {
-    const id = req.body.uuid;
+    const user = req.user
+    //const id = req.body.uuid;
     const name = req.body.name;
     const school = req.body.school;
     const grade = req.body.grade;
@@ -46,9 +48,19 @@ const addStudent = async (req, res) => {
     const fixed_form_test = [];
     const random_form_test = [];
 
+    const existingClass = await getClassByName(name, school);
+    console.log(existingClass)
+    if (existingClass === null) {
+        res.status(400).json({ message: "Finnes ingen klasse" })
+    }
+    if (userIsBasic(user)) {
+        if (!user.classes.includes(grade) || user.school !== school) {
+            res.status(400).json({ message: "Ikke mulig å legge til i en klasse som du ikke er ansvarlig for" })
+        }
+    }
 
     const newStudent = {
-        id: id,
+        //id: id,
         name: name,
         school: school,
         grade: grade,
