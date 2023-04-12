@@ -146,13 +146,12 @@ export async function addClass(uuid: string, name: string, school: string, teach
     }
 }
 
-export async function getTeachers(school: string) {
-    const form_data = {
-        school: school,
-    }
+export async function getTeachers() {
+
+    const header = getHeader()
     try {
-        const { data } = await axios.post(url.getTeachers, form_data)
-        return data;
+        const data = await fetch(url.getTeachers, { headers: header }).then(res => res.json())
+        return data.teachers;
     }
     catch (error) {
         if (axios.isAxiosError(error)) {

@@ -69,18 +69,20 @@ const ClassOverview = observer((props: any) => {
 
     useEffect(() => {
         const fetchCall = async () => {
-            //Setter klasser på skolen
+            // Set classes at the school
             const schoolClasses = await getClasses();
-            props.store.classStore.setClassList(schoolClasses)
-            setFilteredClasses(schoolClasses)
+            props.store.classStore.setClassList(schoolClasses);
+            setFilteredClasses(schoolClasses);
 
-            //Setter lærere på skolen
-            // const tempTeachers = await getTeachers(props.store.userStore.school);
-            // props.store.teacherStore.setTeacherList(tempTeachers)
-            // setTeachers(tempTeachers);
-            // console.log(tempTeachers)
-        }
-        fetchCall()
+            // Set teachers at the school
+            if (props.store.userStore.role === "ADMIN") {
+                const tempTeachers = await getTeachers();
+                props.store.teacherStore.setTeacherList(tempTeachers);
+                setTeachers(tempTeachers);
+                console.log(tempTeachers);
+            }
+        };
+        fetchCall();
     }, []);
 
     return (
