@@ -92,6 +92,7 @@ const ClassOverview = observer( (props: any) => {
                         container 
                         spacing={2}
                     >
+                    {props.store.userStore.role == "ADMIN" ? 
                         <Grid item xs={4} md={3} lg={2} xl={2}>
                             <Button 
                                 fullWidth
@@ -103,8 +104,7 @@ const ClassOverview = observer( (props: any) => {
                                 onClick={() => setOpen(true)}>
                                 {props.translation.classes.addClassButtonText}
                              </ Button>
-                        </Grid>
-                       
+                        </Grid> : <></> }
                     </Grid>
                     <div style={{paddingTop: 16}}/>
 
