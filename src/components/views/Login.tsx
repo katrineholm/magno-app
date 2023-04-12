@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { useCookies } from 'react-cookie';
 import MagnoLogo from '../../files/magno-logo.png';
-import { newLoginAccount, getCurrentUser } from '../Communicator'
+import {loginAccount, getCurrentUser } from '../Communicator'
 import {
   Link,
   useNavigate
@@ -62,7 +62,7 @@ const Login = observer((props: any) => {
   async function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
     //const data = await loginAccount(email, password)
-    const data = await newLoginAccount(email, password)
+    const data = await loginAccount(email, password)
     const user = await getCurrentUser()
     props.store.userStore.setUserEmail(user.email);
     props.store.userStore.setSchool(user.school);

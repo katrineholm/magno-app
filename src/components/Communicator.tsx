@@ -35,7 +35,7 @@ export async function createAccount(email: string, name: string, password: strin
     }
 }
 
-export async function newLoginAccount(email: string, password: string) {
+export async function loginAccount(email: string, password: string) {
     const form_data = {
         email: email,
         password: password
@@ -67,7 +67,7 @@ export async function getCurrentUser() {
 
 
 
-export async function newGetStudents() {
+export async function getStudents() {
     const header = getHeader()
     try {
         const data = await fetch(url.getStudents, { headers: header }).then(res => res.json())
@@ -83,7 +83,7 @@ export async function newGetStudents() {
         }
     }
 }
-export async function newAddStudent(name: string, grade: string, school: string) {
+export async function addStudent(name: string, grade: string, school: string) {
     const header = getHeader()
     const form_data = {
         name: name,
@@ -107,7 +107,7 @@ export async function newAddStudent(name: string, grade: string, school: string)
 
 
 
-export async function newGetClasses() {
+export async function getClasses() {
     const header = getHeader()
     try {
         const data = await fetch(url.getClasses, { headers: header }).then(res => res.json())
