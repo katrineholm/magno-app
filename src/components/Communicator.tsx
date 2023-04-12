@@ -76,10 +76,11 @@ export async function newGetStudents() {
         }
     }
 }
-export async function newAddStudent(uuid: string, name: string, grade: string, school: string) {
+export async function newAddStudent(name: string, grade: string, school: string) {
+// export async function newAddStudent(uuid: string, name: string, grade: string, school: string) {
     const header = getHeader()
     const form_data = {
-        uuid: uuid,
+        // uuid: uuid,
         name: name,
         school: school,
         grade: grade
