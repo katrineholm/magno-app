@@ -10,8 +10,6 @@ import {
 import { newGetClasses, getTeachers } from '../Communicator';
 import { Button, Paper } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import SearchField from '../SearchField';
-import SearchIcon from '@material-ui/icons/Search';
 import ClassFormDialog from '../ClassFormDialog';
 import { Class, Teacher } from '../Interfaces';
 import ClassTable from '../ClassTable';
@@ -52,13 +50,8 @@ const ClassOverview = observer((props: any) => {
     const [open, setOpen] = useState(false);
     const [filteredClasses, setFilteredClasses] = React.useState<Array<Class>>([]);
     const [teachers, setTeachers] = React.useState<Array<Teacher>>([]);
-    const [teacherNames, setTeacherNames] = React.useState<Array<string>>([]);
     const navigate = useNavigate();
 
-
-    function openDialog(test: string) {
-        setOpen(true);
-    }
 
     async function fetchClasses() {
         // const schoolClasses = await getClasses(props.store.userStore.school);
@@ -94,6 +87,7 @@ const ClassOverview = observer((props: any) => {
                         container
                         spacing={2}
                     >
+                    {props.store.userStore.role == "ADMIN" ? 
                         <Grid item xs={4} md={3} lg={2} xl={2}>
                             <Button
                                 fullWidth
@@ -104,9 +98,8 @@ const ClassOverview = observer((props: any) => {
                                 startIcon={<AddIcon />}
                                 onClick={() => setOpen(true)}>
                                 {props.translation.classes.addClassButtonText}
-                            </ Button>
-                        </Grid>
-
+                             </ Button>
+                        </Grid> : <></> }
                     </Grid>
                     <div style={{ paddingTop: 16 }} />
 

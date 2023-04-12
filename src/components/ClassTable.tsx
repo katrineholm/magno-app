@@ -9,8 +9,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import React, { useEffect } from 'react';
-import { Student, RiskType, Data, Class } from './Interfaces';
-import { RoomService } from '@material-ui/icons';
+import { Class } from './Interfaces';
 
 const StyledTableRow = styled(TableRow)(({ theme: Theme }) => ({
   '&:nth-of-type(odd)': {
