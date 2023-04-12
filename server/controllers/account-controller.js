@@ -120,8 +120,7 @@ const getCurrentUser = (req, res) => {
 const getTeachers = async (req, res) => {
     const school = req.user.school;
     const teachers = await getTeachersBySchool(school)
-    res.send(teachers)
-
+    res.send({ teachers: teachers })
 }
 
 
