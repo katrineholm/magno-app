@@ -18,8 +18,8 @@ export async function createAccount(email: string, name: string, password: strin
     }
     try {
         console.log(form_data)
-        console.log(url.newAccount)
-        const { data } = await axios.post(url.newAccount, form_data)
+        console.log(url.account)
+        const { data } = await axios.post(url.account, form_data)
         console.log("Her kommer data fra create_account backend")
         console.log(data)
         return data.result;
@@ -41,8 +41,8 @@ export async function newLoginAccount(email: string, password: string) {
         password: password
     }
     try {
-        const { data } = await axios.post(url.newLogin, form_data) 
-        saveToken(data.token) 
+        const { data } = await axios.post(url.login, form_data)
+        saveToken(data.token)
         console.log("Her kommer det token fra backend:")
         console.log(data)
         return data;
@@ -70,7 +70,7 @@ export async function getCurrentUser() {
 export async function newGetStudents() {
     const header = getHeader()
     try {
-        const data = await fetch(url.newGetStudents, { headers: header }).then(res => res.json())
+        const data = await fetch(url.getStudents, { headers: header }).then(res => res.json())
         return data.students;
     }
     catch (error) {
@@ -91,7 +91,7 @@ export async function newAddStudent(name: string, grade: string, school: string)
         grade: grade
     }
     try {
-        const { data } = await axios.post(url.newAddStudent, form_data, { headers: header })
+        const { data } = await axios.post(url.addStudent, form_data, { headers: header })
         return data;
     }
     catch (error) {
@@ -110,7 +110,7 @@ export async function newAddStudent(name: string, grade: string, school: string)
 export async function newGetClasses() {
     const header = getHeader()
     try {
-        const data = await fetch(url.newGetClasses, { headers: header }).then(res => res.json())
+        const data = await fetch(url.getClasses, { headers: header }).then(res => res.json())
         return data.classes;
     }
     catch (error) {
