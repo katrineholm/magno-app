@@ -3,40 +3,22 @@
 /* base url */
 const baseURL = process.env.REACT_APP_API_URL;
 
-/* Login post, get, update */
+/* Log in */
 export const loginURL = `${baseURL}/login`;
 
-export const newloginURL = `${baseURL}/new-login`;
-export const newGetStudentsURL = `${baseURL}/new-get-students`;
-
-
-/* Logout post */
-export const logoutURL = `${baseURL}/logout`;
-
-/* Account post, get, update */
-export const accountURL = `${baseURL}/account`;
-
-export const newAccountURL = `${baseURL}/new-create-user`;
-
-export const newGetClassesURL = `${baseURL}/new-get-classes`;
-
-/* Authenticate post */
-export const authenticateURL = `${baseURL}/authenticate`;
+/* Register user */
+export const accountURL = `${baseURL}/create-user`;
 
 /* Get current user */
-export const getCurrentUserURL = `${baseURL}/new-get-current-user` // denne burde oppdateres:)
-
-/* Add student post */
-export const addStudentURL = `${baseURL}/addStudent`;
-
-/* Add newstudent post */
-export const newAddStudentURL = `${baseURL}/new-add-student`;
+export const getCurrentUserURL = `${baseURL}/get-current-user` // denne burde oppdateres:)
 
 /* Get students */
-export const getStudentsURL = `${baseURL}/students`;
+export const getStudentsURL = `${baseURL}/get-students`;
 
-/** Get classes  */
-export const getClassesURL = `${baseURL}/classes`;
+/* Add newstudent post */
+export const addStudentURL = `${baseURL}/add-student`;
+
+export const getClassesURL = `${baseURL}/get-classes`;
 
 /** Add class  */
 export const addClassURL = `${baseURL}/addClass`;
@@ -44,20 +26,12 @@ export const addClassURL = `${baseURL}/addClass`;
 /** Get teachers  */
 export const getTeachersURL = `${baseURL}/getTeachers`;
 
-
 export default {
   account: accountURL,
-  newAccount: newAccountURL,
   login: loginURL,
-  newLogin: newloginURL,
-  newGetStudents: newGetStudentsURL,
-  newAddStudent: newAddStudentURL,
-  newGetClasses: newGetClassesURL,
-  logout: logoutURL,
-  authenticate: authenticateURL,
   getCurrentUser: getCurrentUserURL,
-  addStudent: addStudentURL,
   getStudents: getStudentsURL,
+  addStudent: addStudentURL,
   getClasses: getClassesURL,
   addClass: addClassURL,
   getTeachers: getTeachersURL

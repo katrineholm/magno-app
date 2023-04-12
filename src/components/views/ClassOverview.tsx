@@ -7,7 +7,7 @@ import { useCookies } from 'react-cookie';
 import {
     useNavigate,
 } from "react-router-dom";
-import { newGetClasses, getTeachers } from '../Communicator';
+import { getClasses, getTeachers } from '../Communicator';
 import { Button, Paper } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import ClassFormDialog from '../ClassFormDialog';
@@ -54,8 +54,7 @@ const ClassOverview = observer((props: any) => {
 
 
     async function fetchClasses() {
-        // const schoolClasses = await getClasses(props.store.userStore.school);
-        const schoolClasses = await newGetClasses();
+        const schoolClasses = await getClasses();
         props.store.clasStore.setClassList(schoolClasses)
         setFilteredClasses(schoolClasses)
 
@@ -63,19 +62,20 @@ const ClassOverview = observer((props: any) => {
 
     useEffect(() => {
         const fetchCall = async () => {
-            //Setter klasser på skolen
-            // const schoolClasses = await getClasses(props.store.userStore.school);
-            const schoolClasses = await newGetClasses();
-            props.store.classStore.setClassList(schoolClasses)
-            setFilteredClasses(schoolClasses)
+            // Set classes at the school
+            const schoolClasses = await getClasses();
+            props.store.classStore.setClassList(schoolClasses);
+            setFilteredClasses(schoolClasses);
 
-            //Setter lærere på skolen
-            const tempTeachers = await getTeachers(props.store.userStore.school);
-            props.store.teacherStore.setTeacherList(tempTeachers)
-            setTeachers(tempTeachers);
-            console.log(tempTeachers)
-        }
-        fetchCall()
+            // Set teachers at the school
+            if (props.store.userStore.role === "ADMIN") {
+                const tempTeachers = await getTeachers();
+                props.store.teacherStore.setTeacherList(tempTeachers);
+                setTeachers(tempTeachers);
+                console.log(tempTeachers);
+            }
+        };
+        fetchCall();
     }, []);
 
     return (

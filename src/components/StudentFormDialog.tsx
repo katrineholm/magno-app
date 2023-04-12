@@ -7,8 +7,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles } from '@material-ui/core/styles';
 import { useState } from 'react';
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
-import { newAddStudent } from './Communicator'
-import { v4 as uuidv4 } from 'uuid';
+import { addStudent } from './Communicator'
+//import { v4 as uuidv4 } from 'uuid';
 
 const styles = (theme: any) => ({
     dialogBox: {
@@ -67,9 +67,7 @@ function StudentFormDialog(props: StudentFormDialogProps) {
 
     async function handleSubmit(e: React.SyntheticEvent) {
         e.preventDefault();
-        //const data = await addStudent(
-        const data = await newAddStudent(
-            // uuidv4(),
+        const data = await addStudent(
             firstName + " " + lastName,
             String(grade) + String(classLetter),
             props.store.userStore.school
