@@ -27,6 +27,7 @@ export const translationNO: Translation = {
     register: {
         title: "Opprett en konto for Magno",
         labelEmail: "Epost adresse",
+        labelName: "Navn",
         labelPassword: "Passord",
         labelRole: "Rolle",
         labelSchool: "Velg skole",

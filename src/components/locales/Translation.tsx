@@ -24,6 +24,7 @@ export default interface Translation {
     register: {
         title: string,
         labelEmail: string,
+        labelName: string,
         labelPassword: string,
         labelSchool: string,
         labelRole: string,
