@@ -18,7 +18,5 @@ router.put("/assign-teacher-to-class", authenticated, userIsAdmin, classControll
 router.put("/remove-teacher-from-class", authenticated, userIsAdmin, classController.removeTeacherFromClass)
 router.post("/create-class", authenticated, userIsAdmin, classController.postCreateClass)
 router.get("/get-classes", authenticated, classController.getClasses)
-
-
-//router.post('/getTeachers', accountController.getTeachers)
+router.get('/getTeachers', authenticated, userIsAdmin, accountController.getTeachers)
 module.exports = router;

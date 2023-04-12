@@ -3,7 +3,7 @@
 const { hashPassword } = require("../utils/password")
 const { generateToken } = require('../utils/token')
 
-const { createUser, getUserByEmail, addClassToUser, removeClassFromUser, addAdmin } = require("../db/user");
+const { createUser, getUserByEmail, getTeachersBySchool, addAdmin } = require("../db/user");
 // const { default: userEvent } = require("@testing-library/user-event");
 
 function handleSuccessOrErrorMessage(response, err, res) {
@@ -117,9 +117,18 @@ const getCurrentUser = (req, res) => {
 }
 
 
+const getTeachers = async (req, res) => {
+    const school = req.user.school;
+    const teachers = await getTeachersBySchool(school)
+    res.send(teachers)
+
+}
+
+
 module.exports = {
     loginController,
     postCreateUser,
     getCurrentUser,
-    changeToAdmin
+    changeToAdmin,
+    getTeachers
 }

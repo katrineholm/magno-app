@@ -33,6 +33,7 @@ const getUserByEmail = async (email) => {
     return null
 }
 
+
 const createUser = async (newUser) => {
 
     const container = await CosmosConnector()
@@ -42,12 +43,32 @@ const addAdmin = async (user) => {
 
     const container = await CosmosConnector()
     user.role = "ADMIN"
-    
+
     const { resource: updatedItem } = await container
         .item(user.id)
         .replace(user);
 
     return user
+}
+
+const getTeachersBySchool = async (school) => {
+    console.log("Skolen de går på:")
+    console.log(school)
+    const container = await CosmosConnector();
+    const querySpec = {
+        query: "SELECT * from c where c.school = @school and c.role=@role",
+        "parameters": [
+            { "name": "@school", "value": school },
+            { "name": "@role", "value": "BASIC" },
+        ]
+    };
+    const { resources: items } = await container.items
+        .query(querySpec)
+        .fetchAll();
+    // console.log(items[0])
+    // console.log("Også resten..")
+    console.log(items)
+    return items
 }
 
 const addClassToUser = async (user, class_name) => {
@@ -81,13 +102,14 @@ const removeClassFromUser = async (user, class_name) => {
     const { resource: updatedItem } = await container
         .item(user.id)
         .replace(user);
-    return 
+    return
 }
 
 module.exports = {
     getUserByEmail,
     createUser,
     addClassToUser,
-    removeClassFromUser, 
-    addAdmin
+    removeClassFromUser,
+    addAdmin,
+    getTeachersBySchool
 }
