@@ -7,14 +7,14 @@ import { useCookies } from 'react-cookie';
 import {
     useNavigate,
 } from "react-router-dom";
-import {getStudents} from '../Communicator';
+import {getStudents, getClasses} from '../Communicator';
 import { Button, Paper } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import SearchField from '../SearchField';
 import SearchIcon from '@material-ui/icons/Search';
 import StudentTable from '../StudentTable';
 import StudentFormDialog from '../StudentFormDialog';
-import { Student } from '../Interfaces';
+import { Student, Class } from '../Interfaces';
 
 const styles = (theme: any) => ({
     container: {
@@ -52,6 +52,7 @@ const StudentOverview = observer((props: any) => {
     const [value, setValue] = useState("");
     const [open, setOpen] = useState(false);
     const [filteredStudents, setFilteredStudents] = React.useState<Array<Student>>([]) //listen med studenter som vises
+    const [schoolClasses, setSchoolClasses] = React.useState<Array<Class>>([]);
     const navigate = useNavigate();
 
 
@@ -60,7 +61,6 @@ const StudentOverview = observer((props: any) => {
     }
 
     async function fetchStudents() {
-        //const students = await getStudents(props.store.userStore.school); //Her hentes dataen med studenter, og det bør kanskje gjøres noe auth greier her?
         const students = await getStudents();
         props.store.studentStore.setStudentList(students)
         setFilteredStudents(students)
@@ -68,10 +68,15 @@ const StudentOverview = observer((props: any) => {
 
     useEffect(() => {
         const fetchCall = async () => {
-            //const students = await getStudents(props.store.userStore.school);
             const students = await getStudents();
             props.store.studentStore.setStudentList(students)
             setFilteredStudents(students)
+        
+            const tempSchoolClasses = await getClasses();
+            props.store.classStore.setClassList(tempSchoolClasses);
+            setSchoolClasses(tempSchoolClasses);
+            console.log(tempSchoolClasses);
+
         }
         fetchCall()
     }, []);

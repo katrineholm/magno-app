@@ -44,8 +44,7 @@ interface StudentFormDialogProps {
 function StudentFormDialog(props: StudentFormDialogProps) {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [grade, setGrade] = useState<string | unknown>('');
-    const [classLetter, setClassLetter] = useState<string | unknown>('');
+    const [className, setClassName] = useState<string | unknown>('');
     const { classes } = props;
 
 
@@ -58,18 +57,15 @@ function StudentFormDialog(props: StudentFormDialogProps) {
     }
 
     function handleGradeChange(event: React.ChangeEvent<{ value: string | unknown }>) {
-        setGrade(event.target.value)
+        setClassName(event.target.value)
     }
 
-    function handleClassLetterChange(event: React.ChangeEvent<{ value: string | unknown }>) {
-        setClassLetter(event.target.value)
-    }
 
     async function handleSubmit(e: React.SyntheticEvent) {
         e.preventDefault();
         const data = await addStudent(
             firstName + " " + lastName,
-            String(grade) + String(classLetter),
+            String(className),
             props.store.userStore.school
         )
         if (data !== undefined) {
@@ -88,8 +84,7 @@ function StudentFormDialog(props: StudentFormDialogProps) {
 
         setFirstName("");
         setLastName("");
-        setGrade("");
-        setClassLetter("");
+        setClassName("");
     }
 
     return (
@@ -133,35 +128,17 @@ function StudentFormDialog(props: StudentFormDialogProps) {
                     <FormControl required style={{ minWidth: 80 }}>
                         <InputLabel id="select-grade">{props.translation.studentFormDialog.labelGrade}</InputLabel>
                         <Select
-                            labelId="Trinn"
-                            id="Trinn"
+                            labelId="grade"
+                            id="grade"
                             required
-                            value={grade}
+                            value={className}
                             label={props.translation.studentFormDialog.labelGrade}
                             onChange={handleGradeChange}
                         >
-                            {props.store.studentStore.grades
-                                .map((grade: string, index: number) => {
+                            {props.store.classStore.classList
+                                .map((grade: any, index: number) => {
                                     return (
-                                        <MenuItem key={index} value={grade}>{grade}</MenuItem>
-                                    )
-                                }
-                                )}
-                        </Select>
-                    </FormControl>
-                    <FormControl required style={{ minWidth: 90, paddingLeft: 6 }}>
-                        <InputLabel style={{ paddingLeft: 7 }} id="select-class">{props.translation.studentFormDialog.labelClass}</InputLabel>
-                        <Select
-                            labelId="Klasse"
-                            id="Klasse"
-                            value={classLetter}
-                            label={props.translation.studentFormDialog.labelClass}
-                            onChange={handleClassLetterChange}
-                        >
-                            {props.store.studentStore.classLetters
-                                .map((classLetter: string, index: number) => {
-                                    return (
-                                        <MenuItem key={index} value={classLetter}>{classLetter}</MenuItem>
+                                        <MenuItem key={index} value={grade.name}>{grade.name}</MenuItem>
                                     )
                                 }
                                 )}

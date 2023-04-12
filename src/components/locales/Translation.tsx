@@ -79,7 +79,6 @@ export default interface Translation {
         title: string,
         labelFirstName: string,
         labelLastName: string,
-        labelClass: string,
         labelGrade: string,
         buttonLabel: string,
         errorMessage: string,
