@@ -232,8 +232,7 @@ module.exports = {
 
           }
           handleSuccessOrErrorMessage(response, false, res);
-        }
-        else {
+        } else {
           db_item.token = ""
           await container
             .item(db_item.id)
@@ -243,8 +242,7 @@ module.exports = {
           }
           handleSuccessOrErrorMessage(response, false, res);
         }
-      }
-      else {
+      } else {
         response = {
           'result': 'Client token not valid', //Bør kanskje endre til en annen feilmelding her?
         }

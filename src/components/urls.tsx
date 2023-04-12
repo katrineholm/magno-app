@@ -6,20 +6,32 @@ const baseURL = process.env.REACT_APP_API_URL;
 /* Login post, get, update */
 export const loginURL = `${baseURL}/login`;
 
+export const newloginURL = `${baseURL}/new-login`;
+export const newGetStudentsURL = `${baseURL}/new-get-students`;
+
+
 /* Logout post */
 export const logoutURL = `${baseURL}/logout`;
 
 /* Account post, get, update */
 export const accountURL = `${baseURL}/account`;
 
+export const newAccountURL = `${baseURL}/new-create-user`;
+
 /* Authenticate post */
 export const authenticateURL = `${baseURL}/authenticate`;
 
-/* Add student post */ 
-export const addStudentURL= `${baseURL}/addStudent`;
+/* Get current user */
+export const getCurrentUserURL = `${baseURL}/new-get-current-user` // denne burde oppdateres:)
 
-/* Get students */ 
-export const getStudentsURL= `${baseURL}/students`;
+/* Add student post */
+export const addStudentURL = `${baseURL}/addStudent`;
+
+/* Add newstudent post */
+export const newAddStudentURL = `${baseURL}/new-add-student`;
+
+/* Get students */
+export const getStudentsURL = `${baseURL}/students`;
 
 /** Get classes  */
 export const getClassesURL = `${baseURL}/classes`;
@@ -33,9 +45,14 @@ export const getTeachersURL = `${baseURL}/getTeachers`;
 
 export default {
   account: accountURL,
+  newAccount: newAccountURL,
   login: loginURL,
+  newLogin: newloginURL,
+  newGetStudents: newGetStudentsURL,
+  newAddStudent: newAddStudentURL,
   logout: logoutURL,
   authenticate: authenticateURL,
+  getCurrentUser: getCurrentUserURL,
   addStudent: addStudentURL,
   getStudents: getStudentsURL,
   getClasses: getClassesURL,

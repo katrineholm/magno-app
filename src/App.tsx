@@ -14,11 +14,13 @@ import Home from './components/views/Home'
 import Theme from './components/Theme'
 import Tests from './components/views/Tests';
 import Snackbar from "./components/SnackBar";
-import { useCookies } from 'react-cookie';
+//import { useCookies } from 'react-cookie';
 import {
   useNavigate,
 } from "react-router-dom";
-import { authenticate, getClasses, getStudents } from './components/Communicator';
+//import { getClasses, getCurrentUser, getStudents } from './components/Communicator';
+import { getCurrentUser } from './components/Communicator';
+
 import Student from './components/views/Student';
 import { translationNO } from './components/locales/no/translationNO';
 import Information from './components/views/Information';
@@ -39,13 +41,15 @@ const styles = (theme: any) => ({
 
 export const App = observer((props: any) => {
   const { classes: classes_ } = props;
-  const [cookies, setCookie] = useCookies(['c_user']);
+  //const [cookies, setCookie] = useCookies(['c_user']);
   const navigate = useNavigate();
   const translation = translationNO;
 
   useEffect(() => {
+    //TODO: Denne må fjernes/oppdateres
     const authFunction = async () => { //Autentifiserer
-      const validUser = await authenticate(cookies, setCookie); //Sender til communicator som sjekker med backend
+      const validUser = await getCurrentUser()
+      //const validUser = await authenticate(cookies, setCookie); //Sender til communicator som sjekker med backend
       if (!validUser) { //Hvis det ikke er registrert en bruker
         navigate("/login")
       }
@@ -57,10 +61,10 @@ export const App = observer((props: any) => {
         props.store.userStore.setLoginStatus(true)
         navigate("/home")
         const fetchCall = async () => {
-          const students = await getStudents(props.store.userStore.school);
-          const classes = await getClasses(props.store.userStore.school);
-          props.store.studentStore.setStudentList(students)
-          props.store.classStore.setClassList(classes)
+          //const students = await getStudents(props.store.userStore.school); //Denne bør kanskje oppdateres?
+          //const classes = await getClasses(props.store.userStore.school);
+          //props.store.studentStore.setStudentList(students)
+          //props.store.classStore.setClassList(classes)
         }
         fetchCall()
       }

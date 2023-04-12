@@ -7,7 +7,7 @@ import { useCookies } from 'react-cookie';
 import {
     useNavigate,
 } from "react-router-dom";
-import { getStudents } from '../Communicator';
+import {newGetStudents } from '../Communicator';
 import { Button, Paper } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import SearchField from '../SearchField';
@@ -60,14 +60,16 @@ const StudentOverview = observer((props: any) => {
     }
 
     async function fetchStudents() {
-        const students = await getStudents(props.store.userStore.school); //Her hentes dataen med studenter, og det bør kanskje gjøres noe auth greier her?
+        //const students = await getStudents(props.store.userStore.school); //Her hentes dataen med studenter, og det bør kanskje gjøres noe auth greier her?
+        const students = await newGetStudents();
         props.store.studentStore.setStudentList(students)
         setFilteredStudents(students)
     }
 
     useEffect(() => {
         const fetchCall = async () => {
-            const students = await getStudents(props.store.userStore.school);
+            //const students = await getStudents(props.store.userStore.school);
+            const students = await newGetStudents();
             props.store.studentStore.setStudentList(students)
             setFilteredStudents(students)
         }
