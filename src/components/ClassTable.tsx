@@ -40,13 +40,13 @@ function createData(
     id: string,
     name: string,
     school: string,
-    teacherId: string,
+    teacher: string[],
 ): Class {
   return {
     id,
     name,
     school, 
-    teacherId,
+    teacher,
   };
 }
 
@@ -178,7 +178,7 @@ const handleClick = (event: React.MouseEvent<unknown>, id: string) => {
         id: string;
         name: string; 
         school: string;
-        teacherId: string;
+        teacher: string[];
       }[] = [];
       props.schoolClasses.forEach((element: any) => {
           rows.push(
@@ -186,7 +186,7 @@ const handleClick = (event: React.MouseEvent<unknown>, id: string) => {
               element.id,
               element.name,
               element.school,
-              element.teacherId))
+              element.teacher))
       });
       setRows(rows)
     }
