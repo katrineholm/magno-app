@@ -1,6 +1,6 @@
 //TODO: legg til add student, postscore
 const { getStudentsBySchool, getStudentsByClasses, createStudent } = require("../db/students")
-const { userIsAdmin, userIsBasic } = require("./../utils/role")
+const { userIsAdmin, userIsBasic } = require("../utils/role")
 const { getClassByName } = require("../db/class");
 
 function handleSuccessOrErrorMessage(response, err, res) {

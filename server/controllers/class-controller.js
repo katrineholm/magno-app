@@ -1,6 +1,6 @@
 const { UserDefinedFunction } = require("@azure/cosmos");
 const { getClassesBySchool, getClassesByList, getClassByName, addTeacherToClass, createClass, deleteTeacherFromClass } = require("../db/class");
-const { userIsAdmin, userIsBasic } = require("./../utils/role")
+const { userIsAdmin, userIsBasic } = require("../utils/role")
 const { getUserByEmail, addClassToUser, removeClassFromUser } = require("../db/user");
 
 function handleSuccessOrErrorMessage(response, err, res) {

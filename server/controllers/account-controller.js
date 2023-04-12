@@ -1,7 +1,7 @@
 //TODO: lag logout controller, og getTeachers(?)
 
-const { hashPassword } = require("./../utils/password")
-const { generateToken } = require('./../utils/token')
+const { hashPassword } = require("../utils/password")
+const { generateToken } = require('../utils/token')
 
 const { createUser, getUserByEmail, addClassToUser, removeClassFromUser, addAdmin } = require("../db/user");
 const { getClassById, addTeacherToClass, deleteTeacherFromClass } = require("../db/class");
