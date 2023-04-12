@@ -2,9 +2,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const express = require('express');
 const router = express.Router();
-const accountController = require('../controllers/account-controller');
-const studentController = require('../controllers/student-controller');
-const classController = require('../controllers/class-controller')
 const newAccountController = require("../controllers/new-account-controller")
 const newStudentController = require("../controllers/new-student-controller")
 const newClassController = require("../controllers/new-class-controller")
@@ -23,15 +20,5 @@ router.post("/new-create-class", authenticated, userIsAdmin, newClassController.
 router.get("/new-get-classes", authenticated, newClassController.getClasses)
 
 
-
-//router.post('/account', accountController.createAccount)
-//router.post('/login', accountController.loginAccount)
-//router.post('/logout', accountController.logoutAccount)
-//router.post('/authenticate', accountController.authenticate) // endre til getme eeller user. Eller kan egt fjernes når det nye er på plass
-//router.post('/addStudent', studentController.addStudent)
-router.post('/students', studentController.getStudents) // GET 
-router.post('/student/score', studentController.postScore)
-router.post('/classes', classController.getClasses) // GET
-router.post('/addClass', classController.addClass)
-router.post('/getTeachers', accountController.getTeachers)
+//router.post('/getTeachers', accountController.getTeachers)
 module.exports = router;
