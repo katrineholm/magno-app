@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { useCookies } from 'react-cookie';
 import MagnoLogo from '../../files/magno-logo.png';
-import {loginAccount, getCurrentUser } from '../Communicator'
+import { loginAccount, getCurrentUser } from '../Communicator'
 import {
   Link,
   useNavigate
@@ -66,7 +66,9 @@ const Login = observer((props: any) => {
     const user = await getCurrentUser()
     props.store.userStore.setUserEmail(user.email);
     props.store.userStore.setSchool(user.school);
+    props.store.userStore.setRole(user.role);
     props.store.userStore.setLoginStatus(true);
+
     navigate('/home')
 
     // if (data.result.includes("Wrong user")) {
