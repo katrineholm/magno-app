@@ -3,8 +3,9 @@
 const { hashPassword } = require("./../utils/password")
 const { generateToken } = require('./../utils/token')
 
-const { createUser, getUserByEmail, addClassToUser, removeClassFromUser } = require("../db/user");
+const { createUser, getUserByEmail, addClassToUser, removeClassFromUser, addAdmin } = require("../db/user");
 const { getClassById, addTeacherToClass, deleteTeacherFromClass } = require("../db/class");
+const { default: userEvent } = require("@testing-library/user-event");
 
 function handleSuccessOrErrorMessage(response, err, res) {
     if (!err) {
@@ -57,10 +58,9 @@ const postCreateUser = async (req, res) => {
 
     const email = req.body.email
     const password = req.body.password
-    const role = req.body.role
     const school = req.body.school
+    const role = "BASIC"
     const classes = []
-
 
     const existingUser = await getUserByEmail(email) //Sjekker om mailen ligger i databasen fra før. Kan kun lage en mail. 
 
@@ -84,6 +84,26 @@ const postCreateUser = async (req, res) => {
     //res.send({ message: "created user" })
 }
 
+
+
+const changeToAdmin = async (req, res) => {
+
+    const email = req.body.email
+
+    const user = await getUserByEmail(email)
+
+    if (user === null) {
+        return res.status(400).json({ message: "Bruker finnes ikke" })
+    }
+    if (user.role === "ADMIN") {
+        return res.status(400).json({ message: "Bruker er allerede admin" })
+    }
+    addAdmin(user)
+    console.log(user)
+    res.send({ message: "user is now admin" })
+}
+
+
 /**
  * Denne trenger authentisering siden den skal svare med hvilken bruker som er logget inn
  * @param {request} req 
@@ -99,5 +119,6 @@ const getCurrentUser = (req, res) => {
 module.exports = {
     loginController,
     postCreateUser,
-    getCurrentUser
+    getCurrentUser,
+    changeToAdmin
 }

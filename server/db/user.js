@@ -38,6 +38,17 @@ const createUser = async (newUser) => {
     const container = await CosmosConnector()
     return container.items.create(newUser);
 }
+const addAdmin = async (user) => {
+
+    const container = await CosmosConnector()
+    user.role = "ADMIN"
+    
+    const { resource: updatedItem } = await container
+        .item(user.id)
+        .replace(user);
+
+    return user
+}
 
 const addClassToUser = async (user, class_name) => {
     const container = await CosmosConnector();
@@ -77,5 +88,6 @@ module.exports = {
     getUserByEmail,
     createUser,
     addClassToUser,
-    removeClassFromUser
+    removeClassFromUser, 
+    addAdmin
 }

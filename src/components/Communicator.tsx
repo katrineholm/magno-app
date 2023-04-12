@@ -9,17 +9,21 @@ export function getHeader() {
     return header
 }
 
-export async function createAccount(uuid: string, email: string, password: string, role: string, school: string) {
+//export async function createAccount(uuid: string, email: string, password: string, role: string, school: string) {
+export async function createAccount(email: string, password: string, school: string) {
     const form_data = {
-        uuid: uuid,
+        //uuid: uuid,
         email: email,
-        role: role,
         password: password,
         school: school,
     }
     try {
         //const { data } = await axios.post(url.account, form_data)
+        console.log(form_data)
+        console.log(url.newAccount)
         const { data } = await axios.post(url.newAccount, form_data)
+        console.log("Her kommer data fra create_account backend")
+        console.log(data)
         return data.result;
     }
     catch (error) {
