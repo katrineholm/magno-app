@@ -57,6 +57,7 @@ const loginController = async (req, res) => {
 const postCreateUser = async (req, res) => {
 
     const email = req.body.email
+    const name = req.body.name
     const password = req.body.password
     const school = req.body.school
     const role = "BASIC"
@@ -72,6 +73,7 @@ const postCreateUser = async (req, res) => {
 
     const newUser = {
         email: email,
+        name: name,
         password: hashedPassword,
         role: role,
         school: school,

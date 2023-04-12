@@ -55,7 +55,7 @@ const Home = observer((props: any) => {
             <img src={MagnoLogo} className={classes.img} alt="Magno logo"></img>
           </Grid>
           <Typography variant="h5" style={{ textAlign: 'center' }}>
-            {props.translation.home.title} {props.store.userStore.userEmail.split('@')[0]}
+            {props.translation.home.title} {props.store.userStore.userName}
           </Typography>
           <Grid item xs={10} md={10} lg={6} xl={6}>
             <ActionNavigationCard

@@ -43,6 +43,7 @@ module.exports = {
   createAccount: async function (req, res) {
     const id = req.body.uuid;
     const email = req.body.email.toLowerCase();
+    const name = req.body.name;
     const password = req.body.password;
     const role = req.body.role;
     const school = req.body.school;
@@ -70,6 +71,7 @@ module.exports = {
       const newItem = {
         id: id,
         email: email,
+        name: name,
         password: key256Bits + ":" + salt,
         role: role,
         school: school,

@@ -10,10 +10,11 @@ export function getHeader() {
 }
 
 //export async function createAccount(uuid: string, email: string, password: string, role: string, school: string) {
-export async function createAccount(email: string, password: string, school: string) {
+export async function createAccount(email: string, name: string, password: string, school: string) {
     const form_data = {
         //uuid: uuid,
         email: email,
+        name: name,
         password: password,
         school: school,
     }

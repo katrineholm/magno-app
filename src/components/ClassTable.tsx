@@ -9,9 +9,6 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import React, { useEffect } from 'react';
-import {
-  useNavigate,
-} from "react-router-dom";
 import { Student, RiskType, Data, Class } from './Interfaces';
 import { RoomService } from '@material-ui/icons';
 
@@ -150,7 +147,7 @@ export default function ClassTable(props: ClassTableProps) {
   const [rowsPerPage, setRowsPerPage] = React.useState(15);
   const [rows, setRows] = React.useState<Array<Class>>([]);
   const dateConfig = {day: 'numeric', month: "short", year: "2-digit"} as const
-  const navigate = useNavigate();
+
   
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,

@@ -53,6 +53,7 @@ export type SnackBarVariants = 'error' | 'success'
 const Register = observer((props: any) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [name, setName] = useState('');
     // const [role, setRole] = useState<string | null>("");
     const [school, setSchool] = useState<string | null>("");
     // const [valueRole, setValueRole] = useState('');
@@ -64,6 +65,9 @@ const Register = observer((props: any) => {
         setEmail(e.target.value)
     }
 
+    function handleNameChange(e: React.ChangeEvent<HTMLInputElement>) {
+        setName(e.target.value)
+    }
 
     function handlePasswordChange(e: React.ChangeEvent<HTMLInputElement>) {
         setPassword(e.target.value)
@@ -89,7 +93,7 @@ const Register = observer((props: any) => {
         }
         else {
             //const result = await createAccount(uuidv4(), email.toLowerCase(), password, String(role), String(school)) //TODO: Endre
-            const result = await createAccount(email.toLowerCase(), password, String(school)) //TODO: Endre
+            const result = await createAccount(email.toLowerCase(), name, password, String(school)) //TODO: Endre
             if (result.includes("exists")) {
                 props.store.viewStore.setSnackBar(props.translation.register.errorMessage, 'error');
                 props.store.viewStore.setOpenSnackBar(true);
@@ -128,6 +132,20 @@ const Register = observer((props: any) => {
                                     autoComplete="email"
                                     onChange={handleEmailChange}
                                     value={email}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    autoFocus
+                                    id="name"
+                                    label={props.translation.register.labelName}
+                                    name="name"
+                                    autoComplete="name"
+                                    onChange={handleNameChange}
+                                    value={name}
                                 />
                             </Grid>
                             <Grid item xs={12}>
