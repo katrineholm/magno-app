@@ -16,9 +16,7 @@ function handleSuccessOrErrorMessage(response, err, res) {
 const getStudents = async (req, res) => {
     const user = req.user
     const school = user.school
-    //const classes = { classes: ["2A", "3B"] } //TODO: endre sånn at man får inn de tilhørende klassene til lærer
-    //console.log("klasser fått inn: ")
-    //console.log(classes)
+
     if (userIsAdmin(user)) {
         const students = await getStudentsBySchool(school)
         console.log(students)
@@ -37,7 +35,6 @@ const getStudents = async (req, res) => {
 
 const addStudent = async (req, res) => {
     const user = req.user
-    //const id = req.body.uuid;
     const name = req.body.name;
     const school = req.body.school;
     const grade = req.body.grade;
@@ -60,7 +57,6 @@ const addStudent = async (req, res) => {
     }
 
     const newStudent = {
-        //id: id,
         name: name,
         school: school,
         grade: grade,

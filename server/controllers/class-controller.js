@@ -54,12 +54,10 @@ const postCreateClass = async (req, res) => {
     handleSuccessOrErrorMessage(response, false, res);
 }
 
-const assignTeacherToClass = async (req, res) => { //put
-    //Dersom bruker er verifisert og bruker er admin så skal denne kjøre
+const assignTeacherToClass = async (req, res) => {
     console.log("starter nå")
 
-    const teacher_mail = req.body.email //mailen til læreren??
-    //const teacher = getUserByEmail(teacher_mail)
+    const teacher_mail = req.body.email
     const class_name = req.body.classname
     const teacher = await getUserByEmail(teacher_mail)
     const grade = await getClassByName(class_name, teacher.school)
@@ -101,7 +99,6 @@ const removeTeacherFromClass = async (req, res) => { //put
     console.log("legger til class to user")
     removeClassFromUser(teacher, class_name)
     deleteTeacherFromClass(grade, teacher.id)
-    // addTeacherToClass(grade, teacher.id)
     response = { 'result': 'Success removing teacher from class' }
     res.send(response)
 }

@@ -4,8 +4,7 @@ const { hashPassword } = require("../utils/password")
 const { generateToken } = require('../utils/token')
 
 const { createUser, getUserByEmail, addClassToUser, removeClassFromUser, addAdmin } = require("../db/user");
-const { getClassById, addTeacherToClass, deleteTeacherFromClass } = require("../db/class");
-const { default: userEvent } = require("@testing-library/user-event");
+// const { default: userEvent } = require("@testing-library/user-event");
 
 function handleSuccessOrErrorMessage(response, err, res) {
     if (!err) {
