@@ -3,6 +3,7 @@ import { action, makeObservable, observable } from 'mobx';
 export class UserStore {
   loginStatus = false;
   userEmail = "";
+  userName = "";
   school = "";
   role = "";
 //SPM: bør role være string eller static variable? typ undefined?
@@ -11,8 +12,10 @@ export class UserStore {
       loginStatus: observable,
       setLoginStatus: action,
       userEmail: observable,
+      userName: observable,
       school: observable,
       setUserEmail: action,
+      setUserName: action,
       setSchool: action,
       role: observable,
       setRole: action,
@@ -25,6 +28,9 @@ export class UserStore {
 
   setUserEmail(userEmail: string) {
     this.userEmail = userEmail;
+  }
+  setUserName(userName: string) {
+    this.userName = userName;
   }
 
   setSchool(school: string) {

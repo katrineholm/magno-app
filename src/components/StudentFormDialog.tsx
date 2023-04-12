@@ -69,7 +69,7 @@ function StudentFormDialog(props: StudentFormDialogProps) {
         e.preventDefault();
         //const data = await addStudent(
         const data = await newAddStudent(
-            uuidv4(),
+            // uuidv4(),
             firstName + " " + lastName,
             String(grade) + String(classLetter),
             props.store.userStore.school

@@ -55,6 +55,7 @@ export const App = observer((props: any) => {
       }
       else { //props?
         props.store.userStore.setUserEmail(validUser.email);
+        props.store.userStore.setUserName(validUser.name);
         props.store.userStore.setSchool(validUser.school);
         //TODO: Sett inn role
         props.store.userStore.setRole(validUser.role);

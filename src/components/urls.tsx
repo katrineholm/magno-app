@@ -18,6 +18,8 @@ export const accountURL = `${baseURL}/account`;
 
 export const newAccountURL = `${baseURL}/new-create-user`;
 
+export const newGetClassesURL = `${baseURL}/new-get-classes`;
+
 /* Authenticate post */
 export const authenticateURL = `${baseURL}/authenticate`;
 
@@ -50,6 +52,7 @@ export default {
   newLogin: newloginURL,
   newGetStudents: newGetStudentsURL,
   newAddStudent: newAddStudentURL,
+  newGetClasses: newGetClassesURL,
   logout: logoutURL,
   authenticate: authenticateURL,
   getCurrentUser: getCurrentUserURL,

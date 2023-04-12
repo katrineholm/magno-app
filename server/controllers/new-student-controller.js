@@ -48,7 +48,7 @@ const addStudent = async (req, res) => {
     const fixed_form_test = [];
     const random_form_test = [];
 
-    const existingClass = await getClassByName(name, school);
+    const existingClass = await getClassByName(grade, school);
     console.log(existingClass)
     if (existingClass === null) {
         res.status(400).json({ message: "Finnes ingen klasse" })

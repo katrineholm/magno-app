@@ -10,10 +10,11 @@ export function getHeader() {
 }
 
 //export async function createAccount(uuid: string, email: string, password: string, role: string, school: string) {
-export async function createAccount(email: string, password: string, school: string) {
+export async function createAccount(email: string, name: string, password: string, school: string) {
     const form_data = {
         //uuid: uuid,
         email: email,
+        name: name,
         password: password,
         school: school,
     }
@@ -76,10 +77,11 @@ export async function newGetStudents() {
         }
     }
 }
-export async function newAddStudent(uuid: string, name: string, grade: string, school: string) {
+export async function newAddStudent(name: string, grade: string, school: string) {
+// export async function newAddStudent(uuid: string, name: string, grade: string, school: string) {
     const header = getHeader()
     const form_data = {
-        uuid: uuid,
+        // uuid: uuid,
         name: name,
         school: school,
         grade: grade
@@ -107,6 +109,23 @@ export async function getCurrentUser() {
     const result = await fetch(url.getCurrentUser, { headers: header }).then(res => res.json())
     console.log(result.user)
     return result.user
+}
+
+export async function newGetClasses() {
+    const header = getHeader()
+    try {
+        const data = await fetch(url.newGetClasses, { headers: header }).then(res => res.json())
+        return data.classes;
+    }
+    catch (error) {
+        if (axios.isAxiosError(error)) {
+            console.log('error message: ', error.message);
+            return error.message;
+        } else {
+            console.log('unexpected error: ', error);
+            return 'An unexpected error occurred';
+        }
+    }
 }
 
 
@@ -227,24 +246,24 @@ export async function getCurrentUser() {
 //     }
 // }
 
-export async function getClasses(school: string) {
-    const form_data = {
-        school: school,
-    }
-    try {
-        const { data } = await axios.post(url.getClasses, form_data)
-        return data;
-    }
-    catch (error) {
-        if (axios.isAxiosError(error)) {
-            console.log('error message: ', error.message);
-            return error.message;
-        } else {
-            console.log('unexpected error: ', error);
-            return 'An unexpected error occurred';
-        }
-    }
-}
+// export async function getClasses(school: string) {
+//     const form_data = {
+//         school: school,
+//     }
+//     try {
+//         const { data } = await axios.post(url.getClasses, form_data)
+//         return data;
+//     }
+//     catch (error) {
+//         if (axios.isAxiosError(error)) {
+//             console.log('error message: ', error.message);
+//             return error.message;
+//         } else {
+//             console.log('unexpected error: ', error);
+//             return 'An unexpected error occurred';
+//         }
+//     }
+// }
 
 export async function addClass(uuid: string, name: string, school: string, teacherId: string) {
     const form_data = {
