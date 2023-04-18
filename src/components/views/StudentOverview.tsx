@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import { withStyles } from '@material-ui/core/styles';
+import { useParams } from "react-router-dom"; // Import useParams hook from react-router-dom
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import { useCookies } from 'react-cookie';
-import {
-    useNavigate,
-} from "react-router-dom";
-import {getStudents, getClasses} from '../Communicator';
+import { getStudents} from '../Communicator';
 import { Button, Paper } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import SearchField from '../SearchField';
 import SearchIcon from '@material-ui/icons/Search';
 import StudentTable from '../StudentTable';
 import StudentFormDialog from '../StudentFormDialog';
-import { Student, Class } from '../Interfaces';
+import { Student} from '../Interfaces';
+
 
 const styles = (theme: any) => ({
     container: {
@@ -39,7 +37,6 @@ const styles = (theme: any) => ({
     }
 });
 
-
 /**
  *
  *
@@ -48,38 +45,52 @@ const styles = (theme: any) => ({
  */
 const StudentOverview = observer((props: any) => {
     const { classes } = props;
-    const [cookies, setCookie] = useCookies(['c_user']);
     const [value, setValue] = useState("");
+    const { className } = useParams(); // Use useParams hook to access the className from the URL parameters
     const [open, setOpen] = useState(false);
+    const [students, setStudents] = React.useState<Array<Student>>([]) //listen med studenter som vises
     const [filteredStudents, setFilteredStudents] = React.useState<Array<Student>>([]) //listen med studenter som vises
-    const [schoolClasses, setSchoolClasses] = React.useState<Array<Class>>([]);
-    const navigate = useNavigate();
+
+
 
 
     function openDialog(test: string) {
         setOpen(true);
     }
 
+    const filterByClassName = (studentList: Array<Student>) => {
+        const filter = className
+        if (filter !== undefined) {
+            setFilteredStudents(studentList.filter(
+                (student) => student.grade == filter
+            ));
+        }
+        else {
+            setFilteredStudents(studentList)
+        }
+        return filteredStudents;
+    };
+
+
     async function fetchStudents() {
         const students = await getStudents();
         props.store.studentStore.setStudentList(students)
-        setFilteredStudents(students)
+        setStudents(students)
     }
 
     useEffect(() => {
+
         const fetchCall = async () => {
             const students = await getStudents();
             props.store.studentStore.setStudentList(students)
-            setFilteredStudents(students)
-        
-            const tempSchoolClasses = await getClasses();
-            props.store.classStore.setClassList(tempSchoolClasses);
-            setSchoolClasses(tempSchoolClasses);
-            console.log(tempSchoolClasses);
+            setStudents(students)
+
 
         }
+
         fetchCall()
-    }, []);
+        filterByClassName(students);
+    }, [students]);
 
     return (
 
@@ -107,7 +118,7 @@ const StudentOverview = observer((props: any) => {
                             <SearchField
                                 label={props.translation.students.searchFieldLabel}
                                 setValue={setValue}
-                                setFilteredStudents={setFilteredStudents}
+                                setFilteredStudents={setStudents}
                                 students={props.store.studentStore.studentList}
                                 value={value}
                                 icon={<SearchIcon />}
@@ -121,6 +132,7 @@ const StudentOverview = observer((props: any) => {
                         orderBy={props.orderBy}
                         students={filteredStudents}
                         translation={props.translation}
+
                     />
                 </Paper>
 

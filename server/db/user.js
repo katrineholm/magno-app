@@ -34,6 +34,27 @@ const getUserByEmail = async (email) => {
 }
 
 
+const getUserById = async (id) => {
+    const container = await CosmosConnector()
+    const querySpec = {
+        query: "SELECT * from c where c.id = @id",
+        "parameters": [
+            { "name": "@id", "value": id }
+        ]
+    };
+    const { resources: items } = await container.items
+        .query(querySpec)
+        .fetchAll();
+
+    if (items.length === 1) {
+        return items[0]
+
+    }
+    console.log(items[0])
+    return null
+}
+
+
 const createUser = async (newUser) => {
 
     const container = await CosmosConnector()
@@ -107,6 +128,7 @@ const removeClassFromUser = async (user, class_name) => {
 
 module.exports = {
     getUserByEmail,
+    getUserById,
     createUser,
     addClassToUser,
     removeClassFromUser,

@@ -21,7 +21,7 @@ export const addStudentURL = `${baseURL}/add-student`;
 export const getClassesURL = `${baseURL}/get-classes`;
 
 /** Add class  */
-export const addClassURL = `${baseURL}/addClass`;
+export const addClassURL = `${baseURL}/create-class`;
 
 /** Get teachers  */
 export const getTeachersURL = `${baseURL}/getTeachers`;

@@ -1,4 +1,4 @@
-import {action, makeObservable, observable} from 'mobx';
+import { action, makeObservable, observable } from 'mobx';
 import { Class } from '../Interfaces'
 import { grades, classLetters } from '../Settings';
 
@@ -6,33 +6,33 @@ export class ClassStore {
 
     grades = grades;
     classLetters = classLetters;
-    
-    class : { 
-        id: string; 
-        name: string; 
+
+    class: {
+        id: string;
+        name: string;
         school: string;
-        teacherId: string;
+        teacher: string[];
     } | undefined;
 
-    classList : Array<Class> | undefined = [];
+    classList: Array<Class> | undefined = [];
 
-    setClass(classID: string){
-        if (this.classList !== undefined){
-            this.class = this.classList.find(el => el.id === classID)    
+    setClass(classID: string) {
+        if (this.classList !== undefined) {
+            this.class = this.classList.find(el => el.id === classID)
         }
     }
 
-    setClassList(classes: Array<Class>| undefined){
+    setClassList(classes: Array<Class> | undefined) {
         this.classList = classes;
         console.log("setClassList: ", classes);
     }
 
-    constructor(){
+    constructor() {
         makeObservable(this, {
-          classList: observable,
-          class: observable,
-          setClass: action,
-          setClassList: action
+            classList: observable,
+            class: observable,
+            setClass: action,
+            setClassList: action
         })
     }
 }

@@ -46,31 +46,34 @@ const styles = (theme: any) => ({
  */
 const ClassOverview = observer((props: any) => {
     const { classes } = props;
-    //const [cookies, setCookie] = useCookies(['c_user']);
     const [open, setOpen] = useState(false);
     const [filteredClasses, setFilteredClasses] = React.useState<Array<Class>>([]);
     const [teachers, setTeachers] = React.useState<Array<Teacher>>([]);
     const navigate = useNavigate();
 
-
     async function fetchClasses() {
         const schoolClasses = await getClasses();
-        props.store.clasStore.setClassList(schoolClasses)
-        setFilteredClasses(schoolClasses)
-
+        if (props.store.classStore) { // Make sure classStore is defined before using it
+            props.store.classStore.setClassList(schoolClasses);
+        }
+        setFilteredClasses(schoolClasses);
     }
 
     useEffect(() => {
         const fetchCall = async () => {
             // Set classes at the school
             const schoolClasses = await getClasses();
-            props.store.classStore.setClassList(schoolClasses);
+            if (props.store.classStore) { // Make sure classStore is defined before using it
+                props.store.classStore.setClassList(schoolClasses);
+            }
             setFilteredClasses(schoolClasses);
 
             // Set teachers at the school
             if (props.store.userStore.role === "ADMIN") {
                 const tempTeachers = await getTeachers();
-                props.store.teacherStore.setTeacherList(tempTeachers);
+                if (props.store.teacherStore) { // Make sure teacherStore is defined before using it
+                    props.store.teacherStore.setTeacherList(tempTeachers);
+                }
                 setTeachers(tempTeachers);
                 console.log(tempTeachers);
             }
@@ -79,7 +82,6 @@ const ClassOverview = observer((props: any) => {
     }, []);
 
     return (
-
         <div>
             <Container maxWidth="xl" className={classes.container}>
                 <Paper className={classes.paper}>
@@ -87,19 +89,19 @@ const ClassOverview = observer((props: any) => {
                         container
                         spacing={2}
                     >
-                    {props.store.userStore.role == "ADMIN" ? 
-                        <Grid item xs={4} md={3} lg={2} xl={2}>
-                            <Button
-                                fullWidth
-                                disableElevation
-                                variant={"contained"}
-                                color={'primary'}
-                                className={classes.button}
-                                startIcon={<AddIcon />}
-                                onClick={() => setOpen(true)}>
-                                {props.translation.classes.addClassButtonText}
-                             </ Button>
-                        </Grid> : <></> }
+                        {props.store.userStore.role == "ADMIN" ?
+                            <Grid item xs={4} md={3} lg={2} xl={2}>
+                                <Button
+                                    fullWidth
+                                    disableElevation
+                                    variant={"contained"}
+                                    color={'primary'}
+                                    className={classes.button}
+                                    startIcon={<AddIcon />}
+                                    onClick={() => setOpen(true)}>
+                                    {props.translation.classes.addClassButtonText}
+                                </ Button>
+                            </Grid> : <></>}
                     </Grid>
                     <div style={{ paddingTop: 16 }} />
 
@@ -108,6 +110,7 @@ const ClassOverview = observer((props: any) => {
                         order={props.order}
                         orderBy={props.orderBy}
                         schoolClasses={filteredClasses}
+                        // schoolClasses={props.store.classStore.classList}
                         translation={props.translation} />
                 </Paper>
 

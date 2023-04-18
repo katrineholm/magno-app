@@ -10,6 +10,9 @@ import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import React, { useEffect } from 'react';
 import { Class } from './Interfaces';
+import {
+  useNavigate,
+} from "react-router-dom";
 
 const StyledTableRow = styled(TableRow)(({ theme: Theme }) => ({
   '&:nth-of-type(odd)': {
@@ -37,16 +40,16 @@ const StyledTableCell = styled(TableCell)(({ theme: Theme }) => ({
 
 
 function createData(
-    id: string,
-    name: string,
-    school: string,
-    teacherId: string,
+  id: string,
+  name: string,
+  school: string,
+  teacher: string[],
 ): Class {
   return {
     id,
     name,
-    school, 
-    teacherId,
+    school,
+    teacher,
   };
 }
 
@@ -86,7 +89,7 @@ interface EnhancedTableProps {
   order: Order;
   orderBy: string;
   rowCount: number;
-  labels: {[key: string]: string}
+  labels: { [key: string]: string }
 }
 
 function EnhancedTableHead(props: EnhancedTableProps) {
@@ -100,10 +103,10 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   return (
     <Box>
       <TableContainer>
-      <Table
-            aria-labelledby="tableTitle"
-            size={'medium'}
-            >
+        <Table
+          aria-labelledby="tableTitle"
+          size={'medium'}
+        >
           <TableHead>
             <TableRow>
               {headCells.map((headCell) => (
@@ -125,18 +128,18 @@ function EnhancedTableHead(props: EnhancedTableProps) {
               ))}
             </TableRow>
           </TableHead>
-      </Table>
+        </Table>
       </TableContainer>
     </Box>
   );
 }
 
-interface ClassTableProps{
+interface ClassTableProps {
   store: any;
   schoolClasses: Array<Class>;
   order: Order;
   translation: any;
-  orderBy: keyof Class;
+  orderBy: keyof Class; //Kan endre slik at vi får 1.klasse først osv osv
 }
 
 export default function ClassTable(props: ClassTableProps) {
@@ -145,9 +148,10 @@ export default function ClassTable(props: ClassTableProps) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(15);
   const [rows, setRows] = React.useState<Array<Class>>([]);
-  const dateConfig = {day: 'numeric', month: "short", year: "2-digit"} as const
+  const dateConfig = { day: 'numeric', month: "short", year: "2-digit" } as const
+  const navigate = useNavigate();
 
-  
+
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
     property: keyof Class,
@@ -157,12 +161,10 @@ export default function ClassTable(props: ClassTableProps) {
     setOrderBy(property);
   };
 
-/*   Funksjonen når man trykker på elev. Gjøre om til når man trykker på klasse 
-const handleClick = (event: React.MouseEvent<unknown>, id: string) => {
-    props.store.classStore.setC(id);
-    navigate(`/class/${id}`)
+  const handleClick = (event: React.MouseEvent<unknown>, name: string) => {
+    navigate(`/students/${name}`)
   };
- */
+
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
@@ -173,24 +175,24 @@ const handleClick = (event: React.MouseEvent<unknown>, id: string) => {
   };
 
   useEffect(() => {
-    if (props.schoolClasses.length > 0 && Array.isArray(props.schoolClasses)){
+    if (props.schoolClasses.length > 0 && Array.isArray(props.schoolClasses)) {
       const rows: {
         id: string;
-        name: string; 
+        name: string;
         school: string;
-        teacherId: string;
+        teacher: string[];
       }[] = [];
       props.schoolClasses.forEach((element: any) => {
-          rows.push(
-            createData(
-              element.id,
-              element.name,
-              element.school,
-              element.teacherId))
+        rows.push(
+          createData(
+            element.id,
+            element.name,
+            element.school,
+            element.teacher))
       });
       setRows(rows)
     }
-    
+
   }, [props.schoolClasses]);
 
   // Avoid a layout jump when reaching the last page with empty rows.
@@ -199,54 +201,66 @@ const handleClick = (event: React.MouseEvent<unknown>, id: string) => {
 
   return (
     <Box >
-        <TableContainer>
-          <Table
+      <TableContainer>
+        <Table
 
-            aria-labelledby="tableTitle"
-            size={'medium'}
-          >
-            <EnhancedTableHead
-              order={order}
-              orderBy={orderBy}
-              onRequestSort={handleRequestSort}
-              rowCount={rows.length}
-              labels={props.translation.studentTable.labels}
-            />
+          aria-labelledby="tableTitle"
+          size={'medium'}
+        >
+          <EnhancedTableHead
+            order={order}
+            orderBy={orderBy}
+            onRequestSort={handleRequestSort}
+            rowCount={rows.length}
+            labels={props.translation.studentTable.labels}
+          />
 
-            <TableBody>
-                {rows.slice()
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row, index) => {
-                    const labelId = `enhanced-table-${index}`;
-                    return (
-                      <StyledTableRow
-                      hover
-                      //onClick={(event) => handleClick(event, row.id)}
-                      role="class"
-                      tabIndex={-1}
-                      key={row.id}
-                      style={{
-                        border: "none",
-                      }}
+          <TableBody>
+            {rows.slice()
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row, index) => {
+                const labelId = `enhanced-table-${index}`;
+                return (
+                  <StyledTableRow
+                    hover
+                    onClick={(event) => handleClick(event, row.name)}
+                    role="class"
+                    tabIndex={-1}
+                    key={row.id}
+                    style={{
+                      border: "none",
+                    }}
+                  >
+                    <StyledTableCell
+                      component="th"
+                      id={labelId}
+                      scope="row"
+                      padding="normal"
+                      style={{ textAlign: 'start', padding: 14 }}
                     >
-                     <StyledTableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="normal"
-                        style={{textAlign: 'start', padding: 14}}
-                      >
-                        {row.name}
-                      </StyledTableCell>
-                      <StyledTableCell align="right">{row.name}</StyledTableCell>
-                    </StyledTableRow>
+                      {row.name}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">{row.name}</StyledTableCell>
+                  </StyledTableRow>
 
-                    );
-                })}
-            </TableBody>
+                );
+              })}
+          </TableBody>
 
-          </Table>
-        </TableContainer>
+        </Table>
+      </TableContainer>
+      {/* litt usikker om den under trengs å være der, men har den med likevel */}
+      <TablePagination
+        id="page-changer"
+        rowsPerPageOptions={[10, 15, 30]}
+        component="div"
+        count={rows.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
+
     </Box>
   );
 }
