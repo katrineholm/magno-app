@@ -17,12 +17,10 @@ const getClasses = async (req, res) => {
     const school = user.school;
     if (userIsAdmin(user)) {
         const classes = await getClassesBySchool(school)
-        console.log(classes)
         res.send({ classes: classes })
     }
     else if (userIsBasic(user)) {
         const classes = await getClassesByList(user)
-        console.log(classes)
         res.send({ classes: classes })
     }
     else {
@@ -57,8 +55,6 @@ const postCreateClass = async (req, res) => {
 
     } else {
         const existingTeacher = await getUserById(teacherId)
-        console.log("teacher")
-        console.log(existingTeacher)
         if (existingTeacher == null) {
             return res.status(400).json({ message: "Læreren finnes ikke" })
         }
@@ -91,9 +87,7 @@ const assignTeacherToClass = async (req, res) => {
         //Hvis læreren allerede er ansvarlig for klassen
         return res.status(400).json({ message: "Læreren er allerede ansvarlig for klassen" })
     }
-    console.log("legger til class to user")
     addClassToUser(teacher, class_name)
-    console.log("legger til usert to class")
     addTeacherToClass(grade, teacher.id)
     response = { 'result': 'Success assigning teacher to class' }
     res.send(response)
@@ -117,7 +111,6 @@ const removeTeacherFromClass = async (req, res) => { //put
         //Hvis læreren allerede er ansvarlig for klassen
         return res.status(400).json({ message: "Læreren er ikke ansvarlig for klassen" })
     }
-    console.log("legger til class to user")
     removeClassFromUser(teacher, class_name)
     deleteTeacherFromClass(grade, teacher.id)
     response = { 'result': 'Success removing teacher from class' }

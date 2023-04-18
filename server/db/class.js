@@ -70,10 +70,8 @@ const getClassesByList = async (user) => {
     const { resources: items } = await container.items
         .query(querySpec)
         .fetchAll();
-    return items
+    return items;
 }
-
-
 
 const addTeacherToClass = async (grade, teacher_id) => {
     const container = await CosmosConnector()

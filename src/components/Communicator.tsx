@@ -164,3 +164,21 @@ export async function getTeachers() {
         }
     }
 }
+
+export async function getTeachersByClass(className: string){
+    const header = getHeader()
+    const input = url.getTeachersByClass = "/" + className
+    try {
+        const data = await fetch(input, { headers: header }).then(res => res.json())
+        return data.teachersByClass;
+    }
+    catch (error) {
+        if (axios.isAxiosError(error)) {
+            console.log('error message: ', error.message);
+            return error.message;
+        } else {
+            console.log('unexpected error: ', error);
+            return 'An unexpected error occurred';
+        }
+    }
+}

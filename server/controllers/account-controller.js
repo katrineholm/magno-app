@@ -100,7 +100,6 @@ const changeToAdmin = async (req, res) => {
         return res.status(400).json({ message: "Bruker er allerede admin" })
     }
     addAdmin(user)
-    console.log(user)
     res.send({ message: "user is now admin" })
 }
 
@@ -111,8 +110,6 @@ const changeToAdmin = async (req, res) => {
  * @param {response} res 
  */
 const getCurrentUser = (req, res) => {
-    console.log("starter nå")
-    console.log({ user: req.user })
     res.send({ user: req.user })
 }
 
@@ -123,11 +120,20 @@ const getTeachers = async (req, res) => {
     res.send({ teachers: teachers })
 }
 
+const getTeachersByClass = async (req, res) => {
+    const school = req.user.school;
+    console.log("GET TEACHERS BY CLASS IS BEING CALLED")
+    const className = req.body.className
+    const teachers = await getTeachersByClass(school, className)
+    res.send({ teachers: teachers })
+}
+
 
 module.exports = {
     loginController,
     postCreateUser,
     getCurrentUser,
     changeToAdmin,
-    getTeachers
+    getTeachers, 
+    getTeachersByClass,
 }

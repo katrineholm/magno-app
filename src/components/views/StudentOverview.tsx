@@ -4,14 +4,14 @@ import { withStyles } from '@material-ui/core/styles';
 import { useParams } from "react-router-dom"; // Import useParams hook from react-router-dom
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import { getStudents} from '../Communicator';
+import { getStudents, getTeachersByClass} from '../Communicator';
 import { Button, Paper } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import SearchField from '../SearchField';
 import SearchIcon from '@material-ui/icons/Search';
 import StudentTable from '../StudentTable';
 import StudentFormDialog from '../StudentFormDialog';
-import { Student} from '../Interfaces';
+import { Student, Teacher} from '../Interfaces';
 
 
 const styles = (theme: any) => ({
@@ -50,27 +50,29 @@ const StudentOverview = observer((props: any) => {
     const [open, setOpen] = useState(false);
     const [students, setStudents] = React.useState<Array<Student>>([]) //listen med studenter som vises
     const [filteredStudents, setFilteredStudents] = React.useState<Array<Student>>([]) //listen med studenter som vises
+    const [teachersByClass, setTeachersByClass] = React.useState<Array<Teacher>>([])
 
 
-
-
-    function openDialog(test: string) {
-        setOpen(true);
+    
+    async function setTeachers(className: string) {
+        const teachers = await getTeachersByClass(className);
+        setTeachersByClass(teachers);
     }
 
+
     const filterByClassName = (studentList: Array<Student>) => {
-        const filter = className
-        if (filter !== undefined) {
+        if (className !== undefined) {
             setFilteredStudents(studentList.filter(
-                (student) => student.grade == filter
+                (student) => student.grade == className
             ));
+            setTeachers(className)
+            console.log("teachers by class ", teachersByClass)
         }
         else {
             setFilteredStudents(studentList)
         }
         return filteredStudents;
     };
-
 
     async function fetchStudents() {
         const students = await getStudents();
@@ -84,8 +86,6 @@ const StudentOverview = observer((props: any) => {
             const students = await getStudents();
             props.store.studentStore.setStudentList(students)
             setStudents(students)
-
-
         }
 
         fetchCall()
@@ -101,7 +101,7 @@ const StudentOverview = observer((props: any) => {
                         container
                         spacing={2}
                     >
-                        <Grid item xs={4} md={3} lg={2} xl={2}>
+                        <Grid item xs={2} md={3} lg={2} xl={2}>
                             <Button
                                 fullWidth
                                 disableElevation
@@ -114,7 +114,7 @@ const StudentOverview = observer((props: any) => {
                             </Button>
                         </Grid>
 
-                        <Grid item xs={8} md={9} lg={10} xl={10}>
+                        <Grid item xs={8} md={9} lg={8} xl={8}>
                             <SearchField
                                 label={props.translation.students.searchFieldLabel}
                                 setValue={setValue}
@@ -124,6 +124,14 @@ const StudentOverview = observer((props: any) => {
                                 icon={<SearchIcon />}
                             />
                         </Grid>
+                        {className !== undefined ? 
+                        <Grid item xs={2} md={3} lg={2} xl={2}>
+                            <h5>Ansvarlig lærer: </h5>
+                            {teachersByClass.map(element => {
+                                return <h5 key={element.id}>{element.name}</h5>;
+                            })} 
+                        </Grid> : <></>}
+                        
                     </Grid>
                     <div style={{ paddingTop: 16 }} />
                     <StudentTable

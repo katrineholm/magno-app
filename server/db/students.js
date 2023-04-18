@@ -37,8 +37,6 @@ const getStudentsByClasses = async (user) => { //TODO: Endre sånn at det er kla
     const container = await CosmosConnector()
     const school = user.school;
     const classes = user.classes;
-    console.log("Skal nå hente elever fra klasser")
-    console.log("klassene: ")
 
     const querySpec = {
         query: "SELECT * from c where (c.school = @school) AND ARRAY_CONTAINS(@classes, c.grade)",
@@ -58,10 +56,6 @@ const createStudent = async (newStudent) => {
     const container = await CosmosConnector();
     return container.items.create(newStudent)
 }
-
-
-
-
 
 
 

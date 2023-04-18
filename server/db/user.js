@@ -92,6 +92,22 @@ const getTeachersBySchool = async (school) => {
     return items
 }
 
+const getTeachersByClass = async (school, className) => {
+    const container = await CosmosConnector();
+    const querySpec = {
+        query: "SELECT * FROM c WHERE c.school = @school AND ARRAY_CONTAINS(c.classes, @className)",
+        "parameters": [
+            { "name": "@school", "value": school },
+            { "name": "@role", "value": className },
+        ]
+    };
+    const { resources: items } = await container.items
+        .query(querySpec)
+        .fetchAll();
+    console.log(items)
+    return items
+}
+
 const addClassToUser = async (user, class_name) => {
     const container = await CosmosConnector();
     console.log("er inne på add class to user")
@@ -133,5 +149,6 @@ module.exports = {
     addClassToUser,
     removeClassFromUser,
     addAdmin,
-    getTeachersBySchool
+    getTeachersBySchool,
+    getTeachersByClass
 }
