@@ -9,6 +9,7 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import HomeIcon from '@material-ui/icons/Home';
 import PeopleIcon from '@material-ui/icons/People';
 import InfoIcon from '@material-ui/icons/Info';
+import FolderIcon from '@material-ui/icons/Folder';
 import { Divider } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import { useNavigate } from 'react-router-dom';
@@ -80,9 +81,15 @@ const MainListItems = observer( (props: any) => {
             <ListItemIcon>
               <PeopleIcon/>
             </ListItemIcon>
-            <ListItemText primary="Elever"/>
+            <ListItemText primary="Dine elever"/>
           </ListItem>
-          <ListItem selected={props.store.viewStore.toolbarSelected === 3} button onClick={() => handleNavigation(3, '/information')}>
+          <ListItem selected={props.store.viewStore.toolbarSelected === 3} button onClick={() => handleNavigation(3, '/classes')}>
+            <ListItemIcon>
+              <FolderIcon/>
+            </ListItemIcon>
+            <ListItemText primary="Dine klasser"/>
+          </ListItem>
+          <ListItem selected={props.store.viewStore.toolbarSelected === 4} button onClick={() => handleNavigation(4, '/information')}>
             <ListItemIcon>
               <InfoIcon/>
             </ListItemIcon>

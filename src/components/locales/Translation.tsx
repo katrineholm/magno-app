@@ -10,6 +10,8 @@ export default interface Translation {
         headerLastResults: string,
         textLastResults: string,
         buttonTextLastResults: string,
+        headerClasses: string,
+        textClasses: string
     },
     login: {
         title: string,
@@ -22,12 +24,15 @@ export default interface Translation {
     register: {
         title: string,
         labelEmail: string,
+        labelName: string,
         labelPassword: string,
         labelSchool: string,
+        labelRole: string,
         labelSubmit: string,
         successMessage: string,
         errorMessage: string,
         emailErrorMessage: string,
+        roleErrorMessage: string,
         schoolErrorMessage: string,
         passwordErrorMessage: string,
         link: string,
@@ -41,6 +46,10 @@ export default interface Translation {
     students: {
         addStudentButtonText: string,
         searchFieldLabel: string,
+    },
+    classes: {
+        addClassButtonText: string,
+        searchFieldLabel: string
     },
     tests: {
         headerMotion: string,
@@ -70,8 +79,16 @@ export default interface Translation {
         title: string,
         labelFirstName: string,
         labelLastName: string,
-        labelClass: string,
         labelGrade: string,
+        buttonLabel: string,
+        errorMessage: string,
+        successMessage: string,
+    },
+    classFormDialog:{
+        title: string,
+        labelGrade: string,
+        labelClassLetter: string,
+        labelTeacher: string,
         buttonLabel: string,
         errorMessage: string,
         successMessage: string,

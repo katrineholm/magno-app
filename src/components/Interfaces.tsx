@@ -8,6 +8,18 @@ export interface Student {
     risk: string;
 }
 
+export interface Class {
+    id: string,
+    name: string,
+    school: string, 
+    teacherId: string,
+}
+//mulig denne fjernes:
+export interface Teacher {
+    name: string, 
+    id: string
+}
+
 export interface RiskType {
     high: "Høy",
     medium: "Middels",

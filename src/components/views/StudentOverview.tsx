@@ -1,20 +1,20 @@
-import React, {useEffect, useState} from 'react';
-import {observer} from 'mobx-react';
-import {withStyles} from '@material-ui/core/styles';
+import React, { useEffect, useState } from 'react';
+import { observer } from 'mobx-react';
+import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import { useCookies } from 'react-cookie';
 import {
-  useNavigate,
+    useNavigate,
 } from "react-router-dom";
-import { getStudents } from '../Communicator';
+import {getStudents, getClasses} from '../Communicator';
 import { Button, Paper } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import SearchField from '../SearchField';
 import SearchIcon from '@material-ui/icons/Search';
 import StudentTable from '../StudentTable';
 import StudentFormDialog from '../StudentFormDialog';
-import { Student } from '../Interfaces';
+import { Student, Class } from '../Interfaces';
 
 const styles = (theme: any) => ({
     container: {
@@ -46,56 +46,63 @@ const styles = (theme: any) => ({
  * @export
  * @returns
  */
-const StudentOverview = observer( (props: any) => {
-    const {classes} = props;
+const StudentOverview = observer((props: any) => {
+    const { classes } = props;
     const [cookies, setCookie] = useCookies(['c_user']);
     const [value, setValue] = useState("");
     const [open, setOpen] = useState(false);
-    const [filteredStudents, setFilteredStudents] = React.useState<Array<Student>>([])
+    const [filteredStudents, setFilteredStudents] = React.useState<Array<Student>>([]) //listen med studenter som vises
+    const [schoolClasses, setSchoolClasses] = React.useState<Array<Class>>([]);
     const navigate = useNavigate();
-    
 
-    function openDialog(test: string){
+
+    function openDialog(test: string) {
         setOpen(true);
     }
 
-    async function fetchStudents(){
-        const students = await getStudents(props.store.userStore.school);
+    async function fetchStudents() {
+        const students = await getStudents();
         props.store.studentStore.setStudentList(students)
         setFilteredStudents(students)
     }
-    
+
     useEffect(() => {
         const fetchCall = async () => {
-            const students = await getStudents(props.store.userStore.school);
+            const students = await getStudents();
             props.store.studentStore.setStudentList(students)
             setFilteredStudents(students)
-          }
+        
+            const tempSchoolClasses = await getClasses();
+            props.store.classStore.setClassList(tempSchoolClasses);
+            setSchoolClasses(tempSchoolClasses);
+            console.log(tempSchoolClasses);
+
+        }
         fetchCall()
     }, []);
 
     return (
-      
-      <div>
+
+        <div>
             <Container maxWidth="xl" className={classes.container}>
                 <Paper className={classes.paper}>
                     <Grid direction="row"
-                        container 
+                        container
                         spacing={2}
                     >
                         <Grid item xs={4} md={3} lg={2} xl={2}>
-                            <Button 
+                            <Button
                                 fullWidth
                                 disableElevation
-                                variant={"contained"} 
-                                color={'primary'} 
+                                variant={"contained"}
+                                color={'primary'}
                                 className={classes.button}
-                                startIcon={<AddIcon/>}
+                                startIcon={<AddIcon />}
                                 onClick={() => setOpen(true)}>
                                 {props.translation.students.addStudentButtonText}
                             </Button>
                         </Grid>
-                        
+
                         <Grid item xs={8} md={9} lg={10} xl={10}>
                             <SearchField
                                 label={props.translation.students.searchFieldLabel}
@@ -103,20 +110,20 @@ const StudentOverview = observer( (props: any) => {
                                 setFilteredStudents={setFilteredStudents}
                                 students={props.store.studentStore.studentList}
                                 value={value}
-                                icon={<SearchIcon/>}
+                                icon={<SearchIcon />}
                             />
                         </Grid>
                     </Grid>
-                    <div style={{paddingTop: 16}}/>
-                    <StudentTable 
-                        store={props.store} 
-                        order={props.order} 
-                        orderBy={props.orderBy} 
+                    <div style={{ paddingTop: 16 }} />
+                    <StudentTable
+                        store={props.store}
+                        order={props.order}
+                        orderBy={props.orderBy}
                         students={filteredStudents}
                         translation={props.translation}
-                        />
+                    />
                 </Paper>
-                
+
             </Container>
             <StudentFormDialog
                 store={props.store}
@@ -125,8 +132,8 @@ const StudentOverview = observer( (props: any) => {
                 setOpen={setOpen}
                 fetchStudents={fetchStudents}
             />
-      </div>
+        </div>
     );
-  });
+});
 
 export default withStyles(styles)(StudentOverview);
