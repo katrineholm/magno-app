@@ -1,19 +1,17 @@
-import React, {useEffect, useState} from 'react';
-import {observer} from 'mobx-react';
-import {withStyles} from '@material-ui/core/styles';
+import React, { useEffect, useState } from 'react';
+import { observer } from 'mobx-react';
+import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import { useCookies } from 'react-cookie';
 import {
-  useNavigate,
+    useNavigate,
 } from "react-router-dom";
-import { getClasses } from '../Communicator';
+import { getClasses, getTeachers } from '../Communicator';
 import { Button, Paper } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import SearchField from '../SearchField';
-import SearchIcon from '@material-ui/icons/Search';
 import ClassFormDialog from '../ClassFormDialog';
-import { Class } from '../Interfaces';
+import { Class, Teacher } from '../Interfaces';
 import ClassTable from '../ClassTable';
 
 const styles = (theme: any) => ({
@@ -46,78 +44,86 @@ const styles = (theme: any) => ({
  * @export
  * @returns
  */
-const ClassOverview = observer( (props: any) => {
-    const {classes} = props;
-    const [cookies, setCookie] = useCookies(['c_user']);
+const ClassOverview = observer((props: any) => {
+    const { classes } = props;
+    //const [cookies, setCookie] = useCookies(['c_user']);
     const [open, setOpen] = useState(false);
-    const [filteredClasses, setFilteredClasses] = React.useState<Array<Class>>([])
+    const [filteredClasses, setFilteredClasses] = React.useState<Array<Class>>([]);
+    const [teachers, setTeachers] = React.useState<Array<Teacher>>([]);
     const navigate = useNavigate();
-    
 
-    function openDialog(test: string){
-        setOpen(true);
-    } 
 
-     async function fetchClasses(){
-        const schoolClasses = await getClasses(props.store.userStore.school);
-        props.store.clasStore.setClassList(schoolClasses) 
+    async function fetchClasses() {
+        const schoolClasses = await getClasses();
+        props.store.clasStore.setClassList(schoolClasses)
         setFilteredClasses(schoolClasses)
-    } 
-    
+
+    }
+
     useEffect(() => {
         const fetchCall = async () => {
-            const schoolClasses = await getClasses(props.store.userStore.school);
-            props.store.classStore.setClassList(schoolClasses)
-            setFilteredClasses(schoolClasses)
-          }
-        fetchCall()
+            // Set classes at the school
+            const schoolClasses = await getClasses();
+            props.store.classStore.setClassList(schoolClasses);
+            setFilteredClasses(schoolClasses);
+
+            // Set teachers at the school
+            if (props.store.userStore.role === "ADMIN") {
+                const tempTeachers = await getTeachers();
+                props.store.teacherStore.setTeacherList(tempTeachers);
+                setTeachers(tempTeachers);
+                console.log(tempTeachers);
+            }
+        };
+        fetchCall();
     }, []);
 
     return (
-      
-      <div>
+
+        <div>
             <Container maxWidth="xl" className={classes.container}>
                 <Paper className={classes.paper}>
                     <Grid direction="row"
-                        container 
+                        container
                         spacing={2}
                     >
+                    {props.store.userStore.role == "ADMIN" ? 
                         <Grid item xs={4} md={3} lg={2} xl={2}>
-                            <Button 
+                            <Button
                                 fullWidth
                                 disableElevation
-                                variant={"contained"} 
-                                color={'primary'} 
+                                variant={"contained"}
+                                color={'primary'}
                                 className={classes.button}
-                                startIcon={<AddIcon/>}
+                                startIcon={<AddIcon />}
                                 onClick={() => setOpen(true)}>
                                 {props.translation.classes.addClassButtonText}
                              </ Button>
-                        </Grid>
-                       
+                        </Grid> : <></> }
                     </Grid>
-                    <div style={{paddingTop: 16}}/>
+                    <div style={{ paddingTop: 16 }} />
 
                     <ClassTable
-                        store={props.store} 
-                        order={props.order} 
-                        orderBy={props.orderBy} 
+                        store={props.store}
+                        order={props.order}
+                        orderBy={props.orderBy}
                         schoolClasses={filteredClasses}
                         translation={props.translation} />
                 </Paper>
-                
+
             </Container>
-             <ClassFormDialog
+            <ClassFormDialog
                 store={props.store}
                 open={open}
                 classes_={classes}
                 translation={props.translation}
                 setOpen={setOpen}
                 fetchClasses={fetchClasses}
-            /> 
+                teachers={teachers}
+            />
 
-      </div>
+        </div>
     );
-  });
+});
 
 export default withStyles(styles)(ClassOverview);

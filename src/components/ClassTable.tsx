@@ -9,11 +9,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import React, { useEffect } from 'react';
-import {
-  useNavigate,
-} from "react-router-dom";
-import { Student, RiskType, Data, Class } from './Interfaces';
-import { RoomService } from '@material-ui/icons';
+import { Class } from './Interfaces';
 
 const StyledTableRow = styled(TableRow)(({ theme: Theme }) => ({
   '&:nth-of-type(odd)': {
@@ -40,19 +36,17 @@ const StyledTableCell = styled(TableCell)(({ theme: Theme }) => ({
 }));
 
 
-
-
 function createData(
     id: string,
     name: string,
     school: string,
-    teacher: string,
+    teacherId: string,
 ): Class {
   return {
     id,
     name,
     school, 
-    teacher 
+    teacherId,
   };
 }
 
@@ -152,7 +146,7 @@ export default function ClassTable(props: ClassTableProps) {
   const [rowsPerPage, setRowsPerPage] = React.useState(15);
   const [rows, setRows] = React.useState<Array<Class>>([]);
   const dateConfig = {day: 'numeric', month: "short", year: "2-digit"} as const
-  const navigate = useNavigate();
+
   
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -184,7 +178,7 @@ const handleClick = (event: React.MouseEvent<unknown>, id: string) => {
         id: string;
         name: string; 
         school: string;
-        teacher: string;
+        teacherId: string;
       }[] = [];
       props.schoolClasses.forEach((element: any) => {
           rows.push(
@@ -192,9 +186,8 @@ const handleClick = (event: React.MouseEvent<unknown>, id: string) => {
               element.id,
               element.name,
               element.school,
-              element.teacher))
+              element.teacherId))
       });
-      console.log("classtable props in classTable: ", props.schoolClasses)
       setRows(rows)
     }
     

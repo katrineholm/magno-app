@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import {observer} from 'mobx-react';
-import {withStyles} from '@material-ui/core/styles';
+import React, { useState } from 'react';
+import { observer } from 'mobx-react';
+import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -9,13 +9,13 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { useCookies } from 'react-cookie';
 import MagnoLogo from '../../files/magno-logo.png';
-import { getStudents, loginAccount } from '../Communicator'
+import { loginAccount, getCurrentUser } from '../Communicator'
 import {
   Link,
   useNavigate
 } from "react-router-dom";
 
-  const styles = (theme: any) => ({
+const styles = (theme: any) => ({
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
@@ -44,96 +44,107 @@ import {
 
 export type SnackBarVariants = 'error' | 'success'
 
-const Login = observer( (props: any) => {
+const Login = observer((props: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [cookies, setCookie] = useCookies(['c_user']);
   const navigate = useNavigate();
-  const {classes} = props;
+  const { classes } = props;
 
   function handleEmailChange(e: React.ChangeEvent<HTMLInputElement>) {
-      setEmail(e.target.value)
+    setEmail(e.target.value)
   }
 
   function handlePasswordChange(e: React.ChangeEvent<HTMLInputElement>) {
-      setPassword(e.target.value)
+    setPassword(e.target.value)
   }
 
   async function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
+    //const data = await loginAccount(email, password)
     const data = await loginAccount(email, password)
-    if (data.result.includes("Wrong user")){
-      props.store.viewStore.setSnackBar(props.translation.login.loginErrorMessage, 'error');
-      props.store.viewStore.setOpenSnackBar(true);
-    }
-    else{
-        const expiryDate = new Date(Date.now() + 1000*60*60*3600);
-        setCookie('c_user', data.token, { expires: expiryDate });
-        props.store.userStore.setUserEmail(email);
-        props.store.userStore.setSchool(data.school);
-        props.store.userStore.setLoginStatus(true);
-        navigate('/home')
-        const fetchCall = async () => {
-          const students = await getStudents(props.store.userStore.school);
-          props.store.studentStore.setStudentList(students)
-        }
-        fetchCall()
-      }
-    }
+    const user = await getCurrentUser()
+    props.store.userStore.setUserEmail(user.email);
+    props.store.userStore.setSchool(user.school);
+    props.store.userStore.setRole(user.role);
+    props.store.userStore.setLoginStatus(true);
+
+    navigate('/home')
+
+    // if (data.result.includes("Wrong user")) {
+    //   props.store.viewStore.setSnackBar(props.translation.login.loginErrorMessage, 'error');
+    //   props.store.viewStore.setOpenSnackBar(true);
+    // }
+    // else {
+    //   const expiryDate = new Date(Date.now() + 1000 * 60 * 60 * 3600);
+    //   setCookie('c_user', data.token, { expires: expiryDate });
+    //   props.store.userStore.setUserEmail(email);
+    //   props.store.userStore.setSchool(data.school);
+    //   props.store.userStore.setLoginStatus(true);
+    //   navigate('/home')
+    //   const fetchCall = async () => {
+    //     const students = await getStudents(props.store.userStore.school);
+    //     props.store.studentStore.setStudentList(students)
+    //   }
+    //   fetchCall()
+    // }
+
+
+  }
 
   return (
     <div>
-        <div className={classes.appBarSpacer} />
-        <Container component="main" maxWidth="xs" className={classes.container}>
+      <div className={classes.appBarSpacer} />
+      <Container component="main" maxWidth="xs" className={classes.container}>
         <CssBaseline />
         <div className={classes.paper}>
-            <img src={MagnoLogo} className={classes.img}alt="Magno logo"></img>
-            <Typography component="h1" variant="h5">
-                {props.translation.login.title}
-            </Typography>
-            <form name="SignInForm" onSubmit={handleSubmit} className={classes.form}>
-                <TextField
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="email"
-                    label={props.translation.login.labelEmail}
-                    name="email"
-                    autoComplete="email"
-                    autoFocus
-                    onChange={handleEmailChange}
-                    value={email}/>
-                <TextField
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="password"
-                    label={props.translation.login.labelPassword}
-                    type="password"
-                    id="password"
-                    autoComplete="current-password"
-                    onChange={handlePasswordChange}
-                    value={password}/>
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    className={classes.submit}>
-                    {props.translation.login.labelSubmit}
-                </Button>
-                <Grid container>
-                    <Grid item>
-                        <Link to={'/register'}>
-                            {props.translation.login.link}
-                        </Link>
-                    </Grid>
-                </Grid>
-            </form>
+          <img src={MagnoLogo} className={classes.img} alt="Magno logo"></img>
+          <Typography component="h1" variant="h5">
+            {props.translation.login.title}
+          </Typography>
+          <form name="SignInForm" onSubmit={handleSubmit} className={classes.form}>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label={props.translation.login.labelEmail}
+              name="email"
+              autoComplete="email"
+              autoFocus
+              onChange={handleEmailChange}
+              value={email} />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label={props.translation.login.labelPassword}
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              onChange={handlePasswordChange}
+              value={password} />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}>
+              {props.translation.login.labelSubmit}
+            </Button>
+            <Grid container>
+              <Grid item>
+                <Link to={'/register'}>
+                  {props.translation.login.link}
+                </Link>
+              </Grid>
+            </Grid>
+          </form>
         </div>
-        </Container>
+      </Container>
     </div>
   );
 })

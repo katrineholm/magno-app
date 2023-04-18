@@ -1,20 +1,30 @@
 import { School } from '@material-ui/icons';
 import axios, { AxiosError } from 'axios';
 import url from './urls';
+import { saveToken, getToken, clearToken } from '../utils/tokens.js'
 
-export async function createAccount(uuid: string, email: string, password: string, role: string, school: string){
+export function getHeader() {
+    const token = getToken()
+    const header = { "authorization": `Bearer ${token}` }
+    return header
+}
+
+export async function createAccount(email: string, name: string, password: string, school: string) {
     const form_data = {
-        uuid: uuid,
         email: email,
-        role: role,
+        name: name,
         password: password,
         school: school,
     }
     try {
+        console.log(form_data)
+        console.log(url.account)
         const { data } = await axios.post(url.account, form_data)
+        console.log("Her kommer data fra create_account backend")
+        console.log(data)
         return data.result;
     }
-    catch (error){
+    catch (error) {
         if (axios.isAxiosError(error)) {
             console.log('error message: ', error.message);
             return error.message;
@@ -25,16 +35,19 @@ export async function createAccount(uuid: string, email: string, password: strin
     }
 }
 
-export async function loginAccount(email: string, password: string){
+export async function loginAccount(email: string, password: string) {
     const form_data = {
         email: email,
         password: password
     }
     try {
         const { data } = await axios.post(url.login, form_data)
+        saveToken(data.token)
+        console.log("Her kommer det token fra backend:")
+        console.log(data)
         return data;
     }
-    catch (error){
+    catch (error) {
         if (axios.isAxiosError(error)) {
             console.log('error message: ', error.message);
             return error.message;
@@ -45,14 +58,43 @@ export async function loginAccount(email: string, password: string){
     }
 }
 
-export async function logoutAccount(email: string){
+export async function getCurrentUser() {
+    const header = getHeader()
+    const result = await fetch(url.getCurrentUser, { headers: header }).then(res => res.json())
+    console.log(result.user)
+    return result.user
+}
+
+
+
+export async function getStudents() {
+    const header = getHeader()
+    try {
+        const data = await fetch(url.getStudents, { headers: header }).then(res => res.json())
+        return data.students;
+    }
+    catch (error) {
+        if (axios.isAxiosError(error)) {
+            console.log('error message: ', error.message);
+            return error.message;
+        } else {
+            console.log('unexpected error: ', error);
+            return 'An unexpected error occurred';
+        }
+    }
+}
+export async function addStudent(name: string, grade: string, school: string) {
+    const header = getHeader()
     const form_data = {
-        email: email,
+        name: name,
+        school: school,
+        grade: grade
     }
     try {
-        const { data } = await axios.post(url.logout, form_data)
+        const { data } = await axios.post(url.addStudent, form_data, { headers: header })
+        return data;
     }
-    catch (error){
+    catch (error) {
         if (axios.isAxiosError(error)) {
             console.log('error message: ', error.message);
             return error.message;
@@ -63,120 +105,61 @@ export async function logoutAccount(email: string){
     }
 }
 
-export async function authenticate(cookies: any, setCookie: any){
-    if (cookies.c_user === undefined){
-        return false
+
+
+export async function getClasses() {
+    const header = getHeader()
+    try {
+        const data = await fetch(url.getClasses, { headers: header }).then(res => res.json())
+        return data.classes;
     }
-    else{
-        
-        try {
-            const form_data = {
-                token: cookies.c_user,
-            }
-            const { data } = await axios.post(url.authenticate, form_data)
-            if (data.result.includes("Authenticated")){
-                const expiryDate = new Date(Date.now() + 1000*60*60*24);
-                setCookie('c_user', data.token, { expires: expiryDate });
-                return data;
-            }
-            return false;
-        }
-        catch (error){
-            if (axios.isAxiosError(error)) {
-                console.log('error message: ', error.message);
-                return error.message;
-            } else {
-                console.log('unexpected error: ', error);
-                return 'An unexpected error occurred';
-            }
+    catch (error) {
+        if (axios.isAxiosError(error)) {
+            console.log('error message: ', error.message);
+            return error.message;
+        } else {
+            console.log('unexpected error: ', error);
+            return 'An unexpected error occurred';
         }
     }
 }
 
-export async function addStudent(uuid: string, name: string, grade: string, school: string){
+export async function addClass(uuid: string, name: string, school: string, teacherId: string) {
     const form_data = {
         uuid: uuid,
         name: name,
         school: school,
-        grade: grade,
-        testdate: "",
-        risk: ""
+        teacherId: teacherId
     }
-    try {
-        const { data } = await axios.post(url.addStudent, form_data)
-        return data;
-    }
-    catch (error){
-        if (axios.isAxiosError(error)) {
-            console.log('error message: ', error.message);
-            return error.message;
-        } else {
-            console.log('unexpected error: ', error);
-            return 'An unexpected error occurred';
-        }
-    }
-}
-
-export async function getStudents(school: string){
-    const form_data = {
-        school: school
-    }
-    try {
-        const { data } = await axios.post(url.getStudents, form_data)
-        return data;
-    }
-    catch (error){
-        if (axios.isAxiosError(error)) {
-            console.log('error message: ', error.message);
-            return error.message;
-        } else {
-            console.log('unexpected error: ', error);
-            return 'An unexpected error occurred';
-        }
-    }
-}
-
-export async function getClasses(school: string) {
-    const form_data = {
-        school: school, 
-    }
-    try {
-        const { data } = await axios.post(url.getClasses, form_data)
-        console.log("data i controller", data)
-        return data;
-    }
-        catch (error){
-            if (axios.isAxiosError(error)) {
-                console.log('error message: ', error.message);
-                return error.message;
-            } else {
-                console.log('unexpected error: ', error);
-                return 'An unexpected error occurred';
-            }
-        }
-}
-
-export async function addClass(uuid: string, name: string, school: string, teacher: string) {
-    console.log("Kommer seg til addClass i Communicator")
-    const form_data = {
-        uuid: uuid,
-        name: name,
-        school: school, 
-        teacher: teacher
-    }
-    console.log("form data", form_data)
     try {
         const { data } = await axios.post(url.addClass, form_data)
-        console.log("data i communicator!!", data)
         return data;
     }
-        catch (error){
-            if (axios.isAxiosError(error)) {
-                console.log('error message: ', error.message);
-                return error.message;
-            } else {
-                console.log('unexpected error: ', error);
-                return 'An unexpected error occurred';
-            }
+    catch (error) {
+        if (axios.isAxiosError(error)) {
+            console.log('error message: ', error.message);
+            return error.message;
+        } else {
+            console.log('unexpected error: ', error);
+            return 'An unexpected error occurred';
         }
+    }
+}
+
+export async function getTeachers() {
+
+    const header = getHeader()
+    try {
+        const data = await fetch(url.getTeachers, { headers: header }).then(res => res.json())
+        return data.teachers;
+    }
+    catch (error) {
+        if (axios.isAxiosError(error)) {
+            console.log('error message: ', error.message);
+            return error.message;
+        } else {
+            console.log('unexpected error: ', error);
+            return 'An unexpected error occurred';
+        }
+    }
 }

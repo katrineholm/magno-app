@@ -8,7 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import {withStyles} from '@material-ui/core/styles';
 import SearchBox from './SearchBox';
 import { Student } from './Interfaces';
-import { useCookies } from 'react-cookie';
+//import { useCookies } from 'react-cookie';
 
 const styles = (theme: any) => ({
   dialogBox: {
@@ -37,7 +37,7 @@ interface TestFormDialogProps {
 
 function TestFormDialog(props: TestFormDialogProps) {
   const [value, setValue] = React.useState<string | null>();
-  const [cookies, setCookie] = useCookies(['c_testid']);
+  //const [cookies, setCookie] = useCookies(['c_testid']);
   const {classes} = props;
 
   function startTest(){
@@ -45,8 +45,8 @@ function TestFormDialog(props: TestFormDialogProps) {
     const expiryDate = new Date(Date.now() + 1000*60*60*2);
     const name = String(value).split(" ").slice(0, 2).join(' ');
     //Used by tests to identify the student being tested
-    setCookie('c_testid', 
-              props.store.studentStore.studentList.find((student: Student) => student.name.includes(name)).id, { expires: expiryDate });
+    // setCookie('c_testid', 
+    //           props.store.studentStore.studentList.find((student: Student) => student.name.includes(name)).id, { expires: expiryDate });
     window.open(process.env.REACT_APP_API_URL + "/" + props.link);
     props.setOpen(false)
   }

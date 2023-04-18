@@ -3,37 +3,36 @@
 /* base url */
 const baseURL = process.env.REACT_APP_API_URL;
 
-/* Login post, get, update */
+/* Log in */
 export const loginURL = `${baseURL}/login`;
 
-/* Logout post */
-export const logoutURL = `${baseURL}/logout`;
+/* Register user */
+export const accountURL = `${baseURL}/create-user`;
 
-/* Account post, get, update */
-export const accountURL = `${baseURL}/account`;
+/* Get current user */
+export const getCurrentUserURL = `${baseURL}/get-current-user` // denne burde oppdateres:)
 
-/* Authenticate post */
-export const authenticateURL = `${baseURL}/authenticate`;
+/* Get students */
+export const getStudentsURL = `${baseURL}/get-students`;
 
-/* Add student post */ 
-export const addStudentURL= `${baseURL}/addStudent`;
+/* Add newstudent post */
+export const addStudentURL = `${baseURL}/add-student`;
 
-/* Get students */ 
-export const getStudentsURL= `${baseURL}/students`;
+export const getClassesURL = `${baseURL}/get-classes`;
 
-/** Get classes  */
-export const getClassesURL = `${baseURL}/classes`;
-
+/** Add class  */
 export const addClassURL = `${baseURL}/addClass`;
 
+/** Get teachers  */
+export const getTeachersURL = `${baseURL}/getTeachers`;
 
 export default {
   account: accountURL,
   login: loginURL,
-  logout: logoutURL,
-  authenticate: authenticateURL,
-  addStudent: addStudentURL,
+  getCurrentUser: getCurrentUserURL,
   getStudents: getStudentsURL,
+  addStudent: addStudentURL,
   getClasses: getClassesURL,
-  addClass: addClassURL
+  addClass: addClassURL,
+  getTeachers: getTeachersURL
 };

@@ -10,9 +10,10 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import { Divider } from '@material-ui/core';
-import { useCookies } from 'react-cookie';
+//import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
-import { logoutAccount } from '../Communicator'
+//import { logoutAccount } from '../Communicator'
+import { clearToken } from '../../utils/tokens.js';
 
 const ListItem = withStyles({
   root: {
@@ -42,12 +43,13 @@ const ListItem = withStyles({
 })(MuiListItem);
 
 function LogOutListItems(props: any){
-  const [cookies, setCookie, removeCookie] = useCookies(['c_user']);
+  //const [cookies, setCookie, removeCookie] = useCookies(['c_user']);
   const navigate = useNavigate();
 
   function handleClick() {
-    logoutAccount(props.store.userStore.userEmail);
-    removeCookie('c_user')
+    //logoutAccount(props.store.userStore.userEmail);
+    //removeCookie('c_user')
+    clearToken();
     props.store.userStore.setLoginStatus(false);
     navigate("/login")
   }
