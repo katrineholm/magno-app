@@ -1,7 +1,7 @@
 const { UserDefinedFunction } = require("@azure/cosmos");
 const { getClassesBySchool, getClassesByList, getClassByName, addTeacherToClass, createClass, deleteTeacherFromClass } = require("../db/class");
 const { userIsAdmin, userIsBasic } = require("../utils/role")
-const { getUserByEmail, addClassToUser, removeClassFromUser } = require("../db/user");
+const { getUserByEmail, getUserById, addClassToUser, removeClassFromUser } = require("../db/user");
 
 function handleSuccessOrErrorMessage(response, err, res) {
     if (!err) {
@@ -32,26 +32,47 @@ const getClasses = async (req, res) => {
 }
 
 const postCreateClass = async (req, res) => {
-    //const id = req.body.uuid;
     const name = req.body.name;
     const school = req.body.school;
-    //const teacherId = req.body.teacherId;
+    const teacherId = req.body.teacherId;
+
 
     const existingClass = await getClassByName(name, school) //Sjekker om klassen ligger i databasen fra før. Kan kun lage en klasse. 
 
     if (existingClass !== null) {
         return res.status(400).json({ message: "Kunne ikke opprette klasse" })
     }
+    let newClass;
 
-    const newClass = {
-        name: name,
-        school: school,
-        teacher: [],
-    };
+    if (teacherId === "") {
+        newClass = {
+            name: name,
+            school: school,
+            teacher: [],
+        };
 
-    createClass(newClass);
-    response = { 'result': 'Success creating class' }
-    handleSuccessOrErrorMessage(response, false, res);
+        createClass(newClass);
+        response = { 'result': 'Success creating class' }
+        handleSuccessOrErrorMessage(response, false, res);
+
+    } else {
+        const existingTeacher = await getUserById(teacherId)
+        console.log("teacher")
+        console.log(existingTeacher)
+        if (existingTeacher == null) {
+            return res.status(400).json({ message: "Læreren finnes ikke" })
+        }
+        newClass = {
+            name: name,
+            school: school,
+            teacher: [teacherId],
+        };
+        createClass(newClass);
+        addClassToUser(existingTeacher, name)
+        response = { 'result': 'Success creating class' }
+        handleSuccessOrErrorMessage(response, false, res);
+    }
+
 }
 
 const assignTeacherToClass = async (req, res) => {

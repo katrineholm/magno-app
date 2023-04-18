@@ -12,7 +12,7 @@ export interface Class {
     id: string,
     name: string,
     school: string, 
-    teacherId: string,
+    teacher: string[],
 }
 //mulig denne fjernes:
 export interface Teacher {

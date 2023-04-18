@@ -71,24 +71,6 @@ const Login = observer((props: any) => {
 
     navigate('/home')
 
-    // if (data.result.includes("Wrong user")) {
-    //   props.store.viewStore.setSnackBar(props.translation.login.loginErrorMessage, 'error');
-    //   props.store.viewStore.setOpenSnackBar(true);
-    // }
-    // else {
-    //   const expiryDate = new Date(Date.now() + 1000 * 60 * 60 * 3600);
-    //   setCookie('c_user', data.token, { expires: expiryDate });
-    //   props.store.userStore.setUserEmail(email);
-    //   props.store.userStore.setSchool(data.school);
-    //   props.store.userStore.setLoginStatus(true);
-    //   navigate('/home')
-    //   const fetchCall = async () => {
-    //     const students = await getStudents(props.store.userStore.school);
-    //     props.store.studentStore.setStudentList(students)
-    //   }
-    //   fetchCall()
-    // }
-
 
   }
 
