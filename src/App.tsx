@@ -89,6 +89,9 @@ export const App = observer((props: any) => {
               <Route path="/student" element={<Student store={props.store} translation={translation} />}>
                 <Route path=":studentID" element={<Student store={props.store} translation={translation} />} />
               </Route>
+              <Route path="/students" element={<StudentOverview store={props.store} order={'asc'} orderBy={'name'} translation={translation} />}>
+                <Route path=":className" element={<StudentOverview store={props.store} order={'asc'} orderBy={'name'} translation={translation} />} />
+              </Route>
               <Route path="/classes" element={<ClassOverview store={props.store} order={'asc'} orderBy={'name'} translation={translation} />} />
               <Route path="/information" element={<Information translation={translation} />}></Route>
             </Routes>

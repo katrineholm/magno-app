@@ -304,6 +304,7 @@ export default function StudentTable(props: StudentTableProps) {
   const dateConfig = {day: 'numeric', month: "short", year: "2-digit"} as const
   const navigate = useNavigate();
   
+  
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
     property: keyof Data,
@@ -326,6 +327,7 @@ export default function StudentTable(props: StudentTableProps) {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
 
   function dangerColorTextCell(risk: string){
     if (risk === props.translation.risk.high){
