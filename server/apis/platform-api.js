@@ -19,4 +19,5 @@ router.put("/remove-teacher-from-class", authenticated, userIsAdmin, classContro
 router.post("/create-class", authenticated, userIsAdmin, classController.postCreateClass)
 router.get("/get-classes", authenticated, classController.getClasses)
 router.get('/getTeachers', authenticated, userIsAdmin, accountController.getTeachers)
+router.get('/getTeachersByClass', authenticated, accountController.getTeachersByClassC)
 module.exports = router;

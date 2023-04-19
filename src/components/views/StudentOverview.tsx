@@ -55,8 +55,9 @@ const StudentOverview = observer((props: any) => {
 
     
     async function setTeachers(className: string) {
-        const teachers = await getTeachersByClass(className);
-        setTeachersByClass(teachers);
+        const teachers = await getTeachersByClass(props.store.userStore.school, className);
+        //setTeachersByClass(teachers);
+        console.log("getting in frontend: ", teachers)
     }
 
 
@@ -66,7 +67,7 @@ const StudentOverview = observer((props: any) => {
                 (student) => student.grade == className
             ));
             setTeachers(className)
-            console.log("teachers by class ", teachersByClass)
+            //console.log("teacher by class list in frontend", teachersByClass) //since this is an empty list, the map function in the html does not work
         }
         else {
             setFilteredStudents(studentList)

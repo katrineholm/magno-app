@@ -26,7 +26,8 @@ export const addClassURL = `${baseURL}/create-class`;
 /** Get teachers  */
 export const getTeachersURL = `${baseURL}/getTeachers`;
 
-export const getTeachersByClass =  `${baseURL}/getTeachersByClass/`;
+/** Get teachers by class */
+export const getTeachersByClassURL =  `${baseURL}/getTeachersByClass`;
 
 export default {
   account: accountURL,
@@ -37,5 +38,5 @@ export default {
   getClasses: getClassesURL,
   addClass: addClassURL,
   getTeachers: getTeachersURL,
-  getTeachersByClass: getTeachersByClass
+  getTeachersByClass: getTeachersByClassURL
 };

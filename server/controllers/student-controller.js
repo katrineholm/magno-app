@@ -19,7 +19,6 @@ const getStudents = async (req, res) => {
 
     if (userIsAdmin(user)) {
         const students = await getStudentsBySchool(school)
-        console.log(students)
         res.send({ students: students })
     }
     else if (userIsBasic(user)) {

@@ -3,7 +3,7 @@
 const { hashPassword } = require("../utils/password")
 const { generateToken } = require('../utils/token')
 
-const { createUser, getUserByEmail, getTeachersBySchool, addAdmin } = require("../db/user");
+const { createUser, getUserByEmail, getTeachersBySchool, getTeachersByClass, addAdmin } = require("../db/user");
 // const { default: userEvent } = require("@testing-library/user-event");
 
 function handleSuccessOrErrorMessage(response, err, res) {
@@ -120,10 +120,12 @@ const getTeachers = async (req, res) => {
     res.send({ teachers: teachers })
 }
 
-const getTeachersByClass = async (req, res) => {
-    const school = req.user.school;
-    console.log("GET TEACHERS BY CLASS IS BEING CALLED")
-    const className = req.body.className
+const getTeachersByClassC = async (req, res) => {
+    const school = req.query.school
+    console.log("school: ", school)
+    console.log("GET TEACHERS BY CLASS IN CONTROLLER IS BEING CALLED")
+    const className = req.query.className
+    console.log("className: ", className)
     const teachers = await getTeachersByClass(school, className)
     res.send({ teachers: teachers })
 }
@@ -135,5 +137,5 @@ module.exports = {
     getCurrentUser,
     changeToAdmin,
     getTeachers, 
-    getTeachersByClass,
+    getTeachersByClassC,
 }

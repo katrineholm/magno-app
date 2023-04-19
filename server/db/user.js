@@ -73,8 +73,6 @@ const addAdmin = async (user) => {
 }
 
 const getTeachersBySchool = async (school) => {
-    console.log("Skolen de går på:")
-    console.log(school)
     const container = await CosmosConnector();
     const querySpec = {
         query: "SELECT * from c where c.school = @school and c.role=@role",
@@ -86,25 +84,24 @@ const getTeachersBySchool = async (school) => {
     const { resources: items } = await container.items
         .query(querySpec)
         .fetchAll();
-    // console.log(items[0])
-    // console.log("Også resten..")
-    console.log(items)
     return items
 }
 
 const getTeachersByClass = async (school, className) => {
+    console.log("school in user:", school)
+    console.log("className in user:", className)
     const container = await CosmosConnector();
     const querySpec = {
-        query: "SELECT * FROM c WHERE c.school = @school AND ARRAY_CONTAINS(c.classes, @className)",
+        query: "SELECT * from c where (c.school = @school) AND ARRAY_CONTAINS(c.classes, @classes)",
         "parameters": [
             { "name": "@school", "value": school },
-            { "name": "@role", "value": className },
+            { "name": "@classes", "value": className },
         ]
     };
     const { resources: items } = await container.items
         .query(querySpec)
         .fetchAll();
-    console.log(items)
+    console.log("teachers by class in user.js: ", items)
     return items
 }
 

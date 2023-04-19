@@ -61,7 +61,6 @@ export async function loginAccount(email: string, password: string) {
 export async function getCurrentUser() {
     const header = getHeader()
     const result = await fetch(url.getCurrentUser, { headers: header }).then(res => res.json())
-    console.log(result.user)
     return result.user
 }
 
@@ -165,12 +164,19 @@ export async function getTeachers() {
     }
 }
 
-export async function getTeachersByClass(className: string){
+export async function getTeachersByClass(school: string, className: string){
+    console.log("getTeachersbyClass kalles i Communicator")
+    console.log("url: ", url.getTeachersByClass)
     const header = getHeader()
-    const input = url.getTeachersByClass = "/" + className
+    const params = {
+        school: school,
+        className: className
+    }
+    console.log("params: ", params)
     try {
-        const data = await fetch(input, { headers: header }).then(res => res.json())
-        return data.teachersByClass;
+        const { data } = await axios.get(url.getTeachersByClass, { params: params, headers: header })
+        console.log("response in communicator: ", data)
+        return data;
     }
     catch (error) {
         if (axios.isAxiosError(error)) {

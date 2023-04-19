@@ -15,8 +15,6 @@ async function CosmosConnector() {
 }
 
 const getStudentsBySchool = async (school) => {
-    console.log("Skolen de går på:")
-    console.log(school)
     const container = await CosmosConnector();
     const querySpec = {
         query: "SELECT * from c where c.school = @school",
@@ -27,9 +25,6 @@ const getStudentsBySchool = async (school) => {
     const { resources: items } = await container.items
         .query(querySpec)
         .fetchAll();
-    console.log(items[0])
-    console.log("Også resten..")
-    console.log(items)
     return items
 }
 
