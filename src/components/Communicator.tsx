@@ -165,17 +165,13 @@ export async function getTeachers() {
 }
 
 export async function getTeachersByClass(school: string, className: string){
-    console.log("getTeachersbyClass kalles i Communicator")
-    console.log("url: ", url.getTeachersByClass)
     const header = getHeader()
     const params = {
         school: school,
         className: className
     }
-    console.log("params: ", params)
     try {
         const { data } = await axios.get(url.getTeachersByClass, { params: params, headers: header })
-        console.log("response in communicator: ", data)
         return data;
     }
     catch (error) {

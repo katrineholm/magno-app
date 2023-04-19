@@ -55,25 +55,37 @@ const StudentOverview = observer((props: any) => {
 
     
     async function setTeachers(className: string) {
-        const teachers = await getTeachersByClass(props.store.userStore.school, className);
-        //setTeachersByClass(teachers);
+        const { teachers } = await getTeachersByClass(props.store.userStore.school, className);
+        setTeachersByClass(teachers);
         console.log("getting in frontend: ", teachers)
     }
 
 
-    const filterByClassName = (studentList: Array<Student>) => {
+ /**    const filterByClassName = (studentList: Array<Student>) => {
         if (className !== undefined) {
             setFilteredStudents(studentList.filter(
                 (student) => student.grade == className
             ));
             setTeachers(className)
-            //console.log("teacher by class list in frontend", teachersByClass) //since this is an empty list, the map function in the html does not work
+            console.log("teacher by class list in frontend", teachersByClass) //since this is an empty list, the map function in the html does not work
         }
         else {
             setFilteredStudents(studentList)
         }
         return filteredStudents;
-    };
+    };*/
+    const filterByClassName = (studentList: Array<Student>) => {
+        if (className !== undefined) {
+            const filteredStudents = studentList.filter((student) => student.grade === className);
+            setFilteredStudents(filteredStudents);
+            setTeachers(className)
+            console.log("teacherbyclass list in frontend", teachersByClass)
+            return filteredStudents;
+        } else {
+            setFilteredStudents(studentList)
+            return studentList;
+        }
+      };
 
     async function fetchStudents() {
         const students = await getStudents();
@@ -82,16 +94,18 @@ const StudentOverview = observer((props: any) => {
     }
 
     useEffect(() => {
-
-        const fetchCall = async () => {
-            const students = await getStudents();
-            props.store.studentStore.setStudentList(students)
-            setStudents(students)
-        }
-
-        fetchCall()
+        fetchStudents()
+      }, []);
+    
+    useEffect(() => {
         filterByClassName(students);
-    }, [students]);
+    }, [students, className]);
+
+    useEffect(() => {
+    if (className !== undefined) {
+        setTeachers(className)
+    }
+    }, [className])
 
     return (
 
@@ -125,12 +139,14 @@ const StudentOverview = observer((props: any) => {
                                 icon={<SearchIcon />}
                             />
                         </Grid>
+                        {console.log("html", teachersByClass)}
                         {className !== undefined ? 
                         <Grid item xs={2} md={3} lg={2} xl={2}>
                             <h5>Ansvarlig lærer: </h5>
-                            {teachersByClass.map(element => {
+                            {teachersByClass.length > 0 ? 
+                             teachersByClass.map(element => {
                                 return <h5 key={element.id}>{element.name}</h5>;
-                            })} 
+                            }) : <h5>Ingen ansvarlige lærere</h5>}
                         </Grid> : <></>}
                         
                     </Grid>
