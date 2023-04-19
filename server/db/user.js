@@ -88,8 +88,6 @@ const getTeachersBySchool = async (school) => {
 }
 
 const getTeachersByClass = async (school, className) => {
-    console.log("school in user:", school)
-    console.log("className in user:", className)
     const container = await CosmosConnector();
     const querySpec = {
         query: "SELECT * from c where (c.school = @school) AND ARRAY_CONTAINS(c.classes, @classes)",
@@ -101,7 +99,6 @@ const getTeachersByClass = async (school, className) => {
     const { resources: items } = await container.items
         .query(querySpec)
         .fetchAll();
-    console.log("teachers by class in user.js: ", items)
     return items
 }
 

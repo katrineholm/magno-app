@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import { withStyles } from '@material-ui/core/styles';
-import { useParams } from "react-router-dom"; // Import useParams hook from react-router-dom
+import { useParams } from "react-router-dom";
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import { getStudents, getTeachersByClass} from '../Communicator';
@@ -12,7 +12,6 @@ import SearchIcon from '@material-ui/icons/Search';
 import StudentTable from '../StudentTable';
 import StudentFormDialog from '../StudentFormDialog';
 import { Student, Teacher} from '../Interfaces';
-
 
 const styles = (theme: any) => ({
     container: {
@@ -32,9 +31,18 @@ const styles = (theme: any) => ({
         marginRight: "auto",
     },
     button: {
-
         height: "100%"
+    },
+    responsibleTeachers: {
+
+    },
+    teacherNames: {
+        color: '#2A646D'
+    },
+    noTeachers: {
+        color: "grey"
     }
+
 });
 
 /**
@@ -99,7 +107,7 @@ const FilteredStudentOverview = observer((props: any) => {
                             </Button>
                         </Grid>
 
-                        <Grid item xs={8} md={9} lg={8} xl={8}>
+                        <Grid item xs={5} md={4} lg={8} xl={4}>
                             <SearchField
                                 label={props.translation.students.searchFieldLabel}
                                 setValue={setValue}
@@ -109,16 +117,22 @@ const FilteredStudentOverview = observer((props: any) => {
                                 icon={<SearchIcon />}
                             />
                         </Grid>
-                        {className !== undefined ? 
-                        <Grid item xs={2} md={3} lg={2} xl={2}>
-                            <h5>Ansvarlig lærer: </h5>
-                            {console.log(teachers, teachers.length)}
-                            {teachers.length > 0 ? 
-                             teachers.map(element => {
-                                return <h5 key={element.id}>{element.name}</h5>;
-                            }) : <h5>Ingen ansvarlige lærere</h5>}
-                        </Grid> : <></>}
-                        
+                        <Grid item xs={5} md={5} lg={2} xl={2}>
+                            <Grid container spacing={1}>
+                                <Grid item className={classes.responsibleTeachers}> <h4>Ansvarlig lærer: </h4></Grid>
+                                {teachers.length > 0 ? 
+                                teachers.map((element, index) => {
+                                    return (
+                                        <Grid item direction="row" className={classes.teacherNames} key={element.id}>
+                                            {(index > 1) ? <h4>, </h4> : <></>}
+                                            <Grid item  xs={2} md={3} lg={2} xl={2} className={classes.teacherNames}>
+                                            <h4>{element.name}</h4>
+                                            </Grid>
+                                        </Grid>
+                                    );
+                                }) : <h4 className={classes.noTeachers}>Ingen ansvarlige lærere</h4>}
+                            </Grid>
+                        </Grid>
                     </Grid>
                     <div style={{ paddingTop: 16 }} />
                     <StudentTable

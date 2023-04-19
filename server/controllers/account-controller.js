@@ -122,10 +122,7 @@ const getTeachers = async (req, res) => {
 
 const getTeachersByClassC = async (req, res) => {
     const school = req.query.school
-    console.log("school: ", school)
-    console.log("GET TEACHERS BY CLASS IN CONTROLLER IS BEING CALLED")
     const className = req.query.className
-    console.log("className: ", className)
     const teachers = await getTeachersByClass(school, className)
     res.send({ teachers: teachers })
 }
