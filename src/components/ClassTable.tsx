@@ -9,7 +9,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import React, { useEffect } from 'react';
-import { Class, Teacher } from './Interfaces';
+import { Class } from './Interfaces';
 import {
   useNavigate,
 } from "react-router-dom";

@@ -3,9 +3,6 @@ import { observer } from 'mobx-react';
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import {
-    useNavigate,
-} from "react-router-dom";
 import { getClasses, getTeachers } from '../Communicator';
 import { Button, Paper } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
