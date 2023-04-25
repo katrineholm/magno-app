@@ -21,6 +21,7 @@ import "../css/styles.css";
 const styles = (theme: any) => ({
     container: {
         marginTop: theme.spacing(6),
+        marginBottom: theme.spacing(4),
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center' as "center",
@@ -32,7 +33,9 @@ const styles = (theme: any) => ({
         "&:hover": {
             backgroundColor: "#DCE1E7",
             color: "#33373A"
-        }
+        },
+        width: "50%",
+
     },
     selected: {
         "&$selected": {
@@ -42,7 +45,8 @@ const styles = (theme: any) => ({
         "&$selected:hover": {
             backgroundColor: "#acbabf",
             color: "#33373A"
-        }
+        },
+        width: "50%",
     }
 });
 
@@ -112,7 +116,6 @@ const Student = observer((props: any) => {
                     justifyContent="center"
                     container
                     spacing={6}
-
                 >
                     <Grid item style={{ justifySelf: 'center', justifyContent: 'center' }} xs={10} md={8} lg={4} xl={4}>
                         <RiskCard
@@ -122,58 +125,26 @@ const Student = observer((props: any) => {
                         />
                     </Grid>
                 </Grid>
-                {/* <Grid direction="row"
-                    alignItems="center"
-                    justifyContent="center"
-                    container
-                    spacing={6}
-                    style={{ backgroundColor: 'blue' }} */}
-                {/* > */}
 
-                {/* <Grid item style={{ justifySelf: 'center', justifyContent: 'center' }}> */}
-                {/* <Button
-                    style={{ backgroundColor: activeButton === resultPage ? 'grey' : 'white', color: activeButton === resultPage ? 'white' : 'black' }}
-                    className={activeButton === resultPage ? 'button-clicked' : 'button-not-clicked'}
-                    onClick={() => handleButtonClick(resultPage)}
-                >
-                    Resultater
-                </Button>
-                <Button
-                    style={{ backgroundColor: activeButton === infoPage ? 'grey' : 'white', color: activeButton === infoPage ? 'white' : 'black' }}
-                    className={activeButton === infoPage ? 'button-clicked' : 'button-not-clicked'}
-                    onClick={() => handleButtonClick(infoPage)}
-                >
-                    Informasjon
-                </Button> */}
-                {/* <StyledButton
-                    className={activeButton === resultPage ? classes.selected : classes.root}
-                    onClick={() => handleButtonClick(resultPage)}
-                >
-                    Resultater
-                </StyledButton>
-                <StyledButton
-                    className={activeButton === infoPage ? classes.selected : classes.root}
-                    onClick={() => handleButtonClick(infoPage)}
-                >
-                    Informasjon
-                </StyledButton> */}
-                <StyledButton
-                    className={activeButton === resultPage ? classes.selected : classes.root}
-                    onClick={() => handleButtonClick(resultPage)}
-                >
-                    Resultater
-                </StyledButton>
-                <StyledButton
-                    className={activeButton === infoPage ? classes.selected : classes.root}
-                    onClick={() => handleButtonClick(infoPage)}
-                >
-                    Informasjon
-                </StyledButton>
-                {/* </Grid> */}
+                <div className={classes.container}>
+                    <StyledButton
+                        className={activeButton === resultPage ? classes.selected : classes.root}
+                        onClick={() => handleButtonClick(resultPage)}
+                    >
+                        Resultater
+                    </StyledButton>
+                    <StyledButton
+                        className={activeButton === infoPage ? classes.selected : classes.root}
+                        onClick={() => handleButtonClick(infoPage)}
+                    >
+                        Informasjon
+                    </StyledButton>
+                </div>
+
                 {activeButton === resultPage && <StudentResultPage translation={props.translation} store={props.store} />}
                 {activeButton === infoPage && <StudentInformationPage prop1='Info' prop2={2} />}
 
-                {/* </Grid> */}
+
             </Container>
         </div>
     );
