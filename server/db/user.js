@@ -121,13 +121,16 @@ const addClassToUser = async (user, class_name) => {
 
 const removeClassFromUser = async (user, class_name) => {
     const container = await CosmosConnector();
-    console.log("er inne på add class to user")
+    console.log("er inne på remove class from user")
     console.log(user)
     // const index = user.classes.idexOf(class_id)
     // user.classes.splice(index,1)
+    user.classes.filter(item => console.log(item))
+    console.log(class_name) //classname er indefined
     const newClassList = user.classes.filter(item => item !== class_name)
+    console.log("new class list: ", newClassList) //filter metoden over funker ikke
     user.classes = newClassList
-    console.log("oppdatert bruker:")
+    console.log("oppdatert bruker: ")
     console.log(user)
 
     const { resource: updatedItem } = await container

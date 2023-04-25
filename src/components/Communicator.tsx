@@ -104,8 +104,6 @@ export async function addStudent(name: string, grade: string, school: string) {
     }
 }
 
-
-
 export async function getClasses() {
     const header = getHeader()
     try {
@@ -174,6 +172,29 @@ export async function getTeachersByClass(school: string, className: string){
         const { data } = await axios.get(url.getTeachersByClass, { params: params, headers: header })
         return data;
     }
+    catch (error) {
+        if (axios.isAxiosError(error)) {
+            console.log('error message: ', error.message);
+            return error.message;
+        } else {
+            console.log('unexpected error: ', error);
+            return 'An unexpected error occurred';
+        }
+    }
+}
+
+export async function removeTeacherFromClass(teacherId: string, className?: string) {
+    const header = getHeader();
+    const params = {
+        teacherId: teacherId, 
+        className: className,
+    }
+    try {
+        //const { data } = await axios.put(url.removeTeacherFromClass,  { params: params, headers: header }) //sånn her var det først 
+        const { data } = await axios.put(url.removeTeacherFromClass, params, { headers: header });
+        return data;
+
+    } 
     catch (error) {
         if (axios.isAxiosError(error)) {
             console.log('error message: ', error.message);

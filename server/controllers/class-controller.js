@@ -95,33 +95,31 @@ const assignTeacherToClass = async (req, res) => {
 
 const removeTeacherFromClass = async (req, res) => { //put
     //Dersom bruker er verifisert og bruker er admin så skal denne kjøre
-    console.log("starter nå")
+    console.log("kommer til removeteacerfromclass i controller")
 
-    const teacher_mail = req.body.email //mailen til læreren??
-    //const teacher = getUserByEmail(teacher_mail)
-    const class_name = req.body.classname
-    const teacher = await getUserByEmail(teacher_mail)
-    const grade = await getClassByName(class_name, teacher.school)
-
+    const teacher_id = req.body.teacherId
+    const class_name = req.body.className
+    const teacher = await getUserById(teacher_id)
+    const class_object = await getClassByName(class_name)
+  /**  
     if (!teacher.classes.includes(class_name)) {
-        //Hvis læreren allerede er ansvarlig for klassen
+        //Hvis læreren ikke er ansvarlig for klassen
         return res.status(400).json({ message: "Læreren er ikke ansvarlig for klassen" })
     }
-    if (!grade.teacher.includes(teacher.id)) {
-        //Hvis læreren allerede er ansvarlig for klassen
+    if (!grade.teacher.includes(teacher_id)) {
+        //Hvis læreren ikke er ansvarlig for klassen
         return res.status(400).json({ message: "Læreren er ikke ansvarlig for klassen" })
-    }
+    }*/  
+    console.log("classname som sendes inn: ", class_name)
     removeClassFromUser(teacher, class_name)
-    deleteTeacherFromClass(grade, teacher.id)
+    deleteTeacherFromClass(teacher.id, class_object)
     response = { 'result': 'Success removing teacher from class' }
     res.send(response)
 }
-
 
 module.exports = {
     getClasses,
     assignTeacherToClass,
     removeTeacherFromClass,
     postCreateClass
-
 }

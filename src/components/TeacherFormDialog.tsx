@@ -9,6 +9,8 @@ import { useState } from 'react';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { FormControl, InputLabel, MenuItem, Select, List, ListItem, IconButton, ListItemText, ListItemSecondaryAction, DialogContentText, DialogActions } from '@material-ui/core';
 import { Teacher } from './Interfaces';
+import { removeTeacherFromClass } from './Communicator';
+import { useParams } from 'react-router';
 //import { v4 as uuidv4 } from 'uuid';
 
 const styles = (theme: any) => ({
@@ -57,26 +59,39 @@ function TeacherFormDialog(props: TeacherFormDialogProps) {
     function handleDeleteTeacher(teacher: Teacher) {
         setDeleteTeacher(teacher);
         setOpenDeleteDialog(true);
-      }
+    }
     
     function handleTeacherChange(event: React.ChangeEvent<{ value: string | unknown }>) {
     setTeacherToAdd(event.target.value);
     }
 
-    function handleDeleteConfirmation() {
+    async function handleDeleteConfirmation() {
+        console.log("deleteTeacher: ", deleteTeacher)
+        console.log(props.className)
         if (deleteTeacher) {
-          // remove teacher from class (write the code backend)
+          const data = await removeTeacherFromClass(deleteTeacher.id, props.className)
+          if (data !== undefined) {
+            if (data.result.includes("Success")) {
+                props.store.viewStore.setOpenSnackBar(true);
+                props.setOpen(false)
+            }
+            else {
+                props.store.viewStore.setSnackBar(props.translation.classFormDialog.errorMessage, 'error');
+                props.store.viewStore.setOpenSnackBar(true);
+                props.setOpen(false)
+            }
 
           console.log("KLIKKET PÅ DELETE OG SKAL DELETE: ", deleteTeacher);
           setDeleteTeacher(null);
           setOpenDeleteDialog(false);
         }
       }
+    }
     
-      function handleDeleteCancel() {
-        setDeleteTeacher(null);
-        setOpenDeleteDialog(false);
-      }
+    function handleDeleteCancel() {
+    setDeleteTeacher(null);
+    setOpenDeleteDialog(false);
+    }
 
     async function handleSubmit(e: React.SyntheticEvent) {
         e.preventDefault();

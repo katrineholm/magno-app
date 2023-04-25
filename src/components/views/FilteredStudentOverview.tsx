@@ -96,7 +96,7 @@ const FilteredStudentOverview = observer((props: any) => {
                     <Grid container spacing={2}>
                         <Grid item direction="row" className={classes.responsibleTeachers}> <h4>Ansvarlige lærere: </h4></Grid>
                         <Grid container alignItems="center"  xs={10} md={10} lg={10} xl={10} spacing={0}>
-                                {teachers.length > 0 ? 
+                                {teachers.length > 0 ? //denne er null når den "router" tilbake etter en delete av teacher?
                                 teachers.map((element, index) => {
                                     return (
                                         <React.Fragment key={element.id}>
