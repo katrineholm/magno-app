@@ -14,6 +14,22 @@ async function CosmosConnector() {
     return container;
 }
 
+const getStudentById = async (id) => {
+    const container = await CosmosConnector();
+    const querySpec = {
+        query: "SELECT * from c where c.id = @id",
+        "parameters": [
+            { "name": "@id", "value": id }
+        ]
+    };
+    const { resources: items } = await container.items
+        .query(querySpec)
+        .fetchAll();
+    return items[0]
+}
+
+
+
 const getStudentsBySchool = async (school) => {
     console.log("Skolen de går på:")
     console.log(school)
@@ -58,9 +74,15 @@ const createStudent = async (newStudent) => {
     const container = await CosmosConnector();
     return container.items.create(newStudent)
 }
+const updateInformation = async (student, newInformation) => {
+    const container = await CosmosConnector();
+    student.information = newInformation;
+    const { resource: updatedItem } = await container
+        .item(student.id)
+        .replace(student);
+    return updatedItem;
 
-
-
+}
 
 
 
@@ -68,5 +90,7 @@ const createStudent = async (newStudent) => {
 module.exports = {
     getStudentsBySchool,
     getStudentsByClasses,
-    createStudent
+    createStudent,
+    getStudentById,
+    updateInformation
 }
