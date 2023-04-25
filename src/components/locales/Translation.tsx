@@ -93,6 +93,15 @@ export default interface Translation {
         errorMessage: string,
         successMessage: string,
     },
+    teacherFormDialog:{
+        title: string, 
+        titleAdd: string,
+        labelTeachers: string, 
+        labelNewTeacher: string,
+        buttonLabel: string,
+        errorMessage: string, 
+        successMessage: string,
+    },
     chart:{
         averageLabel: string,
     },

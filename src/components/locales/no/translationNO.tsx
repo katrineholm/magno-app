@@ -96,7 +96,7 @@ export const translationNO: Translation = {
         labelLastName: "Etternavn",
         labelGrade: "Klasse",
         buttonLabel: "Legg til elev",
-        errorMessage: "En ukjent feil oppsto",
+        errorMessage: "En ukjent feil oppstod",
         successMessage: " ble lagt til",
     },
     classFormDialog: {
@@ -105,8 +105,17 @@ export const translationNO: Translation = {
         labelClassLetter: "Klasse",
         labelTeacher: "Ansvarlig lærer",
         buttonLabel: "Legg til klasse",
-        errorMessage: "En ukjent feil oppsto",
+        errorMessage: "En ukjent feil oppstod",
         successMessage: " ble lagt til",
+    },
+    teacherFormDialog: {
+        title: "Lærere som har tilgang til klassen",
+        titleAdd: "Legg til lærer",
+        labelNewTeacher: "Legg til lærer",
+        labelTeachers: "Lærere som har tilgang",
+        errorMessage: "En ukjent feil oppstod",
+        successMessage: " ble lagt til",
+        buttonLabel: "Legg til lærer"
     },
     chart: {
         averageLabel: "Gjennomsnitt",

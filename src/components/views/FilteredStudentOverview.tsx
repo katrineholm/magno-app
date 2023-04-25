@@ -11,7 +11,10 @@ import SearchField from '../SearchField';
 import SearchIcon from '@material-ui/icons/Search';
 import StudentTable from '../StudentTable';
 import StudentFormDialog from '../StudentFormDialog';
+import TeacherFormDialog from '../TeacherFormDialog';
 import { Student, Teacher} from '../Interfaces';
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
 
 const styles = (theme: any) => ({
     container: {
@@ -33,16 +36,13 @@ const styles = (theme: any) => ({
     button: {
         height: "100%"
     },
-    responsibleTeachers: {
-
-    },
     teacherNames: {
-        color: '#2A646D'
+        color: '#2A646D',
+        backgroundColor: "green"
     },
     noTeachers: {
-        color: "grey"
+        color: "grey",
     }
-
 });
 
 /**
@@ -56,6 +56,7 @@ const FilteredStudentOverview = observer((props: any) => {
     const [value, setValue] = useState("");
     const { className } = useParams(); // Use useParams hook to access the className from the URL parameters
     const [open, setOpen] = useState(false);
+    const [openEditTeachers, setOpenEditTeachers] = useState(false);
     const [students, setStudents] = React.useState<Array<Student>>([])
     const [teachers, setTeachers] = React.useState<Array<Teacher>>([])
     
@@ -77,6 +78,7 @@ const FilteredStudentOverview = observer((props: any) => {
         setStudents(filteredStudents);
     }
 
+
     useEffect(() => {
         fetchStudents()
         filterByClassName(students);
@@ -90,6 +92,39 @@ const FilteredStudentOverview = observer((props: any) => {
         <div>
             <Container maxWidth="xl" className={classes.container}>
                 <Paper className={classes.paper}>
+
+                    <Grid container spacing={2}>
+                        <Grid item direction="row" className={classes.responsibleTeachers}> <h4>Ansvarlige lærere: </h4></Grid>
+                        <Grid container alignItems="center"  xs={10} md={10} lg={10} xl={10} spacing={0}>
+                                {teachers.length > 0 ? 
+                                teachers.map((element, index) => {
+                                    return (
+                                        <React.Fragment key={element.id}>
+                                            {(index > 1) ? <Grid item className='teacherNames'><h4 >,&nbsp; </h4></Grid> : <Grid item className='teacherNames'><h4></h4></Grid>}
+                                            <Grid item className='teacherNames'><h4>{element.name}</h4></Grid>
+                                        </React.Fragment>
+                                    );
+                                }) : <h4 className={classes.noTeachers}>Ingen ansvarlige lærere</h4>}
+                        </Grid>
+                        <Grid item>
+                            <IconButton
+                                onClick={() => setOpenEditTeachers(true)}>
+                                <EditIcon />
+                            </IconButton>
+                        </Grid>
+                    </Grid>
+
+                    <TeacherFormDialog
+                        store={props.store}
+                        open={openEditTeachers}
+                        translation={props.translation}
+                        setOpen={setOpenEditTeachers}
+                        teachers={teachers}
+                        className={className}
+                        >
+
+                    </TeacherFormDialog>
+
                     <Grid direction="row"
                         container
                         spacing={2}
@@ -117,22 +152,7 @@ const FilteredStudentOverview = observer((props: any) => {
                                 icon={<SearchIcon />}
                             />
                         </Grid>
-                        <Grid item xs={5} md={5} lg={2} xl={2}>
-                            <Grid container spacing={1}>
-                                <Grid item className={classes.responsibleTeachers}> <h4>Ansvarlig lærer: </h4></Grid>
-                                {teachers.length > 0 ? 
-                                teachers.map((element, index) => {
-                                    return (
-                                        <Grid item direction="row" className={classes.teacherNames} key={element.id}>
-                                            {(index > 1) ? <h4>, </h4> : <></>}
-                                            <Grid item  xs={2} md={3} lg={2} xl={2} className={classes.teacherNames}>
-                                            <h4>{element.name}</h4>
-                                            </Grid>
-                                        </Grid>
-                                    );
-                                }) : <h4 className={classes.noTeachers}>Ingen ansvarlige lærere</h4>}
-                            </Grid>
-                        </Grid>
+                      
                     </Grid>
                     <div style={{ paddingTop: 16 }} />
                     <StudentTable
