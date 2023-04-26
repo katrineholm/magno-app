@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import { getStudents, getTeachersByClass} from '../Communicator';
-import { Button, Paper } from '@material-ui/core';
+import { Button, Paper, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import SearchField from '../SearchField';
 import SearchIcon from '@material-ui/icons/Search';
@@ -15,6 +15,7 @@ import TeacherFormDialog from '../TeacherFormDialog';
 import { Student, Teacher} from '../Interfaces';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
+import StudentInClassFormDialog from '../StudentInClassFormDialog';
 
 const styles = (theme: any) => ({
     container: {
@@ -93,20 +94,24 @@ const FilteredStudentOverview = observer((props: any) => {
             <Container maxWidth="xl" className={classes.container}>
                 <Paper className={classes.paper}>
 
+                <Typography variant="h5" style={{ textAlign: 'center' }}>
+                    {props.translation.classFormDialog.labelClassLetter} {className}
+                </Typography>
+
                     <Grid container spacing={2}>
-                        <Grid item direction="row" className={classes.responsibleTeachers}> <h4>Ansvarlige lærere: </h4></Grid>
+                        <Grid item direction="row" className={classes.responsibleTeachers}> <h3>Ansvarlige lærere: </h3></Grid>
                         <Grid container alignItems="center"  xs={10} md={10} lg={10} xl={10} spacing={0}>
                                 {teachers.length > 0 ? //denne er null når den "router" tilbake etter en delete av teacher?
                                 teachers.map((element, index) => {
                                     return (
                                         <React.Fragment key={element.id}>
-                                            {(index >= 1) ? <Grid item className='teacherNames'><h4 >,&nbsp; </h4></Grid> : <Grid item className='teacherNames'><h4></h4></Grid>}
-                                            <Grid item className='teacherNames'><h4>{element.name}</h4></Grid>
+                                            {(index >= 1) ? <Grid item className='teacherNames'><h3 >,&nbsp; </h3></Grid> : <Grid item className='teacherNames'><h3></h3></Grid>}
+                                            <Grid item className='teacherNames'><h3>{element.name}</h3></Grid>
                                         </React.Fragment>
                                     );
-                                }) : <h4 className={classes.noTeachers}>Ingen ansvarlige lærere</h4>}
+                                }) : <h3 className={classes.noTeachers}>Ingen ansvarlige lærere</h3>}
                         </Grid>
-                        <Grid item>
+                        <Grid item >
                             <IconButton
                                 onClick={() => setOpenEditTeachers(true)}>
                                 <EditIcon />
@@ -165,12 +170,13 @@ const FilteredStudentOverview = observer((props: any) => {
                 </Paper>
 
             </Container>
-            <StudentFormDialog
+            <StudentInClassFormDialog
                 store={props.store}
                 open={open}
                 translation={props.translation}
                 setOpen={setOpen}
                 fetchStudents={fetchStudents}
+                classNameProp={className}
             />
         </div>
     );
