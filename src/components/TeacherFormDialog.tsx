@@ -137,7 +137,9 @@ function TeacherFormDialog(props: TeacherFormDialogProps) {
                             onChange={handleTeacherChange}
                         >
                             <MenuItem value="">{props.translation.classFormDialog.noTeacherOption}</MenuItem>
-                            {props.store.teacherStore.teacherList.map((teacher: any, index: number) => (
+                            {props.store.teacherStore.teacherList
+                            .filter((item: Teacher) => !props.teachers.some((t: Teacher) => t.id === item.id))
+                            .map((teacher: any, index: number) => (
                                 <MenuItem key={index} value={teacher.id}>{teacher.name}</MenuItem>
                             ))}
                         </Select>
@@ -162,20 +164,20 @@ function TeacherFormDialog(props: TeacherFormDialogProps) {
                 aria-describedby="alert-dialog-description"
             >
             <DialogTitle id="alert-dialog-title">
-            {"Fjerne lærer fra klassen?"}
+            {props.translation.teacherFormDialog.alertTitle}
             </DialogTitle>
             <DialogContent>
             <DialogContentText id="alert-dialog-description">
-                Er du sikker på at du vil fjerne{" "}
-                {deleteTeacher ? deleteTeacher.name : ""} sin tilgang til klasse {props.className}?
+                {props.translation.teacherFormDialog.areYouSure1}{" "}
+                {deleteTeacher ? deleteTeacher.name : ""} {props.translation.teacherFormDialog.areYouSure2} {props.className}?
             </DialogContentText>
             </DialogContent>
             <DialogActions>
             <Button onClick={handleDeleteCancel} color="primary">
-                Avbryt
+                {props.translation.teacherFormDialog.cancel}
             </Button>
             <Button onClick={handleDeleteConfirmation} color="primary" autoFocus>
-                Fortsett
+                {props.translation.teacherFormDialog.confirm}
             </Button>
             </DialogActions>
         </Dialog>

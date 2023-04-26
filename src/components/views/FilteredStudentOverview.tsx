@@ -100,7 +100,7 @@ const FilteredStudentOverview = observer((props: any) => {
                                 teachers.map((element, index) => {
                                     return (
                                         <React.Fragment key={element.id}>
-                                            {(index > 1) ? <Grid item className='teacherNames'><h4 >,&nbsp; </h4></Grid> : <Grid item className='teacherNames'><h4></h4></Grid>}
+                                            {(index >= 1) ? <Grid item className='teacherNames'><h4 >,&nbsp; </h4></Grid> : <Grid item className='teacherNames'><h4></h4></Grid>}
                                             <Grid item className='teacherNames'><h4>{element.name}</h4></Grid>
                                         </React.Fragment>
                                     );

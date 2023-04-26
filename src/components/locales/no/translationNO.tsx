@@ -115,7 +115,12 @@ export const translationNO: Translation = {
         labelTeachers: "Lærere som har tilgang",
         errorMessage: "En ukjent feil oppstod",
         successMessage: " ble lagt til",
-        buttonLabel: "Legg til lærer"
+        buttonLabel: "Legg til lærer",
+        alertTitle: "Fjerne lærer fra klassen?",
+        areYouSure1: "Er du sikker på at du vil fjerne", 
+        areYouSure2: "sin tilgang til klasse",
+        cancel: "Avbryt", 
+        confirm: "Fortsett"
     },
     chart: {
         averageLabel: "Gjennomsnitt",

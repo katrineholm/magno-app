@@ -101,6 +101,11 @@ export default interface Translation {
         buttonLabel: string,
         errorMessage: string, 
         successMessage: string,
+        alertTitle: string,
+        areYouSure1: string, 
+        areYouSure2: string,
+        cancel: string, 
+        confirm: string
     },
     chart:{
         averageLabel: string,
