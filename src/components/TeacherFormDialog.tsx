@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -9,8 +8,7 @@ import { useState } from 'react';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { FormControl, InputLabel, MenuItem, Select, List, ListItem, IconButton, ListItemText, ListItemSecondaryAction, DialogContentText, DialogActions } from '@material-ui/core';
 import { Teacher } from './Interfaces';
-import { removeTeacherFromClass } from './Communicator';
-import { useParams } from 'react-router';
+import { assignTeacherToClass, removeTeacherFromClass } from './Communicator';
 //import { v4 as uuidv4 } from 'uuid';
 
 const styles = (theme: any) => ({
@@ -53,7 +51,7 @@ interface TeacherFormDialogProps {
 function TeacherFormDialog(props: TeacherFormDialogProps) {
     const [deleteTeacher, setDeleteTeacher] = useState<Teacher | null>(null);
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
-    const [teacherToAdd, setTeacherToAdd] = useState<string | unknown>("");
+    const [addTeacher, setAddTeacher] = useState<string>("");
     const { classes } = props;
 
     function handleDeleteTeacher(teacher: Teacher) {
@@ -61,13 +59,10 @@ function TeacherFormDialog(props: TeacherFormDialogProps) {
         setOpenDeleteDialog(true);
     }
     
-    function handleTeacherChange(event: React.ChangeEvent<{ value: string | unknown }>) {
-    setTeacherToAdd(event.target.value);
+    function handleTeacherChange(event: React.ChangeEvent<{ value: unknown }>) {
+        setAddTeacher(event.target.value as string);
     }
-
     async function handleDeleteConfirmation() {
-        console.log("deleteTeacher: ", deleteTeacher)
-        console.log(props.className)
         if (deleteTeacher) {
           const data = await removeTeacherFromClass(deleteTeacher.id, props.className)
           if (data !== undefined) {
@@ -80,8 +75,6 @@ function TeacherFormDialog(props: TeacherFormDialogProps) {
                 props.store.viewStore.setOpenSnackBar(true);
                 props.setOpen(false)
             }
-
-          console.log("KLIKKET PÅ DELETE OG SKAL DELETE: ", deleteTeacher);
           setDeleteTeacher(null);
           setOpenDeleteDialog(false);
         }
@@ -89,12 +82,15 @@ function TeacherFormDialog(props: TeacherFormDialogProps) {
     }
     
     function handleDeleteCancel() {
-    setDeleteTeacher(null);
-    setOpenDeleteDialog(false);
+        setDeleteTeacher(null);
+        setOpenDeleteDialog(false);
     }
 
     async function handleSubmit(e: React.SyntheticEvent) {
         e.preventDefault();
+        if ((addTeacher && addTeacher !== "") && props.className !== undefined) {
+            const data = await assignTeacherToClass(addTeacher, props.className)
+        }
     }
 
     return (
@@ -136,7 +132,7 @@ function TeacherFormDialog(props: TeacherFormDialogProps) {
                         <InputLabel style={{ paddingLeft: 7 }} id="select-teacher">{props.translation.teacherFormDialog.labelNewTeacher}</InputLabel>
                         <Select
                             id="teacher"
-                            value={teacherToAdd}
+                            value={addTeacher}
                             label={props.translation.teacherFormDialog.labelNewTeacher}
                             onChange={handleTeacherChange}
                         >

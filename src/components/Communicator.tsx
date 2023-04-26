@@ -204,3 +204,24 @@ export async function removeTeacherFromClass(teacherId: string, className?: stri
         }
     }
 }
+
+export async function assignTeacherToClass(teacherId: string, className: string) {
+    const header = getHeader();
+    const params = {
+        teacherId: teacherId, 
+        className: className,
+    }
+    try {
+        const { data } = await axios.put(url.assignTeacherToClass, params, { headers: header });
+        return data;
+    } 
+    catch (error) {
+        if (axios.isAxiosError(error)) {
+            console.log('error message: ', error.message);
+            return error.message;
+        } else {
+            console.log('unexpected error: ', error);
+            return 'An unexpected error occurred';
+        }
+    }
+}

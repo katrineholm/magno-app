@@ -72,23 +72,23 @@ const postCreateClass = async (req, res) => {
 }
 
 const assignTeacherToClass = async (req, res) => {
-    console.log("starter nå")
+    console.log("starter assign teacher to class nå")
 
-    const teacher_mail = req.body.email
-    const class_name = req.body.classname
-    const teacher = await getUserByEmail(teacher_mail)
-    const grade = await getClassByName(class_name, teacher.school)
+    const teacher_id = req.body.teacherId
+    const class_name = req.body.className
+    const teacher = await getUserById(teacher_id)
+    const class_object = await getClassByName(class_name, teacher.school)
 
     if (teacher.classes.includes(class_name)) {
         //Hvis læreren allerede er ansvarlig for klassen
         return res.status(400).json({ message: "Læreren er allerede ansvarlig for klassen" })
     }
-    if (grade.teacher.includes(teacher.id)) {
+    if (class_object.teacher.includes(teacher.id)) {
         //Hvis læreren allerede er ansvarlig for klassen
         return res.status(400).json({ message: "Læreren er allerede ansvarlig for klassen" })
     }
     addClassToUser(teacher, class_name)
-    addTeacherToClass(grade, teacher.id)
+    addTeacherToClass(class_object, teacher.id)
     response = { 'result': 'Success assigning teacher to class' }
     res.send(response)
 }
