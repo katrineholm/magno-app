@@ -6,6 +6,11 @@ import DialogActions from "@material-ui/core/DialogActions";
 import { Typography, Button } from '@material-ui/core';
 import TextField from "@material-ui/core/TextField";
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { updateStudentInformation } from './Communicator';
+import { resourceLimits } from "worker_threads";
+import { StudentStore } from "./stores/StudentStore";
+
+
 
 
 const styles = (theme: any) => ({
@@ -35,43 +40,36 @@ interface InformationFormProps {
     open: boolean;
     onClose: () => void;
     onSubmit: (formData: FormData) => void;
+    store: any;
 }
 
 
 interface FormData {
-    field_dyslexia_in_family: string;
-    field_vision_examination: string;
     [key: string]: string; // Add index signature for dynamic keys
 }
 
 
-const InformationForm: React.FC<InformationFormProps> = ({ open, onClose, onSubmit }) => {
-    const options = ["ja", "nei", "vet ikke"];
-    // const [dyslexiaInFamily, setDyslexiaInFamily] = useState('');
-    // const [visionExamination, setVisionExamination] = useState('');
-    // const [hearingExamination, setHearingExamination] = useState('');
-    // const [inputValue, setInputValue] = useState("");
+const InformationForm: React.FC<InformationFormProps> = ({ open, onClose,
+    onSubmit, store }) => {
+    const options = ["Ja", "Nei", "Vet ikke"];
     const [formData, setFormData] = useState<FormData>({
-        field_dyslexia_in_family: "",
-        field_vision_examination: "",
+        dyslexia_in_family: "",
+        vision_examination: "",
+        hearing_examination: "",
     });
 
-
-    // const handleDyslexiaInFamilyChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    //     setDyslexiaInFamily(event.target.value as string);
-    // };
-    // const handleVisionExaminationChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    //     setVisionExamination(event.target.value as string);
-    // };
-    // const handleHearingExaminationChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    //     setHearingExamination(event.target.value as string);
-    // };
-
-    const handleSubmit = () => {
-        console.log(formData)
+    const handleSubmit = async () => {
+        console.log("formData: ", formData)
         //Oppdatere student store
         //Sende endringer til backend i databasen
-        onSubmit(formData);
+        // console.log("student:", store.studentStore.student.name)
+        const updatedStudent = await updateStudentInformation(formData.dyslexia_in_family, formData.vision_examination, formData.hearing_examination, store.studentStore.student.id)
+        // console.log("IDen", updatedStudent.id)
+       
+        // store.studentStore.setStudent(updatedStudent.id)
+        console.log("result", updatedStudent)
+        // onSubmit(formData);
+        onSubmit(updatedStudent)
     };
 
     const handleClose = () => {
@@ -89,9 +87,9 @@ const InformationForm: React.FC<InformationFormProps> = ({ open, onClose, onSubm
 
             <DialogContent>
                 {[
-                    { field: "field_dyslexia_in_family", label: "Er det kjennskap til dysleksi i familien?" },
-                    { field: "field_vision_examination", label: "Er det gjennomført synsundersøkelse?" },
-                    { field: "field_hearing_examination", label: "Er det gjennomført hørselsundersøkelse?" }
+                    { field: "dyslexia_in_family", label: "Er det kjennskap til dysleksi i familien?" },
+                    { field: "vision_examination", label: "Er det gjennomført synsundersøkelse?" },
+                    { field: "hearing_examination", label: "Er det gjennomført hørselsundersøkelse?" }
                 ].map((fieldData, index) => (
                     <FormControl variant="outlined" fullWidth key={index}>
                         <Typography>{fieldData.label}</Typography>

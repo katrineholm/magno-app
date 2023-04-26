@@ -3,90 +3,91 @@ import { Card, CardContent, Typography, Button, makeStyles } from '@material-ui/
 import InformationFormDialog from '../InformationFormDialog';
 import AddIcon from '@material-ui/icons/Add';
 
-// Props interface
 interface StudentInformationPageProps {
-  prop1: string;
-  prop2: number;
+  translation: any;
+  store: any;
 }
-
-// interface FormDataType {
-//   // Define the type for formData
-//   // Example fields, replace with actual form field names and types
-//   field1: string;
-//   field2: number;
-//   field3: boolean;
-// }
 
 //CSS: 
 const useStyles = makeStyles((theme) => ({
   card: {
-    // Define your card styles here
     maxWidth: 600,
     margin: '0 auto',
     marginTop: theme.spacing(6),
     boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.1)',
   },
   content: {
-    // Define your card content styles here
     padding: theme.spacing(2),
   },
   button: {
-    // Define your button styles here
     marginTop: theme.spacing(2),
-    textTransform: 'none', // Remove text transformation (e.g., uppercase)
+    textTransform: 'none',
 
   }
 }));
 
+const StudentInformationPage: React.FC<StudentInformationPageProps> = ({ translation, store }) => {
 
-// Component
-const StudentInformationPage: React.FC<StudentInformationPageProps> = ({ prop1, prop2 }) => {
-  // State hooks
-  const [information, setInformation] = useState<boolean>(false); // Example of a string state
+  const [studentHasInformation, setStudentHasInformation] = useState<boolean>(false); // Example of a string state
   const [openDialog, setOpenDialog] = useState(false);
-  // const [state2, setState2] = useState<number>(0); // Example of a number state
+
   const classes = useStyles();
 
+  // const studentInformationExist = (information: any) => {
+  //   console.log(information);
+  //   let hasInformation = false;
+  //   for (const key in information) {
+  //     if (Object.hasOwnProperty.call(information, key) && information[key] !== "") {
+  //       hasInformation = true;
+  //       break;
+  //     }
+  //   }
+  //   setStudentHasInformation(hasInformation);
+  // };
 
   const handleOpenDialog = () => {
-    setOpenDialog(true); // Set openDialog state to true to open the dialog
+    setOpenDialog(true);
   };
 
   const handleCloseDialog = () => {
-    setOpenDialog(false); // Set openDialog state to false to close the dialog
+    setOpenDialog(false);
   };
 
-  const handleSubmitForm = () => {
-    console.log("Form data submitted:"); // Handle form data submission
-    // console.log(formData)
-    handleCloseDialog(); // Close the dialog after form submission
+  const handleSubmitForm = (student: any) => {
+    store.studentStore.setStudentInformation(student.id, student.information)
+    handleCloseDialog();
   };
-
-
 
   const informationContent = (
     <CardContent className={classes.content}>
       <Typography variant="h6" gutterBottom>
-        {prop1}
+        Informasjon
       </Typography>
-      <Typography variant="body1">{prop2}</Typography>
-      <Button
+      <Typography align="left">
+        Er det kjennskap til dysleksi i familien: {store.studentStore.student.information.dyslexia_in_family}
+      </Typography>
+      <Typography align="left">
+        Er synsundersøkelse gjennomført: {store.studentStore.student.information.vision_examination}
+      </Typography>
+      <Typography align="left">
+        Er hørselsundersøkelse gjennomført: {store.studentStore.student.information.hearing_examination}
+      </Typography>
+      {/* <Button
         variant="contained"
         color="primary"
         className={classes.button}
       // onClick={onButtonClick}
       >
         Har info
-      </Button>
+      </Button> */}
 
     </CardContent>
-
   )
 
   const noInformationContent = (
     <CardContent className={classes.content}>
       <Typography variant="h6" gutterBottom>
-        {prop1}
+        Informasjon
       </Typography>
       <Typography variant="body1">Det er ikke fylt inn noen informasjon om eleven ennå</Typography>
       <Button
@@ -103,34 +104,27 @@ const StudentInformationPage: React.FC<StudentInformationPageProps> = ({ prop1, 
         open={openDialog}
         onClose={handleCloseDialog}
         onSubmit={handleSubmitForm}
+        store={store}
       />
-
-
-
 
     </CardContent>
   )
   const handleButtonClick = () => {
-    setInformation(!information);
+    setStudentHasInformation(!studentHasInformation);
   }
 
-
-
-  // Effect hook
   useEffect(() => {
-    // Code to run on component mount or when state/props change
-    // Example: fetch data, subscribe to events, etc.
-    return () => {
-      // Cleanup code (optional)
-      // Example: unsubscribe from events, clean up resources, etc.
-    };
-  }, [prop1, prop2]); // Dependency array
-
-  // Component JSX
+    const studentInfo = store.studentStore.student.information;
+    const hasInformation = Object.values(studentInfo).some(val => val !== "");
+    if (hasInformation) {
+      setStudentHasInformation(hasInformation);
+    }
+    // return () => {
+    //   // Add cleanup logic here if needed
+    // };
+  }, [JSON.stringify(store.studentStore.student.information)]);
   return (
     <div>
-      {/* <h1>{prop1}</h1>
-      <p>{prop2}</p> */}
       <Button
         variant="contained"
         color="primary"
@@ -141,7 +135,7 @@ const StudentInformationPage: React.FC<StudentInformationPageProps> = ({ prop1, 
       </Button>
 
       <Card className={classes.card}>
-        {information ? informationContent : noInformationContent}
+        {studentHasInformation ? informationContent : noInformationContent}
       </Card>
 
     </div>
@@ -149,3 +143,4 @@ const StudentInformationPage: React.FC<StudentInformationPageProps> = ({ prop1, 
 };
 
 export default StudentInformationPage;
+

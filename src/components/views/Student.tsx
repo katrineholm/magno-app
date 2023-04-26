@@ -142,7 +142,7 @@ const Student = observer((props: any) => {
                 </div>
 
                 {activeButton === resultPage && <StudentResultPage translation={props.translation} store={props.store} />}
-                {activeButton === infoPage && <StudentInformationPage prop1='Info' prop2={2} />}
+                {activeButton === infoPage && <StudentInformationPage translation={props.translation}  store={props.store} />}
 
 
             </Container>
