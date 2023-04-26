@@ -190,7 +190,6 @@ export async function removeTeacherFromClass(teacherId: string, className?: stri
         className: className,
     }
     try {
-        //const { data } = await axios.put(url.removeTeacherFromClass,  { params: params, headers: header }) //sånn her var det først 
         const { data } = await axios.put(url.removeTeacherFromClass, params, { headers: header });
         return data;
 

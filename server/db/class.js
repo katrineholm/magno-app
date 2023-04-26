@@ -91,13 +91,10 @@ const addTeacherToClass = async (grade, teacher_id) => {
 const deleteTeacherFromClass = async (teacher_id, class_object) => {
     const container = await CosmosConnector()
 
-    console.log("er inne på delete teacher from class")
-    console.log(class_object) //denne er null
+    console.log(class_object) 
+    
     const newTeacherList = class_object.teacher.filter(item => item !== teacher_id)
-    console.log("new filtered teacher list in class: ", newTeacherList)
     class_object.teacher = newTeacherList
-    console.log("oppdatert bruker:")
-    console.log("grade: ", class_object)
 
     const { resource: updatedItem } = await container
         .item(class_object.id)
