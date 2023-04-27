@@ -3,10 +3,6 @@ import { observer } from 'mobx-react';
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import { useCookies } from 'react-cookie';
-import {
-    useNavigate,
-} from "react-router-dom";
 import { getClasses, getTeachers } from '../Communicator';
 import { Button, Paper } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
@@ -37,7 +33,6 @@ const styles = (theme: any) => ({
     }
 });
 
-
 /**
  *
  *
@@ -49,7 +44,6 @@ const ClassOverview = observer((props: any) => {
     const [open, setOpen] = useState(false);
     const [filteredClasses, setFilteredClasses] = React.useState<Array<Class>>([]);
     const [teachers, setTeachers] = React.useState<Array<Teacher>>([]);
-    const navigate = useNavigate();
 
     async function fetchClasses() {
         const schoolClasses = await getClasses();
@@ -110,7 +104,6 @@ const ClassOverview = observer((props: any) => {
                         order={props.order}
                         orderBy={props.orderBy}
                         schoolClasses={filteredClasses}
-                        // schoolClasses={props.store.classStore.classList}
                         translation={props.translation} />
                 </Paper>
 

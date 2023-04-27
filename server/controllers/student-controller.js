@@ -19,11 +19,9 @@ const getStudents = async (req, res) => {
 
     if (userIsAdmin(user)) {
         const students = await getStudentsBySchool(school)
-        console.log(students)
         res.send({ students: students })
     }
     else if (userIsBasic(user)) {
-        console.log("User is teacher")
         const students = await getStudentsByClasses(user)
         return res.json({ students: students })
     }
@@ -46,7 +44,6 @@ const addStudent = async (req, res) => {
     const random_form_test = [];
 
     const existingClass = await getClassByName(grade, school);
-    console.log(existingClass)
     if (existingClass === null) {
         res.status(400).json({ message: "Finnes ingen klasse" })
     }

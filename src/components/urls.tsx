@@ -26,6 +26,16 @@ export const addClassURL = `${baseURL}/create-class`;
 /** Get teachers  */
 export const getTeachersURL = `${baseURL}/getTeachers`;
 
+/** Get teachers by class */
+export const getTeachersByClassURL =  `${baseURL}/getTeachersByClass`;
+
+/** Remove teacher from class */
+export const removeTeacherFromClassURL = `${baseURL}/remove-teacher-from-class`;
+
+/**Assign a teacher to a class */
+export const assignTeacherToClassURL = `${baseURL}/assign-teacher-to-class`;
+
+
 export default {
   account: accountURL,
   login: loginURL,
@@ -34,5 +44,8 @@ export default {
   addStudent: addStudentURL,
   getClasses: getClassesURL,
   addClass: addClassURL,
-  getTeachers: getTeachersURL
+  getTeachers: getTeachersURL,
+  getTeachersByClass: getTeachersByClassURL,
+  removeTeacherFromClass: removeTeacherFromClassURL,
+  assignTeacherToClass: assignTeacherToClassURL
 };
