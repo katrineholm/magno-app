@@ -40,6 +40,12 @@ const styles = (theme: any) => ({
             color: "#33373A"
         },
         width: "50%",
+    },
+    spacer: {
+        marginTop: theme.spacing(5),
+        marginBottom: theme.spacing(5),
+        // backgroundColor: 'red',
+        paddingBottom: theme.spacing(5),
     }
 });
 
@@ -95,7 +101,7 @@ const Student = observer((props: any) => {
     }
 
     return (
-        <div>
+        <div className={classes.spacer}>
 
             <Container maxWidth="xl" className={classes.container}>
                 <Typography variant="h5">
