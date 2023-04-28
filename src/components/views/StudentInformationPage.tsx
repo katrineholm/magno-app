@@ -71,7 +71,7 @@ const StudentInformationPage: React.FC<StudentInformationPageProps> = ({ transla
   };
 
   const handleDeleteConfirmation = async () => {
-    const updatedStudent = await updateStudentInformation("", "", "", store.studentStore.student.id)
+    const updatedStudent = await updateStudentInformation("", "", "", "", store.studentStore.student.id)
     updateStudentStore(updatedStudent)
     setStudentHasInformation(false)
     handleCloseDeleteDialog()
@@ -107,6 +107,9 @@ const StudentInformationPage: React.FC<StudentInformationPageProps> = ({ transla
       </Typography>
       <Typography className={classes.information}>
         Er hørselsundersøkelse gjennomført: {store.studentStore.student.information.hearing_examination}
+      </Typography>
+      <Typography className={classes.information}>
+        Kommentar: {store.studentStore.student.information.comment}
       </Typography>
 
       <Dialog

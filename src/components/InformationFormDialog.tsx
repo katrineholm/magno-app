@@ -7,9 +7,6 @@ import { Typography, Button } from '@material-ui/core';
 import TextField from "@material-ui/core/TextField";
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import { updateStudentInformation } from './Communicator';
-import { resourceLimits } from "worker_threads";
-import { StudentStore } from "./stores/StudentStore";
-
 
 
 
@@ -56,10 +53,11 @@ const InformationForm: React.FC<InformationFormProps> = ({ open, onClose,
         dyslexia_in_family: store.studentStore.student.information.dyslexia_in_family,
         vision_examination: store.studentStore.student.information.vision_examination,
         hearing_examination: store.studentStore.student.information.hearing_examination,
+        comment: store.studentStore.student.information.comment
     });
 
     const handleSubmit = async () => {
-        const updatedStudent = await updateStudentInformation(formData.dyslexia_in_family, formData.vision_examination, formData.hearing_examination, store.studentStore.student.id)
+        const updatedStudent = await updateStudentInformation(formData.dyslexia_in_family, formData.vision_examination, formData.hearing_examination, formData.comment, store.studentStore.student.id)
         onSubmit(updatedStudent)
     };
 
@@ -75,26 +73,37 @@ const InformationForm: React.FC<InformationFormProps> = ({ open, onClose,
         <Dialog open={open} onClose={handleClose}>
             <DialogTitle>Fyll inn informasjon</DialogTitle>
 
-
             <DialogContent>
                 {[
                     { field: "dyslexia_in_family", label: "Er det kjennskap til dysleksi i familien?" },
                     { field: "vision_examination", label: "Er det gjennomført synsundersøkelse?" },
-                    { field: "hearing_examination", label: "Er det gjennomført hørselsundersøkelse?" }
+                    { field: "hearing_examination", label: "Er det gjennomført hørselsundersøkelse?" },
+                    { field: "comment", label: "Kommentar" },
                 ].map((fieldData, index) => (
                     <FormControl variant="outlined" fullWidth key={index}>
                         <Typography>{fieldData.label}</Typography>
-                        <Select
-                            value={formData[fieldData.field]}
-                            onChange={(event) => handleChange(event, fieldData.field)}
-                            label="Velg et alternativ"
-                        >
-                            {options.map((option) => (
-                                <MenuItem key={option} value={option}>
-                                    {option}
-                                </MenuItem>
-                            ))}
-                        </Select>
+                        {fieldData.field === "comment" ? (
+                            <TextField
+                                multiline
+                                rows={4}
+                                value={formData[fieldData.field]}
+                                onChange={(event) => handleChange(event, fieldData.field)}
+                                variant="outlined"
+                                fullWidth
+                            />
+                        ) : (
+                            <Select
+                                value={formData[fieldData.field]}
+                                onChange={(event) => handleChange(event, fieldData.field)}
+                                label="Velg et alternativ"
+                            >
+                                {options.map((option) => (
+                                    <MenuItem key={option} value={option}>
+                                        {option}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        )}
                     </FormControl>
                 ))}
             </DialogContent>

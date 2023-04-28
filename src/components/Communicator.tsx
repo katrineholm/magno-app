@@ -35,14 +35,15 @@ export async function createAccount(email: string, name: string, password: strin
     }
 }
 
-export async function updateStudentInformation(dyslexia_in_family: string, vision_examination: string, hearing_examination: string, studentId: string) {
+export async function updateStudentInformation(dyslexia_in_family: string, vision_examination: string, hearing_examination: string, comment: string, studentId: string) {
     const header = getHeader()
     const form_data = {
         studentId: studentId,
         information: {
             dyslexia_in_family: dyslexia_in_family,
             vision_examination: vision_examination,
-            hearing_examination: hearing_examination
+            hearing_examination: hearing_examination, 
+            comment: comment
         }
     }
     try {
