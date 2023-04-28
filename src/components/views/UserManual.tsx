@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { MutableRefObject, useRef } from 'react';
 import {observer} from 'mobx-react';
 import {withStyles} from '@material-ui/core/styles';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Accordion, AccordionDetails, AccordionSummary, Container, Paper, Typography, IconButton, Button } from '@material-ui/core';
 import LocalPrintshopIcon from '@mui/icons-material/LocalPrintshop';
+import ReactToPrint from 'react-to-print';
 
 const styles = (theme: any) => ({
   container: {
@@ -40,12 +41,17 @@ const styles = (theme: any) => ({
  */
 const UserManual = observer( (props: any) => {
   const {classes} = props;
+  const componentRef = useRef(null);
+
+/*  const handlePrint = useReactToPrint({  
+    content: () => componentRef.current,
+  });*/
 
     return (
                 
      <Container maxWidth="xl" className={classes.container}>
 
-        <Paper>
+        <Paper ref={componentRef}>
           <Accordion>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
@@ -102,8 +108,12 @@ const UserManual = observer( (props: any) => {
           </Accordion>
 
           </Paper>
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <Button aria-label="print" 
+
+          
+            <ReactToPrint 
+            trigger={() => 
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <Button aria-label="print" 
                 disableElevation
                 variant={"contained"}
                 color={'primary'} 
@@ -111,7 +121,12 @@ const UserManual = observer( (props: any) => {
                 <LocalPrintshopIcon />
                 <Typography variant="caption">&nbsp; Skriv ut brukermanualen</Typography>
             </Button>
-            </div>
+            </div>}
+            content={() => componentRef.current}
+            documentTitle='Magno brukermanual'
+            pageStyle="print"
+            />
+            
 
         </Container>
 
