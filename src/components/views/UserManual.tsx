@@ -1,11 +1,9 @@
 import React from 'react';
 import {observer} from 'mobx-react';
 import {withStyles} from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Accordion, AccordionDetails, AccordionSummary, Paper, Typography } from '@material-ui/core';
-import { title } from 'process';
+import { Accordion, AccordionDetails, AccordionSummary, Container, Paper, Typography, IconButton, Button } from '@material-ui/core';
+import LocalPrintshopIcon from '@mui/icons-material/LocalPrintshop';
 
 const styles = (theme: any) => ({
   container: {
@@ -24,6 +22,12 @@ const styles = (theme: any) => ({
   },
   titleAccordian: {
     margin: 2
+  },
+  printButton: {
+    backgroundColor: '#2A646D',
+    borderRadius: 7, 
+    margin: 30,
+    color: 'white',
   }
   
 });
@@ -96,7 +100,18 @@ const UserManual = observer( (props: any) => {
               </Typography>
             </AccordionDetails>
           </Accordion>
+
           </Paper>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <Button aria-label="print" 
+                disableElevation
+                variant={"contained"}
+                color={'primary'} 
+                className={classes.printButton}>
+                <LocalPrintshopIcon />
+                <Typography variant="caption">&nbsp; Skriv ut brukermanualen</Typography>
+            </Button>
+            </div>
 
         </Container>
 
