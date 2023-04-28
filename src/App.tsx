@@ -26,6 +26,7 @@ import Information from './components/views/Information';
 import StudentOverview from './components/views/StudentOverview';
 import FilteredStudentOverview from './components/views/FilteredStudentOverview';
 import ClassOverview from './components/views/ClassOverview';
+import UserManual from './components/views/UserManual';
 
 const styles = (theme: any) => ({
   root: {
@@ -93,6 +94,7 @@ export const App = observer((props: any) => {
               </Route>
               <Route path="/classes" element={<ClassOverview store={props.store} order={'asc'} orderBy={'name'} translation={translation} />} />
               <Route path="/information" element={<Information translation={translation} />}></Route>
+              <Route path="/usermanual" element={<UserManual translation={translation}/>}></Route>
             </Routes>
           </main>
         </>
