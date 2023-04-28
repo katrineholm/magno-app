@@ -53,22 +53,13 @@ const InformationForm: React.FC<InformationFormProps> = ({ open, onClose,
     onSubmit, store }) => {
     const options = ["Ja", "Nei", "Vet ikke"];
     const [formData, setFormData] = useState<FormData>({
-        dyslexia_in_family: "",
-        vision_examination: "",
-        hearing_examination: "",
+        dyslexia_in_family: store.studentStore.student.information.dyslexia_in_family,
+        vision_examination: store.studentStore.student.information.vision_examination,
+        hearing_examination: store.studentStore.student.information.hearing_examination,
     });
 
     const handleSubmit = async () => {
-        console.log("formData: ", formData)
-        //Oppdatere student store
-        //Sende endringer til backend i databasen
-        // console.log("student:", store.studentStore.student.name)
         const updatedStudent = await updateStudentInformation(formData.dyslexia_in_family, formData.vision_examination, formData.hearing_examination, store.studentStore.student.id)
-        // console.log("IDen", updatedStudent.id)
-       
-        // store.studentStore.setStudent(updatedStudent.id)
-        console.log("result", updatedStudent)
-        // onSubmit(formData);
         onSubmit(updatedStudent)
     };
 
@@ -110,10 +101,10 @@ const InformationForm: React.FC<InformationFormProps> = ({ open, onClose,
 
             <DialogActions>
                 <Button onClick={handleClose} color="primary">
-                    Cancel
+                    Avbryt
                 </Button>
                 <Button onClick={handleSubmit} color="primary">
-                    Submit
+                    Lagre endringer
                 </Button>
             </DialogActions>
         </Dialog>

@@ -3,19 +3,12 @@ import { observer } from 'mobx-react';
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import {
-    useNavigate,
-} from "react-router-dom";
-import FormFixed from '../../files/formfixed50.jpg';
-import FormRandom from '../../files/formrandom50.jpg';
 import ReportIcon from '@material-ui/icons/Report';
 import RiskCard from '../RiskCard';
-import ChartCard from '../ChartCard';
 import StudentInformationPage from './StudentInformationPage';
 import StudentResultPage from './StudentResultPage';
-import { Box, Button, Paper, Typography } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 import "../css/styles.css";
-// import { withStyles } from '@material-ui/core/styles';
 
 // CSS: 
 const styles = (theme: any) => ({
@@ -131,18 +124,18 @@ const Student = observer((props: any) => {
                         className={activeButton === resultPage ? classes.selected : classes.root}
                         onClick={() => handleButtonClick(resultPage)}
                     >
-                        Resultater
+                        Testresultater
                     </StyledButton>
                     <StyledButton
                         className={activeButton === infoPage ? classes.selected : classes.root}
                         onClick={() => handleButtonClick(infoPage)}
                     >
-                        Informasjon
+                        Annen informasjon
                     </StyledButton>
                 </div>
 
                 {activeButton === resultPage && <StudentResultPage translation={props.translation} store={props.store} />}
-                {activeButton === infoPage && <StudentInformationPage translation={props.translation}  store={props.store} />}
+                {activeButton === infoPage && <StudentInformationPage translation={props.translation} store={props.store} />}
 
 
             </Container>
