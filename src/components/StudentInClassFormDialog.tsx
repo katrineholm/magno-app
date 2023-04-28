@@ -7,7 +7,10 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles } from '@material-ui/core/styles';
 import { useState } from 'react';
 import { addStudent } from './Communicator'
-import Typography from 'material-ui/styles/typography';
+import { Grid } from '@material-ui/core';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import IconButton from '@material-ui/core/IconButton';
+import { Student } from './Interfaces';
 //import { v4 as uuidv4 } from 'uuid';
 
 const styles = (theme: any) => ({
@@ -43,8 +46,10 @@ interface StudentInClassFormDialogProps {
 }
 
 function StudentInClassFormDialog(props: StudentInClassFormDialogProps) {
+    const [studentsToAdd, setStudentsToAdd] = useState<Array<Student>>([])
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
+    const [textFields, setTextFields] = useState<string[]>([]);
     const { classes } = props;
 
 
@@ -55,6 +60,16 @@ function StudentInClassFormDialog(props: StudentInClassFormDialogProps) {
     function handleLastNameChange(e: React.ChangeEvent<HTMLInputElement>) {
         setLastName(e.target.value)
     }
+   
+    const handleAddTextField = () => {
+        setTextFields([...textFields, ""]);
+    };
+    
+    const handleTextFieldChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, index: number) => {
+        const newTextFieldValues = [...textFields];
+        newTextFieldValues[index] = event.target.value;
+        setTextFields(newTextFieldValues);
+    };
 
     async function handleSubmit(e: React.SyntheticEvent) {
         e.preventDefault();
@@ -94,7 +109,37 @@ function StudentInClassFormDialog(props: StudentInClassFormDialogProps) {
             </DialogTitle>
             <DialogContent className={classes.dialogBox}>
                 <form name="SignInForm" onSubmit={handleSubmit} className={classes.form}>
-                    <TextField
+                <h4>Klasse: {props.classNameProp}</h4> 
+
+                <div>
+                    {textFields.map((field, index) => (
+                        <TextField
+                        key={index}
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id={`field-${index}`}
+                        label={`Field ${index + 1}`}
+                        name={`field-${index}`}
+                        autoComplete={`field-${index}`}
+                        autoFocus={index === 0}
+                        //onChange={handleTextFieldChange(index)}
+                        value={field}
+                        />
+                    ))}
+                    {//isFirstTextFieldFilled && (
+                        <Button variant="contained" color="primary" onClick={handleAddTextField}>
+                        Add Field
+                        </Button>
+                    }
+                    </div>
+
+
+
+                <Grid container spacing={2}>
+                    <Grid item xs={6}>
+                        <TextField
                         variant="outlined"
                         margin="normal"
                         required
@@ -105,8 +150,11 @@ function StudentInClassFormDialog(props: StudentInClassFormDialogProps) {
                         autoComplete="fornavn"
                         autoFocus
                         onChange={handleFirstNameChange}
-                        value={firstName} />
-                    <TextField
+                        value={firstName}
+                        />
+                    </Grid>
+                    <Grid item xs={6}>
+                        <TextField
                         variant="outlined"
                         margin="normal"
                         required
@@ -117,8 +165,19 @@ function StudentInClassFormDialog(props: StudentInClassFormDialogProps) {
                         id="etternavn"
                         autoComplete="etternavn"
                         onChange={handleLastNameChange}
-                        value={lastName} />
-                    <h4>Klasse: {props.classNameProp}</h4>
+                        value={lastName}
+                        />
+                    </Grid>
+                </Grid>
+                <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                   <IconButton edge="end" onClick={handleAddTextField}>
+                        <AddCircleIcon />
+                   </IconButton>
+                </div>
+
+                <div>
+
+                </div>
                     <Button
                         type="submit"
                         fullWidth
