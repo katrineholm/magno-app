@@ -4,7 +4,6 @@ import { ThemeProvider, withStyles } from '@material-ui/core/styles';
 import './App.css';
 import ToolBars from './components/toolbar/ToolBars';
 import {
-  Navigate,
   Route,
   Routes,
 } from "react-router-dom";
@@ -25,6 +24,7 @@ import Student from './components/views/Student';
 import { translationNO } from './components/locales/no/translationNO';
 import Information from './components/views/Information';
 import StudentOverview from './components/views/StudentOverview';
+import FilteredStudentOverview from './components/views/FilteredStudentOverview';
 import ClassOverview from './components/views/ClassOverview';
 
 const styles = (theme: any) => ({
@@ -41,7 +41,6 @@ const styles = (theme: any) => ({
 
 export const App = observer((props: any) => {
   const { classes: classes_ } = props;
-  //const [cookies, setCookie] = useCookies(['c_user']);
   const navigate = useNavigate();
   const translation = translationNO;
 
@@ -89,8 +88,8 @@ export const App = observer((props: any) => {
               <Route path="/student" element={<Student store={props.store} translation={translation} />}>
                 <Route path=":studentID" element={<Student store={props.store} translation={translation} />} />
               </Route>
-              <Route path="/students" element={<StudentOverview store={props.store} order={'asc'} orderBy={'name'} translation={translation} />}>
-                <Route path=":className" element={<StudentOverview store={props.store} order={'asc'} orderBy={'name'} translation={translation} />} />
+              <Route path="/students" element={<FilteredStudentOverview store={props.store} order={'asc'} orderBy={'name'} translation={translation} />}>
+                <Route path=":className" element={<FilteredStudentOverview store={props.store} order={'asc'} orderBy={'name'} translation={translation} />} />
               </Route>
               <Route path="/classes" element={<ClassOverview store={props.store} order={'asc'} orderBy={'name'} translation={translation} />} />
               <Route path="/information" element={<Information translation={translation} />}></Route>

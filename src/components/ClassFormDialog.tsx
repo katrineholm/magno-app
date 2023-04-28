@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -70,7 +69,6 @@ function ClassFormDialog(props: ClassFormDialogProps) {
         )
         if (data !== undefined) {
             if (data.result.includes("Success")) {
-                console.log("Nå er vi her..")
                 props.fetchClasses();
                 props.store.viewStore.setSnackBar(String(grade) + String(classLetter) + props.translation.classFormDialog.successMessage, 'success');
                 props.store.viewStore.setOpenSnackBar(true);

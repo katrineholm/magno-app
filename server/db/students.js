@@ -31,8 +31,6 @@ const getStudentById = async (id) => {
 
 
 const getStudentsBySchool = async (school) => {
-    console.log("Skolen de går på:")
-    console.log(school)
     const container = await CosmosConnector();
     const querySpec = {
         query: "SELECT * from c where c.school = @school",
@@ -43,9 +41,6 @@ const getStudentsBySchool = async (school) => {
     const { resources: items } = await container.items
         .query(querySpec)
         .fetchAll();
-    console.log(items[0])
-    console.log("Også resten..")
-    console.log(items)
     return items
 }
 
@@ -53,8 +48,6 @@ const getStudentsByClasses = async (user) => { //TODO: Endre sånn at det er kla
     const container = await CosmosConnector()
     const school = user.school;
     const classes = user.classes;
-    console.log("Skal nå hente elever fra klasser")
-    console.log("klassene: ")
 
     const querySpec = {
         query: "SELECT * from c where (c.school = @school) AND ARRAY_CONTAINS(@classes, c.grade)",

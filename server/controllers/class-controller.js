@@ -17,12 +17,10 @@ const getClasses = async (req, res) => {
     const school = user.school;
     if (userIsAdmin(user)) {
         const classes = await getClassesBySchool(school)
-        console.log(classes)
         res.send({ classes: classes })
     }
     else if (userIsBasic(user)) {
         const classes = await getClassesByList(user)
-        console.log(classes)
         res.send({ classes: classes })
     }
     else {
@@ -57,8 +55,6 @@ const postCreateClass = async (req, res) => {
 
     } else {
         const existingTeacher = await getUserById(teacherId)
-        console.log("teacher")
-        console.log(existingTeacher)
         if (existingTeacher == null) {
             return res.status(400).json({ message: "Læreren finnes ikke" })
         }
@@ -76,59 +72,53 @@ const postCreateClass = async (req, res) => {
 }
 
 const assignTeacherToClass = async (req, res) => {
-    console.log("starter nå")
+    console.log("starter assign teacher to class nå")
 
-    const teacher_mail = req.body.email
-    const class_name = req.body.classname
-    const teacher = await getUserByEmail(teacher_mail)
-    const grade = await getClassByName(class_name, teacher.school)
+    const teacher_id = req.body.teacherId
+    const class_name = req.body.className
+    const teacher = await getUserById(teacher_id)
+    const class_object = await getClassByName(class_name, teacher.school)
 
     if (teacher.classes.includes(class_name)) {
         //Hvis læreren allerede er ansvarlig for klassen
         return res.status(400).json({ message: "Læreren er allerede ansvarlig for klassen" })
     }
-    if (grade.teacher.includes(teacher.id)) {
+    if (class_object.teacher.includes(teacher.id)) {
         //Hvis læreren allerede er ansvarlig for klassen
         return res.status(400).json({ message: "Læreren er allerede ansvarlig for klassen" })
     }
-    console.log("legger til class to user")
     addClassToUser(teacher, class_name)
-    console.log("legger til usert to class")
-    addTeacherToClass(grade, teacher.id)
+    addTeacherToClass(class_object, teacher.id)
     response = { 'result': 'Success assigning teacher to class' }
     res.send(response)
 }
 
 const removeTeacherFromClass = async (req, res) => { //put
     //Dersom bruker er verifisert og bruker er admin så skal denne kjøre
-    console.log("starter nå")
 
-    const teacher_mail = req.body.email //mailen til læreren??
-    //const teacher = getUserByEmail(teacher_mail)
-    const class_name = req.body.classname
-    const teacher = await getUserByEmail(teacher_mail)
-    const grade = await getClassByName(class_name, teacher.school)
-
+    const teacher_id = req.body.teacherId
+    const class_name = req.body.className
+    const teacher = await getUserById(teacher_id)
+    const class_object = await getClassByName(class_name, teacher.school)
+ 
     if (!teacher.classes.includes(class_name)) {
-        //Hvis læreren allerede er ansvarlig for klassen
+        //Hvis læreren ikke er ansvarlig for klassen
         return res.status(400).json({ message: "Læreren er ikke ansvarlig for klassen" })
     }
-    if (!grade.teacher.includes(teacher.id)) {
-        //Hvis læreren allerede er ansvarlig for klassen
+    if (!class_object.teacher.includes(teacher_id)) {
+        //Hvis læreren ikke er ansvarlig for klassen
         return res.status(400).json({ message: "Læreren er ikke ansvarlig for klassen" })
     }
-    console.log("legger til class to user")
+
     removeClassFromUser(teacher, class_name)
-    deleteTeacherFromClass(grade, teacher.id)
+    deleteTeacherFromClass(teacher.id, class_object)
     response = { 'result': 'Success removing teacher from class' }
     res.send(response)
 }
-
 
 module.exports = {
     getClasses,
     assignTeacherToClass,
     removeTeacherFromClass,
     postCreateClass
-
 }
