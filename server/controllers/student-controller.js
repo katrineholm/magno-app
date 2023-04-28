@@ -36,8 +36,9 @@ const updateStudentInformation = async (req, res) => {
     const studentId = req.body.studentId
     const newInformation = req.body.information
     const student = await getStudentById(studentId)
-    updateInformation(student, newInformation)
-    response = { 'result': 'Success updating student information' }
+    const updatedItem = await updateInformation(student, newInformation)
+    response = { 'result': 'Success updating student information', 'updatedItem': updatedItem }
+    console.log(response)
     res.send(response)
 }
 
