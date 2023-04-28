@@ -15,6 +15,9 @@ export const getCurrentUserURL = `${baseURL}/get-current-user` // denne burde op
 /* Get students */
 export const getStudentsURL = `${baseURL}/get-students`;
 
+/* Get students */
+export const updateStudentInformationURL = `${baseURL}/update-student-information`;
+
 /* Add newstudent post */
 export const addStudentURL = `${baseURL}/add-student`;
 
@@ -42,6 +45,7 @@ export default {
   getCurrentUser: getCurrentUserURL,
   getStudents: getStudentsURL,
   addStudent: addStudentURL,
+  updateStudentInformation: updateStudentInformationURL,
   getClasses: getClassesURL,
   addClass: addClassURL,
   getTeachers: getTeachersURL,
