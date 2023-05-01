@@ -127,4 +127,43 @@ export default interface Translation {
             risk: string,
         },
     },
+    userManual: {
+        printButton: string, 
+        tests: string,
+        testsSubHeader: string,
+        testText: string,
+        testPoint1: string,
+        testPoint2: string, 
+        testPoint3: string,
+        motionTest: string
+        motionSummary: string,
+        motionDescription: string,
+        motionPointsIntro: string,
+        motionPoint1: string, 
+        motionPoint2: string,
+        motionPoint3: string,
+        motionPoint4: string, 
+
+        formFixedTest: string,
+        formFixedDescription: string,
+        formFixedPointsIntro: string,
+        formFixedPoint1: string,
+        formFixedPoint2: string, 
+        formFixedPoint3: string,
+        formFixedPoint4: string,
+
+        formRandomTest: string, 
+        formRandomDescription: string, 
+        
+        students: string,
+        studentsSubHeader: string,
+        studentsDescription: string,
+
+        classOverview: string,
+        classesSubHeader: string,
+        classesDescription: string,
+
+
+
+    }
 }
