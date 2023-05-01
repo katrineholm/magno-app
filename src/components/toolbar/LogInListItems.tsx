@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
 import React, { useState } from 'react';
-import {observer} from 'mobx-react';
+import { observer } from 'mobx-react';
 import MuiListItem from "@material-ui/core/ListItem";
 import withStyles from '@material-ui/styles/withStyles';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -11,6 +11,7 @@ import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import { useNavigate } from 'react-router-dom';
+import InfoIcon from '@material-ui/icons/Info';
 
 const ListItem = withStyles({
   root: {
@@ -39,27 +40,39 @@ const ListItem = withStyles({
   selected: {}
 })(MuiListItem);
 
-const LogInListItems = observer( (props: any) => {
+const LogInListItems = observer((props: any) => {
   const navigate = useNavigate();
   const [selected, setSelected] = useState(0 as number);
 
-  function handleClick() {
+  function handleLoginClick() {
     navigate('/login')
   }
-    return (
-      <div>
-        <Divider />
-        <List>
+
+  function handleInformationClick() {
+    navigate('/information')
+  }
+
+
+  return (
+    <div>
+      <Divider />
+      <List>
         <ListSubheader inset>My Account</ListSubheader>
-          <ListItem button onClick={() => handleClick()}>
-              <ListItemIcon >
-                  <AccountBoxIcon/>
-              </ListItemIcon>
-            <ListItemText primary="Login"/>
-          </ListItem>
-          </List>
-      </div>
-    );
+        <ListItem button onClick={() => handleLoginClick()}>
+          <ListItemIcon >
+            <AccountBoxIcon />
+          </ListItemIcon>
+          <ListItemText primary="Login" />
+        </ListItem>
+        <ListItem button onClick={() => handleInformationClick()}>
+          <ListItemIcon >
+            <InfoIcon />
+          </ListItemIcon>
+          <ListItemText primary="Informasjon" />
+        </ListItem>
+      </List>
+    </div>
+  );
 })
 
 export default LogInListItems;

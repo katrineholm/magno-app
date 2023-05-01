@@ -1,5 +1,5 @@
 //TODO: legg til add student, postscore
-const { getStudentsBySchool, getStudentsByClasses, createStudent } = require("../db/students")
+const { getStudentsBySchool, getStudentsByClasses, createStudent, getStudentById, updateInformation } = require("../db/students")
 const { userIsAdmin, userIsBasic } = require("../utils/role")
 const { getClassByName } = require("../db/class");
 
@@ -30,6 +30,18 @@ const getStudents = async (req, res) => {
     }
 }
 
+const updateStudentInformation = async (req, res) => {
+    const studentId = req.body.studentId
+    const newInformation = req.body.information
+    const student = await getStudentById(studentId)
+    const updatedItem = await updateInformation(student, newInformation)
+    response = { 'result': 'Success updating student information', 'updatedItem': updatedItem }
+    console.log(response)
+    res.send(response)
+}
+
+
+
 
 const addStudent = async (req, res) => {
     const user = req.user
@@ -39,9 +51,18 @@ const addStudent = async (req, res) => {
     const testdate = ""; //Fjerne?
     const risk = "";
 
+    //tests
     const motion_test = [];
     const fixed_form_test = [];
     const random_form_test = [];
+
+    //information
+    const dyslexia_in_family = ""
+    const vision_examination = ""
+    const hearing_examination = ""
+    const comment = ""
+    //Må legge til other tests også
+
 
     const existingClass = await getClassByName(grade, school);
     if (existingClass === null) {
@@ -59,6 +80,7 @@ const addStudent = async (req, res) => {
         grade: grade,
         testdate: testdate,
         tests: { motion_test, fixed_form_test, random_form_test },
+        information: { dyslexia_in_family, vision_examination, hearing_examination, comment },
         risk: risk
     };
 
@@ -70,5 +92,6 @@ const addStudent = async (req, res) => {
 
 module.exports = {
     getStudents,
-    addStudent
+    addStudent,
+    updateStudentInformation
 }

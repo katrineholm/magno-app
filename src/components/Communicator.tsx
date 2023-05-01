@@ -35,6 +35,37 @@ export async function createAccount(email: string, name: string, password: strin
     }
 }
 
+export async function updateStudentInformation(dyslexia_in_family: string, vision_examination: string, hearing_examination: string, comment: string, studentId: string) {
+    const header = getHeader()
+    const form_data = {
+        studentId: studentId,
+        information: {
+            dyslexia_in_family: dyslexia_in_family,
+            vision_examination: vision_examination,
+            hearing_examination: hearing_examination, 
+            comment: comment
+        }
+    }
+    try {
+        console.log("her er vi nå", form_data)
+        console.log(url.updateStudentInformation)
+        const { data } = await axios.put(url.updateStudentInformation, form_data, { headers: header })
+        console.log("Her kommer data fra updateStudentInformation backend")
+        console.log(data)
+        return data.updatedItem;
+    }
+    catch (error) {
+        if (axios.isAxiosError(error)) {
+            console.log('error message: ', error.message);
+            return error.message;
+        } else {
+            console.log('unexpected error: ', error);
+            return 'An unexpected error occurred';
+        }
+    }
+}
+
+
 export async function loginAccount(email: string, password: string) {
     const form_data = {
         email: email,

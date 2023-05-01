@@ -39,8 +39,6 @@ const StyledTableCell = styled(TableCell)(({ theme: Theme }) => ({
 }));
 
 
-
-
 function createData(
   id: string,
     name: string,
