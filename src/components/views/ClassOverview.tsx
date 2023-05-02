@@ -102,8 +102,6 @@ const ClassOverview = observer((props: any) => {
                     {filteredClasses.length > 0 ? 
                       <ClassTable
                       store={props.store}
-                      order={props.order}
-                      orderBy={props.orderBy}
                       schoolClasses={filteredClasses.sort((a, b) => a.name.localeCompare(b.name))}
                       translation={props.translation} /> : 
                       <Typography style={{ textAlign: 'center', paddingTop: 20 }}>Det er ikke lagt inn noen klasser</Typography>}
