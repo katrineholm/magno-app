@@ -65,7 +65,7 @@ const postCreateUser = async (req, res) => {
     const existingUser = await getUserByEmail(email) //Sjekker om mailen ligger i databasen fra før. Kan kun lage en mail. 
 
     if (existingUser !== null) {
-        return res.status(400).json({ message: "Kunne ikke opprette bruker" })
+        return res.status(400).json({ message: "Email already exists" })
     }
 
     const hashedPassword = hashPassword(password)
@@ -133,6 +133,6 @@ module.exports = {
     postCreateUser,
     getCurrentUser,
     changeToAdmin,
-    getTeachers, 
+    getTeachers,
     getTeachersByClassC,
 }
