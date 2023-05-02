@@ -79,32 +79,33 @@ const Register = observer((props: any) => {
             props.store.viewStore.setSnackBar(props.translation.register.passwordErrorMessage, 'error');
             props.store.viewStore.setOpenSnackBar(true);
         }
-        // else if (!roles.includes(String(role))){
-        //     props.store.viewStore.setSnackBar(props.translation.register.roleErrorMessage, 'error');
-        //     props.store.viewStore.setOpenSnackBar(true);
-        // }
         else if (!schools.includes(String(school))) {
             props.store.viewStore.setSnackBar(props.translation.register.schoolErrorMessage, 'error');
             props.store.viewStore.setOpenSnackBar(true);
         }
+        else if (name === '') {
+            props.store.viewStore.setSnackBar(props.translation.register.nameErrorMessage, 'error');
+            props.store.viewStore.setOpenSnackBar(true);
+        }
+
         else if (!email.includes('@') || !email.includes('.')) {
             props.store.viewStore.setSnackBar(props.translation.register.emailErrorMessage, 'error');
             props.store.viewStore.setOpenSnackBar(true);
         }
         else {
-            //const result = await createAccount(uuidv4(), email.toLowerCase(), password, String(role), String(school)) //TODO: Endre
-            const result = await createAccount(email.toLowerCase(), name, password, String(school)) //TODO: Endre
-            if (result.includes("exists")) {
-                props.store.viewStore.setSnackBar(props.translation.register.errorMessage, 'error');
-                props.store.viewStore.setOpenSnackBar(true);
-            }
-            else if (result.includes("Success")) {
+            const created = await createAccount(email.toLowerCase(), name, password, String(school))
+            if (created) {
                 props.store.viewStore.setSnackBar(props.translation.register.successMessage, 'success');
                 props.store.viewStore.setOpenSnackBar(true);
                 navigate('/login')
             }
+            else {
+                props.store.viewStore.setSnackBar(props.translation.register.errorMessage, 'error');
+                props.store.viewStore.setOpenSnackBar(true);
+            }
         }
     }
+
 
     const { classes } = props;
 

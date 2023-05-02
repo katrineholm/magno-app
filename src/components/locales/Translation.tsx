@@ -1,5 +1,5 @@
 export default interface Translation {
-    home:{
+    home: {
         title: string,
         headerTest: string,
         textTest: string,
@@ -32,8 +32,8 @@ export default interface Translation {
         successMessage: string,
         errorMessage: string,
         emailErrorMessage: string,
-        roleErrorMessage: string,
         schoolErrorMessage: string,
+        nameErrorMessage: string,
         passwordErrorMessage: string,
         link: string,
     },
@@ -62,20 +62,41 @@ export default interface Translation {
         tooltip: string,
     },
     information: {
+        title: string,
         subheader: string,
-        motionText: string,
-        formText: string,
+        introduction: string,
+        testTitle: string,
+        testText: string,
         firstPoint: string,
         secondPoint: string,
         thirdPoint: string,
+        applicationTitle: string,
+        applicationText: string,
+        researchTitle: string,
+        researchTestTitle: string,
+        researchTestText: string,
+        magnoTheoryTitle: string,
+        magnoTheoryText1: string,
+        magnoTheoryText2: string,
+        magnoTheoryText3: string,
+        magnoTheoryText4: string,
+        effectTitle: string,
+        effectText1: string,
+        effectPoint1: string,
+        effectPoint2: string,
+        effectPoint3: string,
+        effectText2: string,
+        effectText3: string,
+        bibliografyTitle: string,
+
     },
-    testFormDialog:{
+    testFormDialog: {
         title: string,
         subtitle: string,
         searchFieldLabel: string,
         buttonLabel: string
     },
-    studentFormDialog:{
+    studentFormDialog: {
         title: string,
         labelFirstName: string,
         labelLastName: string,
@@ -84,7 +105,7 @@ export default interface Translation {
         errorMessage: string,
         successMessage: string,
     },
-    classFormDialog:{
+    classFormDialog: {
         title: string,
         labelGrade: string,
         labelClassLetter: string,
@@ -93,31 +114,31 @@ export default interface Translation {
         errorMessage: string,
         successMessage: string,
     },
-    teacherFormDialog:{
-        title: string, 
+    teacherFormDialog: {
+        title: string,
         titleAdd: string,
-        labelTeachers: string, 
+        labelTeachers: string,
         labelNewTeacher: string,
         buttonLabel: string,
         errorMessage: string, 
         successMessageDelete: string,
         successMessageAdd: string,
         alertTitle: string,
-        areYouSure1: string, 
+        areYouSure1: string,
         areYouSure2: string,
-        cancel: string, 
+        cancel: string,
         confirm: string
     },
-    chart:{
+    chart: {
         averageLabel: string,
     },
     localeDateString: string,
-    risk:{
+    risk: {
         high: string,
         medium: string,
         low: string,
     },
-    studentTable:{
+    studentTable: {
         labels: {
             name: string,
             grade: string,
@@ -129,35 +150,34 @@ export default interface Translation {
         },
     },
     userManual: {
-        printButton: string, 
-
+        printButton: string,
         tests: string,
         testsSubHeader: string,
         testsDocumentTitle: string,
         testText: string,
         testPoint1: string,
-        testPoint2: string, 
+        testPoint2: string,
         testPoint3: string,
         motionTest: string
         motionSummary: string,
         motionDescription: string,
         motionPointsIntro: string,
-        motionPoint1: string, 
+        motionPoint1: string,
         motionPoint2: string,
         motionPoint3: string,
-        motionPoint4: string, 
+        motionPoint4: string,
 
         formFixedTest: string,
         formFixedDescription: string,
         formFixedPointsIntro: string,
         formFixedPoint1: string,
-        formFixedPoint2: string, 
+        formFixedPoint2: string,
         formFixedPoint3: string,
         formFixedPoint4: string,
 
-        formRandomTest: string, 
-        formRandomDescription: string, 
-        
+        formRandomTest: string,
+        formRandomDescription: string,
+
         students: string,
         studentsSubHeader: string,
         studentsDocumentTitle: string,

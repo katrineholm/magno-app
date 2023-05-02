@@ -61,17 +61,21 @@ const Login = observer((props: any) => {
 
   async function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
-    //const data = await loginAccount(email, password)
-    const data = await loginAccount(email, password)
-    const user = await getCurrentUser()
-    props.store.userStore.setUserEmail(user.email);
-    props.store.userStore.setSchool(user.school);
-    props.store.userStore.setRole(user.role);
-    props.store.userStore.setLoginStatus(true);
+    const success = await loginAccount(email, password)
+    if (success) {
+      const user = await getCurrentUser()
+      props.store.userStore.setUserEmail(user.email);
+      props.store.userStore.setUserName(user.name);
+      props.store.userStore.setSchool(user.school);
+      props.store.userStore.setRole(user.role);
+      props.store.userStore.setLoginStatus(true);
 
-    navigate('/home')
-
-
+      navigate('/home')
+    }
+    else {
+      props.store.viewStore.setSnackBar(props.translation.login.loginErrorMessage, 'error');
+      props.store.viewStore.setOpenSnackBar(true);
+    }
   }
 
   return (
