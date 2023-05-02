@@ -9,7 +9,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { FormControl, InputLabel, MenuItem, Select, List, ListItem, IconButton, ListItemText, ListItemSecondaryAction, DialogContentText, DialogActions } from '@material-ui/core';
 import { Teacher } from './Interfaces';
 import { assignTeacherToClass, removeTeacherFromClass } from './Communicator';
-//import { v4 as uuidv4 } from 'uuid';
 
 const styles = (theme: any) => ({
     dialogBox: {
@@ -67,13 +66,12 @@ function TeacherFormDialog(props: TeacherFormDialogProps) {
           const data = await removeTeacherFromClass(deleteTeacher.id, props.className)
           if (data !== undefined) {
             if (data.result.includes("Success")) {
+                props.store.viewStore.setSnackBar((deleteTeacher.name + props.translation.teacherFormDialog.successMessageDelete), 'success');
                 props.store.viewStore.setOpenSnackBar(true);
-                props.setOpen(false)
             }
             else {
                 props.store.viewStore.setSnackBar(props.translation.classFormDialog.errorMessage, 'error');
                 props.store.viewStore.setOpenSnackBar(true);
-                props.setOpen(false)
             }
           setDeleteTeacher(null);
           setOpenDeleteDialog(false);
@@ -90,6 +88,15 @@ function TeacherFormDialog(props: TeacherFormDialogProps) {
         e.preventDefault();
         if ((addTeacher && addTeacher !== "") && props.className !== undefined) {
             const data = await assignTeacherToClass(addTeacher, props.className)
+            if (data !== undefined) {
+                if (data.result.includes("Success")) {
+                    props.store.viewStore.setSnackBar((props.translation.teacherFormDialog.successMessageAdd), 'success');
+                    props.store.viewStore.setOpenSnackBar(true);
+                } else {
+                    props.store.viewStore.setSnackBar(props.translation.classFormDialog.errorMessage, 'error');
+                    props.store.viewStore.setOpenSnackBar(true);
+                }
+            }
         }
     }
 
