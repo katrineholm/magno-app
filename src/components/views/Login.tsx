@@ -65,9 +65,11 @@ const Login = observer((props: any) => {
     const data = await loginAccount(email, password)
     const user = await getCurrentUser()
     props.store.userStore.setUserEmail(user.email);
+    props.store.userStore.setUserName(user.name);
     props.store.userStore.setSchool(user.school);
     props.store.userStore.setRole(user.role);
     props.store.userStore.setLoginStatus(true);
+
 
     navigate('/home')
 
