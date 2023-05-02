@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import { getClasses, getTeachers } from '../Communicator';
-import { Button, Paper } from '@material-ui/core';
+import { Button, Paper, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import ClassFormDialog from '../ClassFormDialog';
 import { Class, Teacher } from '../Interfaces';
@@ -99,13 +99,15 @@ const ClassOverview = observer((props: any) => {
                             </Grid> : <></>}
                     </Grid>
                     <div style={{ paddingTop: 16 }} />
-
-                    <ClassTable
-                        store={props.store}
-                        order={props.order}
-                        orderBy={props.orderBy}
-                        schoolClasses={filteredClasses.sort((a, b) => a.name.localeCompare(b.name))}
-                        translation={props.translation} />
+                    {filteredClasses.length > 0 ? 
+                      <ClassTable
+                      store={props.store}
+                      order={props.order}
+                      orderBy={props.orderBy}
+                      schoolClasses={filteredClasses.sort((a, b) => a.name.localeCompare(b.name))}
+                      translation={props.translation} /> : 
+                      <Typography style={{ textAlign: 'center', paddingTop: 20 }}>Det er ikke lagt inn noen klasser</Typography>}
+                  
                 </Paper>
 
             </Container>
