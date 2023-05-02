@@ -39,6 +39,7 @@ export async function createAccount(email: string, name: string, password: strin
     }
 }
 export async function loginAccount(email: string, password: string) {
+    let success = null;
     const form_data = {
         email: email,
         password: password
@@ -48,11 +49,11 @@ export async function loginAccount(email: string, password: string) {
         saveToken(data.token)
         console.log("Her kommer det token fra backend:")
         console.log(data)
-        return data;
+        return (success = true)
     }
     catch (error) {
         if (axios.isAxiosError(error)) {
-            return error?.response;
+            return (success = false);
         } else {
             console.log('unexpected error: ', error);
             return 'An unexpected error occurred';
