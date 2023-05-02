@@ -49,6 +49,7 @@ const ClassOverview = observer((props: any) => {
         const schoolClasses = await getClasses();
         if (props.store.classStore) { // Make sure classStore is defined before using it
             props.store.classStore.setClassList(schoolClasses);
+           
         }
         setFilteredClasses(schoolClasses);
     }
@@ -60,6 +61,7 @@ const ClassOverview = observer((props: any) => {
             if (props.store.classStore) { // Make sure classStore is defined before using it
                 props.store.classStore.setClassList(schoolClasses);
             }
+            console.log("SCHOOL CLASSES: ", schoolClasses)
             setFilteredClasses(schoolClasses);
 
             // Set teachers at the school
@@ -103,7 +105,7 @@ const ClassOverview = observer((props: any) => {
                         store={props.store}
                         order={props.order}
                         orderBy={props.orderBy}
-                        schoolClasses={filteredClasses}
+                        schoolClasses={filteredClasses.sort((a, b) => a.name.localeCompare(b.name))}
                         translation={props.translation} />
                 </Paper>
 

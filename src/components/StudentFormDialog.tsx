@@ -136,6 +136,7 @@ function StudentFormDialog(props: StudentFormDialogProps) {
                             onChange={handleGradeChange}
                         >
                             {props.store.classStore.classList
+                                .sort((a: any, b: any) => a.name.localeCompare(b.name))
                                 .map((grade: any, index: number) => {
                                     return (
                                         <MenuItem key={index} value={grade.name}>{grade.name}</MenuItem>
