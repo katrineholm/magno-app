@@ -96,6 +96,7 @@ function StudentFormDialog(props: StudentFormDialogProps) {
                 props.setOpen(false)
                 setFirstName("");
                 setLastName("");
+                setClassName("");
             }}>
             <DialogTitle style={{ textAlign: 'center' }}>
                 {props.translation.studentFormDialog.title}
