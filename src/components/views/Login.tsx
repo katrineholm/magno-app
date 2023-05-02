@@ -61,8 +61,11 @@ const Login = observer((props: any) => {
 
   async function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
-    //const data = await loginAccount(email, password)
-    const data = await loginAccount(email, password)
+    const result = await loginAccount(email, password)
+    if (result.data.message.trim().includes("Wrong email or password")) {
+      props.store.viewStore.setSnackBar(props.translation.login.loginErrorMessage, 'error');
+      props.store.viewStore.setOpenSnackBar(true);
+    }
     const user = await getCurrentUser()
     props.store.userStore.setUserEmail(user.email);
     props.store.userStore.setUserName(user.name);
@@ -70,9 +73,7 @@ const Login = observer((props: any) => {
     props.store.userStore.setRole(user.role);
     props.store.userStore.setLoginStatus(true);
 
-
     navigate('/home')
-
 
   }
 

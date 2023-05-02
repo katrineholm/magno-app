@@ -42,7 +42,7 @@ export async function updateStudentInformation(dyslexia_in_family: string, visio
         information: {
             dyslexia_in_family: dyslexia_in_family,
             vision_examination: vision_examination,
-            hearing_examination: hearing_examination, 
+            hearing_examination: hearing_examination,
             comment: comment
         }
     }
@@ -80,8 +80,7 @@ export async function loginAccount(email: string, password: string) {
     }
     catch (error) {
         if (axios.isAxiosError(error)) {
-            console.log('error message: ', error.message);
-            return error.message;
+            return error?.response;
         } else {
             console.log('unexpected error: ', error);
             return 'An unexpected error occurred';
@@ -193,7 +192,7 @@ export async function getTeachers() {
     }
 }
 
-export async function getTeachersByClass(school: string, className: string){
+export async function getTeachersByClass(school: string, className: string) {
     const header = getHeader()
     const params = {
         school: school,
@@ -217,14 +216,14 @@ export async function getTeachersByClass(school: string, className: string){
 export async function removeTeacherFromClass(teacherId: string, className?: string) {
     const header = getHeader();
     const params = {
-        teacherId: teacherId, 
+        teacherId: teacherId,
         className: className,
     }
     try {
         const { data } = await axios.put(url.removeTeacherFromClass, params, { headers: header });
         return data;
 
-    } 
+    }
     catch (error) {
         if (axios.isAxiosError(error)) {
             console.log('error message: ', error.message);
@@ -239,13 +238,13 @@ export async function removeTeacherFromClass(teacherId: string, className?: stri
 export async function assignTeacherToClass(teacherId: string, className: string) {
     const header = getHeader();
     const params = {
-        teacherId: teacherId, 
+        teacherId: teacherId,
         className: className,
     }
     try {
         const { data } = await axios.put(url.assignTeacherToClass, params, { headers: header });
         return data;
-    } 
+    }
     catch (error) {
         if (axios.isAxiosError(error)) {
             console.log('error message: ', error.message);
