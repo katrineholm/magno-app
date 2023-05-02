@@ -94,7 +94,7 @@ export const App = observer((props: any) => {
               </Route>
               <Route path="/classes" element={<ClassOverview store={props.store} order={'asc'} orderBy={'name'} translation={translation} />} />
               <Route path="/information" element={<Information translation={translation} />}></Route>
-              <Route path="/usermanual" element={<UserManual translation={translation}/>}></Route>
+              <Route path="/usermanual" element={<UserManual  store={props.store} translation={translation}/>}></Route>
             </Routes>
           </main>
         </>

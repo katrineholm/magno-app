@@ -170,7 +170,8 @@ export const translationNO: Translation = {
         labelNewTeacher: "Legg til lærer",
         labelTeachers: "Lærere som har tilgang",
         errorMessage: "En ukjent feil oppstod",
-        successMessage: " ble lagt til",
+        successMessageDelete: " ble fjernet fra klassen",
+        successMessageAdd: "Læreren ble lagt til i klassen",
         buttonLabel: "Legg til lærer",
         alertTitle: "Fjerne lærer fra klassen?",
         areYouSure1: "Er du sikker på at du vil fjerne",
@@ -203,6 +204,7 @@ export const translationNO: Translation = {
 
         tests: "Tester",
         testsSubHeader: "Hvordan gjennomføre screeningtestene med din elev",
+        testsDocumentTitle: "Magno brukermanual: Hvordan gjennomføre screeningtestene med din elev",
         testText: "Magno inneholder tre tester, og det er viktig at eleven tar alle tre testene for at man skal kunne være sikker på resultatet. Motion Test måler elevens evne " +
         "til å oppfatte bestemt bevegelse. Det er denne testen som måler den visulle prosesseringsevnen til eleven og som kan indikere dysleksi. For å sørge for at eleven ikke " +
         "har noen synsvansker som kan påvirke resultatet, må Form Fixed Test og Formed Random test også gjennomføres. Disse vil avdekke om eleven har synsvansker som har påvirket " +
@@ -240,13 +242,26 @@ export const translationNO: Translation = {
 
         students: "Dine elever",
         studentsSubHeader: "Hvordan bruke elevoversikten",
-        studentsDescription: "Under Dine elever får du en oversikt over testene elevene dine har gjennomført. Du vil i tillegg kunne legge inn relevant " + 
-        "informasjon og egne notater, som vil være til hjelp for din totalvurdering av elevens situasjon.",
+        studentsDocumentTitle: "Magno brukermanual: Hvordan bruke elevoversikten",
+        studentsIntro: "Under Dine elever får du en oversikt over elevene dine, testene de har gjennomført og elevenes beregnede risiko for dysleksi.  " + 
+        'Du kan legge til elever i oversikten ved å bruke knappen “Legg til elev”.  Deretter fyller du ut elevens navn og hvilken klasse hen tilhører.',
+        studentsSecond: "Ved å klikke på en av elevene i oversikten, vil du komme til en side som inneholder informasjon om eleven og dens testresultater."  +
+        "Øverst på siden vil du se elevens risikonivå for dysleksi, " + 
+        "som er beregnet ut fra Motion Test-resultatene dersom eleven har gjennomført screeningtesten. Risikonivået kan være høyt, lavt eller middels. ",
+         studentsThird: "På denne siden vil du også se to faner. “Testresultater” inneholder en mer detaljert visualiering av testresultatene til de testene eleven har gjennomført. " + 
+         "Stolpediagrammet viser elevens score og datoen testen ble utført.",
+         studentsFourth: "Resultatet på Motion Test er det som kan gi deg en indikasjon på om eleven har risiko for dysleksi. En høy score indikerer en høy risiko for dysleksi, " + 
+         "mens en lavere score indikerer en lavere risiko. Du kan lese mer om hva resultatene på de forskjellige testene betyr i brukermanualen.",
+         studentsFifth: "Under Annen informasjon vil du finne informasjon om eleven som vil være relevant i din totalvurdering av elevens risiko for dysleksi. Her kan du legge inn og " + 
+         "redigere dataen, samt legge legge inn egne kommentarer." ,
 
         classOverview: "Dine klasser",
         classesSubHeader: "Hvordan bruke klasseoversikten",
-        classesDescription: "Under Dine klasser finner du en oversikt over klassene du er ansvarlig for. Klikker du på en klasse vil du komme inn på elevoversikt-siden " + 
-        "for den respektive klassen."
+        classesDocumentTitle: "Magno brukermanual: Hvordan bruke klasseoversikten",
+        classesDescriptionTeacher: "I dine klasser finner du en oversikt over klassene du er ansvarlig for. Klikker du på en klasse vil du se en oversikt over elevene i den respektive klassen.",
+        classesDescriptionAdmin: "I dine klasser finner du en oversikt over klassene du er ansvarlig for. Klikker du på en klasse vil du se en oversikt over elevene i den respektive klassen. " + 
+        "I tillegg vil du se hvilke lærere som er ansvarlige for klassen, og som dermed har tilgang til elevene. Du kan administrere tilgangen til lærere ved å bruke redigeringsknappen. " + 
+        "Ved å gi en lærer tilgang til klassen gir du hen tilgang til alle elevene og deres testresultater og annen informasjon. Tilgang skal ikke gis til lærere som ikke trenger dette. "
 
     }
 }

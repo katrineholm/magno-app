@@ -120,8 +120,9 @@ export default interface Translation {
         labelTeachers: string,
         labelNewTeacher: string,
         buttonLabel: string,
-        errorMessage: string,
-        successMessage: string,
+        errorMessage: string, 
+        successMessageDelete: string,
+        successMessageAdd: string,
         alertTitle: string,
         areYouSure1: string,
         areYouSure2: string,
@@ -150,8 +151,10 @@ export default interface Translation {
     },
     userManual: {
         printButton: string, 
+
         tests: string,
         testsSubHeader: string,
+        testsDocumentTitle: string,
         testText: string,
         testPoint1: string,
         testPoint2: string, 
@@ -178,11 +181,18 @@ export default interface Translation {
         
         students: string,
         studentsSubHeader: string,
-        studentsDescription: string,
+        studentsDocumentTitle: string,
+        studentsIntro: string,
+        studentsSecond: string,
+        studentsThird: string,
+        studentsFourth: string,
+        studentsFifth: string,
 
         classOverview: string,
         classesSubHeader: string,
-        classesDescription: string,
+        classesDocumentTitle: string,
+        classesDescriptionTeacher: string,
+        classesDescriptionAdmin: string,
 
 
 
