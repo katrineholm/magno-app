@@ -7,8 +7,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles } from '@material-ui/core/styles';
 import { useState } from 'react';
 import { addStudent } from './Communicator'
-import Typography from 'material-ui/styles/typography';
-//import { v4 as uuidv4 } from 'uuid';
 
 const styles = (theme: any) => ({
     dialogBox: {
@@ -46,7 +44,6 @@ function StudentInClassFormDialog(props: StudentInClassFormDialogProps) {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const { classes } = props;
-
 
     function handleFirstNameChange(e: React.ChangeEvent<HTMLInputElement>) {
         setFirstName(e.target.value)
