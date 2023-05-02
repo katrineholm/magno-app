@@ -141,8 +141,7 @@ const UserManual = observer( (props: any) => {
             </AccordionSummary>
             <AccordionDetails  className={classes.accordionDetails}>
               <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                malesuada lacus ex, sit amet blandit leo lobortis eget.
+                {props.translation.userManual.studentsDescription}
               </Typography>
               <div className={classes.accordionDetailsButton}>
                     <ReactToPrint 
@@ -176,8 +175,7 @@ const UserManual = observer( (props: any) => {
             </AccordionSummary>
             <AccordionDetails className={classes.accordionDetails}>
               <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                malesuada lacus ex, sit amet blandit leo lobortis eget.
+               {props.translation.userManual.classesDescription}
               </Typography>
               <div className={classes.accordionDetailsButton}>
                     <ReactToPrint 
