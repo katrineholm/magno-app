@@ -28,6 +28,23 @@ const getStudentById = async (id) => {
     return items[0]
 }
 
+const getStudent = async (name, className, school) => {
+    const container = await CosmosConnector();
+    const querySpec = {
+        query: "SELECT * from c where c.name = @name and c.grade = @className and c.school = @school",
+        parameters: [
+            { name: "@name", value: name },
+            { name: "@className", value: className },
+            { name: "@school", value: school }
+        ]
+    };
+    const { resources: items } = await container.items.query(querySpec).fetchAll();
+    if (items.length === 1) {
+        return items[0]
+
+    }
+    return null
+};
 
 
 const getStudentsBySchool = async (school) => {
@@ -83,6 +100,7 @@ const updateInformation = async (student, newInformation) => {
 module.exports = {
     getStudentsBySchool,
     getStudentsByClasses,
+    getStudent,
     createStudent,
     getStudentById,
     updateInformation

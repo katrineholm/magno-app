@@ -1,5 +1,5 @@
 //TODO: legg til add student, postscore
-const { getStudentsBySchool, getStudentsByClasses, createStudent, getStudentById, updateInformation } = require("../db/students")
+const { getStudent, getStudentsBySchool, getStudentsByClasses, createStudent, getStudentById, updateInformation } = require("../db/students")
 const { userIsAdmin, userIsBasic } = require("../utils/role")
 const { getClassByName } = require("../db/class");
 
@@ -61,16 +61,18 @@ const addStudent = async (req, res) => {
     const vision_examination = ""
     const hearing_examination = ""
     const comment = ""
-    //Må legge til other tests også
 
-
+    const existingStudent = await getStudent(name, grade, school)
+    if (existingStudent !== null) {
+        return res.status(400).json({ message: "Student already exists" })
+    }
     const existingClass = await getClassByName(grade, school);
     if (existingClass === null) {
-        res.status(400).json({ message: "Finnes ingen klasse" })
+        res.status(400).json({ message: "The class does not exixts" })
     }
     if (userIsBasic(user)) {
         if (!user.classes.includes(grade) || user.school !== school) {
-            res.status(400).json({ message: "Ikke mulig å legge til i en klasse som du ikke er ansvarlig for" })
+            res.status(400).json({ message: "Not possible to add a student to a class that you're not respoinsible for" })
         }
     }
 

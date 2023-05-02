@@ -152,7 +152,7 @@ export const translationNO: Translation = {
         labelLastName: "Etternavn",
         labelGrade: "Klasse",
         buttonLabel: "Legg til elev",
-        errorMessage: "En ukjent feil oppstod",
+        errorMessage: "Eleven finnes allerede",
         successMessage: " ble lagt til",
     },
     classFormDialog: {

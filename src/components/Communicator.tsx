@@ -119,6 +119,7 @@ export async function getStudents() {
     }
 }
 export async function addStudent(name: string, grade: string, school: string) {
+    let success=null;
     const header = getHeader()
     const form_data = {
         name: name,
@@ -127,12 +128,12 @@ export async function addStudent(name: string, grade: string, school: string) {
     }
     try {
         const { data } = await axios.post(url.addStudent, form_data, { headers: header })
-        return data;
+        return (success=true);
     }
     catch (error) {
         if (axios.isAxiosError(error)) {
             console.log('error message: ', error.message);
-            return error.message;
+            return (success=false);
         } else {
             console.log('unexpected error: ', error);
             return 'An unexpected error occurred';

@@ -63,28 +63,26 @@ function StudentFormDialog(props: StudentFormDialogProps) {
 
     async function handleSubmit(e: React.SyntheticEvent) {
         e.preventDefault();
-        const data = await addStudent(
+        const success = await addStudent(
             firstName + " " + lastName,
             String(className),
             props.store.userStore.school
         )
-        if (data !== undefined) {
-            if (data.result.includes("Success")) {
-                props.fetchStudents();
-                props.store.viewStore.setSnackBar(firstName + " " + lastName + props.translation.studentFormDialog.successMessage, 'success');
-                props.store.viewStore.setOpenSnackBar(true);
-                props.setOpen(false)
-            }
-            else {
-                props.store.viewStore.setSnackBar(props.translation.studentFormDialog.errorMessage, 'error');
-                props.store.viewStore.setOpenSnackBar(true);
-                props.setOpen(false)
-            }
+        if (success) {
+            props.fetchStudents();
+            props.store.viewStore.setSnackBar(firstName + " " + lastName + props.translation.studentFormDialog.successMessage, 'success');
+            props.store.viewStore.setOpenSnackBar(true);
+            props.setOpen(false)
+            setFirstName("");
+            setLastName("");
+            setClassName("");
+        }
+        else {
+            props.store.viewStore.setSnackBar(props.translation.studentFormDialog.errorMessage, 'error');
+            props.store.viewStore.setOpenSnackBar(true);
         }
 
-        setFirstName("");
-        setLastName("");
-        setClassName("");
+
     }
 
     return (
@@ -94,8 +92,11 @@ function StudentFormDialog(props: StudentFormDialogProps) {
             maxWidth={"sm"}
             open={props.open}
             scroll={'body'}
-            onClose={() => props.setOpen(false)}
-        >
+            onClose={() => {
+                props.setOpen(false)
+                setFirstName("");
+                setLastName("");
+            }}>
             <DialogTitle style={{ textAlign: 'center' }}>
                 {props.translation.studentFormDialog.title}
             </DialogTitle>
