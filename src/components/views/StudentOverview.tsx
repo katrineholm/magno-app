@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom"; // Import useParams hook from reac
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import { getStudents } from '../Communicator';
-import { Button, Paper } from '@material-ui/core';
+import { Button, Paper, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import SearchField from '../SearchField';
 import SearchIcon from '@material-ui/icons/Search';
@@ -96,6 +96,7 @@ const StudentOverview = observer((props: any) => {
                         </Grid>
                     </Grid>
                     <div style={{ paddingTop: 16 }} />
+                    {students.length > 0 ? 
                     <StudentTable
                         store={props.store}
                         order={props.order}
@@ -104,16 +105,17 @@ const StudentOverview = observer((props: any) => {
                         translation={props.translation}
 
                     />
+                    : <Typography style={{ textAlign: 'center', paddingTop: 20 }}>Det er ikke lagt inn noen elever</Typography>} 
                 </Paper>
-
             </Container>
+          
             <StudentFormDialog
                 store={props.store}
                 open={open}
                 translation={props.translation}
                 setOpen={setOpen}
                 fetchStudents={fetchStudents}
-            />
+            /> 
         </div>
     );
 });

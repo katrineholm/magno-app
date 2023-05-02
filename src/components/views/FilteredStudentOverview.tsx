@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import { getStudents, getTeachersByClass} from '../Communicator';
-import { Button, Paper, Typography } from '@material-ui/core';
+import { Button, Divider, Paper, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import SearchField from '../SearchField';
 import SearchIcon from '@material-ui/icons/Search';
@@ -119,6 +119,8 @@ const FilteredStudentOverview = observer((props: any) => {
                         </Grid>
                     </Grid>
 
+                    <Divider style={{marginBottom: 20}}></Divider>
+
                     <TeacherFormDialog
                         store={props.store}
                         open={openEditTeachers}
@@ -160,13 +162,17 @@ const FilteredStudentOverview = observer((props: any) => {
                       
                     </Grid>
                     <div style={{ paddingTop: 16 }} />
-                    <StudentTable
-                        store={props.store}
-                        order={props.order}
-                        orderBy={props.orderBy}
-                        students={students}
-                        translation={props.translation}
-                    />
+                    {students.length > 0 ? 
+                     <StudentTable
+                     store={props.store}
+                     order={props.order}
+                     orderBy={props.orderBy}
+                     students={students}
+                     translation={props.translation}
+                    /> 
+                    : 
+                    <Typography style={{ textAlign: 'center', paddingTop: 20 }}>Det er ikke lagt til noen elever i denne klassen</Typography>}
+                   
                 </Paper>
 
             </Container>

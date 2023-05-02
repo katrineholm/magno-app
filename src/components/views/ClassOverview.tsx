@@ -28,7 +28,6 @@ const styles = (theme: any) => ({
         marginRight: "auto",
     },
     button: {
-
         height: "100%"
     }
 });
