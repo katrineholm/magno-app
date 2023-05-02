@@ -10,6 +10,7 @@ export function getHeader() {
 }
 
 export async function createAccount(email: string, name: string, password: string, school: string) {
+    let created = null;
     const form_data = {
         email: email,
         name: name,
@@ -22,12 +23,36 @@ export async function createAccount(email: string, name: string, password: strin
         const { data } = await axios.post(url.account, form_data)
         console.log("Her kommer data fra create_account backend")
         console.log(data)
-        return data.result;
+        return (created = true)
+
     }
     catch (error) {
         if (axios.isAxiosError(error)) {
             console.log('error message: ', error.message);
-            return error.message;
+            return (created = false)
+
+
+        } else {
+            console.log('unexpected error: ', error);
+            return 'An unexpected error occurred';
+        }
+    }
+}
+export async function loginAccount(email: string, password: string) {
+    const form_data = {
+        email: email,
+        password: password
+    }
+    try {
+        const { data } = await axios.post(url.login, form_data)
+        saveToken(data.token)
+        console.log("Her kommer det token fra backend:")
+        console.log(data)
+        return data;
+    }
+    catch (error) {
+        if (axios.isAxiosError(error)) {
+            return error?.response;
         } else {
             console.log('unexpected error: ', error);
             return 'An unexpected error occurred';
@@ -42,7 +67,7 @@ export async function updateStudentInformation(dyslexia_in_family: string, visio
         information: {
             dyslexia_in_family: dyslexia_in_family,
             vision_examination: vision_examination,
-            hearing_examination: hearing_examination, 
+            hearing_examination: hearing_examination,
             comment: comment
         }
     }
@@ -66,28 +91,7 @@ export async function updateStudentInformation(dyslexia_in_family: string, visio
 }
 
 
-export async function loginAccount(email: string, password: string) {
-    const form_data = {
-        email: email,
-        password: password
-    }
-    try {
-        const { data } = await axios.post(url.login, form_data)
-        saveToken(data.token)
-        console.log("Her kommer det token fra backend:")
-        console.log(data)
-        return data;
-    }
-    catch (error) {
-        if (axios.isAxiosError(error)) {
-            console.log('error message: ', error.message);
-            return error.message;
-        } else {
-            console.log('unexpected error: ', error);
-            return 'An unexpected error occurred';
-        }
-    }
-}
+
 
 export async function getCurrentUser() {
     const header = getHeader()
@@ -193,7 +197,7 @@ export async function getTeachers() {
     }
 }
 
-export async function getTeachersByClass(school: string, className: string){
+export async function getTeachersByClass(school: string, className: string) {
     const header = getHeader()
     const params = {
         school: school,
@@ -217,14 +221,14 @@ export async function getTeachersByClass(school: string, className: string){
 export async function removeTeacherFromClass(teacherId: string, className?: string) {
     const header = getHeader();
     const params = {
-        teacherId: teacherId, 
+        teacherId: teacherId,
         className: className,
     }
     try {
         const { data } = await axios.put(url.removeTeacherFromClass, params, { headers: header });
         return data;
 
-    } 
+    }
     catch (error) {
         if (axios.isAxiosError(error)) {
             console.log('error message: ', error.message);
@@ -239,13 +243,13 @@ export async function removeTeacherFromClass(teacherId: string, className?: stri
 export async function assignTeacherToClass(teacherId: string, className: string) {
     const header = getHeader();
     const params = {
-        teacherId: teacherId, 
+        teacherId: teacherId,
         className: className,
     }
     try {
         const { data } = await axios.put(url.assignTeacherToClass, params, { headers: header });
         return data;
-    } 
+    }
     catch (error) {
         if (axios.isAxiosError(error)) {
             console.log('error message: ', error.message);

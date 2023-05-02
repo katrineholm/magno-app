@@ -33,10 +33,10 @@ export const translationNO: Translation = {
         labelSchool: "Velg skole",
         labelSubmit: "Registrer",
         successMessage: "Kontoen har blitt opprettet",
-        errorMessage: "Kontoen eksisterer allerede",
+        errorMessage: "Emailen eksisterer allerede",
         emailErrorMessage: 'Epostadressen inneholder feil',
-        roleErrorMessage: 'Du må velge en rolle',
         schoolErrorMessage: 'Du må velge en skole',
+        nameErrorMessage: 'Du må skrive inn navn',
         passwordErrorMessage: 'Passordet er for kort, det må inneholde minst 8 tegn',
         link: "Har du allerede en konto? Logg inn",
     },
@@ -206,19 +206,19 @@ export const translationNO: Translation = {
         testsSubHeader: "Hvordan gjennomføre screeningtestene med din elev",
         testsDocumentTitle: "Magno brukermanual: Hvordan gjennomføre screeningtestene med din elev",
         testText: "Magno inneholder tre tester, og det er viktig at eleven tar alle tre testene for at man skal kunne være sikker på resultatet. Motion Test måler elevens evne " +
-        "til å oppfatte bestemt bevegelse. Det er denne testen som måler den visulle prosesseringsevnen til eleven og som kan indikere dysleksi. For å sørge for at eleven ikke " +
-        "har noen synsvansker som kan påvirke resultatet, må Form Fixed Test og Formed Random test også gjennomføres. Disse vil avdekke om eleven har synsvansker som har påvirket " +
-        "testresultatene. Basert på disse tre testene kan Magno avgjøre om eleven viser tegn på dysleksi.",
+            "til å oppfatte bestemt bevegelse. Det er denne testen som måler den visulle prosesseringsevnen til eleven og som kan indikere dysleksi. For å sørge for at eleven ikke " +
+            "har noen synsvansker som kan påvirke resultatet, må Form Fixed Test og Formed Random test også gjennomføres. Disse vil avdekke om eleven har synsvansker som har påvirket " +
+            "testresultatene. Basert på disse tre testene kan Magno avgjøre om eleven viser tegn på dysleksi.",
         testPoint1: " 1. Det er forventet at en elev uten dysleksi og uten andre synsvansker vil score lavt på alle testene. ",
         testPoint2: "2. Det er forventet at en elev med dysleksi og uten andre synsvansker vil score middels/høyt på Motion Test, men lavt på Form Fixed Test og Form Random Test.",
         testPoint3: " 3. Det er forventet at en elev med andre synsvil score middels/høyt på alle testene.",
         motionTest: "Motion Test",
         motionSummary: "Motion Test tar ca. 8 minutter å gjennomføre. Den går ut på at eleven blir vist to bokser med bevegende prikker, og skal velge den boksen hvor et antall " +
-        "av prikkene beveger seg horisontalt.",
+            "av prikkene beveger seg horisontalt.",
         motionDescription: "Før testen begynner vil du bli vist en kort tutorial. Her er det viktig at du informerer eleven muntlig om hvordan testen vil fungere. Eleven vil også " +
-        "få mulighet til å prøve seg et par ganger før den ordentlige testen begynner. Her burde du forklare eleven grundig og sørge for at hen forstår hvilken av boksene som er den " +
-        "riktige å trykke på. Under tutorialen vil eleven få beskjed om du har valgt riktig boks eller ikke. Merk at denne beskjeden vil man ikke få under gjennomføringen av testen. " +
-        "Oppgaven gjentas flere ganger med økende vanskelighetsgrad når eleven velger riktig og minkende vanskelighetsgrad når eleven velger feil. ",
+            "få mulighet til å prøve seg et par ganger før den ordentlige testen begynner. Her burde du forklare eleven grundig og sørge for at hen forstår hvilken av boksene som er den " +
+            "riktige å trykke på. Under tutorialen vil eleven få beskjed om du har valgt riktig boks eller ikke. Merk at denne beskjeden vil man ikke få under gjennomføringen av testen. " +
+            "Oppgaven gjentas flere ganger med økende vanskelighetsgrad når eleven velger riktig og minkende vanskelighetsgrad når eleven velger feil. ",
         motionPointsIntro: "I opplæringen bør følgende punkter nevnes og forklares for eleven: ",
         motionPoint1: "Motion Test tar ca. 8 minutter å gjennomføre. ",
         motionPoint2: "Elevens oppgave er å velge boksen der et antall av prikkene beveger seg horisontalt.",
@@ -226,42 +226,42 @@ export const translationNO: Translation = {
         motionPoint4: "Eleven velger en boks ved å klikke på den eller ved å benytte venstre og høyre piltast. ",
 
         formFixedTest: "Form Fixed Test",
-        formFixedDescription: "Form Fixed Test tar ca. 8 minutter å gjennomføre. Testen viser to bokser med linjesegmenter notert i ulike retninger. " + 
-        "Elevens oppgave er å velge boksen der noen av linjesegmentene danner sirkler, enten midt i boksen. Oppgaven gjentas flere ganger med økende vanskelighetsgrad når eleven " + 
-        "velger riktig og minkende vanskelighetsgrad når eleven velger feil.",
-        formFixedPointsIntro: "Før testen begynner skal dere gjennom opplæring. Under denne er det viktig at du informerer eleven muntlig om hvordan testen vil fungere. I opplæringen kan "+ 
-        "følgende punkter nevnes: ",
+        formFixedDescription: "Form Fixed Test tar ca. 8 minutter å gjennomføre. Testen viser to bokser med linjesegmenter notert i ulike retninger. " +
+            "Elevens oppgave er å velge boksen der noen av linjesegmentene danner sirkler, enten midt i boksen. Oppgaven gjentas flere ganger med økende vanskelighetsgrad når eleven " +
+            "velger riktig og minkende vanskelighetsgrad når eleven velger feil.",
+        formFixedPointsIntro: "Før testen begynner skal dere gjennom opplæring. Under denne er det viktig at du informerer eleven muntlig om hvordan testen vil fungere. I opplæringen kan " +
+            "følgende punkter nevnes: ",
         formFixedPoint1: "Form Test tar ca. 8 minutter å gjennomføre.",
         formFixedPoint2: "Elevens oppgave er å velge boksen der strekene danner en sirkel.",
         formFixedPoint3: "Linjesegmentene blir vist i 4 sekunder før de forsvinner. ",
         formFixedPoint4: "Eleven velger en boks ved å trykke på den eller ved å benytte venstre og høyre piltast.",
 
         formRandomTest: "Form Random Test",
-        formRandomDescription: "Form Random Test tar ca. 8 minutter å gjennomføre. Testen fungerer på samme måte som Fixed Form Test. Den eneste forskjellen er at linjesegmentene " + 
-        "i Form Random Test danner sirkler på tilfeldig plasserte steder i boksen. Følg samme fremgangsmåte som Form Fixed Test i forrige punkt for å gjennomføre testen. ",
+        formRandomDescription: "Form Random Test tar ca. 8 minutter å gjennomføre. Testen fungerer på samme måte som Fixed Form Test. Den eneste forskjellen er at linjesegmentene " +
+            "i Form Random Test danner sirkler på tilfeldig plasserte steder i boksen. Følg samme fremgangsmåte som Form Fixed Test i forrige punkt for å gjennomføre testen. ",
 
         students: "Dine elever",
         studentsSubHeader: "Hvordan bruke elevoversikten",
         studentsDocumentTitle: "Magno brukermanual: Hvordan bruke elevoversikten",
-        studentsIntro: "Under Dine elever får du en oversikt over elevene dine, testene de har gjennomført og elevenes beregnede risiko for dysleksi.  " + 
-        'Du kan legge til elever i oversikten ved å bruke knappen “Legg til elev”.  Deretter fyller du ut elevens navn og hvilken klasse hen tilhører.',
-        studentsSecond: "Ved å klikke på en av elevene i oversikten, vil du komme til en side som inneholder informasjon om eleven og dens testresultater."  +
-        "Øverst på siden vil du se elevens risikonivå for dysleksi, " + 
-        "som er beregnet ut fra Motion Test-resultatene dersom eleven har gjennomført screeningtesten. Risikonivået kan være høyt, lavt eller middels. ",
-         studentsThird: "På denne siden vil du også se to faner. “Testresultater” inneholder en mer detaljert visualiering av testresultatene til de testene eleven har gjennomført. " + 
-         "Stolpediagrammet viser elevens score og datoen testen ble utført.",
-         studentsFourth: "Resultatet på Motion Test er det som kan gi deg en indikasjon på om eleven har risiko for dysleksi. En høy score indikerer en høy risiko for dysleksi, " + 
-         "mens en lavere score indikerer en lavere risiko. Du kan lese mer om hva resultatene på de forskjellige testene betyr i brukermanualen.",
-         studentsFifth: "Under Annen informasjon vil du finne informasjon om eleven som vil være relevant i din totalvurdering av elevens risiko for dysleksi. Her kan du legge inn og " + 
-         "redigere dataen, samt legge legge inn egne kommentarer." ,
+        studentsIntro: "Under Dine elever får du en oversikt over elevene dine, testene de har gjennomført og elevenes beregnede risiko for dysleksi.  " +
+            'Du kan legge til elever i oversikten ved å bruke knappen “Legg til elev”.  Deretter fyller du ut elevens navn og hvilken klasse hen tilhører.',
+        studentsSecond: "Ved å klikke på en av elevene i oversikten, vil du komme til en side som inneholder informasjon om eleven og dens testresultater." +
+            "Øverst på siden vil du se elevens risikonivå for dysleksi, " +
+            "som er beregnet ut fra Motion Test-resultatene dersom eleven har gjennomført screeningtesten. Risikonivået kan være høyt, lavt eller middels. ",
+        studentsThird: "På denne siden vil du også se to faner. “Testresultater” inneholder en mer detaljert visualiering av testresultatene til de testene eleven har gjennomført. " +
+            "Stolpediagrammet viser elevens score og datoen testen ble utført.",
+        studentsFourth: "Resultatet på Motion Test er det som kan gi deg en indikasjon på om eleven har risiko for dysleksi. En høy score indikerer en høy risiko for dysleksi, " +
+            "mens en lavere score indikerer en lavere risiko. Du kan lese mer om hva resultatene på de forskjellige testene betyr i brukermanualen.",
+        studentsFifth: "Under Annen informasjon vil du finne informasjon om eleven som vil være relevant i din totalvurdering av elevens risiko for dysleksi. Her kan du legge inn og " +
+            "redigere dataen, samt legge legge inn egne kommentarer.",
 
         classOverview: "Dine klasser",
         classesSubHeader: "Hvordan bruke klasseoversikten",
         classesDocumentTitle: "Magno brukermanual: Hvordan bruke klasseoversikten",
         classesDescriptionTeacher: "I dine klasser finner du en oversikt over klassene du er ansvarlig for. Klikker du på en klasse vil du se en oversikt over elevene i den respektive klassen.",
-        classesDescriptionAdmin: "I dine klasser finner du en oversikt over klassene du er ansvarlig for. Klikker du på en klasse vil du se en oversikt over elevene i den respektive klassen. " + 
-        "I tillegg vil du se hvilke lærere som er ansvarlige for klassen, og som dermed har tilgang til elevene. Du kan administrere tilgangen til lærere ved å bruke redigeringsknappen. " + 
-        "Ved å gi en lærer tilgang til klassen gir du hen tilgang til alle elevene og deres testresultater og annen informasjon. Tilgang skal ikke gis til lærere som ikke trenger dette. "
+        classesDescriptionAdmin: "I dine klasser finner du en oversikt over klassene du er ansvarlig for. Klikker du på en klasse vil du se en oversikt over elevene i den respektive klassen. " +
+            "I tillegg vil du se hvilke lærere som er ansvarlige for klassen, og som dermed har tilgang til elevene. Du kan administrere tilgangen til lærere ved å bruke redigeringsknappen. " +
+            "Ved å gi en lærer tilgang til klassen gir du hen tilgang til alle elevene og deres testresultater og annen informasjon. Tilgang skal ikke gis til lærere som ikke trenger dette. "
 
     }
 }
