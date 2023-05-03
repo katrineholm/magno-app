@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { useCookies } from 'react-cookie';
 import MagnoLogo from '../../files/magno-logo.png';
-import { loginAccount, getCurrentUser } from '../Communicator'
+import { loginAccount, getCurrentUser, getClasses, getStudents } from '../Communicator'
 import {
   Link,
   useNavigate
@@ -69,8 +69,19 @@ const Login = observer((props: any) => {
       props.store.userStore.setSchool(user.school);
       props.store.userStore.setRole(user.role);
       props.store.userStore.setLoginStatus(true);
-
+      console.log("henter klasser")
       navigate('/home')
+      const schoolClasses = await getClasses();
+      if (props.store.classStore) { // Make sure classStore is defined before using it
+        props.store.classStore.setClassList(schoolClasses);
+      }
+      console.log("henter elever")
+      const students = await getStudents();
+      props.store.studentStore.setStudentList(students)
+      console.log("henter elever")
+
+
+
     }
     else {
       props.store.viewStore.setSnackBar(props.translation.login.loginErrorMessage, 'error');

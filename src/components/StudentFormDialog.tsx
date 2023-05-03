@@ -81,8 +81,6 @@ function StudentFormDialog(props: StudentFormDialogProps) {
             props.store.viewStore.setSnackBar(props.translation.studentFormDialog.errorMessage, 'error');
             props.store.viewStore.setOpenSnackBar(true);
         }
-
-
     }
 
     return (
