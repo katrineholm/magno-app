@@ -45,3 +45,6 @@ yarn-error.log*
 
 # secrets 
 /server/dbconfig
+
+# Local Netlify folder
+.netlify
