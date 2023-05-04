@@ -70,10 +70,8 @@ const getClassesByList = async (user) => {
     const { resources: items } = await container.items
         .query(querySpec)
         .fetchAll();
-    return items
+    return items;
 }
-
-
 
 const addTeacherToClass = async (grade, teacher_id) => {
     const container = await CosmosConnector()
@@ -90,19 +88,17 @@ const addTeacherToClass = async (grade, teacher_id) => {
     return grade
 }
 
-const deleteTeacherFromClass = async (grade, teacher_id) => {
+const deleteTeacherFromClass = async (teacher_id, class_object) => {
     const container = await CosmosConnector()
 
-    console.log("er inne på add class to user")
-    console.log(grade)
-    const newTeacherList = grade.teacher.filter(item => item !== teacher_id)
-    grade.teacher = newTeacherList
-    console.log("oppdatert bruker:")
-    console.log(grade)
+    console.log(class_object) 
+    
+    const newTeacherList = class_object.teacher.filter(item => item !== teacher_id)
+    class_object.teacher = newTeacherList
 
     const { resource: updatedItem } = await container
-        .item(grade.id)
-        .replace(grade);
+        .item(class_object.id)
+        .replace(class_object);
     return
 }
 

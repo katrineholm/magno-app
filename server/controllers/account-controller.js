@@ -3,7 +3,7 @@
 const { hashPassword } = require("../utils/password")
 const { generateToken } = require('../utils/token')
 
-const { createUser, getUserByEmail, getTeachersBySchool, addAdmin } = require("../db/user");
+const { createUser, getUserByEmail, getTeachersBySchool, getTeachersByClass, addAdmin } = require("../db/user");
 // const { default: userEvent } = require("@testing-library/user-event");
 
 function handleSuccessOrErrorMessage(response, err, res) {
@@ -65,7 +65,7 @@ const postCreateUser = async (req, res) => {
     const existingUser = await getUserByEmail(email) //Sjekker om mailen ligger i databasen fra før. Kan kun lage en mail. 
 
     if (existingUser !== null) {
-        return res.status(400).json({ message: "Kunne ikke opprette bruker" })
+        return res.status(400).json({ message: "Email already exists" })
     }
 
     const hashedPassword = hashPassword(password)
@@ -100,7 +100,6 @@ const changeToAdmin = async (req, res) => {
         return res.status(400).json({ message: "Bruker er allerede admin" })
     }
     addAdmin(user)
-    console.log(user)
     res.send({ message: "user is now admin" })
 }
 
@@ -111,8 +110,6 @@ const changeToAdmin = async (req, res) => {
  * @param {response} res 
  */
 const getCurrentUser = (req, res) => {
-    console.log("starter nå")
-    console.log({ user: req.user })
     res.send({ user: req.user })
 }
 
@@ -123,11 +120,19 @@ const getTeachers = async (req, res) => {
     res.send({ teachers: teachers })
 }
 
+const getTeachersByClassC = async (req, res) => {
+    const school = req.query.school
+    const className = req.query.className
+    const teachers = await getTeachersByClass(school, className)
+    res.send({ teachers: teachers })
+}
+
 
 module.exports = {
     loginController,
     postCreateUser,
     getCurrentUser,
     changeToAdmin,
-    getTeachers
+    getTeachers,
+    getTeachersByClassC,
 }

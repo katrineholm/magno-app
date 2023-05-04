@@ -14,6 +14,7 @@ import { Divider } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import { useNavigate } from 'react-router-dom';
 import withStyles from '@material-ui/styles/withStyles';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 
 
 const ListItem = withStyles({
@@ -89,7 +90,13 @@ const MainListItems = observer( (props: any) => {
             </ListItemIcon>
             <ListItemText primary="Dine klasser"/>
           </ListItem>
-          <ListItem selected={props.store.viewStore.toolbarSelected === 4} button onClick={() => handleNavigation(4, '/information')}>
+          <ListItem selected={props.store.viewStore.toolbarSelected === 4} button onClick={() => handleNavigation(4, '/usermanual')}>
+            <ListItemIcon>
+              <MenuBookIcon/>
+            </ListItemIcon>
+            <ListItemText primary="Brukermanual"/>
+          </ListItem>
+          <ListItem selected={props.store.viewStore.toolbarSelected === 5} button onClick={() => handleNavigation(5, '/information')}>
             <ListItemIcon>
               <InfoIcon/>
             </ListItemIcon>

@@ -10,6 +10,7 @@ export function getHeader() {
 }
 
 export async function createAccount(email: string, name: string, password: string, school: string) {
+    let created = null;
     const form_data = {
         email: email,
         name: name,
@@ -22,20 +23,23 @@ export async function createAccount(email: string, name: string, password: strin
         const { data } = await axios.post(url.account, form_data)
         console.log("Her kommer data fra create_account backend")
         console.log(data)
-        return data.result;
+        return (created = true)
+
     }
     catch (error) {
         if (axios.isAxiosError(error)) {
             console.log('error message: ', error.message);
-            return error.message;
+            return (created = false)
+
+
         } else {
             console.log('unexpected error: ', error);
             return 'An unexpected error occurred';
         }
     }
 }
-
 export async function loginAccount(email: string, password: string) {
+    let success = null;
     const form_data = {
         email: email,
         password: password
@@ -45,7 +49,36 @@ export async function loginAccount(email: string, password: string) {
         saveToken(data.token)
         console.log("Her kommer det token fra backend:")
         console.log(data)
-        return data;
+        return (success = true)
+    }
+    catch (error) {
+        if (axios.isAxiosError(error)) {
+            return (success = false);
+        } else {
+            console.log('unexpected error: ', error);
+            return 'An unexpected error occurred';
+        }
+    }
+}
+
+export async function updateStudentInformation(dyslexia_in_family: string, vision_examination: string, hearing_examination: string, comment: string, studentId: string) {
+    const header = getHeader()
+    const form_data = {
+        studentId: studentId,
+        information: {
+            dyslexia_in_family: dyslexia_in_family,
+            vision_examination: vision_examination,
+            hearing_examination: hearing_examination,
+            comment: comment
+        }
+    }
+    try {
+        console.log("her er vi nå", form_data)
+        console.log(url.updateStudentInformation)
+        const { data } = await axios.put(url.updateStudentInformation, form_data, { headers: header })
+        console.log("Her kommer data fra updateStudentInformation backend")
+        console.log(data)
+        return data.updatedItem;
     }
     catch (error) {
         if (axios.isAxiosError(error)) {
@@ -58,10 +91,12 @@ export async function loginAccount(email: string, password: string) {
     }
 }
 
+
+
+
 export async function getCurrentUser() {
     const header = getHeader()
     const result = await fetch(url.getCurrentUser, { headers: header }).then(res => res.json())
-    console.log(result.user)
     return result.user
 }
 
@@ -84,6 +119,7 @@ export async function getStudents() {
     }
 }
 export async function addStudent(name: string, grade: string, school: string) {
+    let success=null;
     const header = getHeader()
     const form_data = {
         name: name,
@@ -92,20 +128,18 @@ export async function addStudent(name: string, grade: string, school: string) {
     }
     try {
         const { data } = await axios.post(url.addStudent, form_data, { headers: header })
-        return data;
+        return (success=true);
     }
     catch (error) {
         if (axios.isAxiosError(error)) {
             console.log('error message: ', error.message);
-            return error.message;
+            return (success=false);
         } else {
             console.log('unexpected error: ', error);
             return 'An unexpected error occurred';
         }
     }
 }
-
-
 
 export async function getClasses() {
     const header = getHeader()
@@ -124,15 +158,16 @@ export async function getClasses() {
     }
 }
 
-export async function addClass(uuid: string, name: string, school: string, teacherId: string) {
+// export async function addClass(uuid: string, name: string, school: string, teacherId: string) {
+export async function addClass(name: string, school: string, teacherId: string) {
+    const header = getHeader()
     const form_data = {
-        uuid: uuid,
         name: name,
         school: school,
         teacherId: teacherId
     }
     try {
-        const { data } = await axios.post(url.addClass, form_data)
+        const { data } = await axios.post(url.addClass, form_data, { headers: header })
         return data;
     }
     catch (error) {
@@ -152,6 +187,70 @@ export async function getTeachers() {
     try {
         const data = await fetch(url.getTeachers, { headers: header }).then(res => res.json())
         return data.teachers;
+    }
+    catch (error) {
+        if (axios.isAxiosError(error)) {
+            console.log('error message: ', error.message);
+            return error.message;
+        } else {
+            console.log('unexpected error: ', error);
+            return 'An unexpected error occurred';
+        }
+    }
+}
+
+export async function getTeachersByClass(school: string, className: string) {
+    const header = getHeader()
+    const params = {
+        school: school,
+        className: className
+    }
+    try {
+        const { data } = await axios.get(url.getTeachersByClass, { params: params, headers: header })
+        return data;
+    }
+    catch (error) {
+        if (axios.isAxiosError(error)) {
+            console.log('error message: ', error.message);
+            return error.message;
+        } else {
+            console.log('unexpected error: ', error);
+            return 'An unexpected error occurred';
+        }
+    }
+}
+
+export async function removeTeacherFromClass(teacherId: string, className?: string) {
+    const header = getHeader();
+    const params = {
+        teacherId: teacherId,
+        className: className,
+    }
+    try {
+        const { data } = await axios.put(url.removeTeacherFromClass, params, { headers: header });
+        return data;
+
+    }
+    catch (error) {
+        if (axios.isAxiosError(error)) {
+            console.log('error message: ', error.message);
+            return error.message;
+        } else {
+            console.log('unexpected error: ', error);
+            return 'An unexpected error occurred';
+        }
+    }
+}
+
+export async function assignTeacherToClass(teacherId: string, className: string) {
+    const header = getHeader();
+    const params = {
+        teacherId: teacherId,
+        className: className,
+    }
+    try {
+        const { data } = await axios.put(url.assignTeacherToClass, params, { headers: header });
+        return data;
     }
     catch (error) {
         if (axios.isAxiosError(error)) {

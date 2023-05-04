@@ -14,9 +14,40 @@ async function CosmosConnector() {
     return container;
 }
 
+const getStudentById = async (id) => {
+    const container = await CosmosConnector();
+    const querySpec = {
+        query: "SELECT * from c where c.id = @id",
+        "parameters": [
+            { "name": "@id", "value": id }
+        ]
+    };
+    const { resources: items } = await container.items
+        .query(querySpec)
+        .fetchAll();
+    return items[0]
+}
+
+const getStudent = async (name, className, school) => {
+    const container = await CosmosConnector();
+    const querySpec = {
+        query: "SELECT * from c where c.name = @name and c.grade = @className and c.school = @school",
+        parameters: [
+            { name: "@name", value: name },
+            { name: "@className", value: className },
+            { name: "@school", value: school }
+        ]
+    };
+    const { resources: items } = await container.items.query(querySpec).fetchAll();
+    if (items.length === 1) {
+        return items[0]
+
+    }
+    return null
+};
+
+
 const getStudentsBySchool = async (school) => {
-    console.log("Skolen de går på:")
-    console.log(school)
     const container = await CosmosConnector();
     const querySpec = {
         query: "SELECT * from c where c.school = @school",
@@ -27,9 +58,6 @@ const getStudentsBySchool = async (school) => {
     const { resources: items } = await container.items
         .query(querySpec)
         .fetchAll();
-    console.log(items[0])
-    console.log("Også resten..")
-    console.log(items)
     return items
 }
 
@@ -37,8 +65,6 @@ const getStudentsByClasses = async (user) => { //TODO: Endre sånn at det er kla
     const container = await CosmosConnector()
     const school = user.school;
     const classes = user.classes;
-    console.log("Skal nå hente elever fra klasser")
-    console.log("klassene: ")
 
     const querySpec = {
         query: "SELECT * from c where (c.school = @school) AND ARRAY_CONTAINS(@classes, c.grade)",
@@ -58,9 +84,15 @@ const createStudent = async (newStudent) => {
     const container = await CosmosConnector();
     return container.items.create(newStudent)
 }
+const updateInformation = async (student, newInformation) => {
+    const container = await CosmosConnector();
+    student.information = newInformation;
+    const { resource: updatedItem } = await container
+        .item(student.id)
+        .replace(student);
+    return updatedItem;
 
-
-
+}
 
 
 
@@ -68,5 +100,8 @@ const createStudent = async (newStudent) => {
 module.exports = {
     getStudentsBySchool,
     getStudentsByClasses,
-    createStudent
+    getStudent,
+    createStudent,
+    getStudentById,
+    updateInformation
 }

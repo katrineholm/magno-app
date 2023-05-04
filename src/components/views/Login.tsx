@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { useCookies } from 'react-cookie';
 import MagnoLogo from '../../files/magno-logo.png';
-import { loginAccount, getCurrentUser } from '../Communicator'
+import { loginAccount, getCurrentUser, getClasses, getStudents } from '../Communicator'
 import {
   Link,
   useNavigate
@@ -61,35 +61,32 @@ const Login = observer((props: any) => {
 
   async function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
-    //const data = await loginAccount(email, password)
-    const data = await loginAccount(email, password)
-    const user = await getCurrentUser()
-    props.store.userStore.setUserEmail(user.email);
-    props.store.userStore.setSchool(user.school);
-    props.store.userStore.setRole(user.role);
-    props.store.userStore.setLoginStatus(true);
-
-    navigate('/home')
-
-    // if (data.result.includes("Wrong user")) {
-    //   props.store.viewStore.setSnackBar(props.translation.login.loginErrorMessage, 'error');
-    //   props.store.viewStore.setOpenSnackBar(true);
-    // }
-    // else {
-    //   const expiryDate = new Date(Date.now() + 1000 * 60 * 60 * 3600);
-    //   setCookie('c_user', data.token, { expires: expiryDate });
-    //   props.store.userStore.setUserEmail(email);
-    //   props.store.userStore.setSchool(data.school);
-    //   props.store.userStore.setLoginStatus(true);
-    //   navigate('/home')
-    //   const fetchCall = async () => {
-    //     const students = await getStudents(props.store.userStore.school);
-    //     props.store.studentStore.setStudentList(students)
-    //   }
-    //   fetchCall()
-    // }
+    const success = await loginAccount(email, password)
+    if (success) {
+      const user = await getCurrentUser()
+      props.store.userStore.setUserEmail(user.email);
+      props.store.userStore.setUserName(user.name);
+      props.store.userStore.setSchool(user.school);
+      props.store.userStore.setRole(user.role);
+      props.store.userStore.setLoginStatus(true);
+      console.log("henter klasser")
+      navigate('/home')
+      const schoolClasses = await getClasses();
+      if (props.store.classStore) { // Make sure classStore is defined before using it
+        props.store.classStore.setClassList(schoolClasses);
+      }
+      console.log("henter elever")
+      const students = await getStudents();
+      props.store.studentStore.setStudentList(students)
+      console.log("henter elever")
 
 
+
+    }
+    else {
+      props.store.viewStore.setSnackBar(props.translation.login.loginErrorMessage, 'error');
+      props.store.viewStore.setOpenSnackBar(true);
+    }
   }
 
   return (

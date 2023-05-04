@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -8,7 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { useState } from 'react';
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import { addClass } from './Communicator';
-import { v4 as uuidv4 } from 'uuid';
+// import { v4 as uuidv4 } from 'uuid';
 
 const styles = (theme: any) => ({
     dialogBox: {
@@ -64,7 +63,6 @@ function ClassFormDialog(props: ClassFormDialogProps) {
     async function handleSubmit(e: React.SyntheticEvent) {
         e.preventDefault();
         const data = await addClass(
-            uuidv4(),
             String(grade) + String(classLetter),
             props.store.userStore.school,
             String(teacherId)
@@ -72,7 +70,7 @@ function ClassFormDialog(props: ClassFormDialogProps) {
         if (data !== undefined) {
             if (data.result.includes("Success")) {
                 props.fetchClasses();
-                props.store.viewStore.setSnackBar(props.translation.classFormDialog.successMessage, 'success');
+                props.store.viewStore.setSnackBar(String(grade) + String(classLetter) + props.translation.classFormDialog.successMessage, 'success');
                 props.store.viewStore.setOpenSnackBar(true);
                 props.setOpen(false)
             }
@@ -140,7 +138,7 @@ function ClassFormDialog(props: ClassFormDialogProps) {
                         </Select>
                     </FormControl>
                     {/* Her legges det til lærer */}
-                    <FormControl required style={{ minWidth: 90, padding: 6, paddingTop: 10, paddingBottom: 20 }} fullWidth>
+                    {/* <FormControl required style={{ minWidth: 90, padding: 6, paddingTop: 10, paddingBottom: 20 }} fullWidth>
                         <InputLabel style={{ paddingLeft: 7 }} id="select-teacher">{props.translation.classFormDialog.labelTeacher}</InputLabel>
                         <Select
                             labelId="Ansvarlig lærer"
@@ -156,6 +154,21 @@ function ClassFormDialog(props: ClassFormDialogProps) {
                                     )
                                 }
                                 )}
+                        </Select>
+                    </FormControl> */}
+                    <FormControl style={{ minWidth: 90, padding: 6, paddingTop: 10, paddingBottom: 20 }} fullWidth>
+                        <InputLabel style={{ paddingLeft: 7 }} id="select-teacher">{props.translation.classFormDialog.labelTeacher}</InputLabel>
+                        <Select
+                            labelId="Ansvarlig lærer"
+                            id="teacher"
+                            value={teacherId}
+                            label={props.translation.classFormDialog.labelTeacher}
+                            onChange={handleTeacherChange}
+                        >
+                            <MenuItem value="">{props.translation.classFormDialog.noTeacherOption}</MenuItem>
+                            {props.store.teacherStore.teacherList.map((teacher: any, index: number) => (
+                                <MenuItem key={index} value={teacher.id}>{teacher.name}</MenuItem>
+                            ))}
                         </Select>
                     </FormControl>
                     <Button

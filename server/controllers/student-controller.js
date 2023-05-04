@@ -1,5 +1,5 @@
 //TODO: legg til add student, postscore
-const { getStudentsBySchool, getStudentsByClasses, createStudent } = require("../db/students")
+const { getStudent, getStudentsBySchool, getStudentsByClasses, createStudent, getStudentById, updateInformation } = require("../db/students")
 const { userIsAdmin, userIsBasic } = require("../utils/role")
 const { getClassByName } = require("../db/class");
 
@@ -19,11 +19,9 @@ const getStudents = async (req, res) => {
 
     if (userIsAdmin(user)) {
         const students = await getStudentsBySchool(school)
-        console.log(students)
         res.send({ students: students })
     }
     else if (userIsBasic(user)) {
-        console.log("User is teacher")
         const students = await getStudentsByClasses(user)
         return res.json({ students: students })
     }
@@ -31,6 +29,18 @@ const getStudents = async (req, res) => {
         res.status(401).json({ message: "Ikke gyldig rolle" }) //riktig feilkode?
     }
 }
+
+const updateStudentInformation = async (req, res) => {
+    const studentId = req.body.studentId
+    const newInformation = req.body.information
+    const student = await getStudentById(studentId)
+    const updatedItem = await updateInformation(student, newInformation)
+    response = { 'result': 'Success updating student information', 'updatedItem': updatedItem }
+    console.log(response)
+    res.send(response)
+}
+
+
 
 
 const addStudent = async (req, res) => {
@@ -41,18 +51,28 @@ const addStudent = async (req, res) => {
     const testdate = ""; //Fjerne?
     const risk = "";
 
+    //tests
     const motion_test = [];
     const fixed_form_test = [];
     const random_form_test = [];
 
+    //information
+    const dyslexia_in_family = ""
+    const vision_examination = ""
+    const hearing_examination = ""
+    const comment = ""
+
+    const existingStudent = await getStudent(name, grade, school)
+    if (existingStudent !== null) {
+        return res.status(400).json({ message: "Student already exists" })
+    }
     const existingClass = await getClassByName(grade, school);
-    console.log(existingClass)
     if (existingClass === null) {
-        res.status(400).json({ message: "Finnes ingen klasse" })
+        res.status(400).json({ message: "The class does not exixts" })
     }
     if (userIsBasic(user)) {
         if (!user.classes.includes(grade) || user.school !== school) {
-            res.status(400).json({ message: "Ikke mulig å legge til i en klasse som du ikke er ansvarlig for" })
+            res.status(400).json({ message: "Not possible to add a student to a class that you're not respoinsible for" })
         }
     }
 
@@ -62,6 +82,7 @@ const addStudent = async (req, res) => {
         grade: grade,
         testdate: testdate,
         tests: { motion_test, fixed_form_test, random_form_test },
+        information: { dyslexia_in_family, vision_examination, hearing_examination, comment },
         risk: risk
     };
 
@@ -73,5 +94,6 @@ const addStudent = async (req, res) => {
 
 module.exports = {
     getStudents,
-    addStudent
+    addStudent,
+    updateStudentInformation
 }

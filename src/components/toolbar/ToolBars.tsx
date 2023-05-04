@@ -2,7 +2,7 @@
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
-import React,  { CSSProperties } from 'react';
+import React, { CSSProperties } from 'react';
 import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -93,41 +93,41 @@ const styles = (theme: any) => ({
 *
 *
 */
-const ToolBars = observer( (props: any) => {
-      const { classes } = props;
-      let sign_option;
-      let menu_items1;
-      let menu_items2 = '';
-      if (props.store.userStore.loginStatus){
-          menu_items1 = <MainListItems store={props.store}/>
-          sign_option = <LogOutListItems store={props.store}/>
-      } else{
-          menu_items1 = ''
-          menu_items2 = ''
-          sign_option = <LogInListItems store={props.store}/>
-      }
-      return (
-        <div>
-          <CssBaseline />
-          <Drawer
-            variant="permanent"
-            classes={{
-              paper: clsx(classes.drawerPaper, !props.store.viewStore.drawerState && classes.drawerPaperClose)
-            }}
-            open={props.store.viewStore.drawerState}
-          >
-            <div className={classes.toolbarIcon}>
-              <IconButton onClick={() => props.store.viewStore.handleDrawerOpen(props.store.viewStore.drawerState)}>
-                {props.store.viewStore.drawerState ? <ChevronLeftIcon/> : <ChevronRightIcon/> }
-              </IconButton>
-            </div>
-            {menu_items1}
-            {menu_items2}
-            {sign_option}
-          </Drawer>
+const ToolBars = observer((props: any) => {
+  const { classes } = props;
+  let sign_option;
+  let menu_items1;
+  let menu_items2 = '';
+  if (props.store.userStore.loginStatus) {
+    menu_items1 = <MainListItems store={props.store} />
+    sign_option = <LogOutListItems store={props.store} />
+  } else {
+    menu_items1 = ''
+    menu_items2 = ''
+    sign_option = <LogInListItems store={props.store} />
+  }
+  return (
+    <div>
+      <CssBaseline />
+      <Drawer
+        variant="permanent"
+        classes={{
+          paper: clsx(classes.drawerPaper, !props.store.viewStore.drawerState && classes.drawerPaperClose)
+        }}
+        open={props.store.viewStore.drawerState}
+      >
+        <div className={classes.toolbarIcon}>
+          <IconButton onClick={() => props.store.viewStore.handleDrawerOpen(props.store.viewStore.drawerState)}>
+            {props.store.viewStore.drawerState ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          </IconButton>
         </div>
-      );
-  })
+        {menu_items1}
+        {menu_items2}
+        {sign_option}
+      </Drawer>
+    </div>
+  );
+})
 
 
 
