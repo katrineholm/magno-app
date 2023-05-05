@@ -20,16 +20,18 @@ app.use('/', platform_api);
 
 const port = process.env.PORT || 8080
 
+
+
 app.get('/motion', (req, res) => {
-  res.sendFile(motion_dir + "index.html", {dotfiles: "allow"});
+  res.sendFile(motion_dir + "index.html", { dotfiles: "allow" });
 })
 
 app.get('/form-fixed', (req, res) => {
-  res.sendFile(form_fixed_dir + "index.html", {dotfiles: "allow"});
+  res.sendFile(form_fixed_dir + "index.html", { dotfiles: "allow" });
 })
 
 app.get('/form-random', (req, res) => {
-  res.sendFile(form_random_dir + "index.html", {dotfiles: "allow"});
+  res.sendFile(form_random_dir + "index.html", { dotfiles: "allow" });
 })
 
 app.get('*', (req, res) => {

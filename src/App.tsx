@@ -48,6 +48,7 @@ export const App = observer((props: any) => {
   useEffect(() => {
     //TODO: Denne må fjernes/oppdateres
     const authFunction = async () => { //Autentifiserer
+      console.log("hey her er port:", process.env.PORT)
       const validUser = await getCurrentUser()
       //const validUser = await authenticate(cookies, setCookie); //Sender til communicator som sjekker med backend
       if (!validUser) { //Hvis det ikke er registrert en bruker
@@ -94,7 +95,7 @@ export const App = observer((props: any) => {
               </Route>
               <Route path="/classes" element={<ClassOverview store={props.store} translation={translation} />} />
               <Route path="/information" element={<Information translation={translation} />}></Route>
-              <Route path="/usermanual" element={<UserManual  store={props.store} translation={translation}/>}></Route>
+              <Route path="/usermanual" element={<UserManual store={props.store} translation={translation} />}></Route>
             </Routes>
           </main>
         </>
