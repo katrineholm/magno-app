@@ -6,6 +6,7 @@
 /server/public
 /.pnp
 .pnp.js
+/server/dbconfig/*
 
 # testing
 /coverage
