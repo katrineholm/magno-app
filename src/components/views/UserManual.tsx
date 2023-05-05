@@ -197,7 +197,7 @@ const UserManual = observer( (props: any) => {
             <AccordionDetails className={classes.accordionDetails}>
                 <div className={classes.accordionText} ref={componentRefClasses}>
                     <Typography>
-                        {props.store.userStore.role == "ADMIN" ? 
+                        {props.store.userStore.role == props.translation.admin ? 
                     props.translation.userManual.classesDescriptionAdmin : props.translation.userManual.classesDescriptionTeacher}
                     </Typography>
                 </div>

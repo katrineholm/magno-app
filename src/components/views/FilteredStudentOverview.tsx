@@ -98,7 +98,7 @@ const FilteredStudentOverview = observer((props: any) => {
                     {props.translation.classFormDialog.labelClassLetter} {className}
                 </Typography>
 
-                    <Grid container spacing={2}>
+                    <Grid container spacing={2} >
                         <Grid item direction="row" className={classes.responsibleTeachers}> <h3>Ansvarlige lærere: </h3></Grid>
                         <Grid container alignItems="center"  xs={10} md={10} lg={10} xl={10} spacing={0}>
                                 {teachers.length > 0 ? //denne er null når den "router" tilbake etter en delete av teacher?
@@ -111,11 +111,13 @@ const FilteredStudentOverview = observer((props: any) => {
                                     );
                                 }) : <h3 className={classes.noTeachers}>Ingen ansvarlige lærere</h3>}
                         </Grid>
-                        <Grid item >
+                        <Grid item>
+                            {props.store.userStore.role == props.translation.admin ?
                             <IconButton
-                                onClick={() => setOpenEditTeachers(true)}>
-                                <EditIcon />
-                            </IconButton>
+                            onClick={() => setOpenEditTeachers(true)}>
+                            <EditIcon />
+                        </IconButton>  : <></>}
+                            
                         </Grid>
                     </Grid>
 

@@ -193,7 +193,6 @@ export default interface Translation {
         classesDescriptionTeacher: string,
         classesDescriptionAdmin: string,
 
-
-
     }
+    admin: string,
 }

@@ -64,7 +64,7 @@ const ClassOverview = observer((props: any) => {
             setFilteredClasses(schoolClasses);
 
             // Set teachers at the school
-            if (props.store.userStore.role === "ADMIN") {
+            if (props.store.userStore.role === props.translation.admin) {
                 const tempTeachers = await getTeachers();
                 if (props.store.teacherStore) { // Make sure teacherStore is defined before using it
                     props.store.teacherStore.setTeacherList(tempTeachers);
@@ -84,7 +84,7 @@ const ClassOverview = observer((props: any) => {
                         container
                         spacing={2}
                     >
-                        {props.store.userStore.role == "ADMIN" ?
+                        {props.store.userStore.role == props.translation.admin ?
                             <Grid item xs={4} md={3} lg={2} xl={2}>
                                 <Button
                                     fullWidth
