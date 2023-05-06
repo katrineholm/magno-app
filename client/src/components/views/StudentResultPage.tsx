@@ -82,13 +82,13 @@ const StudentResultPage = observer((props: any) => {
                     </ChartCard>
                 </Grid>
             </Grid>
-            <Card className={classes.card}>
+            {/*<Card className={classes.card}>
                 <CardContent className={classes.content}>
                     <Typography style={{ paddingBottom: 8, marginLeft: 20, marginRight: 20 }} variant="subtitle2">
                         TODO: legg inn info om testene
                     </Typography>
                 </CardContent>
-            </Card>
+    </Card>*/}
         </div>
     );
 });

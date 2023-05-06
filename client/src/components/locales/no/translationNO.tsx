@@ -15,7 +15,10 @@ export const translationNO: Translation = {
         buttonTextLastResults: "Se nye resultater",
         headerClasses: "Klasseoversikt",
         textClasses: "Se en oversikt over dine klasser",
-        buttonTextClasses: "Se oversikt over klasser"
+        buttonTextClasses: "Se oversikt over klasser", 
+        headerUserManual: "Brukermanual",
+        textUserManual: "Les brukermanualen for hvordan man gjennomfører screeningtestene og bruker applikasjonen",
+        buttonTextUserManual: "Se brukermanualen"
     },
     login: {
         title: "Logg på for å fortsette til Magno",
