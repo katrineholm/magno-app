@@ -60,7 +60,6 @@ const ClassOverview = observer((props: any) => {
             if (props.store.classStore) { // Make sure classStore is defined before using it
                 props.store.classStore.setClassList(schoolClasses);
             }
-            console.log("SCHOOL CLASSES: ", schoolClasses)
             setFilteredClasses(schoolClasses);
 
             // Set teachers at the school

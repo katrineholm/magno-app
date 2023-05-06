@@ -11,7 +11,8 @@ export default interface Translation {
         textLastResults: string,
         buttonTextLastResults: string,
         headerClasses: string,
-        textClasses: string
+        textClasses: string,
+        buttonTextClasses: string
     },
     login: {
         title: string,

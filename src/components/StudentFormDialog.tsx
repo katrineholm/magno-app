@@ -81,8 +81,6 @@ function StudentFormDialog(props: StudentFormDialogProps) {
             props.store.viewStore.setSnackBar(props.translation.studentFormDialog.errorMessage, 'error');
             props.store.viewStore.setOpenSnackBar(true);
         }
-
-
     }
 
     return (
@@ -96,6 +94,7 @@ function StudentFormDialog(props: StudentFormDialogProps) {
                 props.setOpen(false)
                 setFirstName("");
                 setLastName("");
+                setClassName("");
             }}>
             <DialogTitle style={{ textAlign: 'center' }}>
                 {props.translation.studentFormDialog.title}

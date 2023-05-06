@@ -67,6 +67,7 @@ function ClassFormDialog(props: ClassFormDialogProps) {
             props.store.userStore.school,
             String(teacherId)
         )
+        console.log(data)
         if (data !== undefined) {
             if (data.result.includes("Success")) {
                 props.fetchClasses();
@@ -75,6 +76,7 @@ function ClassFormDialog(props: ClassFormDialogProps) {
                 props.setOpen(false)
             }
             else {
+                console.log("ERROR")
                 props.store.viewStore.setSnackBar(props.translation.classFormDialog.errorMessage, 'error');
                 props.store.viewStore.setOpenSnackBar(true);
                 props.setOpen(false)
@@ -137,25 +139,6 @@ function ClassFormDialog(props: ClassFormDialogProps) {
                                 )}
                         </Select>
                     </FormControl>
-                    {/* Her legges det til lærer */}
-                    {/* <FormControl required style={{ minWidth: 90, padding: 6, paddingTop: 10, paddingBottom: 20 }} fullWidth>
-                        <InputLabel style={{ paddingLeft: 7 }} id="select-teacher">{props.translation.classFormDialog.labelTeacher}</InputLabel>
-                        <Select
-                            labelId="Ansvarlig lærer"
-                            id="teacher"
-                            value={teacherId}
-                            label={props.translation.classFormDialog.labelTeacher}
-                            onChange={handleTeacherChange}
-                        >
-                            {props.store.teacherStore.teacherList
-                                .map((teacher: any, index: number) => {
-                                    return (
-                                        <MenuItem key={index} value={teacher.id}>{teacher.name}</MenuItem>
-                                    )
-                                }
-                                )}
-                        </Select>
-                    </FormControl> */}
                     <FormControl style={{ minWidth: 90, padding: 6, paddingTop: 10, paddingBottom: 20 }} fullWidth>
                         <InputLabel style={{ paddingLeft: 7 }} id="select-teacher">{props.translation.classFormDialog.labelTeacher}</InputLabel>
                         <Select

@@ -11,8 +11,10 @@ import {
 import ActionNavigationCard from '../ActionNavigationCard'
 import PeopleIcon from '@material-ui/icons/People';
 import PieChartIcon from '@material-ui/icons/PieChart';
+import FolderIcon from '@material-ui/icons/Folder';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import { Typography } from '@material-ui/core';
+import { Folder } from '@material-ui/icons';
 
 const styles = (theme: any) => ({
   container: {
@@ -77,6 +79,17 @@ const Home = observer((props: any) => {
               store={props.store}
               icon={<PeopleIcon color="primary" style={iconStyles} />}
               route={"/students"}>
+            </ActionNavigationCard>
+          </Grid>
+          <Grid item xs={10} md={10} lg={6} xl={6}>
+            <ActionNavigationCard
+              header={props.translation.home.headerClasses}
+              text={props.translation.home.textClasses}
+              buttonText={props.translation.home.buttonTextClasses}
+              toolbarSelection={3}
+              store={props.store}
+              icon={<Folder color="primary" style={iconStyles} />}
+              route={"/classes"}>
             </ActionNavigationCard>
           </Grid>
           <Grid item xs={10} md={10} lg={6} xl={6}>
