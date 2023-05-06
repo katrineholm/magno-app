@@ -162,7 +162,7 @@ export const translationNO: Translation = {
         labelClassLetter: "Klasse",
         labelTeacher: "Ansvarlig lærer",
         buttonLabel: "Legg til klasse",
-        errorMessage: "En ukjent feil oppstod",
+        errorMessage: "Klassen finnes allerede",
         successMessage: " ble lagt til",
     },
     teacherFormDialog: {
@@ -264,6 +264,6 @@ export const translationNO: Translation = {
             "I tillegg vil du se hvilke lærere som er ansvarlige for klassen, og som dermed har tilgang til elevene. Du kan administrere tilgangen til lærere ved å bruke redigeringsknappen. " +
             "Ved å gi en lærer tilgang til klassen gir du hen tilgang til alle elevene og deres testresultater og annen informasjon. Tilgang skal ikke gis til lærere som ikke trenger dette. "
 
-    }, 
+    },
     admin: "ADMIN"
 }
