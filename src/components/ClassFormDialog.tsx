@@ -67,7 +67,7 @@ function ClassFormDialog(props: ClassFormDialogProps) {
             props.store.userStore.school,
             String(teacherId)
         )
-        console.log(data)
+        console.log("data", data.result)
         if (data !== undefined) {
             if (data.result.includes("Success")) {
                 props.fetchClasses();

@@ -12,9 +12,9 @@ import ActionNavigationCard from '../ActionNavigationCard'
 import PeopleIcon from '@material-ui/icons/People';
 import PieChartIcon from '@material-ui/icons/PieChart';
 import FolderIcon from '@material-ui/icons/Folder';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import { Typography } from '@material-ui/core';
-import { Folder } from '@material-ui/icons';
 
 const styles = (theme: any) => ({
   container: {
@@ -41,6 +41,7 @@ const Home = observer((props: any) => {
   const navigate = useNavigate();
   const iconStyles = {
     fontSize: '82px',
+    color: 'primary'
   };
 
   return (
@@ -88,19 +89,19 @@ const Home = observer((props: any) => {
               buttonText={props.translation.home.buttonTextClasses}
               toolbarSelection={3}
               store={props.store}
-              icon={<Folder color="primary" style={iconStyles} />}
+              icon={<FolderIcon color="primary" style={iconStyles} />}
               route={"/classes"}>
             </ActionNavigationCard>
           </Grid>
           <Grid item xs={10} md={10} lg={6} xl={6}>
             <ActionNavigationCard
-              header={props.translation.home.headerLastResults}
-              text={props.translation.home.textLastResults}
-              buttonText={props.translation.home.buttonTextLastResults}
-              toolbarSelection={2}
+              header={props.translation.home.headerUserManual}
+              text={props.translation.home.textUserManual}
+              buttonText={props.translation.home.buttonTextUserManual}
+              toolbarSelection={4}
               store={props.store}
-              icon={<PieChartIcon color="primary" style={iconStyles} />}
-              route={"/students/sort-by-date"}>
+              icon={<MenuBookIcon color="primary" style={iconStyles} />}
+              route={"/usermanual"}>
             </ActionNavigationCard>
           </Grid>
         </Grid>

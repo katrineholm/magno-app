@@ -12,7 +12,10 @@ export default interface Translation {
         buttonTextLastResults: string,
         headerClasses: string,
         textClasses: string,
-        buttonTextClasses: string
+        buttonTextClasses: string,
+        headerUserManual: string,
+        textUserManual: string,
+        buttonTextUserManual: string
     },
     login: {
         title: string,
