@@ -141,6 +141,11 @@ const Information = observer((props: any) => {
                             Foorman, B.R. et al. (1997). ‘The case for early reading intervention’. Foundations of reading acquisition and dyslexia: Implications for early intervention, side 243–264.
 
                         </Typography>
+                        <br />
+                        <Typography style={{ paddingBottom: 8, marginLeft: 20, marginRight: 20 }} variant="body1">
+                            {props.translation.information.lastUpdated}
+                        </Typography>
+
 
 
 

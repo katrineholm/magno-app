@@ -140,6 +140,7 @@ export const translationNO: Translation = {
             "skjer i femte klasse eller senere. Disse tallene viser de betydelige konsekvensene av sen oppdagelse. Det anbefales" +
             "derfor å starte screening for dysleksi i tidlig alder, samt gi nødvendig oppfølging og støtte i elevens leseferdigheter.",
         bibliografyTitle: "Kilder",
+        lastUpdated: "Sist oppdatert: 6.mai 2023",
     },
     testFormDialog: {
         title: "Velg elev",

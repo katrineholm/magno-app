@@ -89,6 +89,7 @@ export default interface Translation {
         effectText2: string,
         effectText3: string,
         bibliografyTitle: string,
+        lastUpdated: string,
 
     },
     testFormDialog: {
@@ -121,7 +122,7 @@ export default interface Translation {
         labelTeachers: string,
         labelNewTeacher: string,
         buttonLabel: string,
-        errorMessage: string, 
+        errorMessage: string,
         successMessageDelete: string,
         successMessageAdd: string,
         alertTitle: string,
