@@ -3,6 +3,7 @@
 #config
 dbconfig/db-account-config.js
 dbconfig/db-student-config.js
+dbconfig/db-class-config.js
 
 # dependencies
 /node_modules
