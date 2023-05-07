@@ -62,30 +62,26 @@ function ClassFormDialog(props: ClassFormDialogProps) {
 
     async function handleSubmit(e: React.SyntheticEvent) {
         e.preventDefault();
-        const data = await addClass(
+        const created = await addClass(
             String(grade) + String(classLetter),
             props.store.userStore.school,
             String(teacherId)
         )
-        console.log("data", data.result)
-        if (data !== undefined) {
-            if (data.result.includes("Success")) {
-                props.fetchClasses();
-                props.store.viewStore.setSnackBar(String(grade) + String(classLetter) + props.translation.classFormDialog.successMessage, 'success');
-                props.store.viewStore.setOpenSnackBar(true);
-                props.setOpen(false)
-            }
-            else {
-                console.log("ERROR")
-                props.store.viewStore.setSnackBar(props.translation.classFormDialog.errorMessage, 'error');
-                props.store.viewStore.setOpenSnackBar(true);
-                props.setOpen(false)
-            }
+        if (created) {
+            props.fetchClasses();
+            props.store.viewStore.setSnackBar(String(grade) + String(classLetter) + props.translation.classFormDialog.successMessage, 'success');
+            props.store.viewStore.setOpenSnackBar(true);
+            props.setOpen(false)
+            setGrade("");
+            setClassLetter("");
+            setTeacherId("");
+        }
+        else {
+            console.log("ERROR")
+            props.store.viewStore.setSnackBar(props.translation.classFormDialog.errorMessage, 'error');
+            props.store.viewStore.setOpenSnackBar(true);
         }
 
-        setGrade("");
-        setClassLetter("");
-        setTeacherId("");
     }
 
     return (
