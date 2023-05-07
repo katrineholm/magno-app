@@ -49,11 +49,11 @@ function StudentFormDialog(props: StudentFormDialogProps) {
 
 
     function handleFirstNameChange(e: React.ChangeEvent<HTMLInputElement>) {
-        setFirstName(e.target.value)
+        setFirstName(e.target.value.replace(/\s+/g, ''));
     }
 
     function handleLastNameChange(e: React.ChangeEvent<HTMLInputElement>) {
-        setLastName(e.target.value)
+        setLastName(e.target.value.replace(/\s+/g, ''));
     }
 
     function handleGradeChange(event: React.ChangeEvent<{ value: string | unknown }>) {

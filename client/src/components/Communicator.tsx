@@ -183,7 +183,6 @@ export async function addClass(name: string, school: string, teacherId: string) 
 }
 
 export async function getTeachers() {
-
     const header = getHeader()
     try {
         const data = await fetch(url.getTeachers, { headers: header }).then(res => res.json())
