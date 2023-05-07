@@ -15,5 +15,3 @@ npm run build
 cd ..
 
 cp -r client/build/ server/public/
-
-ehco "Now app is ready for running off backend"
