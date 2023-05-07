@@ -69,6 +69,7 @@ export default interface Translation {
         title: string,
         subheader: string,
         introduction: string,
+        testsAndApplicationTitle: string,
         testTitle: string,
         testText: string,
         firstPoint: string,

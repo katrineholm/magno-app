@@ -15,7 +15,7 @@ export const translationNO: Translation = {
         buttonTextLastResults: "Se nye resultater",
         headerClasses: "Klasseoversikt",
         textClasses: "Se en oversikt over dine klasser",
-        buttonTextClasses: "Se oversikt over klasser", 
+        buttonTextClasses: "Se oversikt over klasser",
         headerUserManual: "Brukermanual",
         textUserManual: "Les brukermanualen for hvordan man gjennomfører screeningtestene og bruker applikasjonen",
         buttonTextUserManual: "Se brukermanualen"
@@ -80,6 +80,7 @@ export const translationNO: Translation = {
             "og kan gjennomføres med barn allerede før de har lært å lese. På denne " +
             "siden vil du finne informasjon om applikasjonen og dens screeningtester, " +
             "samt informasjon om forskningen de bygger på.",
+        testsAndApplicationTitle: "Om applikasjonen og testene",
         testTitle: "Om testene",
         testText: "Magno inneholder tre tester som sammen kan gi en indikasjon på om eleven har dysleksi. " +
             "“Motion Test”, eller bevegelsestesten, måler elevens evne til å oppfatte ikke-tilfeldig bevegelse " +
@@ -139,8 +140,8 @@ export const translationNO: Translation = {
         effectText3: "Selv om dysleksi er biologisk, er forskere enige om at miljøfaktorer kan forme og forbedre risikoen for" +
             "vanskelighetene som dysleksi medfører. Faktisk kan vanskelighetene forbygges hos mange barn ved tidlig deteksjon og" +
             "intervensjon. En mye sitert studie av Foorman et al. i 1997 viser at effekten av intervensjon avtar med barnets" +
-            "alder. Mer spesifikt er effekten av intervensjon omtrent 80% når det skjer i første eller andre klasse, og 10-15% når det" +
-            "skjer i femte klasse eller senere. Disse tallene viser de betydelige konsekvensene av sen oppdagelse. Det anbefales" +
+            "alder. Mer spesifikt er effekten av intervensjon omtrent 80% når det skjer i første eller andre klasse, og 10-15% når det " +
+            "skjer i femte klasse eller senere. Disse tallene viser de betydelige konsekvensene av sen oppdagelse. Det anbefales " +
             "derfor å starte screening for dysleksi i tidlig alder, samt gi nødvendig oppfølging og støtte i elevens leseferdigheter.",
         bibliografyTitle: "Kilder",
     },
@@ -267,6 +268,6 @@ export const translationNO: Translation = {
             "I tillegg vil du se hvilke lærere som er ansvarlige for klassen, og som dermed har tilgang til elevene. Du kan administrere tilgangen til lærere ved å bruke redigeringsknappen. " +
             "Ved å gi en lærer tilgang til klassen gir du hen tilgang til alle elevene og deres testresultater og annen informasjon. Tilgang skal ikke gis til lærere som ikke trenger dette. "
 
-    }, 
+    },
     admin: "ADMIN"
 }
