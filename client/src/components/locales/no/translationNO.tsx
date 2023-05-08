@@ -8,7 +8,7 @@ export const translationNO: Translation = {
         buttonTextTest: "Se og start tester",
         headerStudents: "Elevoversikt",
         textStudents: "Se en oversikt over elevene dine og " +
-            "resultatene deres, eller legg til eller fjern elever fra oversikten.",
+            "resultatene deres, samt se og rediger annen informasjon om eleven.",
         buttonTextStudents: "Se oversikt over elever",
         headerLastResults: "Siste resultater",
         textLastResults: "Se resultatene fra de siste testene som har blitt gjennomført.",
