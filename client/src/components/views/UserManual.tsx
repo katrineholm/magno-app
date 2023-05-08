@@ -3,8 +3,7 @@ import {observer} from 'mobx-react';
 import {withStyles} from '@material-ui/core/styles';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Accordion, AccordionDetails, AccordionSummary, Container, Paper, Typography, IconButton, Button, Divider } from '@material-ui/core';
-import LocalPrintshopIcon from '@mui/icons-material/LocalPrintshop';
-import ReactToPrint from 'react-to-print';
+import DownloadIcon from '@mui/icons-material/Download';
 import List from '@mui/material/List';
 import { ListItemText } from '@mui/material';
 import Box from '@mui/material/Box';
@@ -245,7 +244,7 @@ const handlePrintPdf = () => {
                         color={'primary'} 
                         className={classes.printButton}
                         onClick={handlePrintPdf}>
-              <LocalPrintshopIcon />
+              <DownloadIcon />
               <Typography variant="caption">&nbsp; {props.translation.userManual.printButton}</Typography>
             </Button>
           </div>

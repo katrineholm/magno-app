@@ -63,6 +63,7 @@ export default function ClassTable(props: ClassTableProps) {
   const navigate = useNavigate();
 
   const handleClick = (event: React.MouseEvent<unknown>, name: string) => {
+    props.store.viewStore.setToolbarSelected(2)
     navigate(`/students/${name}`)
   };
 

@@ -129,13 +129,13 @@ const Student = observer((props: any) => {
                         className={activeButton === resultPage ? classes.selected : classes.root}
                         onClick={() => handleButtonClick(resultPage)}
                     >
-                        Testresultater
+                        Testresultater 
                     </StyledButton>
                     <StyledButton
                         className={activeButton === infoPage ? classes.selected : classes.root}
                         onClick={() => handleButtonClick(infoPage)}
                     >
-                        Annen informasjon
+                        Informasjon om eleven
                     </StyledButton>
                 </div>
 

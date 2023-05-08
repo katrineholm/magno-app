@@ -75,35 +75,6 @@ const Home = observer((props: any) => {
               route={"/tests"}>
             </ActionNavigationCard>
           </Grid>
-          <Grid item xs={10} md={10} lg={6} xl={6}  style={{ margin:  '0 5xp'}}>
-            <ActionNavigationCard
-              header={props.translation.home.headerStudents}
-              text={props.translation.home.textStudents}
-              buttonText={props.translation.home.buttonTextStudents}
-              toolbarSelection={2}
-              store={props.store}
-              icon={<PeopleIcon color="primary" style={iconStyles} />}
-              route={"/students"}>
-            </ActionNavigationCard>
-          </Grid>
-          </Grid>
-          </Grid>
-          <Grid item xs={10} md={10} lg={10} xl={10}>
-          <Grid direction="row"
-                container
-                spacing={5}
-                  >
-          <Grid item xs={10} md={10} lg={6} xl={6}  style={{ margin: '0 5xp'}}>
-            <ActionNavigationCard
-              header={props.translation.home.headerClasses}
-              text={props.translation.home.textClasses}
-              buttonText={props.translation.home.buttonTextClasses}
-              toolbarSelection={3}
-              store={props.store}
-              icon={<FolderIcon color="primary" style={iconStyles} />}
-              route={"/classes"}>
-            </ActionNavigationCard>
-          </Grid>
           <Grid item xs={10} md={10} lg={6} xl={6}  style={{ margin: '0 5xp'}}>
             <ActionNavigationCard
               header={props.translation.home.headerUserManual}
@@ -115,6 +86,36 @@ const Home = observer((props: any) => {
               route={"/usermanual"}>
             </ActionNavigationCard>
           </Grid>
+          </Grid>
+          </Grid>
+          <Grid item xs={10} md={10} lg={10} xl={10}>
+          <Grid direction="row"
+                container
+                spacing={5}
+                  >
+          <Grid item xs={10} md={10} lg={6} xl={6}  style={{ margin:  '0 5xp'}}>
+            <ActionNavigationCard
+              header={props.translation.home.headerStudents}
+              text={props.translation.home.textStudents}
+              buttonText={props.translation.home.buttonTextStudents}
+              toolbarSelection={2}
+              store={props.store}
+              icon={<PeopleIcon color="primary" style={iconStyles} />}
+              route={"/students"}>
+            </ActionNavigationCard>
+          </Grid>
+          <Grid item xs={10} md={10} lg={6} xl={6}  style={{ margin: '0 5xp'}}>
+            <ActionNavigationCard
+              header={props.translation.home.headerClasses}
+              text={props.translation.home.textClasses}
+              buttonText={props.translation.home.buttonTextClasses}
+              toolbarSelection={3}
+              store={props.store}
+              icon={<FolderIcon color="primary" style={iconStyles} />}
+              route={"/classes"}>
+            </ActionNavigationCard>
+          </Grid>
+
           </Grid>
           </Grid>
         </Grid>
