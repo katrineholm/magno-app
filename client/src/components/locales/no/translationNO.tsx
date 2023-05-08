@@ -204,7 +204,7 @@ export const translationNO: Translation = {
         },
     },
     userManual: {
-        printButton: "Skriv ut brukermanualen",
+        printButton: "Last ned brukermanualen",
 
         tests: "Tester",
         testsSubHeader: "Hvordan gjennomføre screeningtestene med din elev",
