@@ -52,11 +52,53 @@ function StudentInClassFormDialog(props: StudentInClassFormDialogProps) {
     function handleLastNameChange(e: React.ChangeEvent<HTMLInputElement>) {
         setLastName(e.target.value)
     }
+    function sanitizeString(inputString: string): string {
+        // Remove leading and trailing spaces
+        let sanitizedString = inputString.trim();
+
+        // Reduce multiple spaces to a single space
+        sanitizedString = sanitizedString.replace(/\s+/g, ' ');
+
+        return sanitizedString;
+    }
+
+    function formatUpperCase(name: string): string {
+        console.log("Inne i uppercase")
+        // Split the name into an array of words
+        const words = name.split(' ');
+        console.log("listen:", words)
+
+        // Loop through each word and capitalize the first letter
+        const formattedWords = words.map((word) => {
+            const firstLetter = word[0].toUpperCase();
+            const restOfWord = word.slice(1).toLowerCase();
+            return `${firstLetter}${restOfWord}`;
+        });
+
+        // Join the words back into a string and return it
+        return formattedWords.join(' ');
+    }
+
+    function formatFullName(first: string, last: string): string {
+        //remove spaces
+        const sanitizedFirstName = sanitizeString(first)
+        const sanitizedLastName = sanitizeString(last)
+        //Handels upper and lower cases
+        const upperCaseFirstName = formatUpperCase(sanitizedFirstName)
+        const upperCaseLastName = formatUpperCase(sanitizedLastName)
+
+        //sets updated name
+        setFirstName(upperCaseFirstName)
+        setLastName(upperCaseLastName)
+        return upperCaseFirstName + " " + upperCaseLastName;
+    }
+
 
     async function handleSubmit(e: React.SyntheticEvent) {
         e.preventDefault();
+        const fullName = formatFullName(firstName, lastName);
         const success = await addStudent(
-            firstName + " " + lastName,
+            fullName,
             String(props.classNameProp),
             props.store.userStore.school
         )
