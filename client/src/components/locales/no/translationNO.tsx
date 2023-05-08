@@ -4,11 +4,11 @@ export const translationNO: Translation = {
     home: {
         title: "Velkommen, ",
         headerTest: "Start en test",
-        textTest: "Lar deg velge og starte forskjellige tester.",
+        textTest: "Lar deg velge og starte forskjellige tester",
         buttonTextTest: "Se og start tester",
         headerStudents: "Elevoversikt",
         textStudents: "Se en oversikt over elevene dine og " +
-            "resultatene deres, samt se og rediger annen informasjon om eleven.",
+            "resultatene deres, samt se og rediger annen informasjon om eleven",
         buttonTextStudents: "Se oversikt over elever",
         headerLastResults: "Siste resultater",
         textLastResults: "Se resultatene fra de siste testene som har blitt gjennomført.",
