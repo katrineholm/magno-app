@@ -1,5 +1,5 @@
 //TODO: legg til add student, postscore
-const { getStudent, getStudentsBySchool, getStudentsByClasses, createStudent, getStudentById, updateInformation } = require("../db/students")
+const { getStudent, getStudentsBySchool, getStudentsByClasses, createStudent, getStudentById, updateInformation, updateScore } = require("../db/students")
 const { userIsAdmin, userIsBasic } = require("../utils/role")
 const { getClassByName } = require("../db/class");
 
@@ -12,6 +12,16 @@ function handleSuccessOrErrorMessage(response, err, res) {
     }
 }
 
+const postScore = async (req, res) => {
+    const id = req.body.id;
+    const test_type = req.body.test_type;
+    const test_score = req.body.test_score;
+    const student = await getStudentById(id);
+
+    const updatedStudentWithScore = await updateScore(student, test_type, test_score);
+
+    res.send({ status: "ok" })
+}
 
 const getStudents = async (req, res) => {
     const user = req.user
@@ -95,5 +105,6 @@ const addStudent = async (req, res) => {
 module.exports = {
     getStudents,
     addStudent,
-    updateStudentInformation
+    updateStudentInformation,
+    postScore
 }

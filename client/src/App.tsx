@@ -17,8 +17,7 @@ import Snackbar from "./components/SnackBar";
 import {
   useNavigate,
 } from "react-router-dom";
-//import { getClasses, getCurrentUser, getStudents } from './components/Communicator';
-import { getCurrentUser } from './components/Communicator';
+import { getClasses, getCurrentUser, getStudents } from './components/Communicator';
 
 import Student from './components/views/Student';
 import { translationNO } from './components/locales/no/translationNO';
@@ -63,10 +62,10 @@ export const App = observer((props: any) => {
         props.store.userStore.setLoginStatus(true)
         navigate("/home")
         const fetchCall = async () => {
-          //const students = await getStudents(props.store.userStore.school); //Denne bør kanskje oppdateres?
-          //const classes = await getClasses(props.store.userStore.school);
-          //props.store.studentStore.setStudentList(students)
-          //props.store.classStore.setClassList(classes)
+          const students = await getStudents(); //Denne bør kanskje oppdateres?
+          const classes = await getClasses();
+          props.store.studentStore.setStudentList(students)
+          props.store.classStore.setClassList(classes)
         }
         fetchCall()
       }

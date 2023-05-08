@@ -9,6 +9,7 @@ import AddIcon from '@material-ui/icons/Add';
 import ClassFormDialog from '../ClassFormDialog';
 import { Class, Teacher } from '../Interfaces';
 import ClassTable from '../ClassTable';
+import { CircularProgress } from '@material-ui/core';
 
 const styles = (theme: any) => ({
     container: {
@@ -39,6 +40,7 @@ const styles = (theme: any) => ({
  * @returns
  */
 const ClassOverview = observer((props: any) => {
+    const [loading, setLoading] = useState<boolean>(true);
     const { classes } = props;
     const [open, setOpen] = useState(false);
     const [filteredClasses, setFilteredClasses] = React.useState<Array<Class>>([]);
@@ -48,7 +50,7 @@ const ClassOverview = observer((props: any) => {
         const schoolClasses = await getClasses();
         if (props.store.classStore) { // Make sure classStore is defined before using it
             props.store.classStore.setClassList(schoolClasses);
-           
+
         }
         setFilteredClasses(schoolClasses);
     }
@@ -71,6 +73,7 @@ const ClassOverview = observer((props: any) => {
                 setTeachers(tempTeachers);
                 console.log(tempTeachers);
             }
+            setLoading(false);
         };
         fetchCall();
     }, []);
@@ -98,13 +101,18 @@ const ClassOverview = observer((props: any) => {
                             </Grid> : <></>}
                     </Grid>
                     <div style={{ paddingTop: 16 }} />
-                    {filteredClasses.length > 0 ? 
-                      <ClassTable
-                      store={props.store}
-                      schoolClasses={filteredClasses.sort((a, b) => a.name.localeCompare(b.name))}
-                      translation={props.translation} /> : 
-                      <Typography style={{ textAlign: 'center', paddingTop: 20 }}>Det er ikke lagt inn noen klasser</Typography>}
-                  
+                    {loading ? ( // show loading icon while data is being fetched
+                        <div style={{ display: "flex", justifyContent: "center" }}>
+                            <CircularProgress style={{ color: "#bdbdbd" }} />
+                        </div>
+                    ) : filteredClasses.length > 0 ? (
+                        <ClassTable
+                            store={props.store}
+                            schoolClasses={filteredClasses.sort((a, b) => a.name.localeCompare(b.name))}
+                            translation={props.translation} />
+                    ) : (
+                        <Typography style={{ textAlign: 'center', paddingTop: 20 }}>Det er ikke lagt inn noen klasser</Typography>)}
+
                 </Paper>
 
             </Container>

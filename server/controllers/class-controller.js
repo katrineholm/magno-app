@@ -38,7 +38,7 @@ const postCreateClass = async (req, res) => {
     const existingClass = await getClassByName(name, school) //Sjekker om klassen ligger i databasen fra før. Kan kun lage en klasse. 
 
     if (existingClass !== null) {
-        return res.status(400).json({ message: "Kunne ikke opprette klasse" })
+        return res.status(400).json({ message: "Class already exists" })
     }
     let newClass;
 
