@@ -79,6 +79,17 @@ const getStudentsByClasses = async (user) => { //TODO: Endre sånn at det er kla
     return items
 }
 
+const updateScore = async (student, testType, newScore) => {
+    const container = await CosmosConnector();
+
+    student.tests[testType].push({ score: newScore, date: new Date() })
+
+    const { resource: updatedItem } = await container
+        .item(student.id)
+        .replace(student);
+    return updatedItem;
+}
+
 const createStudent = async (newStudent) => {
 
     const container = await CosmosConnector();
@@ -103,5 +114,6 @@ module.exports = {
     getStudent,
     createStudent,
     getStudentById,
-    updateInformation
+    updateInformation,
+    updateScore
 }

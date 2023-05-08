@@ -21,4 +21,5 @@ router.post("/create-class", authenticated, userIsAdmin, classController.postCre
 router.get("/get-classes", authenticated, classController.getClasses)
 router.get('/getTeachers', authenticated, userIsAdmin, accountController.getTeachers)
 router.get('/getTeachersByClass', authenticated, accountController.getTeachersByClassC)
+router.post("/student/score", studentController.postScore)
 module.exports = router;

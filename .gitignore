@@ -4,6 +4,8 @@
 /client/node_modules
 /server/node_modules
 /server/public
+/server/public_copy
+/server/public_persisted
 /.pnp
 .pnp.js
 /server/dbconfig/*
