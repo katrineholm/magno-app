@@ -175,11 +175,11 @@ export default interface Translation {
 
         formFixedTest: string,
         formFixedDescription: string,
-        formFixedPointsIntro: string,
-        formFixedPoint1: string,
-        formFixedPoint2: string,
-        formFixedPoint3: string,
-        formFixedPoint4: string,
+        formPointsIntro: string,
+        formPoint1: string,
+        formPoint2: string,
+        formPoint3: string,
+        formPoint4: string,
 
         formRandomTest: string,
         formRandomDescription: string,
