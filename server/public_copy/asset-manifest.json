@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/static/css/main.073c9b0a.css",
+    "main.js": "/static/js/main.2c8c1ad5.js",
+    "static/js/787.9c17e9ff.chunk.js": "/static/js/787.9c17e9ff.chunk.js",
+    "static/media/formfixed50.jpg": "/static/media/formfixed50.995e6e20a097d3a88971.jpg",
+    "static/media/formrandom50.jpg": "/static/media/formrandom50.6d8956d161628b9064ad.jpg",
+    "static/media/motiondots.jpg": "/static/media/motiondots.82ac2da4a0d629355ea1.jpg",
+    "static/media/magno-logo.png": "/static/media/magno-logo.1c6daea3714294918a5f.png",
+    "index.html": "/index.html",
+    "main.073c9b0a.css.map": "/static/css/main.073c9b0a.css.map",
+    "main.2c8c1ad5.js.map": "/static/js/main.2c8c1ad5.js.map",
+    "787.9c17e9ff.chunk.js.map": "/static/js/787.9c17e9ff.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.2c8c1ad5.js"
+  ]
+}
