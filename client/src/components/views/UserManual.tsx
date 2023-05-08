@@ -11,7 +11,6 @@ import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 
-
 const styles = (theme: any) => ({
   container: {
     marginTop: theme.spacing(10),
@@ -106,12 +105,21 @@ function a11yProps(index: number) {
 
 const UserManual = observer( (props: any) => {
   const {classes} = props;
-  const componentRefTests = useRef(null);
+  const componentRef = useRef(null);
   const [value, setValue] = React.useState(0);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
+
+const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  setValue(newValue);
+};
+  
+const handlePrintPdf = () => {
+  const link = document.createElement('a');
+  link.href = process.env.PUBLIC_URL + '/magno-brukermanual.pdf'; // Replace with the actual path to your PDF file
+  link.target = '_blank';
+  link.download = 'magno-brukermanual.pdf'; // Replace with the desired name for the downloaded file
+  link.click();
+};
 
     return (
                 
@@ -131,7 +139,7 @@ const UserManual = observer( (props: any) => {
             </AccordionSummary>
             <Divider />
             <AccordionDetails className={classes.accordionDetails} >
-            <div className={classes.accordionText} ref={componentRefTests}>
+            <div className={classes.accordionText} ref={componentRef}>
                 <Typography>{props.translation.userManual.testText}</Typography>
                 <List sx={{paddingLeft: 5}}>
                     <ListItemText className={classes.smallerText}>{props.translation.userManual.testPoint1}</ListItemText>
@@ -140,10 +148,10 @@ const UserManual = observer( (props: any) => {
                 </List>
                 <Box sx={{ width: '100%', bgcolor: 'background.paper', borderBottom: 1, borderColor: 'divider',  
                 '& .MuiTabs-indicator': {
-                    backgroundColor: '#2A646D', // Replace 'your-color' with your desired color
+                    backgroundColor: '#2A646D', 
                   }, 
                   '& .MuiTab-root': {
-                    color: '#2A646D', // Replace 'your-text-color' with your desired text color
+                    color: '#2A646D',
                   },}}>
                   <Tabs value={value} onChange={handleChange}  textColor='inherit' indicatorColor='primary' >
                     <Tab label={props.translation.userManual.motionTest}  {...a11yProps(0)} />
@@ -183,16 +191,6 @@ const UserManual = observer( (props: any) => {
                           <ListItemText sx={{ display: 'list-item' }}>{props.translation.userManual.formPoint4}</ListItemText>
                       </List>
                   </TabPanel>
-
-
-               {/*<Typography className={classes.header}>{props.translation.userManual.motionTest}</Typography>
-               
-
-                <Typography className={classes.header}>{props.translation.userManual.formFixedTest}</Typography>
-               
-
-                <Typography className={classes.header}>{props.translation.userManual.formFixedTest}</Typography>  */} 
-               
                 </div>
             </AccordionDetails>
           </Accordion >
@@ -239,26 +237,18 @@ const UserManual = observer( (props: any) => {
                 </div>
             </AccordionDetails>
           </Accordion>
-
-          
           </Paper>
-          <div className={classes.accordionDetailsButton}>
-                    <ReactToPrint 
-                    trigger={() => 
-                        <Button aria-label="print" 
+          <div style={{display: 'flex', justifyContent: 'center'}}>
+            <Button aria-label="print" 
                         disableElevation
                         variant={"contained"}
                         color={'primary'} 
-                        className={classes.printButton}>
-                        <LocalPrintshopIcon />
-                        <Typography variant="caption">&nbsp; {props.translation.userManual.printButton}</Typography>
-                        </Button>
-                    }
-                    content={() => componentRefTests.current}
-                    documentTitle={props.translation.userManual.testsDocumentTitle}
-                    pageStyle="print"
-                    />
-                </div>
+                        className={classes.printButton}
+                        onClick={handlePrintPdf}>
+              <LocalPrintshopIcon />
+              <Typography variant="caption">&nbsp; {props.translation.userManual.printButton}</Typography>
+            </Button>
+          </div>
         </Container>
   );
 });
