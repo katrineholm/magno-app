@@ -11,7 +11,7 @@ const motion_dir = `${__dirname}/public/tests/motion/`;
 const form_fixed_dir = `${__dirname}/public/tests/form_fixed/`;
 const form_random_dir = `${__dirname}/public/tests/form_random/`;
 
-app.use(express.static('public'))
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
@@ -35,7 +35,7 @@ app.get('/form-random', (req, res) => {
 })
 
 app.get('*', (req, res) => {
-  res.sendFile(dir + "index.html");
+  res.redirect("https://magno-app-2023.web.app/")
 })
 
 app.listen(port, () => {

@@ -9,7 +9,7 @@
 /.pnp
 .pnp.js
 /server/dbconfig/*
-
+/server/.firebase
 # testing
 /client/coverage
 
