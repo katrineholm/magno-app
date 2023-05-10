@@ -3,10 +3,12 @@ import {observer} from 'mobx-react';
 import {withStyles} from '@material-ui/core/styles';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Accordion, AccordionDetails, AccordionSummary, Container, Paper, Typography, IconButton, Button, Divider } from '@material-ui/core';
-import LocalPrintshopIcon from '@mui/icons-material/LocalPrintshop';
-import ReactToPrint from 'react-to-print';
+import DownloadIcon from '@mui/icons-material/Download';
 import List from '@mui/material/List';
 import { ListItemText } from '@mui/material';
+import Box from '@mui/material/Box';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
 
 const styles = (theme: any) => ({
   container: {
@@ -23,7 +25,7 @@ const styles = (theme: any) => ({
     paddingBottom: theme.spacing(2),
   },
   smallerText: {
-    color: 'grey', 
+    //fontWeight: 'bold', 
   },
   printButton: {
     borderRadius: 7, 
@@ -66,11 +68,57 @@ const styles = (theme: any) => ({
  * @export
  * @returns
  */
+
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
+}
+
+function TabPanel(props: TabPanelProps) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+function a11yProps(index: number) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
+
 const UserManual = observer( (props: any) => {
   const {classes} = props;
-  const componentRefTests = useRef(null);
-  const componentRefStudents = useRef(null);
-  const componentRefClasses = useRef(null);
+  const componentRef = useRef(null);
+  const [value, setValue] = React.useState(0);
+
+
+const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  setValue(newValue);
+};
+  
+const handlePrintPdf = () => {
+  const link = document.createElement('a');
+  link.href = process.env.PUBLIC_URL + '/magno-brukermanual.pdf'; // Replace with the actual path to your PDF file
+  link.target = '_blank';
+  link.download = 'magno-brukermanual.pdf'; // Replace with the desired name for the downloaded file
+  link.click();
+};
 
     return (
                 
@@ -90,56 +138,58 @@ const UserManual = observer( (props: any) => {
             </AccordionSummary>
             <Divider />
             <AccordionDetails className={classes.accordionDetails} >
-            <div className={classes.accordionText} ref={componentRefTests}>
+            <div className={classes.accordionText} ref={componentRef}>
                 <Typography>{props.translation.userManual.testText}</Typography>
                 <List sx={{paddingLeft: 5}}>
                     <ListItemText className={classes.smallerText}>{props.translation.userManual.testPoint1}</ListItemText>
                     <ListItemText className={classes.smallerText}>{props.translation.userManual.testPoint2}</ListItemText>
                     <ListItemText className={classes.smallerText}>{props.translation.userManual.testPoint3}</ListItemText>
                 </List>
+                <Box sx={{ width: '100%', bgcolor: 'background.paper', borderBottom: 1, borderColor: 'divider',  
+                '& .MuiTabs-indicator': {
+                    backgroundColor: '#2A646D', 
+                  }, 
+                  '& .MuiTab-root': {
+                    color: '#2A646D',
+                  },}}>
+                  <Tabs value={value} onChange={handleChange}  textColor='inherit' indicatorColor='primary' >
+                    <Tab label={props.translation.userManual.motionTest}  {...a11yProps(0)} />
+                    <Tab label={props.translation.userManual.formFixedTest}  {...a11yProps(1)} />
+                    <Tab label={props.translation.userManual.formRandomTest}  {...a11yProps(2)} />
+                  </Tabs>
+                </Box>
+                    <TabPanel value={value} index={0}>
+                    <Typography>{props.translation.userManual.motionSummary}</Typography>
+                      <Typography>{props.translation.userManual.motionDescription}</Typography>
 
-                <Typography className={classes.header}>{props.translation.userManual.motionTest}</Typography>
-                <Typography>{props.translation.userManual.motionSummary}</Typography>
-                <Typography>{props.translation.userManual.motionDescription}</Typography>
-
-                <Typography>{props.translation.userManual.motionPointsIntro}</Typography>
-                <List sx={{ listStyleType: 'disc' , paddingLeft: 5}}>
-                    <ListItemText sx={{ display: 'list-item' }}>{props.translation.userManual.motionPoint1}</ListItemText>
-                    <ListItemText sx={{ display: 'list-item' }}>{props.translation.userManual.motionPoint2}</ListItemText>
-                    <ListItemText sx={{ display: 'list-item' }}>{props.translation.userManual.motionPoint3}</ListItemText>
-                    <ListItemText sx={{ display: 'list-item' }}>{props.translation.userManual.motionPoint4}</ListItemText>
-                </List>
-
-                <Typography className={classes.header}>{props.translation.userManual.formFixedTest}</Typography>
-                <Typography>{props.translation.userManual.formFixedDescription}</Typography>
-                <Typography>{props.translation.userManual.formFixedPointsIntro}</Typography>
-                <List sx={{ listStyleType: 'disc' , paddingLeft: 5}}>
-                    <ListItemText sx={{ display: 'list-item' }}>{props.translation.userManual.formFixedPoint1}</ListItemText>
-                    <ListItemText sx={{ display: 'list-item' }}>{props.translation.userManual.formFixedPoint2}</ListItemText>
-                    <ListItemText sx={{ display: 'list-item' }}>{props.translation.userManual.formFixedPoint3}</ListItemText>
-                    <ListItemText sx={{ display: 'list-item' }}>{props.translation.userManual.formFixedPoint4}</ListItemText>
-                </List>
-
-                <Typography className={classes.header}>{props.translation.userManual.formFixedTest}</Typography>
-                <Typography>{props.translation.userManual.formFixedDescription}</Typography>
-                </div>
-
-                <div className={classes.accordionDetailsButton}>
-                    <ReactToPrint 
-                    trigger={() => 
-                        <Button aria-label="print" 
-                        disableElevation
-                        variant={"contained"}
-                        color={'primary'} 
-                        className={classes.printButton}>
-                        <LocalPrintshopIcon />
-                        <Typography variant="caption">&nbsp; {props.translation.userManual.printButton}</Typography>
-                        </Button>
-                    }
-                    content={() => componentRefTests.current}
-                    documentTitle={props.translation.userManual.testsDocumentTitle}
-                    pageStyle="print"
-                    />
+                      <Typography>{props.translation.userManual.motionPointsIntro}</Typography>
+                      <List sx={{ listStyleType: 'disc' , paddingLeft: 5}}>
+                          <ListItemText sx={{ display: 'list-item' }}>{props.translation.userManual.motionPoint1}</ListItemText>
+                          <ListItemText sx={{ display: 'list-item' }}>{props.translation.userManual.motionPoint2}</ListItemText>
+                          <ListItemText sx={{ display: 'list-item' }}>{props.translation.userManual.motionPoint3}</ListItemText>
+                          <ListItemText sx={{ display: 'list-item' }}>{props.translation.userManual.motionPoint4}</ListItemText>
+                      </List>
+                  </TabPanel>
+                  <TabPanel value={value} index={1}>
+                  <Typography>{props.translation.userManual.formFixedDescription}</Typography>
+                      <Typography>{props.translation.userManual.formPointsIntro}</Typography>
+                      <List sx={{ listStyleType: 'disc' , paddingLeft: 5}}>
+                          <ListItemText sx={{ display: 'list-item' }}>{props.translation.userManual.formPoint1}</ListItemText>
+                          <ListItemText sx={{ display: 'list-item' }}>{props.translation.userManual.formPoint2}</ListItemText>
+                          <ListItemText sx={{ display: 'list-item' }}>{props.translation.userManual.formPoint3}</ListItemText>
+                          <ListItemText sx={{ display: 'list-item' }}>{props.translation.userManual.formPoint4}</ListItemText>
+                      </List>
+                  </TabPanel>
+                  <TabPanel value={value} index={2}>
+                    <Typography>{props.translation.userManual.formRandomDescription}</Typography>
+                    <Typography>{props.translation.userManual.formPointsIntro}</Typography>
+                      <List sx={{ listStyleType: 'disc' , paddingLeft: 5}}>
+                          <ListItemText sx={{ display: 'list-item' }}>{props.translation.userManual.formPoint1}</ListItemText>
+                          <ListItemText sx={{ display: 'list-item' }}>{props.translation.userManual.formPoint2}</ListItemText>
+                          <ListItemText sx={{ display: 'list-item' }}>{props.translation.userManual.formPoint3}</ListItemText>
+                          <ListItemText sx={{ display: 'list-item' }}>{props.translation.userManual.formPoint4}</ListItemText>
+                      </List>
+                  </TabPanel>
                 </div>
             </AccordionDetails>
           </Accordion >
@@ -156,30 +206,13 @@ const UserManual = observer( (props: any) => {
             </AccordionSummary>
             <Divider />
             <AccordionDetails  className={classes.accordionDetails} >
-            <div className={classes.accordionText} ref={componentRefStudents}>
+            <div className={classes.accordionText}>
               <Typography className={classes.paragraph}>{props.translation.userManual.studentsIntro}</Typography>
               <Typography className={classes.paragraph}>{props.translation.userManual.studentsSecond}</Typography>
               <Typography className={classes.paragraph}>{props.translation.userManual.studentsThird}</Typography>
               <Typography className={classes.paragraph}>{props.translation.userManual.studentsFourth}</Typography>
               <Typography className={classes.paragraph}>{props.translation.userManual.studentsFifth}</Typography>
             </div>
-              <div className={classes.accordionDetailsButton}>
-                    <ReactToPrint 
-                    trigger={() => 
-                        <Button aria-label="print" 
-                        disableElevation
-                        variant={"contained"}
-                        color={'primary'} 
-                        className={classes.printButton}>
-                        <LocalPrintshopIcon />
-                        <Typography variant="caption">&nbsp; {props.translation.userManual.printButton}</Typography>
-                        </Button>
-                    }
-                    content={() => componentRefStudents.current}
-                    documentTitle={props.translation.userManual.studentsDocumentTitle}
-                    pageStyle="print"
-                    />
-                </div>
             </AccordionDetails>
           </Accordion>
           <Accordion>
@@ -195,35 +228,27 @@ const UserManual = observer( (props: any) => {
             </AccordionSummary>
             <Divider />
             <AccordionDetails className={classes.accordionDetails}>
-                <div className={classes.accordionText} ref={componentRefClasses}>
+                <div className={classes.accordionText}>
                     <Typography>
                         {props.store.userStore.role == props.translation.admin ? 
                     props.translation.userManual.classesDescriptionAdmin : props.translation.userManual.classesDescriptionTeacher}
                     </Typography>
                 </div>
-              <div className={classes.accordionDetailsButton}>
-                    <ReactToPrint 
-                    trigger={() => 
-                        <Button aria-label="print" 
+            </AccordionDetails>
+          </Accordion>
+          </Paper>
+          <div style={{display: 'flex', justifyContent: 'center'}}>
+            <Button aria-label="print" 
                         disableElevation
                         variant={"contained"}
                         color={'primary'} 
-                        className={classes.printButton}>
-                        <LocalPrintshopIcon />
-                        <Typography variant="caption">&nbsp;  {props.translation.userManual.printButton}</Typography>
-                        </Button>
-                    }
-                    content={() => componentRefClasses.current}
-                    documentTitle={props.translation.userManual.classesDocumentTitle}
-                    pageStyle="print"
-                    />
-                </div>
-            </AccordionDetails>
-          </Accordion>
-
-          </Paper>
+                        className={classes.printButton}
+                        onClick={handlePrintPdf}>
+              <DownloadIcon />
+              <Typography variant="caption">&nbsp; {props.translation.userManual.printButton}</Typography>
+            </Button>
+          </div>
         </Container>
-
   );
 });
 

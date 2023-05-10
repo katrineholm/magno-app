@@ -4,11 +4,11 @@ export const translationNO: Translation = {
     home: {
         title: "Velkommen, ",
         headerTest: "Start en test",
-        textTest: "Lar deg velge og starte forskjellige tester.",
+        textTest: "Lar deg velge og starte forskjellige tester",
         buttonTextTest: "Se og start tester",
         headerStudents: "Elevoversikt",
         textStudents: "Se en oversikt over elevene dine og " +
-            "resultatene deres, eller legg til eller fjern elever fra oversikten.",
+            "resultatene deres, samt se og rediger annen informasjon om eleven",
         buttonTextStudents: "Se oversikt over elever",
         headerLastResults: "Siste resultater",
         textLastResults: "Se resultatene fra de siste testene som har blitt gjennomført.",
@@ -206,7 +206,7 @@ export const translationNO: Translation = {
         },
     },
     userManual: {
-        printButton: "Skriv ut",
+        printButton: "Last ned brukermanualen",
 
         tests: "Tester",
         testsSubHeader: "Hvordan gjennomføre screeningtestene med din elev",
@@ -219,7 +219,7 @@ export const translationNO: Translation = {
         testPoint2: "2. Det er forventet at en elev med dysleksi og uten andre synsvansker vil score middels/høyt på Motion Test, men lavt på Form Fixed Test og Form Random Test.",
         testPoint3: " 3. Det er forventet at en elev med andre synsvil score middels/høyt på alle testene.",
         motionTest: "Motion Test",
-        motionSummary: "Motion Test tar ca. 8 minutter å gjennomføre. Den går ut på at eleven blir vist to bokser med bevegende prikker, og skal velge den boksen hvor et antall " +
+        motionSummary: "Testen tar ca. 8 minutter å gjennomføre. Den går ut på at eleven blir vist to bokser med bevegende prikker, og skal velge den boksen hvor et antall " +
             "av prikkene beveger seg horisontalt.",
         motionDescription: "Før testen begynner vil du bli vist en kort tutorial. Her er det viktig at du informerer eleven muntlig om hvordan testen vil fungere. Eleven vil også " +
             "få mulighet til å prøve seg et par ganger før den ordentlige testen begynner. Her burde du forklare eleven grundig og sørge for at hen forstår hvilken av boksene som er den " +
@@ -235,12 +235,12 @@ export const translationNO: Translation = {
         formFixedDescription: "Form Fixed Test tar ca. 8 minutter å gjennomføre. Testen viser to bokser med linjesegmenter notert i ulike retninger. " +
             "Elevens oppgave er å velge boksen der noen av linjesegmentene danner sirkler, enten midt i boksen. Oppgaven gjentas flere ganger med økende vanskelighetsgrad når eleven " +
             "velger riktig og minkende vanskelighetsgrad når eleven velger feil.",
-        formFixedPointsIntro: "Før testen begynner skal dere gjennom opplæring. Under denne er det viktig at du informerer eleven muntlig om hvordan testen vil fungere. I opplæringen kan " +
+        formPointsIntro: "Før testen begynner skal dere gjennom opplæring. Under denne er det viktig at du informerer eleven muntlig om hvordan testen vil fungere. I opplæringen kan " +
             "følgende punkter nevnes: ",
-        formFixedPoint1: "Form Test tar ca. 8 minutter å gjennomføre.",
-        formFixedPoint2: "Elevens oppgave er å velge boksen der strekene danner en sirkel.",
-        formFixedPoint3: "Linjesegmentene blir vist i 4 sekunder før de forsvinner. ",
-        formFixedPoint4: "Eleven velger en boks ved å trykke på den eller ved å benytte venstre og høyre piltast.",
+        formPoint1: "Testen tar ca. 8 minutter å gjennomføre.",
+        formPoint2: "Elevens oppgave er å velge boksen der strekene danner en sirkel.",
+        formPoint3: "Linjesegmentene blir vist i 4 sekunder før de forsvinner. ",
+        formPoint4: "Eleven velger en boks ved å trykke på den eller ved å benytte venstre og høyre piltast.",
 
         formRandomTest: "Form Random Test",
         formRandomDescription: "Form Random Test tar ca. 8 minutter å gjennomføre. Testen fungerer på samme måte som Fixed Form Test. Den eneste forskjellen er at linjesegmentene " +

@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { useParams } from "react-router-dom";
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import { getStudents, getTeachersByClass} from '../Communicator';
+import { getStudents, getTeachersByClass } from '../Communicator';
 import { Button, Divider, Paper, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import SearchField from '../SearchField';
@@ -12,10 +12,11 @@ import SearchIcon from '@material-ui/icons/Search';
 import StudentTable from '../StudentTable';
 import StudentFormDialog from '../StudentFormDialog';
 import TeacherFormDialog from '../TeacherFormDialog';
-import { Student, Teacher} from '../Interfaces';
+import { Student, Teacher } from '../Interfaces';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import StudentInClassFormDialog from '../StudentInClassFormDialog';
+import { CircularProgress } from '@material-ui/core';
 
 const styles = (theme: any) => ({
     container: {
@@ -53,6 +54,7 @@ const styles = (theme: any) => ({
  * @returns
  */
 const FilteredStudentOverview = observer((props: any) => {
+    const [loading, setLoading] = useState<boolean>(true);
     const { classes } = props;
     const [value, setValue] = useState("");
     const { className } = useParams(); // Use useParams hook to access the className from the URL parameters
@@ -60,23 +62,23 @@ const FilteredStudentOverview = observer((props: any) => {
     const [openEditTeachers, setOpenEditTeachers] = useState(false);
     const [students, setStudents] = React.useState<Array<Student>>([])
     const [teachers, setTeachers] = React.useState<Array<Teacher>>([])
-    
+
     async function setTeachersByClass(className: string) {
         const { teachers } = await getTeachersByClass(props.store.userStore.school, className);
         setTeachers(teachers);
-        console.log("getting in frontend: ", teachers)
     }
 
     const filterByClassName = (studentList: Array<Student>) => {
-            const filteredStudents = studentList.filter((student) => student.grade === className);
-            console.log("teacherbyclass list in frontend", teachers)
-            return filteredStudents;
-      };
+        const filteredStudents = studentList.filter((student) => student.grade === className);
+        return filteredStudents;
+    };
 
     async function fetchStudents() {
         const students = await getStudents();
         const filteredStudents = filterByClassName(students)
         setStudents(filteredStudents);
+        props.store.studentStore.setStudentList(filteredStudents)
+        setLoading(false);
     }
 
 
@@ -86,22 +88,22 @@ const FilteredStudentOverview = observer((props: any) => {
         if (className !== undefined) {
             setTeachersByClass(className)
         }
-      }, [students, className]);
-    
+    }, [students, className]);
+
     return (
 
         <div>
             <Container maxWidth="xl" className={classes.container}>
                 <Paper className={classes.paper}>
 
-                <Typography variant="h5" style={{ textAlign: 'center' }}>
-                    {props.translation.classFormDialog.labelClassLetter} {className}
-                </Typography>
+                    <Typography variant="h5" style={{ textAlign: 'center' }}>
+                        {props.translation.classFormDialog.labelClassLetter} {className}
+                    </Typography>
 
                     <Grid container spacing={2} >
                         <Grid item direction="row" className={classes.responsibleTeachers}> <h3>Ansvarlige lærere: </h3></Grid>
-                        <Grid container alignItems="center"  xs={10} md={10} lg={10} xl={10} spacing={0}>
-                                {teachers.length > 0 ? //denne er null når den "router" tilbake etter en delete av teacher?
+                        <Grid container alignItems="center" xs={10} md={10} lg={10} xl={10} spacing={0}>
+                            {teachers.length > 0 ? //denne er null når den "router" tilbake etter en delete av teacher?
                                 teachers.map((element, index) => {
                                     return (
                                         <React.Fragment key={element.id}>
@@ -113,15 +115,15 @@ const FilteredStudentOverview = observer((props: any) => {
                         </Grid>
                         <Grid item>
                             {props.store.userStore.role == props.translation.admin ?
-                            <IconButton
-                            onClick={() => setOpenEditTeachers(true)}>
-                            <EditIcon />
-                        </IconButton>  : <></>}
-                            
+                                <IconButton
+                                    onClick={() => setOpenEditTeachers(true)}>
+                                    <EditIcon />
+                                </IconButton> : <></>}
+
                         </Grid>
                     </Grid>
 
-                    <Divider style={{marginBottom: 20}}></Divider>
+                    <Divider style={{ marginBottom: 20 }}></Divider>
 
                     <TeacherFormDialog
                         store={props.store}
@@ -130,7 +132,7 @@ const FilteredStudentOverview = observer((props: any) => {
                         setOpen={setOpenEditTeachers}
                         teachers={teachers}
                         className={className}
-                        >
+                    >
 
                     </TeacherFormDialog>
 
@@ -161,20 +163,25 @@ const FilteredStudentOverview = observer((props: any) => {
                                 icon={<SearchIcon />}
                             />
                         </Grid>
-                      
+
                     </Grid>
                     <div style={{ paddingTop: 16 }} />
-                    {students.length > 0 ? 
-                     <StudentTable
-                     store={props.store}
-                     order={props.order}
-                     orderBy={props.orderBy}
-                     students={students}
-                     translation={props.translation}
-                    /> 
-                    : 
-                    <Typography style={{ textAlign: 'center', paddingTop: 20 }}>Det er ikke lagt til noen elever i denne klassen</Typography>}
-                   
+                    {loading ? ( // show loading icon while data is being fetched
+                        <div style={{ display: "flex", justifyContent: "center" }}>
+                            <CircularProgress style={{ color: "#bdbdbd" }} />
+                        </div>
+                    ) : students.length > 0 ? (
+                        <StudentTable
+                            store={props.store}
+                            order={props.order}
+                            orderBy={props.orderBy}
+                            students={students}
+                            translation={props.translation}
+                        />
+                    ) : (
+                        <Typography style={{ textAlign: 'center', paddingTop: 20 }}>Det er ikke lagt til noen elever i denne klassen</Typography>
+                    )}
+
                 </Paper>
 
             </Container>
@@ -186,7 +193,7 @@ const FilteredStudentOverview = observer((props: any) => {
                 fetchStudents={fetchStudents}
                 classNameProp={className}
             />
-        </div>
+        </div >
     );
 });
 

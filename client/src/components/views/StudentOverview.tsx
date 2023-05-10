@@ -12,6 +12,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import StudentTable from '../StudentTable';
 import StudentFormDialog from '../StudentFormDialog';
 import { Student } from '../Interfaces';
+import { CircularProgress } from '@material-ui/core';
 
 
 const styles = (theme: any) => ({
@@ -44,6 +45,7 @@ const styles = (theme: any) => ({
  * @returns
  */
 const StudentOverview = observer((props: any) => {
+    const [loading, setLoading] = useState<boolean>(true);
     const { classes } = props;
     const [value, setValue] = useState("");
     const { className } = useParams(); // Use useParams hook to access the className from the URL parameters
@@ -55,12 +57,13 @@ const StudentOverview = observer((props: any) => {
         const students = await getStudents();
         props.store.studentStore.setStudentList(students)
         setStudents(students)
+        setLoading(false);
     }
 
     useEffect(() => {
         fetchStudents()
-      }, []);
-    
+    }, []);
+
 
     return (
 
@@ -96,26 +99,33 @@ const StudentOverview = observer((props: any) => {
                         </Grid>
                     </Grid>
                     <div style={{ paddingTop: 16 }} />
-                    {students.length > 0 ? 
-                    <StudentTable
-                        store={props.store}
-                        order={props.order}
-                        orderBy={props.orderBy}
-                        students={students}
-                        translation={props.translation}
-
-                    />
-                    : <Typography style={{ textAlign: 'center', paddingTop: 20 }}>Det er ikke lagt inn noen elever</Typography>} 
+                    {loading ? ( // show loading icon while data is being fetched
+                        <div style={{ display: "flex", justifyContent: "center" }}>
+                            <CircularProgress style={{ color: "#bdbdbd" }} />
+                        </div>
+                    ) : students.length > 0 ? (
+                        <StudentTable
+                            store={props.store}
+                            order={props.order}
+                            orderBy={props.orderBy}
+                            students={students}
+                            translation={props.translation}
+                        />
+                    ) : (
+                        <Typography style={{ textAlign: 'center', paddingTop: 20 }}>
+                            Det er ikke lagt inn noen elever
+                        </Typography>
+                    )}
                 </Paper>
             </Container>
-          
+
             <StudentFormDialog
                 store={props.store}
                 open={open}
                 translation={props.translation}
                 setOpen={setOpen}
                 fetchStudents={fetchStudents}
-            /> 
+            />
         </div>
     );
 });

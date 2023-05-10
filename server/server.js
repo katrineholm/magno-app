@@ -11,7 +11,6 @@ const motion_dir = `${__dirname}/public/tests/motion/`;
 const form_fixed_dir = `${__dirname}/public/tests/form_fixed/`;
 const form_random_dir = `${__dirname}/public/tests/form_random/`;
 
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
@@ -19,8 +18,6 @@ app.use(cookieParser()); //Hvorfor brukes cookieParser her?
 app.use('/', platform_api);
 
 const port = process.env.PORT || 8080
-
-
 
 app.get('/motion', (req, res) => {
   res.sendFile(motion_dir + "index.html", { dotfiles: "allow" });

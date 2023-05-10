@@ -48,7 +48,8 @@ function TestFormDialog(props: TestFormDialogProps) {
     setCookie('c_testid',
       props.store.studentStore.studentList.find((student: Student) => student.name.includes(name)).id, { expires: expiryDate });
     console.log("her er vi nå. Har foreløpig ikke identifisert brukeren")
-    window.open(process.env.REACT_APP_API_URL + "/" + props.link);
+    //window.open(process.env.REACT_APP_API_URL + "/" + props.link);
+    window.open(process.env.REACT_APP_API_URL + props.link);
     props.setOpen(false)
   }
 
