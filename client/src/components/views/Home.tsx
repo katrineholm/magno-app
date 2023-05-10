@@ -15,6 +15,7 @@ import FolderIcon from '@material-ui/icons/Folder';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import { Typography } from '@material-ui/core';
+import { getClasses, getStudents } from '../Communicator'
 
 const styles = (theme: any) => ({
   container: {
@@ -42,6 +43,20 @@ const Home = observer((props: any) => {
     fontSize: '82px',
     color: 'primary'
   };
+
+  async function fetchData() {
+    const schoolClasses = await getClasses();
+    if (props.store.classStore) { // Make sure classStore is defined before using it
+      props.store.classStore.setClassList(schoolClasses);
+    }
+    const studentsList = await getStudents();
+    props.store.studentStore.setStudentList(studentsList)
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, []);
+
 
   return (
 
