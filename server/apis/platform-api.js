@@ -7,7 +7,6 @@ const studentController = require("../controllers/student-controller")
 const classController = require("../controllers/class-controller")
 const { authenticated, userIsAdmin } = require("./../middlewares/autenticated")
 
-
 router.post("/login", accountController.loginController)
 router.post("/create-user", accountController.postCreateUser)
 router.put("/change-to-admin", accountController.changeToAdmin)
