@@ -1,3 +1,10 @@
+# runtime: nodejs20 # or another supported version
+
+# instance_class: F1
+
+# # env_variables:
+# #  BUCKET_NAME: "example-gcs-bucket"
+
 runtime: nodejs20 # or another supported version
 
 instance_class: F1
@@ -5,3 +12,6 @@ instance_class: F1
 # env_variables:
 #  BUCKET_NAME: "example-gcs-bucket"
 
+handlers:
+  - url: .*
+    script: auto

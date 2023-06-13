@@ -7,7 +7,7 @@ export const translationNO: Translation = {
         textTest: "Lar deg velge og starte forskjellige tester",
         buttonTextTest: "Se og start tester",
         headerStudents: "Elevoversikt",
-        textStudents: "Se en oversikt over elevene dine og " +
+        textStudents: "Se elevene dine og " +
             "resultatene deres, samt se og rediger annen informasjon om eleven",
         buttonTextStudents: "Se oversikt over elever",
         headerLastResults: "Siste resultater",
@@ -51,6 +51,7 @@ export const translationNO: Translation = {
         riskHigh: "Testene indikerer at det er en høy risiko for at eleven kan ha dysleksi. " +
             "Det anbefales å sende eleven videre til utredning.",
         riskNone: "Det er ikke gjennomført noen tester med denne eleven enda.",
+        riskUnsicure: "Testene indikerer at eleven har problemer med synet",
     },
     students: {
         addStudentButtonText: "Legg til elev",
@@ -93,14 +94,15 @@ export const translationNO: Translation = {
             "Motion Test, men lavt på Form Fixed Test og Form Random Test. ",
         thirdPoint: "3. Det er forventet at en elev med andre synsproblemer vil score middels/høyt på alle testene.",
         applicationTitle: "Om applikasjonen",
-        applicationText: "Applikasjonen er et screeningverktøy for lærere og spesialpedagoger på grunnskolen. " +
+        applicationText1: "Applikasjonen er et screeningverktøy for lærere og spesialpedagoger på grunnskolen. " +
             "Den kan brukes til å gjennomføre screeningtestene klassevis eller på enkeltelever du ønsker å teste. " +
             "Testene tar liten tid å gjennomføre og kan tas i klasserommet. I tillegg til screeningtestene, " +
-            "inneholder Magno en elevoversikt og klasseoversikt for å enkelt holde styr på resultatene til dine elever. " +
-            "Administratorrettigheter gis til avdelingsleder, spesialpedagogisk rådgiver, eller den som er ansvarlig for " +
+            "inneholder Magno en elevoversikt og klasseoversikt for å enkelt holde styr på resultatene til dine elever. ",
+        applicationText2: "Administratorrettigheter gis til avdelingsleder, spesialpedagogisk rådgiver, eller den som er ansvarlig for " +
             "aktiviteter knyttet til diagnostisering av dysleksi på din skole. Personen(e) med denne rollen har tilgang til " +
             "alle elever på skolen og deres resultater. Med administratorrettighetene får man også tilgang til funksjoner " +
-            "som lar en administrere klasser og tilganger for lærerne på skolen. Lærere vil bli registrert som vanlige brukere, " +
+            "som lar en administrere klasser og tilganger for lærerne på skolen.",
+        applicationText3: "Lærere vil bli registrert som vanlige brukere, " +
             "og har tilgang til elevene og resultatene tilhørende de klassene læreren er ansvarlig for. " +
             "Læreren kan bruke applikasjonen til å gjennomføre screeningtestene med sine elevene, " +
             "samt legge inn annen informasjon om eleven som kan være relevant i prosessen for å avdekke dysleksi. ",
@@ -119,27 +121,27 @@ export const translationNO: Translation = {
             " Teorien Magno baserer seg på kalles for den visuelle magnocellulære teorien.",
         magnoTheoryText2: "Teorien forklarer at dysleksi kan skyldes svekkelse i prosesseringen av visuell informasjon, som" +
             "er en viktig del av prosessen med å lære å lese. Disse ferdighetene er avhengige av det visuelle systemet i hjernen," +
-            "som på et biologisk nivå kan deles inn i to distinkte baner: den magnocellulære og den parvocellulære banen.",
-        magnoTheoryText3: "Banene har forskjellige roller og egenskaper. Den magnocellulære (M) banen består av store nevroner," +
-            "som er spesialiserte på å oppdage hurtigbevegelig visuell stimuli, mens den parvocellulære (P) banen er ansvarlig for" +
-            "oppdage detaljer og farger.",
-        magnoTheoryText4: "Enkelte dyslektikere kan oppleve selektiv svekkelse i den magnocellulære banen, som kan resultere i" +
-            "mangler i visuell bearbeiding. Flere studier støtter teorien ved å vise at M-nevronene i den dyslektiske hjernen er mindre" +
-            "i størrelse, og tilsynelatende mindre organisert sammenliknet med en ikke-dyslektisk hjerne. Det er verdt å merke seg" +
+            " som på et biologisk nivå kan deles inn i to distinkte baner: den magnocellulære og den parvocellulære banen.",
+        magnoTheoryText3: "Banene har forskjellige roller og egenskaper. Den magnocellulære (M) banen består av store nevroner, " +
+            "som er spesialiserte på å oppdage hurtigbevegelig visuell stimuli, mens den parvocellulære (P) banen er ansvarlig for " +
+            " å oppdage detaljer og farger.",
+        magnoTheoryText4: "Enkelte dyslektikere kan oppleve selektiv svekkelse i den magnocellulære banen, som kan resultere i " +
+            "mangler i visuell bearbeiding. Flere studier støtter teorien ved å vise at M-nevronene i den dyslektiske hjernen er mindre " +
+            "i størrelse, og tilsynelatende mindre organisert sammenliknet med en ikke-dyslektisk hjerne. Det er verdt å merke seg " +
             "at denne svekkelsen ikke er utbredt hos alle personer med dysleksi, og at graden av svekkelse kan variere.",
         effectTitle: "Effekten av tidlig oppdagelse",
-        effectText1: "I boken ‘How the brain learns to read’ presenterer Sousa de tre stadiene et barn går gjennom i prosessen med å lære å lese:",
+        effectText1: "I boken ‘How the brain learns to read’(2017) presenterer Sousa de tre stadiene et barn går gjennom i prosessen med å lære å lese:",
         effectPoint1: "1. Bildestadiet, hvor hjernen fotograferer og gjenkjenner ord og bokstaver, og tilpasser seg visuelt til" +
-            "bokstavformen. Dette skjer vanligvis i siste del av barnehageperioden.",
-        effectPoint2: "2. Det fonologiske stadiet, hvor barnet begynner å utvikle sin fonologiske bevissthet, som gjør at hjernen" +
+            " bokstavformen. Dette skjer vanligvis i siste del av barnehageperioden.",
+        effectPoint2: "2. Det fonologiske stadiet, hvor barnet begynner å utvikle sin fonologiske bevissthet, som gjør at hjernen " +
             "kan kode bokstaver til individuelle lyder (fonem). Dette inkluderer også evnen til å isolere fonemer for å danne nye ord.",
         effectPoint3: "3. Det ortografiske stadiet, hvor barnet kan gjenkjenne ord nøyaktig og raskt.",
-        effectText2: "Barn som er i faresonen for å utvikle dysleksi, kan identifiseres allerede i bildestadiet. Imidlertid" +
-            "er flere screening- og diagnoseverktøy basert på leseferdigheter, og en diagnose av dysleksi kan ikke stilles før barnet" +
+        effectText2: "Barn som er i faresonen for å utvikle dysleksi, kan identifiseres allerede i bildestadiet. Imidlertid " +
+            "er flere screening- og diagnoseverktøy basert på leseferdigheter, og en diagnose av dysleksi kan ikke settes før barnet " +
             "forventes å ha nådd et visst nivå. Normalt settes en diagnose tidligst i 2.klasse. ",
-        effectText3: "Selv om dysleksi er biologisk, er forskere enige om at miljøfaktorer kan forme og forbedre risikoen for" +
-            "vanskelighetene som dysleksi medfører. Faktisk kan vanskelighetene forbygges hos mange barn ved tidlig deteksjon og" +
-            "intervensjon. En mye sitert studie av Foorman et al. i 1997 viser at effekten av intervensjon avtar med barnets" +
+        effectText3: "Selv om dysleksi er biologisk, er forskere enige om at miljøfaktorer kan forme og forbedre risikoen for " +
+            "vanskelighetene som dysleksi medfører. Faktisk kan vanskelighetene forbygges hos mange barn ved tidlig deteksjon og " +
+            "intervensjon. En mye sitert studie av Foorman et al. i 1997 viser at effekten av intervensjon avtar med barnets " +
             "alder. Mer spesifikt er effekten av intervensjon omtrent 80% når det skjer i første eller andre klasse, og 10-15% når det " +
             "skjer i femte klasse eller senere. Disse tallene viser de betydelige konsekvensene av sen oppdagelse. Det anbefales " +
             "derfor å starte screening for dysleksi i tidlig alder, samt gi nødvendig oppfølging og støtte i elevens leseferdigheter.",

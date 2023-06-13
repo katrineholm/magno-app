@@ -46,6 +46,7 @@ export default interface Translation {
         riskMedium: string,
         riskHigh: string,
         riskNone: string,
+        riskUnsicure: string,
     },
     students: {
         addStudentButtonText: string,
@@ -76,7 +77,9 @@ export default interface Translation {
         secondPoint: string,
         thirdPoint: string,
         applicationTitle: string,
-        applicationText: string,
+        applicationText1: string,
+        applicationText2: string,
+        applicationText3: string,
         researchTitle: string,
         researchTestTitle: string,
         researchTestText: string,

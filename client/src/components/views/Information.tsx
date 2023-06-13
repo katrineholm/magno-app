@@ -111,7 +111,15 @@ const Information = observer((props: any) => {
                             <AccordionDetails className={classes.accordionDetails} >
                                 <div className={classes.accordionText}>
                                     <Typography>
-                                        {props.translation.information.applicationText}
+                                        {props.translation.information.applicationText1}
+                                    </Typography>
+                                    <br />
+                                    <Typography>
+                                        {props.translation.information.applicationText2}
+                                    </Typography>
+                                    <br />
+                                    <Typography>
+                                        {props.translation.information.applicationText3}
                                     </Typography>
                                 </div>
                             </AccordionDetails>
@@ -142,12 +150,15 @@ const Information = observer((props: any) => {
                                     <Typography>
                                         {props.translation.information.magnoTheoryText1}
                                     </Typography>
+                                    <br />
                                     <Typography>
                                         {props.translation.information.magnoTheoryText2}
                                     </Typography>
+                                    <br />
                                     <Typography>
                                         {props.translation.information.magnoTheoryText3}
                                     </Typography>
+                                    <br />
                                     <Typography>
                                         {props.translation.information.magnoTheoryText4}
                                     </Typography>

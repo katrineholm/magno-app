@@ -11,18 +11,19 @@ const motion_dir = `${__dirname}/public/tests/motion/`;
 const form_fixed_dir = `${__dirname}/public/tests/form_fixed/`;
 const form_random_dir = `${__dirname}/public/tests/form_random/`;
 
-app.use(express.static('public'))
+app.use(express.static("public"))
+//sets up middleware: 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.use(cookieParser()); //Hvorfor brukes cookieParser her?
-app.use('/', platform_api);
+
+//Define routes:
+app.use('/', platform_api); //Platform_Api contains endpoints for handling specific API routes
 
 const port = process.env.PORT || 8080
 
-
-
-app.get('/motion', (req, res) => {
+app.get('/motion', (req, res) => { //When a get request is made to this rpute, the server responds by sending the "index.html" file from the motion directory
   res.sendFile(motion_dir + "index.html", { dotfiles: "allow" });
 })
 
@@ -35,7 +36,7 @@ app.get('/form-random', (req, res) => {
 })
 
 app.get('*', (req, res) => {
-  res.sendFile(dir + "index.html");
+  res.sendFile(dir + "index.html")
 })
 
 app.listen(port, () => {

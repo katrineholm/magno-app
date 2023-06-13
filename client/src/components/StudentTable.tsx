@@ -13,6 +13,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 import { Student, RiskType, Data } from './Interfaces';
+import { calculateRisk } from '../utils/risk';
 
 const StyledTableRow = styled(TableRow)(({ theme: Theme }) => ({
   '&:nth-of-type(odd)': {
@@ -444,7 +445,7 @@ export default function StudentTable(props: StudentTableProps) {
                     <StyledTableCell align="right">{row.motion_test}</StyledTableCell>
                     <StyledTableCell align="right">{row.fixed_form_test}</StyledTableCell>
                     <StyledTableCell align="right">{row.random_form_test}</StyledTableCell>
-                    {dangerColorTextCell(String(row.risk))}
+                    {dangerColorTextCell(calculateRisk({ tests: { motion_test: [{ score: row.motion_test }], fixed_form_test: [{ score: row.fixed_form_test }], random_form_test: [{ score: row.random_form_test }] } }))}
                   </StyledTableRow>
                 );
               })}
