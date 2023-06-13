@@ -1,17 +1,18 @@
 # Magno Platform
 
-This platform is part of my master's thesis. It allows administration and testing of students using a motion detection test and two variations of a form detection test for use in dyslexia research. The platform is based on the following master theses:
+This platform is part of our (Katrine Norheim Holm and Vår Sørensen Sæbøe-Larssen) master's thesis. It allows administration and testing of students using a motion detection test and two variations of a form detection test for use in dyslexia research. The platform is based on the following master theses:
 
 * [Bjørnar Wold's App for Early Detection of Dyslexia](https://ntnuopen.ntnu.no/ntnu-xmlui/handle/11250/2421182)
 * [Thea Hove Johansen and Maja Kirkerød's Magno: An Application for Detection of Dyslexia - Dyslexia and Interface Design](https://ntnuopen.ntnu.no/ntnu-xmlui/handle/11250/2454100)
 * [Tore Angell Petersen's An Application for Detection of Dyslexia](https://ntnuopen.ntnu.no/ntnu-xmlui/handle/11250/2557938)
 * [Fredrik Jenssen's Magno: An Application for Detection of Dyslexia](https://ntnuopen.ntnu.no/ntnu-xmlui/handle/11250/2826619)
+* [Jack Minsoo Hurum Syvertsen's Magno: A platform for Dyslexia screening](https://ntnuopen.ntnu.no/ntnu-xmlui/handle/11250/3032263)
 
-The repository for the platform and server is available at the following URL https://github.com/jacksyvertsen/magno-platform
+The repository for the platform and server is available at the following URL https://github.com/katrineholm/magno-app
 
-The repository for the updated tests is available at https://github.com/jacksyvertsen/magno-tests
+The repository for the updated tests is available at https://github.com/katrineholm/magno-test
 
-With a deployed version running at https://magno-test.herokuapp.com/ it is recommended to register a user at Huseby Barneskole as this contains the most test data.
+The deployed version can be found at https://magno-app-2023.ew.r.appspot.com/home 
 
 ## Usage
 **Dependencies**
