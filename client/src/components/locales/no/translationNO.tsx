@@ -51,6 +51,7 @@ export const translationNO: Translation = {
         riskHigh: "Testene indikerer at det er en høy risiko for at eleven kan ha dysleksi. " +
             "Det anbefales å sende eleven videre til utredning.",
         riskNone: "Det er ikke gjennomført noen tester med denne eleven enda.",
+        riskUnsicure: "Testene indikerer at eleven har problemer med synet",
     },
     students: {
         addStudentButtonText: "Legg til elev",

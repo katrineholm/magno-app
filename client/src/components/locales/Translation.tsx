@@ -46,6 +46,7 @@ export default interface Translation {
         riskMedium: string,
         riskHigh: string,
         riskNone: string,
+        riskUnsicure: string,
     },
     students: {
         addStudentButtonText: string,

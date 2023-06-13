@@ -8,6 +8,7 @@ import RiskCard from '../RiskCard';
 import StudentInformationPage from './StudentInformationPage';
 import StudentResultPage from './StudentResultPage';
 import { Button, Typography } from '@material-ui/core';
+import { calculateRisk } from '../../utils/risk';
 
 // CSS: 
 const styles = (theme: any) => ({
@@ -65,6 +66,8 @@ const Student = observer((props: any) => {
         fontSize: '102px',
     };
 
+
+
     function riskIcon(risk: string) {
         if (risk === "Lav") {
             return (<ReportIcon htmlColor="#448894" style={iconStyles} />)
@@ -74,6 +77,9 @@ const Student = observer((props: any) => {
         }
         else if (risk === "Høy") {
             return (<ReportIcon htmlColor="#E43A4A" style={iconStyles} />)
+        }
+        else if (risk === "Usikker") {
+            return ("")
         }
         else {
             return ("")
@@ -90,6 +96,9 @@ const Student = observer((props: any) => {
         else if (risk === "Høy") {
             return (props.translation.student.riskHigh)
         }
+        else if (risk === "Usikker") {
+            return (props.translation.student.riskUnsicure)
+        }
         else {
             return (props.translation.student.riskNone)
         }
@@ -98,6 +107,9 @@ const Student = observer((props: any) => {
     const handleButtonClick = (buttonName: string) => {
         setActiveButton(buttonName);
     }
+
+
+    const risk = calculateRisk(props.store.studentStore.student) // "Høy" // props.store.studentStore.student.risk
 
     return (
         <div className={classes.spacer}>
@@ -117,9 +129,9 @@ const Student = observer((props: any) => {
                 >
                     <Grid item style={{ justifySelf: 'center', justifyContent: 'center' }} xs={10} md={8} lg={4} xl={4}>
                         <RiskCard
-                            icon={riskIcon(props.store.studentStore.student.risk)}
-                            risk={props.store.studentStore.student.risk}
-                            text={riskText(props.store.studentStore.student.risk)}
+                            icon={riskIcon(risk)}
+                            risk={risk}
+                            text={riskText(risk)}
                         />
                     </Grid>
                 </Grid>
