@@ -6,7 +6,6 @@ const TOKEN_SECRET = "test" // Denne burde være secret og ikke commites i kodeb
 
 const generateToken = (email) => {
     const token = jwt.sign({ email }, TOKEN_SECRET);
-
     return token
 }
 /**

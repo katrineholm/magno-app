@@ -7,7 +7,6 @@ const studentController = require("../controllers/student-controller")
 const classController = require("../controllers/class-controller")
 const { authenticated, userIsAdmin } = require("./../middlewares/autenticated")
 
-
 router.post("/login", accountController.loginController)
 router.post("/create-user", accountController.postCreateUser)
 router.put("/change-to-admin", accountController.changeToAdmin)
@@ -21,4 +20,5 @@ router.post("/create-class", authenticated, userIsAdmin, classController.postCre
 router.get("/get-classes", authenticated, classController.getClasses)
 router.get('/getTeachers', authenticated, userIsAdmin, accountController.getTeachers)
 router.get('/getTeachersByClass', authenticated, accountController.getTeachersByClassC)
+router.post("/student/score", studentController.postScore)
 module.exports = router;
