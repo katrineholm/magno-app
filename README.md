@@ -1,28 +1,27 @@
 # Magno Platform
 
-This platform is part of my master's thesis. It allows administration and testing of students using a motion detection test and two variations of a form detection test for use in dyslexia research. The platform is based on the following master theses:
+This platform is part of our (Katrine Norheim Holm and Vår Sørensen Sæbøe-Larssen) master's thesis. It allows administration and testing of students using a motion detection test and two variations of a form detection test for use in dyslexia research. The platform is based on the following master theses:
 
 * [Bjørnar Wold's App for Early Detection of Dyslexia](https://ntnuopen.ntnu.no/ntnu-xmlui/handle/11250/2421182)
 * [Thea Hove Johansen and Maja Kirkerød's Magno: An Application for Detection of Dyslexia - Dyslexia and Interface Design](https://ntnuopen.ntnu.no/ntnu-xmlui/handle/11250/2454100)
 * [Tore Angell Petersen's An Application for Detection of Dyslexia](https://ntnuopen.ntnu.no/ntnu-xmlui/handle/11250/2557938)
 * [Fredrik Jenssen's Magno: An Application for Detection of Dyslexia](https://ntnuopen.ntnu.no/ntnu-xmlui/handle/11250/2826619)
+* [Jack Minsoo Hurum Syvertsen's Magno: A platform for Dyslexia screening](https://ntnuopen.ntnu.no/ntnu-xmlui/handle/11250/3032263)
 
-The repository for the platform and server is available at the following URL https://github.com/jacksyvertsen/magno-platform
+The repository for the platform and server is available at the following URL https://github.com/katrineholm/magno-app
 
-The repository for the updated tests is available at https://github.com/jacksyvertsen/magno-tests
+The repository for the updated tests is available at https://github.com/katrineholm/magno-test
 
-With a deployed version running at https://magno-test.herokuapp.com/ it is recommended to register a user at Huseby Barneskole as this contains the most test data.
+The deployed version can be found at https://magno-app-2023.ew.r.appspot.com/home 
 
 ## Usage
-**Dependencies**
-
-To run the application you need Node.js and npm installed. After cloning the project, simply run npm install within the directory to install all project dependencies. Afterwards, open a second command line window, and change directory the the server directory and run npm install again to install the server dependencies.
 
 The project uses the following packages:
 
 * [TypeScript](https://www.typescriptlang.org/)
 * [Express](https://expressjs.com/)
 * [Crypto-js](https://www.npmjs.com/package/crypto-js)
+* [JSON Web Token](https://jwt.io)
 * [MaterialUI](https://mui.com/)
 * [Mobx](https://mobx.js.org/README.html)
 * [Recharts](https://recharts.org/)
@@ -30,56 +29,184 @@ The project uses the following packages:
 * [@azure/cosmos](https://www.npmjs.com/package/@azure/cosmos)
 * [universal-cookie-express](https://www.npmjs.com/package/universal-cookie-express)
 
+## Set up environment
 
-**Development build**
-With dependencies installed, you need to have two command line interfaces open. One pointing to the platform directory, and one pointing to the server directory. To run the platform and server, enter the following command in both CLIs. 
+To run the application, ensure that you have Node.js and npm installed on your computer. Follow the steps below:
+
+* Create a folder on your computer at your desired filepath. You can name it something like “magno-project” or “master”.
+* Clone the magno-app repository into the folder, and complete the following steps:
+```
+cd magno-app/client
+npm install
+```
+Go to the server-folder:
+```
+cd .. 
+cd magno-app/server
+npm install
+```
+* Clone magno-test repository in the folder and do the following steps:
+```
+npm install
+```
+* Create two files with the names “.env.local” og “.env.production.local” 
+  * In the .env.local file, write: REACT_APP_API_URL = "http://localhost:5000"
+  * I .env.production.local, skriv: REACT_APP_API_URL = ""
+
+
+* Create a script file with named “build_test_and_add_to_persisted_folder” and paste the following code: 
 
 ```
-npm start
-```
+cd magno-test
 
-The website is hosted at localhost:3000.
 
-**Production build**
-To start the build procedure for the platform, run
-
-```
 npm run build
+
+
+cd ..
+
+
+rm -r magno-app/server/public_persisted/tests
+rm -r magno-app/server/public_persisted/*.js
+rm -r magno-app/server/public_persisted/*.js.map
+
+
+mkdir magno-app/server/public_persisted/tests
+
+
+mkdir magno-app/server/public_persisted/tests/form_fixed
+mkdir magno-app/server/public_persisted/tests/form_random
+mkdir magno-app/server/public_persisted/tests/motion
+
+
+cp -r magno-test/dist/motion/index.html magno-app/server/public_persisted/tests/motion
+cp -r magno-test/dist/form_fixed/index.html magno-app/server/public_persisted/tests/form_fixed
+cp -r magno-test/dist/form_random/index.html magno-app/server/public_persisted/tests/form_random
+
+
+cp magno-test/dist/motion/*.js magno-app/server/public_persisted/
+cp magno-test/dist/form_fixed/*.js magno-app/server/public_persisted/
+cp magno-test/dist/form_random/*.js magno-app/server/public_persisted/
+
+
+cp magno-test/dist/motion/*.js.map magno-app/server/public_persisted/
+cp magno-test/dist/form_fixed/*.js.map magno-app/server/public_persisted/
+cp magno-test/dist/form_random/*.js.map magno-app/server/public_persisted/
+
 ```
 
-**Deployment**
-If you have not done so already, you should create a production build of the platform. The files from the production build will be located within magno-platform\build, copy all these files into the magno-platform\server\public folder before deployment.
-
-To deploy the platform for the first time, create a user at [Heroku](https://dashboard.heroku.com/new-app) and create a new app, choose a fitting name and region. 
-After this is done, you need to initiate a new git repository in the server folder, you can follow the instructions given under Deploy using Heroku Git on the page you are redirected to after creating the Heroku App.
-
-Install the Heroku CLI
-Download and install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-command-line).
-
-If you haven't already, log in to your Heroku account and follow the prompts to create a new SSH public key.
-
-```
-heroku login
+* Create a script file named “deploy.sh” and paste the following code: 
 ```
 
-Create a new Git repository
-Initialize a git repository in a new or existing directory
+./build_tests_and_add_to_persisted_folder.sh
+cd magno-app
+./build_frontend_and_add_to_backend.sh
+cd server
+gcloud app deploy
 
 ```
-cd magno-platform/server
-git init
-heroku git:remote -a name-of-your-app-as-set-on-heroku
+
+* The provided scripts automate the building and deployment process for the magno-app, including the motion test and form test files. Instructions on how to start the app locally and deploy it will be provided in this readme later on.
+
+
+## Setting up the database
+Follow the instructions available at https://docs.microsoft.com/en-us/azure/cosmos-db/sql/create-cosmosdb-resources-portal, you can use mostly the default settings when setting up the cosmos database account. This is also included in Azure's free tier. 
+
+After the account has been setup, you want to create a database and two containers for the database, and you can choose the names of the database and containers yourself. 
+
+An example would be
+magno-database for the database and magno-user-container and magno-student-container for the two containers. The containers should share throughput.
+
+Yo should now be in the Data Explorer screen of the azure portal, on the left hand your have a navigation bar. Under settings, click Keys. Here you will find your URI and Primary keys.
+
+In the server folder of magno-app, create a folder called “dbconfig”. This folder will include files that store the URI, key and IDs. 
+
+* Create the file “db-account-config.js”, and write the following code: 
+
+```
+function db_account_config() {
+   return ({
+       endpoint: "YOUR COSMOS DB URI",
+       key: "YOUR PRIVATE DATABASE KEY",
+       databaseId: "magno-database",
+       containerId: "magno-user-container",
+       partitionKey: { kind: "Hash", paths: ["/id"] }
+   })
+}
+
+
+module.exports = db_account_config
+
 ```
 
-Deploy your application
-Commit your code to the repository and deploy it to Heroku using Git.
+* Create the file “db-student-config.js”, and write the following code: 
 
 ```
-git add .
-git commit -am "make it better"
-git push heroku master
+function db_student_config() {
+   return ({
+       endpoint: "YOUR COSMOS DB URI",
+       key: "YOUR PRIVATE DATABASE KEY",
+       databaseId: "magno-database",
+       containerId: "magno-student-container",
+       partitionKey: { kind: "Hash", paths: ["/id"] }
+   })
+}
+
+
+module.exports = db_student_config
+
 ```
 
+* Create the file “db-class-config.js”, and write the following code: 
+
+```
+function db_class_config() {
+   return ({
+       endpoint: "YOUR COSMOS DB URI",
+       key: "YOUR PRIVATE DATABASE KEY",
+       databaseId: "magno-database",
+       containerId: "magno-class-container",
+       partitionKey: { kind: "Hash", paths: ["/id"] }
+   })
+}
+
+
+module.exports = db_class_config
+
+```
+
+Replace the following lines in db-account-config.js, db-student-config.js and db-class-config.js with the URI and secret key . You might also need to replace the databaseId and containerId based on the names you set for the two.
+
+The database setup is now complete, well done!
+
+## Deployment
+Follow the instructions available at https://cloud.google.com/appengine/docs/standard/nodejs/building-app/creating-project
+
+In step 3: write a suitable API name for the project. For instance, our name is “magno-app-2023”. 
+
+In step 6: Remember to put node.js as language and Standard as environment. 
+
+Once you have completed the steps, you can deploy the app by executing the following code in the terminal from the root folder: 
+
+```
+ chmod +x deploy.sh
+./deploy.sh
+
+```
+
+## Run locally
+If you want to run the application locally without deploying it, execute the same commands as those found in the deploy.sh file, excluding "gcloud app deploy". Enter these commands in the terminal from the root folder. 
+
+
+Then, start the application by running the following lines:
+
+```
+cd magno-app
+cd server
+npm start
+
+```
+The application will be accessible at http://localhost:8080
 
 
 ## Integrating new tests
@@ -272,42 +399,3 @@ function getAverageLine(){
 MY_TEST_NAME_AS_SET_IN_riskAverages would be the key used within the Settings.tsx file for adding a risk average line.
 
 The test is now fully integrated, and the test will now be hosted with the server upon deployment. 
-
-## Setting up the database
-Follow the instructions available at https://docs.microsoft.com/en-us/azure/cosmos-db/sql/create-cosmosdb-resources-portal, you can use mostly the default settings when setting up the cosmos database account. This is also included in Azure's free tier. 
-
-After the account has been setup, you want to create a database and two containers for the database, and you can choose the names of the database and containers yourself. 
-
-An example would be
-magno-database for the database and magno-user-container and magno-student-container for the two containers. The containers should share throughput.
-
-Yo should now be in the Data Explorer screen of the azure portal, on the left hand your have a navigation bar. Under settings, click Keys. Here you will find
-your URI and Primary keys. Replace the following lines in db-account-config.js and db-student-config.js. You might also need to replace the databaseId and containerId based on the names you set for the two.
-
-```
-db-account-config.js
-
-function db_account_config() {
-    return ({
-        endpoint: "YOUR COSMOS DB URI",
-        key: "YOUR PRIVATE DATABASE KEY",
-        databaseId: "magno-database",
-        containerId: "magno-user-container",
-        partitionKey: { kind: "Hash", paths: ["/id"] }
-    })
-}
-
-db-student-config.js
-
-function db_student_config() {
-    return ({
-        endpoint: "YOUR COSMOS DB URI",
-        key: "YOUR PRIVATE DATABASE KEY",
-        databaseId: "magno-database",
-        containerId: "magno-student-container",
-        partitionKey: { kind: "Hash", paths: ["/id"] }
-    })
-}
-```
-
-The database setup is now complete, well done! 
