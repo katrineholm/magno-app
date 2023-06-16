@@ -49,9 +49,9 @@ npm install
 ```
 npm install
 ```
-Create two files with the names “.env.local” og “.env.production.local” 
-* * In the .env.local file, write: REACT_APP_API_URL = "http://localhost:5000"
-* * I .env.production.local, skriv: REACT_APP_API_URL = ""
+* Create two files with the names “.env.local” og “.env.production.local” 
+  * In the .env.local file, write: REACT_APP_API_URL = "http://localhost:5000"
+  * I .env.production.local, skriv: REACT_APP_API_URL = ""
 
 
 * Create a script file with named “build_test_and_add_to_persisted_folder” and paste the following code: 
